@@ -1,0 +1,195 @@
+menu:
+  - name: Pubblica Amministrazione
+    slug: pa
+    subtree:
+      - name: Come nasce il Piano Triennale
+        slug: come-nasce-il-piano-triennale
+        subtree:
+          - name: "Piano Triennale 2017-2019"
+            slug: "2017-2019"
+          - name: "Piano Triennale 2019-2021"
+            slug: "2019-2021"
+      - name: Data center e cloud
+        slug: data-center-e-cloud
+        tag: pa-data-center-e-cloud
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            subtitle: data center e cloud
+            slug: linea-azione
+      - name: Connettività
+        slug: connettivita
+        tag: pa-connettivita
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: connettività
+      - name: Modello di interoperabilità
+        slug: modello-di-interoperabilita
+        tag: pa-modello-di-interoperabilita
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: modello di interoperabilità
+      - name: Dati della PA
+        slug: dati-della-pa
+        tag: pa-dati-della-pa
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: dati della Pubblica Amministrazione
+      - name: Piattaforme
+        slug: piattaforme
+        tag: pa-piattaforme
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: piattaforme
+      - name: Ecosistemi
+        slug: ecosistemi
+        subtitle: Pubblica Amministrazione
+        tag: pa-ecosistemi
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: ecosistemi
+      - name: Sicurezza informatica
+        slug: sicurezza
+        tag: pa-sicurezza
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: sicurezza
+      - name: Strumenti per la generazione e la diffusione dei servizi digitali
+        slug: servizi-digitali
+        tag: pa-servizi-digitali
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: servizi digitali
+      - name: Modelli e strumenti per l'innovazione
+        slug: modelli-strumenti-innovazione
+        tag: pa-modelli-strumenti-innovazione
+        subtitle: Pubblica Amministrazione
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: modelli strumenti innovazione
+      - name: Governare la trasformazione digitale
+        slug: governare-trasformazione-digitale
+        tag: pa-governare-trasformazione-digitale
+        subtree:
+          - name: Confronto tra linee d'azione
+            slug: linea-azione
+            subtitle: governare la trasformazione digitale
+      - name: Rilevazione della spesa ICT
+        slug: rilevazione-spesa-ict
+        tag: pa-rilevazione-spesa-ict
+  - name: Cittadini
+    slug: cittadini
+    subtree:
+      - name: Cloud
+        slug: cloud
+        tag: cit-cloud
+        subtitle: cittadini
+      - name: Wi-fi
+        slug: wifi
+        tag: cit-wifi
+        subtitle: cittadini
+      - name: Catalogo servizi
+        slug: catalogo-servizi
+        tag: cit-catalogo-servizi
+        subtitle: cittadini
+      - name: ANPR
+        slug: anpr
+        tag: cit-anpr
+        subtitle: cittadini
+      - name: IPA
+        slug: ipa
+        tag: cit-ipa
+        subtitle: cittadini
+      - name: Dati aperti
+        slug: dati-aperti
+        tag: cit-dati-aperti
+        subtitle: cittadini
+      - name: pagoPA
+        slug: pagamenti
+        tag: cit-pagamenti
+        subtitle: cittadini
+      - name: SPID
+        slug: spid
+        tag: cit-spid
+        subtitle: cittadini
+      - name: CIE
+        slug: cie
+        tag: cit-cie
+        subtitle: cittadini
+      - name: Sicurezza informatica
+        slug: sicurezza
+        tag: cit-sicurezza
+        subtitle: cittadini
+      - name: Accessibilità
+        slug: accessibilita
+        subtitle: cittadini
+        tag: cit-accessibilita
+      - name: Diritti
+        slug: diritti
+        tag: cit-diritti
+        subtitle: cittadini
+  - name: Imprese
+    slug: imprese
+    subtree:
+      - name: Cloud
+        slug: cloud
+        subtitle: cittadini
+        tag: imp-cloud
+      - name: Catalogo servizi
+        slug: servizi
+        subtitle: cittadini
+        tag: imp-servizi
+      - name: IPA
+        slug: ipa
+        subtitle: cittadini
+        tag: imp-ipa
+      - name: Dati aperti
+        slug: dati
+        subtitle: cittadini
+        tag: imp-dati
+      - name: Geodati
+        slug: geodati
+        subtitle: cittadini
+        tag: imp-geodati
+      - name: pagoPA
+        slug: pagamenti
+        subtitle: cittadini
+        tag: imp-pagopa
+      - name: SPID
+        slug: spid
+        subtitle: cittadini
+        tag: imp-spid
+      - name: Procurement
+        slug: procurement
+        subtitle: cittadini
+        tag: imp-procurement
+      - name: Conservazione
+        slug: conservazione
+        subtitle: cittadini
+        tag: imp-conservazione
+      - name: Sicurezza informatica
+        subtitle: cittadini
+        slug: sicurezza
+        tag: imp-sicurezza
+      - name: Accessibilità
+        slug: accessibilita
+        subtitle: cittadini
+        tag: imp-accessibilita
+      - name: Semplificazione
+        subtitle: cittadini
+        slug: semplificazione
+        tag: imp-semplificazione

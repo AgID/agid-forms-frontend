@@ -1,0 +1,126 @@
+@import "bootstrap-italia/src/scss/bootstrap-italia.scss";
+
+// responsive borders
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .border#{$infix}-top {
+      border-top: $border-width solid $border-color;
+    }
+
+    .border#{$infix}-right {
+      border-right: $border-width solid $border-color;
+    }
+
+    .border#{$infix}-bottom {
+      border-bottom: $border-width solid $border-color;
+    }
+
+    .border#{$infix}-left {
+      border-left: $border-width solid $border-color;
+    }
+
+    .border#{$infix}-top-0 {
+      border-top: 0 !important;
+    }
+
+    .border#{$infix}-right-0 {
+      border-right: 0 !important;
+    }
+
+    .border#{$infix}-bottom-0 {
+      border-bottom: 0 !important;
+    }
+
+    .border#{$infix}-left-0 {
+      border-left: 0 !important;
+    }
+
+    .border#{$infix}-x {
+      border-left: $border-width solid $border-color;
+      border-right: $border-width solid $border-color;
+    }
+
+    .border#{$infix}-y {
+      border-top: $border-width solid $border-color;
+      border-bottom: $border-width solid $border-color;
+    }
+  }
+}
+
+.u-layout-releaseFull {
+  left: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  position: relative;
+  right: 50%;
+  width: 100vw;
+}
+
+.main h1,
+.main h2 {
+  max-width: 600px;
+}
+
+.main p {
+  max-width: 32em;
+  font-family: Lora, Georgia, serif;
+}
+
+.main li {
+  max-width: 32em;
+  font-family: Lora, Georgia, serif;
+}
+
+.megamenu-list {
+  display: inline-block;
+}
+
+.megamenu-list.depth-0 {
+  @include media-breakpoint-up(md) {
+    columns: 2;
+    column-gap: 1em;
+  }
+}
+
+.megamenu-list li {
+  list-style: none;
+}
+
+.align-p-center p {
+  margin: auto;
+}
+
+.circle {
+  border-radius: 100%;
+  border: 1px solid #06c;
+  color: #06c;
+  font-weight: 600;
+  text-align: center;
+  display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center; /* align vertical */
+  width: 3em;
+  height: 3em;
+  line-height: 80%;
+  margin-right: 1em;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.card .card-body li {
+  font-size: 0.775rem;
+}
+
+@media (min-width: 992px) {
+  .card .card-body p {
+    font-size: 0.95rem;
+  }
+}
+
+.centered h1 {
+  margin: auto;
+}

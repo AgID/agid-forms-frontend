@@ -11,7 +11,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
-    "plugins": [{ "name": "tslint-language-service" }]
+    "plugins": [{ "name": "tslint-language-service" }],
+    "jsx": "react"
   },
   "include": ["./src/**/*"],
   "exclude": ["node_modules"]
