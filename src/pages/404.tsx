@@ -9,7 +9,7 @@ type MenuConfigQueryT = {
 
 const NotFoundPage = ({ data }: MenuConfigQueryT) => (
   <Layout menu={data.menu}>
-    <SEO title="404: Not found" meta={[]} />
+    <SEO title="404: Not found" meta={[]} keywords={[]} />
     <h1>NOT FOUND</h1>
     <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
   </Layout>

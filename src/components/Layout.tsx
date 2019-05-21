@@ -46,6 +46,7 @@ const Layout = ({ children, menu }: LayoutProps) => (
     `}
     render={data => {
       const config = data.allConfigYaml.edges[1].node;
+      console.log(data.allConfigYaml, menu);
       return (
         <>
           <div className="skiplinks">

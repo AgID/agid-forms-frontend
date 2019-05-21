@@ -10,6 +10,7 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "plugins": [{ "name": "tslint-language-service" }],
     "jsx": "react"

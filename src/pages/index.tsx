@@ -10,7 +10,7 @@ type MenuConfigQueryT = {
 
 const IndexPage = ({ data }: MenuConfigQueryT) => {
   return (
-    <Layout menu={data.allConfigYaml.edges[0].node.menu}>
+    <Layout menu={data.allConfigYaml.edges[1].node.menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>

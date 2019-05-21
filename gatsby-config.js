@@ -34,6 +34,7 @@ module.exports = {
     `gatsby-plugin-typescript`,
     `gatsby-plugin-tslint`,
     `gatsby-transformer-yaml`,
+    `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
     {
       resolve: `gatsby-source-filesystem`,
