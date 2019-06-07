@@ -1,0 +1,3878 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+# conflict action
+enum conflict_action {
+  # ignore the insert on this row
+  ignore
+
+  # update the row with the given values
+  update
+}
+
+# expression to compare columns of type integer. All fields are combined with logical 'AND'.
+input integer_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int]
+}
+
+# columns and relationships of "ipa_ou"
+type ipa_ou {
+  Cap: String!
+  Fax: String!
+  Indirizzo: String!
+  Regione: String!
+  Tel: String!
+  cod_amm: String!
+  cod_aoo: String!
+  cod_ou: String!
+  cod_ou_padre: String!
+  cod_uni_ou: String!
+  cogn_resp: String!
+  comune: String!
+  des_ou: String!
+  mail1: String!
+  mail2: String!
+  mail3: String!
+  mail_resp: String!
+  nome_resp: String!
+  provincia: String!
+  tel_resp: String!
+  tipo_mail1: String!
+  tipo_mail2: String!
+  tipo_mail3: String!
+}
+
+# aggregated selection of "ipa_ou"
+type ipa_ou_aggregate {
+  aggregate: ipa_ou_aggregate_fields
+  nodes: [ipa_ou!]!
+}
+
+# aggregate fields of "ipa_ou"
+type ipa_ou_aggregate_fields {
+  count(columns: [ipa_ou_select_column!], distinct: Boolean): Int
+  max: ipa_ou_max_fields
+  min: ipa_ou_min_fields
+}
+
+# order by aggregate values of table "ipa_ou"
+input ipa_ou_aggregate_order_by {
+  count: order_by
+  max: ipa_ou_max_order_by
+  min: ipa_ou_min_order_by
+}
+
+# input type for inserting array relation for remote table "ipa_ou"
+input ipa_ou_arr_rel_insert_input {
+  data: [ipa_ou_insert_input!]!
+  on_conflict: ipa_ou_on_conflict
+}
+
+# Boolean expression to filter rows from the table "ipa_ou". All fields are combined with a logical 'AND'.
+input ipa_ou_bool_exp {
+  Cap: text_comparison_exp
+  Fax: text_comparison_exp
+  Indirizzo: text_comparison_exp
+  Regione: text_comparison_exp
+  Tel: text_comparison_exp
+  _and: [ipa_ou_bool_exp]
+  _not: ipa_ou_bool_exp
+  _or: [ipa_ou_bool_exp]
+  cod_amm: text_comparison_exp
+  cod_aoo: text_comparison_exp
+  cod_ou: text_comparison_exp
+  cod_ou_padre: text_comparison_exp
+  cod_uni_ou: text_comparison_exp
+  cogn_resp: text_comparison_exp
+  comune: text_comparison_exp
+  des_ou: text_comparison_exp
+  mail1: text_comparison_exp
+  mail2: text_comparison_exp
+  mail3: text_comparison_exp
+  mail_resp: text_comparison_exp
+  nome_resp: text_comparison_exp
+  provincia: text_comparison_exp
+  tel_resp: text_comparison_exp
+  tipo_mail1: text_comparison_exp
+  tipo_mail2: text_comparison_exp
+  tipo_mail3: text_comparison_exp
+}
+
+# unique or primary key constraints on table "ipa_ou"
+enum ipa_ou_constraint {
+  # unique or primary key constraint
+  ipa_ou_pkey
+}
+
+# input type for inserting data into table "ipa_ou"
+input ipa_ou_insert_input {
+  Cap: String
+  Fax: String
+  Indirizzo: String
+  Regione: String
+  Tel: String
+  cod_amm: String
+  cod_aoo: String
+  cod_ou: String
+  cod_ou_padre: String
+  cod_uni_ou: String
+  cogn_resp: String
+  comune: String
+  des_ou: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail_resp: String
+  nome_resp: String
+  provincia: String
+  tel_resp: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+}
+
+# aggregate max on columns
+type ipa_ou_max_fields {
+  Cap: String
+  Fax: String
+  Indirizzo: String
+  Regione: String
+  Tel: String
+  cod_amm: String
+  cod_aoo: String
+  cod_ou: String
+  cod_ou_padre: String
+  cod_uni_ou: String
+  cogn_resp: String
+  comune: String
+  des_ou: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail_resp: String
+  nome_resp: String
+  provincia: String
+  tel_resp: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+}
+
+# order by max() on columns of table "ipa_ou"
+input ipa_ou_max_order_by {
+  Cap: order_by
+  Fax: order_by
+  Indirizzo: order_by
+  Regione: order_by
+  Tel: order_by
+  cod_amm: order_by
+  cod_aoo: order_by
+  cod_ou: order_by
+  cod_ou_padre: order_by
+  cod_uni_ou: order_by
+  cogn_resp: order_by
+  comune: order_by
+  des_ou: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail_resp: order_by
+  nome_resp: order_by
+  provincia: order_by
+  tel_resp: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+}
+
+# aggregate min on columns
+type ipa_ou_min_fields {
+  Cap: String
+  Fax: String
+  Indirizzo: String
+  Regione: String
+  Tel: String
+  cod_amm: String
+  cod_aoo: String
+  cod_ou: String
+  cod_ou_padre: String
+  cod_uni_ou: String
+  cogn_resp: String
+  comune: String
+  des_ou: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail_resp: String
+  nome_resp: String
+  provincia: String
+  tel_resp: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+}
+
+# order by min() on columns of table "ipa_ou"
+input ipa_ou_min_order_by {
+  Cap: order_by
+  Fax: order_by
+  Indirizzo: order_by
+  Regione: order_by
+  Tel: order_by
+  cod_amm: order_by
+  cod_aoo: order_by
+  cod_ou: order_by
+  cod_ou_padre: order_by
+  cod_uni_ou: order_by
+  cogn_resp: order_by
+  comune: order_by
+  des_ou: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail_resp: order_by
+  nome_resp: order_by
+  provincia: order_by
+  tel_resp: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+}
+
+# response of any mutation on the table "ipa_ou"
+type ipa_ou_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [ipa_ou!]!
+}
+
+# input type for inserting object relation for remote table "ipa_ou"
+input ipa_ou_obj_rel_insert_input {
+  data: ipa_ou_insert_input!
+  on_conflict: ipa_ou_on_conflict
+}
+
+# on conflict condition type for table "ipa_ou"
+input ipa_ou_on_conflict {
+  constraint: ipa_ou_constraint!
+  update_columns: [ipa_ou_update_column!]!
+}
+
+# ordering options when selecting data from "ipa_ou"
+input ipa_ou_order_by {
+  Cap: order_by
+  Fax: order_by
+  Indirizzo: order_by
+  Regione: order_by
+  Tel: order_by
+  cod_amm: order_by
+  cod_aoo: order_by
+  cod_ou: order_by
+  cod_ou_padre: order_by
+  cod_uni_ou: order_by
+  cogn_resp: order_by
+  comune: order_by
+  des_ou: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail_resp: order_by
+  nome_resp: order_by
+  provincia: order_by
+  tel_resp: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+}
+
+# select columns of table "ipa_ou"
+enum ipa_ou_select_column {
+  # column name
+  Cap
+
+  # column name
+  Fax
+
+  # column name
+  Indirizzo
+
+  # column name
+  Regione
+
+  # column name
+  Tel
+
+  # column name
+  cod_amm
+
+  # column name
+  cod_aoo
+
+  # column name
+  cod_ou
+
+  # column name
+  cod_ou_padre
+
+  # column name
+  cod_uni_ou
+
+  # column name
+  cogn_resp
+
+  # column name
+  comune
+
+  # column name
+  des_ou
+
+  # column name
+  mail1
+
+  # column name
+  mail2
+
+  # column name
+  mail3
+
+  # column name
+  mail_resp
+
+  # column name
+  nome_resp
+
+  # column name
+  provincia
+
+  # column name
+  tel_resp
+
+  # column name
+  tipo_mail1
+
+  # column name
+  tipo_mail2
+
+  # column name
+  tipo_mail3
+}
+
+# input type for updating data in table "ipa_ou"
+input ipa_ou_set_input {
+  Cap: String
+  Fax: String
+  Indirizzo: String
+  Regione: String
+  Tel: String
+  cod_amm: String
+  cod_aoo: String
+  cod_ou: String
+  cod_ou_padre: String
+  cod_uni_ou: String
+  cogn_resp: String
+  comune: String
+  des_ou: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail_resp: String
+  nome_resp: String
+  provincia: String
+  tel_resp: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+}
+
+# update columns of table "ipa_ou"
+enum ipa_ou_update_column {
+  # column name
+  Cap
+
+  # column name
+  Fax
+
+  # column name
+  Indirizzo
+
+  # column name
+  Regione
+
+  # column name
+  Tel
+
+  # column name
+  cod_amm
+
+  # column name
+  cod_aoo
+
+  # column name
+  cod_ou
+
+  # column name
+  cod_ou_padre
+
+  # column name
+  cod_uni_ou
+
+  # column name
+  cogn_resp
+
+  # column name
+  comune
+
+  # column name
+  des_ou
+
+  # column name
+  mail1
+
+  # column name
+  mail2
+
+  # column name
+  mail3
+
+  # column name
+  mail_resp
+
+  # column name
+  nome_resp
+
+  # column name
+  provincia
+
+  # column name
+  tel_resp
+
+  # column name
+  tipo_mail1
+
+  # column name
+  tipo_mail2
+
+  # column name
+  tipo_mail3
+}
+
+# columns and relationships of "ipa_pa"
+type ipa_pa {
+  Cap: String!
+  Cf: String!
+  Comune: String!
+  Indirizzo: String!
+  Provincia: String!
+  Regione: String!
+  acronimo: String!
+  cf_validato: String!
+  cod_amm: String!
+  cogn_resp: String!
+  des_amm: String!
+  des_amm_Comune: String!
+  liv_accessibili: String!
+  mail1: String!
+  mail2: String!
+  mail3: String!
+  mail4: String!
+  mail5: String!
+  nome_resp: String!
+  sito_istituzionale: String!
+  tipo_mail1: String!
+  tipo_mail2: String!
+  tipo_mail3: String!
+  tipo_mail4: String!
+  tipo_mail5: String!
+  tipologia_amm: String!
+  tipologia_istat: String!
+  titolo_resp: String!
+  url_facebook: String!
+  url_googleplus: String!
+  url_twitter: String!
+  url_youtube: String!
+}
+
+# aggregated selection of "ipa_pa"
+type ipa_pa_aggregate {
+  aggregate: ipa_pa_aggregate_fields
+  nodes: [ipa_pa!]!
+}
+
+# aggregate fields of "ipa_pa"
+type ipa_pa_aggregate_fields {
+  count(columns: [ipa_pa_select_column!], distinct: Boolean): Int
+  max: ipa_pa_max_fields
+  min: ipa_pa_min_fields
+}
+
+# order by aggregate values of table "ipa_pa"
+input ipa_pa_aggregate_order_by {
+  count: order_by
+  max: ipa_pa_max_order_by
+  min: ipa_pa_min_order_by
+}
+
+# input type for inserting array relation for remote table "ipa_pa"
+input ipa_pa_arr_rel_insert_input {
+  data: [ipa_pa_insert_input!]!
+  on_conflict: ipa_pa_on_conflict
+}
+
+# Boolean expression to filter rows from the table "ipa_pa". All fields are combined with a logical 'AND'.
+input ipa_pa_bool_exp {
+  Cap: text_comparison_exp
+  Cf: text_comparison_exp
+  Comune: text_comparison_exp
+  Indirizzo: text_comparison_exp
+  Provincia: text_comparison_exp
+  Regione: text_comparison_exp
+  _and: [ipa_pa_bool_exp]
+  _not: ipa_pa_bool_exp
+  _or: [ipa_pa_bool_exp]
+  acronimo: text_comparison_exp
+  cf_validato: text_comparison_exp
+  cod_amm: text_comparison_exp
+  cogn_resp: text_comparison_exp
+  des_amm: text_comparison_exp
+  des_amm_Comune: text_comparison_exp
+  liv_accessibili: text_comparison_exp
+  mail1: text_comparison_exp
+  mail2: text_comparison_exp
+  mail3: text_comparison_exp
+  mail4: text_comparison_exp
+  mail5: text_comparison_exp
+  nome_resp: text_comparison_exp
+  sito_istituzionale: text_comparison_exp
+  tipo_mail1: text_comparison_exp
+  tipo_mail2: text_comparison_exp
+  tipo_mail3: text_comparison_exp
+  tipo_mail4: text_comparison_exp
+  tipo_mail5: text_comparison_exp
+  tipologia_amm: text_comparison_exp
+  tipologia_istat: text_comparison_exp
+  titolo_resp: text_comparison_exp
+  url_facebook: text_comparison_exp
+  url_googleplus: text_comparison_exp
+  url_twitter: text_comparison_exp
+  url_youtube: text_comparison_exp
+}
+
+# unique or primary key constraints on table "ipa_pa"
+enum ipa_pa_constraint {
+  # unique or primary key constraint
+  ipa_pa_pkey
+}
+
+# input type for inserting data into table "ipa_pa"
+input ipa_pa_insert_input {
+  Cap: String
+  Cf: String
+  Comune: String
+  Indirizzo: String
+  Provincia: String
+  Regione: String
+  acronimo: String
+  cf_validato: String
+  cod_amm: String
+  cogn_resp: String
+  des_amm: String
+  des_amm_Comune: String
+  liv_accessibili: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail4: String
+  mail5: String
+  nome_resp: String
+  sito_istituzionale: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+  tipo_mail4: String
+  tipo_mail5: String
+  tipologia_amm: String
+  tipologia_istat: String
+  titolo_resp: String
+  url_facebook: String
+  url_googleplus: String
+  url_twitter: String
+  url_youtube: String
+}
+
+# aggregate max on columns
+type ipa_pa_max_fields {
+  Cap: String
+  Cf: String
+  Comune: String
+  Indirizzo: String
+  Provincia: String
+  Regione: String
+  acronimo: String
+  cf_validato: String
+  cod_amm: String
+  cogn_resp: String
+  des_amm: String
+  des_amm_Comune: String
+  liv_accessibili: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail4: String
+  mail5: String
+  nome_resp: String
+  sito_istituzionale: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+  tipo_mail4: String
+  tipo_mail5: String
+  tipologia_amm: String
+  tipologia_istat: String
+  titolo_resp: String
+  url_facebook: String
+  url_googleplus: String
+  url_twitter: String
+  url_youtube: String
+}
+
+# order by max() on columns of table "ipa_pa"
+input ipa_pa_max_order_by {
+  Cap: order_by
+  Cf: order_by
+  Comune: order_by
+  Indirizzo: order_by
+  Provincia: order_by
+  Regione: order_by
+  acronimo: order_by
+  cf_validato: order_by
+  cod_amm: order_by
+  cogn_resp: order_by
+  des_amm: order_by
+  des_amm_Comune: order_by
+  liv_accessibili: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail4: order_by
+  mail5: order_by
+  nome_resp: order_by
+  sito_istituzionale: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+  tipo_mail4: order_by
+  tipo_mail5: order_by
+  tipologia_amm: order_by
+  tipologia_istat: order_by
+  titolo_resp: order_by
+  url_facebook: order_by
+  url_googleplus: order_by
+  url_twitter: order_by
+  url_youtube: order_by
+}
+
+# aggregate min on columns
+type ipa_pa_min_fields {
+  Cap: String
+  Cf: String
+  Comune: String
+  Indirizzo: String
+  Provincia: String
+  Regione: String
+  acronimo: String
+  cf_validato: String
+  cod_amm: String
+  cogn_resp: String
+  des_amm: String
+  des_amm_Comune: String
+  liv_accessibili: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail4: String
+  mail5: String
+  nome_resp: String
+  sito_istituzionale: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+  tipo_mail4: String
+  tipo_mail5: String
+  tipologia_amm: String
+  tipologia_istat: String
+  titolo_resp: String
+  url_facebook: String
+  url_googleplus: String
+  url_twitter: String
+  url_youtube: String
+}
+
+# order by min() on columns of table "ipa_pa"
+input ipa_pa_min_order_by {
+  Cap: order_by
+  Cf: order_by
+  Comune: order_by
+  Indirizzo: order_by
+  Provincia: order_by
+  Regione: order_by
+  acronimo: order_by
+  cf_validato: order_by
+  cod_amm: order_by
+  cogn_resp: order_by
+  des_amm: order_by
+  des_amm_Comune: order_by
+  liv_accessibili: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail4: order_by
+  mail5: order_by
+  nome_resp: order_by
+  sito_istituzionale: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+  tipo_mail4: order_by
+  tipo_mail5: order_by
+  tipologia_amm: order_by
+  tipologia_istat: order_by
+  titolo_resp: order_by
+  url_facebook: order_by
+  url_googleplus: order_by
+  url_twitter: order_by
+  url_youtube: order_by
+}
+
+# response of any mutation on the table "ipa_pa"
+type ipa_pa_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [ipa_pa!]!
+}
+
+# input type for inserting object relation for remote table "ipa_pa"
+input ipa_pa_obj_rel_insert_input {
+  data: ipa_pa_insert_input!
+  on_conflict: ipa_pa_on_conflict
+}
+
+# on conflict condition type for table "ipa_pa"
+input ipa_pa_on_conflict {
+  constraint: ipa_pa_constraint!
+  update_columns: [ipa_pa_update_column!]!
+}
+
+# ordering options when selecting data from "ipa_pa"
+input ipa_pa_order_by {
+  Cap: order_by
+  Cf: order_by
+  Comune: order_by
+  Indirizzo: order_by
+  Provincia: order_by
+  Regione: order_by
+  acronimo: order_by
+  cf_validato: order_by
+  cod_amm: order_by
+  cogn_resp: order_by
+  des_amm: order_by
+  des_amm_Comune: order_by
+  liv_accessibili: order_by
+  mail1: order_by
+  mail2: order_by
+  mail3: order_by
+  mail4: order_by
+  mail5: order_by
+  nome_resp: order_by
+  sito_istituzionale: order_by
+  tipo_mail1: order_by
+  tipo_mail2: order_by
+  tipo_mail3: order_by
+  tipo_mail4: order_by
+  tipo_mail5: order_by
+  tipologia_amm: order_by
+  tipologia_istat: order_by
+  titolo_resp: order_by
+  url_facebook: order_by
+  url_googleplus: order_by
+  url_twitter: order_by
+  url_youtube: order_by
+}
+
+# select columns of table "ipa_pa"
+enum ipa_pa_select_column {
+  # column name
+  Cap
+
+  # column name
+  Cf
+
+  # column name
+  Comune
+
+  # column name
+  Indirizzo
+
+  # column name
+  Provincia
+
+  # column name
+  Regione
+
+  # column name
+  acronimo
+
+  # column name
+  cf_validato
+
+  # column name
+  cod_amm
+
+  # column name
+  cogn_resp
+
+  # column name
+  des_amm
+
+  # column name
+  des_amm_Comune
+
+  # column name
+  liv_accessibili
+
+  # column name
+  mail1
+
+  # column name
+  mail2
+
+  # column name
+  mail3
+
+  # column name
+  mail4
+
+  # column name
+  mail5
+
+  # column name
+  nome_resp
+
+  # column name
+  sito_istituzionale
+
+  # column name
+  tipo_mail1
+
+  # column name
+  tipo_mail2
+
+  # column name
+  tipo_mail3
+
+  # column name
+  tipo_mail4
+
+  # column name
+  tipo_mail5
+
+  # column name
+  tipologia_amm
+
+  # column name
+  tipologia_istat
+
+  # column name
+  titolo_resp
+
+  # column name
+  url_facebook
+
+  # column name
+  url_googleplus
+
+  # column name
+  url_twitter
+
+  # column name
+  url_youtube
+}
+
+# input type for updating data in table "ipa_pa"
+input ipa_pa_set_input {
+  Cap: String
+  Cf: String
+  Comune: String
+  Indirizzo: String
+  Provincia: String
+  Regione: String
+  acronimo: String
+  cf_validato: String
+  cod_amm: String
+  cogn_resp: String
+  des_amm: String
+  des_amm_Comune: String
+  liv_accessibili: String
+  mail1: String
+  mail2: String
+  mail3: String
+  mail4: String
+  mail5: String
+  nome_resp: String
+  sito_istituzionale: String
+  tipo_mail1: String
+  tipo_mail2: String
+  tipo_mail3: String
+  tipo_mail4: String
+  tipo_mail5: String
+  tipologia_amm: String
+  tipologia_istat: String
+  titolo_resp: String
+  url_facebook: String
+  url_googleplus: String
+  url_twitter: String
+  url_youtube: String
+}
+
+# update columns of table "ipa_pa"
+enum ipa_pa_update_column {
+  # column name
+  Cap
+
+  # column name
+  Cf
+
+  # column name
+  Comune
+
+  # column name
+  Indirizzo
+
+  # column name
+  Provincia
+
+  # column name
+  Regione
+
+  # column name
+  acronimo
+
+  # column name
+  cf_validato
+
+  # column name
+  cod_amm
+
+  # column name
+  cogn_resp
+
+  # column name
+  des_amm
+
+  # column name
+  des_amm_Comune
+
+  # column name
+  liv_accessibili
+
+  # column name
+  mail1
+
+  # column name
+  mail2
+
+  # column name
+  mail3
+
+  # column name
+  mail4
+
+  # column name
+  mail5
+
+  # column name
+  nome_resp
+
+  # column name
+  sito_istituzionale
+
+  # column name
+  tipo_mail1
+
+  # column name
+  tipo_mail2
+
+  # column name
+  tipo_mail3
+
+  # column name
+  tipo_mail4
+
+  # column name
+  tipo_mail5
+
+  # column name
+  tipologia_amm
+
+  # column name
+  tipologia_istat
+
+  # column name
+  titolo_resp
+
+  # column name
+  url_facebook
+
+  # column name
+  url_googleplus
+
+  # column name
+  url_twitter
+
+  # column name
+  url_youtube
+}
+
+scalar jsonb
+
+# expression to compare columns of type jsonb. All fields are combined with logical 'AND'.
+input jsonb_comparison_exp {
+  # is the column contained in the given json value
+  _contained_in: jsonb
+
+  # does the column contain the given json value at the top level
+  _contains: jsonb
+  _eq: jsonb
+  _gt: jsonb
+  _gte: jsonb
+
+  # does the string exist as a top-level key in the column
+  _has_key: String
+
+  # do all of these strings exist as top-level keys in the column
+  _has_keys_all: [String!]
+
+  # do any of these strings exist as top-level keys in the column
+  _has_keys_any: [String!]
+  _in: [jsonb]
+  _is_null: Boolean
+  _lt: jsonb
+  _lte: jsonb
+  _neq: jsonb
+  _nin: [jsonb]
+}
+
+# columns and relationships of "language"
+type language {
+  language: String!
+}
+
+# aggregated selection of "language"
+type language_aggregate {
+  aggregate: language_aggregate_fields
+  nodes: [language!]!
+}
+
+# aggregate fields of "language"
+type language_aggregate_fields {
+  count(columns: [language_select_column!], distinct: Boolean): Int
+  max: language_max_fields
+  min: language_min_fields
+}
+
+# order by aggregate values of table "language"
+input language_aggregate_order_by {
+  count: order_by
+  max: language_max_order_by
+  min: language_min_order_by
+}
+
+# input type for inserting array relation for remote table "language"
+input language_arr_rel_insert_input {
+  data: [language_insert_input!]!
+  on_conflict: language_on_conflict
+}
+
+# Boolean expression to filter rows from the table "language". All fields are combined with a logical 'AND'.
+input language_bool_exp {
+  _and: [language_bool_exp]
+  _not: language_bool_exp
+  _or: [language_bool_exp]
+  language: text_comparison_exp
+}
+
+# unique or primary key constraints on table "language"
+enum language_constraint {
+  # unique or primary key constraint
+  language_pkey
+}
+
+# input type for inserting data into table "language"
+input language_insert_input {
+  language: String
+}
+
+# aggregate max on columns
+type language_max_fields {
+  language: String
+}
+
+# order by max() on columns of table "language"
+input language_max_order_by {
+  language: order_by
+}
+
+# aggregate min on columns
+type language_min_fields {
+  language: String
+}
+
+# order by min() on columns of table "language"
+input language_min_order_by {
+  language: order_by
+}
+
+# response of any mutation on the table "language"
+type language_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [language!]!
+}
+
+# input type for inserting object relation for remote table "language"
+input language_obj_rel_insert_input {
+  data: language_insert_input!
+  on_conflict: language_on_conflict
+}
+
+# on conflict condition type for table "language"
+input language_on_conflict {
+  constraint: language_constraint!
+  update_columns: [language_update_column!]!
+}
+
+# ordering options when selecting data from "language"
+input language_order_by {
+  language: order_by
+}
+
+# select columns of table "language"
+enum language_select_column {
+  # column name
+  language
+}
+
+# input type for updating data in table "language"
+input language_set_input {
+  language: String
+}
+
+# update columns of table "language"
+enum language_update_column {
+  # column name
+  language
+}
+
+# mutation root
+type mutation_root {
+  # delete data from the table: "ipa_ou"
+  delete_ipa_ou(
+    # filter the rows which have to be deleted
+    where: ipa_ou_bool_exp!
+  ): ipa_ou_mutation_response
+
+  # delete data from the table: "ipa_pa"
+  delete_ipa_pa(
+    # filter the rows which have to be deleted
+    where: ipa_pa_bool_exp!
+  ): ipa_pa_mutation_response
+
+  # delete data from the table: "language"
+  delete_language(
+    # filter the rows which have to be deleted
+    where: language_bool_exp!
+  ): language_mutation_response
+
+  # delete data from the table: "node"
+  delete_node(
+    # filter the rows which have to be deleted
+    where: node_bool_exp!
+  ): node_mutation_response
+
+  # delete data from the table: "node_revision"
+  delete_node_revision(
+    # filter the rows which have to be deleted
+    where: node_revision_bool_exp!
+  ): node_revision_mutation_response
+
+  # delete data from the table: "node_types"
+  delete_node_types(
+    # filter the rows which have to be deleted
+    where: node_types_bool_exp!
+  ): node_types_mutation_response
+
+  # delete data from the table: "role"
+  delete_role(
+    # filter the rows which have to be deleted
+    where: role_bool_exp!
+  ): role_mutation_response
+
+  # delete data from the table: "status"
+  delete_status(
+    # filter the rows which have to be deleted
+    where: status_bool_exp!
+  ): status_mutation_response
+
+  # delete data from the table: "user"
+  delete_user(
+    # filter the rows which have to be deleted
+    where: user_bool_exp!
+  ): user_mutation_response
+
+  # delete data from the table: "user_role"
+  delete_user_role(
+    # filter the rows which have to be deleted
+    where: user_role_bool_exp!
+  ): user_role_mutation_response
+
+  # insert data into the table: "ipa_ou"
+  insert_ipa_ou(
+    # the rows to be inserted
+    objects: [ipa_ou_insert_input!]!
+
+    # on conflict condition
+    on_conflict: ipa_ou_on_conflict
+  ): ipa_ou_mutation_response
+
+  # insert data into the table: "ipa_pa"
+  insert_ipa_pa(
+    # the rows to be inserted
+    objects: [ipa_pa_insert_input!]!
+
+    # on conflict condition
+    on_conflict: ipa_pa_on_conflict
+  ): ipa_pa_mutation_response
+
+  # insert data into the table: "language"
+  insert_language(
+    # the rows to be inserted
+    objects: [language_insert_input!]!
+
+    # on conflict condition
+    on_conflict: language_on_conflict
+  ): language_mutation_response
+
+  # insert data into the table: "node"
+  insert_node(
+    # the rows to be inserted
+    objects: [node_insert_input!]!
+
+    # on conflict condition
+    on_conflict: node_on_conflict
+  ): node_mutation_response
+
+  # insert data into the table: "node_revision"
+  insert_node_revision(
+    # the rows to be inserted
+    objects: [node_revision_insert_input!]!
+
+    # on conflict condition
+    on_conflict: node_revision_on_conflict
+  ): node_revision_mutation_response
+
+  # insert data into the table: "node_types"
+  insert_node_types(
+    # the rows to be inserted
+    objects: [node_types_insert_input!]!
+
+    # on conflict condition
+    on_conflict: node_types_on_conflict
+  ): node_types_mutation_response
+
+  # insert data into the table: "role"
+  insert_role(
+    # the rows to be inserted
+    objects: [role_insert_input!]!
+
+    # on conflict condition
+    on_conflict: role_on_conflict
+  ): role_mutation_response
+
+  # insert data into the table: "status"
+  insert_status(
+    # the rows to be inserted
+    objects: [status_insert_input!]!
+
+    # on conflict condition
+    on_conflict: status_on_conflict
+  ): status_mutation_response
+
+  # insert data into the table: "user"
+  insert_user(
+    # the rows to be inserted
+    objects: [user_insert_input!]!
+
+    # on conflict condition
+    on_conflict: user_on_conflict
+  ): user_mutation_response
+
+  # insert data into the table: "user_role"
+  insert_user_role(
+    # the rows to be inserted
+    objects: [user_role_insert_input!]!
+
+    # on conflict condition
+    on_conflict: user_role_on_conflict
+  ): user_role_mutation_response
+
+  # update data of the table: "ipa_ou"
+  update_ipa_ou(
+    # sets the columns of the filtered rows to the given values
+    _set: ipa_ou_set_input
+
+    # filter the rows which have to be updated
+    where: ipa_ou_bool_exp!
+  ): ipa_ou_mutation_response
+
+  # update data of the table: "ipa_pa"
+  update_ipa_pa(
+    # sets the columns of the filtered rows to the given values
+    _set: ipa_pa_set_input
+
+    # filter the rows which have to be updated
+    where: ipa_pa_bool_exp!
+  ): ipa_pa_mutation_response
+
+  # update data of the table: "language"
+  update_language(
+    # sets the columns of the filtered rows to the given values
+    _set: language_set_input
+
+    # filter the rows which have to be updated
+    where: language_bool_exp!
+  ): language_mutation_response
+
+  # update data of the table: "node"
+  update_node(
+    # append existing jsonb value of filtered columns with new jsonb value
+    _append: node_append_input
+
+    # delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    _delete_at_path: node_delete_at_path_input
+
+    # delete the array element with specified index (negative integers count from
+    # the end). throws an error if top level container is not an array
+    _delete_elem: node_delete_elem_input
+
+    # delete key/value pair or string element. key/value pairs are matched based on their key value
+    _delete_key: node_delete_key_input
+
+    # increments the integer columns with given value of the filtered values
+    _inc: node_inc_input
+
+    # prepend existing jsonb value of filtered columns with new jsonb value
+    _prepend: node_prepend_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: node_set_input
+
+    # filter the rows which have to be updated
+    where: node_bool_exp!
+  ): node_mutation_response
+
+  # update data of the table: "node_revision"
+  update_node_revision(
+    # append existing jsonb value of filtered columns with new jsonb value
+    _append: node_revision_append_input
+
+    # delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    _delete_at_path: node_revision_delete_at_path_input
+
+    # delete the array element with specified index (negative integers count from
+    # the end). throws an error if top level container is not an array
+    _delete_elem: node_revision_delete_elem_input
+
+    # delete key/value pair or string element. key/value pairs are matched based on their key value
+    _delete_key: node_revision_delete_key_input
+
+    # increments the integer columns with given value of the filtered values
+    _inc: node_revision_inc_input
+
+    # prepend existing jsonb value of filtered columns with new jsonb value
+    _prepend: node_revision_prepend_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: node_revision_set_input
+
+    # filter the rows which have to be updated
+    where: node_revision_bool_exp!
+  ): node_revision_mutation_response
+
+  # update data of the table: "node_types"
+  update_node_types(
+    # sets the columns of the filtered rows to the given values
+    _set: node_types_set_input
+
+    # filter the rows which have to be updated
+    where: node_types_bool_exp!
+  ): node_types_mutation_response
+
+  # update data of the table: "role"
+  update_role(
+    # sets the columns of the filtered rows to the given values
+    _set: role_set_input
+
+    # filter the rows which have to be updated
+    where: role_bool_exp!
+  ): role_mutation_response
+
+  # update data of the table: "status"
+  update_status(
+    # sets the columns of the filtered rows to the given values
+    _set: status_set_input
+
+    # filter the rows which have to be updated
+    where: status_bool_exp!
+  ): status_mutation_response
+
+  # update data of the table: "user"
+  update_user(
+    # append existing jsonb value of filtered columns with new jsonb value
+    _append: user_append_input
+
+    # delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+    _delete_at_path: user_delete_at_path_input
+
+    # delete the array element with specified index (negative integers count from
+    # the end). throws an error if top level container is not an array
+    _delete_elem: user_delete_elem_input
+
+    # delete key/value pair or string element. key/value pairs are matched based on their key value
+    _delete_key: user_delete_key_input
+
+    # prepend existing jsonb value of filtered columns with new jsonb value
+    _prepend: user_prepend_input
+
+    # sets the columns of the filtered rows to the given values
+    _set: user_set_input
+
+    # filter the rows which have to be updated
+    where: user_bool_exp!
+  ): user_mutation_response
+
+  # update data of the table: "user_role"
+  update_user_role(
+    # sets the columns of the filtered rows to the given values
+    _set: user_role_set_input
+
+    # filter the rows which have to be updated
+    where: user_role_bool_exp!
+  ): user_role_mutation_response
+}
+
+# columns and relationships of "node"
+type node {
+  content(
+    # JSON select path
+    path: String
+  ): jsonb!
+  created_at: timestamptz!
+  id: uuid!
+  language: String!
+
+  # An array relationship
+  revisions(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): [node_revision!]!
+
+  # An aggregated array relationship
+  revisions_aggregate(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): node_revision_aggregate!
+  status: String!
+  title: String!
+  type: String!
+  updated_at: timestamptz!
+
+  # An object relationship
+  user: user!
+  user_id: uuid!
+  version: Int!
+}
+
+# aggregated selection of "node"
+type node_aggregate {
+  aggregate: node_aggregate_fields
+  nodes: [node!]!
+}
+
+# aggregate fields of "node"
+type node_aggregate_fields {
+  avg: node_avg_fields
+  count(columns: [node_select_column!], distinct: Boolean): Int
+  max: node_max_fields
+  min: node_min_fields
+  stddev: node_stddev_fields
+  stddev_pop: node_stddev_pop_fields
+  stddev_samp: node_stddev_samp_fields
+  sum: node_sum_fields
+  var_pop: node_var_pop_fields
+  var_samp: node_var_samp_fields
+  variance: node_variance_fields
+}
+
+# order by aggregate values of table "node"
+input node_aggregate_order_by {
+  avg: node_avg_order_by
+  count: order_by
+  max: node_max_order_by
+  min: node_min_order_by
+  stddev: node_stddev_order_by
+  stddev_pop: node_stddev_pop_order_by
+  stddev_samp: node_stddev_samp_order_by
+  sum: node_sum_order_by
+  var_pop: node_var_pop_order_by
+  var_samp: node_var_samp_order_by
+  variance: node_variance_order_by
+}
+
+# append existing jsonb value of filtered columns with new jsonb value
+input node_append_input {
+  content: jsonb
+}
+
+# input type for inserting array relation for remote table "node"
+input node_arr_rel_insert_input {
+  data: [node_insert_input!]!
+  on_conflict: node_on_conflict
+}
+
+# aggregate avg on columns
+type node_avg_fields {
+  version: Float
+}
+
+# order by avg() on columns of table "node"
+input node_avg_order_by {
+  version: order_by
+}
+
+# Boolean expression to filter rows from the table "node". All fields are combined with a logical 'AND'.
+input node_bool_exp {
+  _and: [node_bool_exp]
+  _not: node_bool_exp
+  _or: [node_bool_exp]
+  content: jsonb_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  language: text_comparison_exp
+  revisions: node_revision_bool_exp
+  status: text_comparison_exp
+  title: text_comparison_exp
+  type: text_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user: user_bool_exp
+  user_id: uuid_comparison_exp
+  version: integer_comparison_exp
+}
+
+# unique or primary key constraints on table "node"
+enum node_constraint {
+  # unique or primary key constraint
+  node_pkey
+}
+
+# delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+input node_delete_at_path_input {
+  content: [String]
+}
+
+# delete the array element with specified index (negative integers count from the
+# end). throws an error if top level container is not an array
+input node_delete_elem_input {
+  content: Int
+}
+
+# delete key/value pair or string element. key/value pairs are matched based on their key value
+input node_delete_key_input {
+  content: String
+}
+
+# input type for incrementing integer columne in table "node"
+input node_inc_input {
+  version: Int
+}
+
+# input type for inserting data into table "node"
+input node_insert_input {
+  content: jsonb
+  created_at: timestamptz
+  id: uuid
+  language: String
+  revisions: node_revision_arr_rel_insert_input
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  user: user_obj_rel_insert_input
+  user_id: uuid
+  version: Int
+}
+
+# aggregate max on columns
+type node_max_fields {
+  created_at: timestamptz
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+# order by max() on columns of table "node"
+input node_max_order_by {
+  created_at: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+# aggregate min on columns
+type node_min_fields {
+  created_at: timestamptz
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+# order by min() on columns of table "node"
+input node_min_order_by {
+  created_at: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+# response of any mutation on the table "node"
+type node_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [node!]!
+}
+
+# input type for inserting object relation for remote table "node"
+input node_obj_rel_insert_input {
+  data: node_insert_input!
+  on_conflict: node_on_conflict
+}
+
+# on conflict condition type for table "node"
+input node_on_conflict {
+  constraint: node_constraint!
+  update_columns: [node_update_column!]!
+}
+
+# ordering options when selecting data from "node"
+input node_order_by {
+  content: order_by
+  created_at: order_by
+  id: order_by
+  language: order_by
+  revisions_aggregate: node_revision_aggregate_order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  user: user_order_by
+  user_id: order_by
+  version: order_by
+}
+
+# prepend existing jsonb value of filtered columns with new jsonb value
+input node_prepend_input {
+  content: jsonb
+}
+
+# columns and relationships of "node_revision"
+type node_revision {
+  content(
+    # JSON select path
+    path: String
+  ): jsonb!
+  created_at: timestamptz!
+  id: uuid!
+  language: String!
+  status: String!
+  title: String!
+  type: String!
+  updated_at: timestamptz!
+  user_id: uuid!
+  version: Int!
+}
+
+# aggregated selection of "node_revision"
+type node_revision_aggregate {
+  aggregate: node_revision_aggregate_fields
+  nodes: [node_revision!]!
+}
+
+# aggregate fields of "node_revision"
+type node_revision_aggregate_fields {
+  avg: node_revision_avg_fields
+  count(columns: [node_revision_select_column!], distinct: Boolean): Int
+  max: node_revision_max_fields
+  min: node_revision_min_fields
+  stddev: node_revision_stddev_fields
+  stddev_pop: node_revision_stddev_pop_fields
+  stddev_samp: node_revision_stddev_samp_fields
+  sum: node_revision_sum_fields
+  var_pop: node_revision_var_pop_fields
+  var_samp: node_revision_var_samp_fields
+  variance: node_revision_variance_fields
+}
+
+# order by aggregate values of table "node_revision"
+input node_revision_aggregate_order_by {
+  avg: node_revision_avg_order_by
+  count: order_by
+  max: node_revision_max_order_by
+  min: node_revision_min_order_by
+  stddev: node_revision_stddev_order_by
+  stddev_pop: node_revision_stddev_pop_order_by
+  stddev_samp: node_revision_stddev_samp_order_by
+  sum: node_revision_sum_order_by
+  var_pop: node_revision_var_pop_order_by
+  var_samp: node_revision_var_samp_order_by
+  variance: node_revision_variance_order_by
+}
+
+# append existing jsonb value of filtered columns with new jsonb value
+input node_revision_append_input {
+  content: jsonb
+}
+
+# input type for inserting array relation for remote table "node_revision"
+input node_revision_arr_rel_insert_input {
+  data: [node_revision_insert_input!]!
+  on_conflict: node_revision_on_conflict
+}
+
+# aggregate avg on columns
+type node_revision_avg_fields {
+  version: Float
+}
+
+# order by avg() on columns of table "node_revision"
+input node_revision_avg_order_by {
+  version: order_by
+}
+
+# Boolean expression to filter rows from the table "node_revision". All fields are combined with a logical 'AND'.
+input node_revision_bool_exp {
+  _and: [node_revision_bool_exp]
+  _not: node_revision_bool_exp
+  _or: [node_revision_bool_exp]
+  content: jsonb_comparison_exp
+  created_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  language: text_comparison_exp
+  status: text_comparison_exp
+  title: text_comparison_exp
+  type: text_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user_id: uuid_comparison_exp
+  version: integer_comparison_exp
+}
+
+# unique or primary key constraints on table "node_revision"
+enum node_revision_constraint {
+  # unique or primary key constraint
+  node_revision_pkey
+}
+
+# delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+input node_revision_delete_at_path_input {
+  content: [String]
+}
+
+# delete the array element with specified index (negative integers count from the
+# end). throws an error if top level container is not an array
+input node_revision_delete_elem_input {
+  content: Int
+}
+
+# delete key/value pair or string element. key/value pairs are matched based on their key value
+input node_revision_delete_key_input {
+  content: String
+}
+
+# input type for incrementing integer columne in table "node_revision"
+input node_revision_inc_input {
+  version: Int
+}
+
+# input type for inserting data into table "node_revision"
+input node_revision_insert_input {
+  content: jsonb
+  created_at: timestamptz
+  id: uuid
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+  version: Int
+}
+
+# aggregate max on columns
+type node_revision_max_fields {
+  created_at: timestamptz
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+# order by max() on columns of table "node_revision"
+input node_revision_max_order_by {
+  created_at: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+# aggregate min on columns
+type node_revision_min_fields {
+  created_at: timestamptz
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+# order by min() on columns of table "node_revision"
+input node_revision_min_order_by {
+  created_at: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+# response of any mutation on the table "node_revision"
+type node_revision_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [node_revision!]!
+}
+
+# input type for inserting object relation for remote table "node_revision"
+input node_revision_obj_rel_insert_input {
+  data: node_revision_insert_input!
+  on_conflict: node_revision_on_conflict
+}
+
+# on conflict condition type for table "node_revision"
+input node_revision_on_conflict {
+  constraint: node_revision_constraint!
+  update_columns: [node_revision_update_column!]!
+}
+
+# ordering options when selecting data from "node_revision"
+input node_revision_order_by {
+  content: order_by
+  created_at: order_by
+  id: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  user_id: order_by
+  version: order_by
+}
+
+# prepend existing jsonb value of filtered columns with new jsonb value
+input node_revision_prepend_input {
+  content: jsonb
+}
+
+# select columns of table "node_revision"
+enum node_revision_select_column {
+  # column name
+  content
+
+  # column name
+  created_at
+
+  # column name
+  id
+
+  # column name
+  language
+
+  # column name
+  status
+
+  # column name
+  title
+
+  # column name
+  type
+
+  # column name
+  updated_at
+
+  # column name
+  user_id
+
+  # column name
+  version
+}
+
+# input type for updating data in table "node_revision"
+input node_revision_set_input {
+  content: jsonb
+  created_at: timestamptz
+  id: uuid
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+  version: Int
+}
+
+# aggregate stddev on columns
+type node_revision_stddev_fields {
+  version: Float
+}
+
+# order by stddev() on columns of table "node_revision"
+input node_revision_stddev_order_by {
+  version: order_by
+}
+
+# aggregate stddev_pop on columns
+type node_revision_stddev_pop_fields {
+  version: Float
+}
+
+# order by stddev_pop() on columns of table "node_revision"
+input node_revision_stddev_pop_order_by {
+  version: order_by
+}
+
+# aggregate stddev_samp on columns
+type node_revision_stddev_samp_fields {
+  version: Float
+}
+
+# order by stddev_samp() on columns of table "node_revision"
+input node_revision_stddev_samp_order_by {
+  version: order_by
+}
+
+# aggregate sum on columns
+type node_revision_sum_fields {
+  version: Int
+}
+
+# order by sum() on columns of table "node_revision"
+input node_revision_sum_order_by {
+  version: order_by
+}
+
+# update columns of table "node_revision"
+enum node_revision_update_column {
+  # column name
+  content
+
+  # column name
+  created_at
+
+  # column name
+  id
+
+  # column name
+  language
+
+  # column name
+  status
+
+  # column name
+  title
+
+  # column name
+  type
+
+  # column name
+  updated_at
+
+  # column name
+  user_id
+
+  # column name
+  version
+}
+
+# aggregate var_pop on columns
+type node_revision_var_pop_fields {
+  version: Float
+}
+
+# order by var_pop() on columns of table "node_revision"
+input node_revision_var_pop_order_by {
+  version: order_by
+}
+
+# aggregate var_samp on columns
+type node_revision_var_samp_fields {
+  version: Float
+}
+
+# order by var_samp() on columns of table "node_revision"
+input node_revision_var_samp_order_by {
+  version: order_by
+}
+
+# aggregate variance on columns
+type node_revision_variance_fields {
+  version: Float
+}
+
+# order by variance() on columns of table "node_revision"
+input node_revision_variance_order_by {
+  version: order_by
+}
+
+# select columns of table "node"
+enum node_select_column {
+  # column name
+  content
+
+  # column name
+  created_at
+
+  # column name
+  id
+
+  # column name
+  language
+
+  # column name
+  status
+
+  # column name
+  title
+
+  # column name
+  type
+
+  # column name
+  updated_at
+
+  # column name
+  user_id
+
+  # column name
+  version
+}
+
+# input type for updating data in table "node"
+input node_set_input {
+  content: jsonb
+  created_at: timestamptz
+  id: uuid
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+  version: Int
+}
+
+# aggregate stddev on columns
+type node_stddev_fields {
+  version: Float
+}
+
+# order by stddev() on columns of table "node"
+input node_stddev_order_by {
+  version: order_by
+}
+
+# aggregate stddev_pop on columns
+type node_stddev_pop_fields {
+  version: Float
+}
+
+# order by stddev_pop() on columns of table "node"
+input node_stddev_pop_order_by {
+  version: order_by
+}
+
+# aggregate stddev_samp on columns
+type node_stddev_samp_fields {
+  version: Float
+}
+
+# order by stddev_samp() on columns of table "node"
+input node_stddev_samp_order_by {
+  version: order_by
+}
+
+# aggregate sum on columns
+type node_sum_fields {
+  version: Int
+}
+
+# order by sum() on columns of table "node"
+input node_sum_order_by {
+  version: order_by
+}
+
+# columns and relationships of "node_types"
+type node_types {
+  node_type: String!
+}
+
+# aggregated selection of "node_types"
+type node_types_aggregate {
+  aggregate: node_types_aggregate_fields
+  nodes: [node_types!]!
+}
+
+# aggregate fields of "node_types"
+type node_types_aggregate_fields {
+  count(columns: [node_types_select_column!], distinct: Boolean): Int
+  max: node_types_max_fields
+  min: node_types_min_fields
+}
+
+# order by aggregate values of table "node_types"
+input node_types_aggregate_order_by {
+  count: order_by
+  max: node_types_max_order_by
+  min: node_types_min_order_by
+}
+
+# input type for inserting array relation for remote table "node_types"
+input node_types_arr_rel_insert_input {
+  data: [node_types_insert_input!]!
+  on_conflict: node_types_on_conflict
+}
+
+# Boolean expression to filter rows from the table "node_types". All fields are combined with a logical 'AND'.
+input node_types_bool_exp {
+  _and: [node_types_bool_exp]
+  _not: node_types_bool_exp
+  _or: [node_types_bool_exp]
+  node_type: text_comparison_exp
+}
+
+# unique or primary key constraints on table "node_types"
+enum node_types_constraint {
+  # unique or primary key constraint
+  node_types_pkey
+}
+
+# input type for inserting data into table "node_types"
+input node_types_insert_input {
+  node_type: String
+}
+
+# aggregate max on columns
+type node_types_max_fields {
+  node_type: String
+}
+
+# order by max() on columns of table "node_types"
+input node_types_max_order_by {
+  node_type: order_by
+}
+
+# aggregate min on columns
+type node_types_min_fields {
+  node_type: String
+}
+
+# order by min() on columns of table "node_types"
+input node_types_min_order_by {
+  node_type: order_by
+}
+
+# response of any mutation on the table "node_types"
+type node_types_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [node_types!]!
+}
+
+# input type for inserting object relation for remote table "node_types"
+input node_types_obj_rel_insert_input {
+  data: node_types_insert_input!
+  on_conflict: node_types_on_conflict
+}
+
+# on conflict condition type for table "node_types"
+input node_types_on_conflict {
+  constraint: node_types_constraint!
+  update_columns: [node_types_update_column!]!
+}
+
+# ordering options when selecting data from "node_types"
+input node_types_order_by {
+  node_type: order_by
+}
+
+# select columns of table "node_types"
+enum node_types_select_column {
+  # column name
+  node_type
+}
+
+# input type for updating data in table "node_types"
+input node_types_set_input {
+  node_type: String
+}
+
+# update columns of table "node_types"
+enum node_types_update_column {
+  # column name
+  node_type
+}
+
+# update columns of table "node"
+enum node_update_column {
+  # column name
+  content
+
+  # column name
+  created_at
+
+  # column name
+  id
+
+  # column name
+  language
+
+  # column name
+  status
+
+  # column name
+  title
+
+  # column name
+  type
+
+  # column name
+  updated_at
+
+  # column name
+  user_id
+
+  # column name
+  version
+}
+
+# aggregate var_pop on columns
+type node_var_pop_fields {
+  version: Float
+}
+
+# order by var_pop() on columns of table "node"
+input node_var_pop_order_by {
+  version: order_by
+}
+
+# aggregate var_samp on columns
+type node_var_samp_fields {
+  version: Float
+}
+
+# order by var_samp() on columns of table "node"
+input node_var_samp_order_by {
+  version: order_by
+}
+
+# aggregate variance on columns
+type node_variance_fields {
+  version: Float
+}
+
+# order by variance() on columns of table "node"
+input node_variance_order_by {
+  version: order_by
+}
+
+# column ordering options
+enum order_by {
+  # in the ascending order, nulls last
+  asc
+
+  # in the ascending order, nulls first
+  asc_nulls_first
+
+  # in the ascending order, nulls last
+  asc_nulls_last
+
+  # in the descending order, nulls first
+  desc
+
+  # in the descending order, nulls first
+  desc_nulls_first
+
+  # in the descending order, nulls last
+  desc_nulls_last
+}
+
+# query root
+type query_root {
+  # fetch data from the table: "ipa_ou"
+  ipa_ou(
+    # distinct select on columns
+    distinct_on: [ipa_ou_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_ou_order_by!]
+
+    # filter the rows returned
+    where: ipa_ou_bool_exp
+  ): [ipa_ou!]!
+
+  # fetch aggregated fields from the table: "ipa_ou"
+  ipa_ou_aggregate(
+    # distinct select on columns
+    distinct_on: [ipa_ou_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_ou_order_by!]
+
+    # filter the rows returned
+    where: ipa_ou_bool_exp
+  ): ipa_ou_aggregate!
+
+  # fetch data from the table: "ipa_ou" using primary key columns
+  ipa_ou_by_pk(cod_amm: String!, cod_ou: String!): ipa_ou
+
+  # fetch data from the table: "ipa_pa"
+  ipa_pa(
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): [ipa_pa!]!
+
+  # fetch aggregated fields from the table: "ipa_pa"
+  ipa_pa_aggregate(
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): ipa_pa_aggregate!
+
+  # fetch data from the table: "ipa_pa" using primary key columns
+  ipa_pa_by_pk(cod_amm: String!): ipa_pa
+
+  # fetch data from the table: "language"
+  language(
+    # distinct select on columns
+    distinct_on: [language_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [language_order_by!]
+
+    # filter the rows returned
+    where: language_bool_exp
+  ): [language!]!
+
+  # fetch aggregated fields from the table: "language"
+  language_aggregate(
+    # distinct select on columns
+    distinct_on: [language_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [language_order_by!]
+
+    # filter the rows returned
+    where: language_bool_exp
+  ): language_aggregate!
+
+  # fetch data from the table: "language" using primary key columns
+  language_by_pk(language: String!): language
+
+  # fetch data from the table: "node"
+  node(
+    # distinct select on columns
+    distinct_on: [node_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_order_by!]
+
+    # filter the rows returned
+    where: node_bool_exp
+  ): [node!]!
+
+  # fetch aggregated fields from the table: "node"
+  node_aggregate(
+    # distinct select on columns
+    distinct_on: [node_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_order_by!]
+
+    # filter the rows returned
+    where: node_bool_exp
+  ): node_aggregate!
+
+  # fetch data from the table: "node" using primary key columns
+  node_by_pk(id: uuid!): node
+
+  # fetch data from the table: "node_revision"
+  node_revision(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): [node_revision!]!
+
+  # fetch aggregated fields from the table: "node_revision"
+  node_revision_aggregate(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): node_revision_aggregate!
+
+  # fetch data from the table: "node_revision" using primary key columns
+  node_revision_by_pk(id: uuid!, version: Int!): node_revision
+
+  # fetch data from the table: "node_types"
+  node_types(
+    # distinct select on columns
+    distinct_on: [node_types_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_types_order_by!]
+
+    # filter the rows returned
+    where: node_types_bool_exp
+  ): [node_types!]!
+
+  # fetch aggregated fields from the table: "node_types"
+  node_types_aggregate(
+    # distinct select on columns
+    distinct_on: [node_types_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_types_order_by!]
+
+    # filter the rows returned
+    where: node_types_bool_exp
+  ): node_types_aggregate!
+
+  # fetch data from the table: "node_types" using primary key columns
+  node_types_by_pk(node_type: String!): node_types
+
+  # fetch data from the table: "role"
+  role(
+    # distinct select on columns
+    distinct_on: [role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [role_order_by!]
+
+    # filter the rows returned
+    where: role_bool_exp
+  ): [role!]!
+
+  # fetch aggregated fields from the table: "role"
+  role_aggregate(
+    # distinct select on columns
+    distinct_on: [role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [role_order_by!]
+
+    # filter the rows returned
+    where: role_bool_exp
+  ): role_aggregate!
+
+  # fetch data from the table: "role" using primary key columns
+  role_by_pk(role: String!): role
+
+  # execute function "search_ipa" which returns "ipa_pa"
+  search_ipa(
+    # input parameters for function "search_ipa"
+    args: search_ipa_args!
+
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): [ipa_pa!]!
+
+  # execute function "search_ipa" and query aggregates on result of table type "ipa_pa"
+  search_ipa_aggregate(
+    # input parameters for function "search_ipa"
+    args: search_ipa_args!
+
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): ipa_pa_aggregate!
+
+  # fetch data from the table: "status"
+  status(
+    # distinct select on columns
+    distinct_on: [status_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [status_order_by!]
+
+    # filter the rows returned
+    where: status_bool_exp
+  ): [status!]!
+
+  # fetch aggregated fields from the table: "status"
+  status_aggregate(
+    # distinct select on columns
+    distinct_on: [status_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [status_order_by!]
+
+    # filter the rows returned
+    where: status_bool_exp
+  ): status_aggregate!
+
+  # fetch data from the table: "status" using primary key columns
+  status_by_pk(status: String!): status
+
+  # fetch data from the table: "user"
+  user(
+    # distinct select on columns
+    distinct_on: [user_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_order_by!]
+
+    # filter the rows returned
+    where: user_bool_exp
+  ): [user!]!
+
+  # fetch aggregated fields from the table: "user"
+  user_aggregate(
+    # distinct select on columns
+    distinct_on: [user_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_order_by!]
+
+    # filter the rows returned
+    where: user_bool_exp
+  ): user_aggregate!
+
+  # fetch data from the table: "user" using primary key columns
+  user_by_pk(id: uuid!): user
+
+  # fetch data from the table: "user_role"
+  user_role(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): [user_role!]!
+
+  # fetch aggregated fields from the table: "user_role"
+  user_role_aggregate(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): user_role_aggregate!
+
+  # fetch data from the table: "user_role" using primary key columns
+  user_role_by_pk(role_id: String!, user_id: uuid!): user_role
+}
+
+# columns and relationships of "role"
+type role {
+  role: String!
+}
+
+# aggregated selection of "role"
+type role_aggregate {
+  aggregate: role_aggregate_fields
+  nodes: [role!]!
+}
+
+# aggregate fields of "role"
+type role_aggregate_fields {
+  count(columns: [role_select_column!], distinct: Boolean): Int
+  max: role_max_fields
+  min: role_min_fields
+}
+
+# order by aggregate values of table "role"
+input role_aggregate_order_by {
+  count: order_by
+  max: role_max_order_by
+  min: role_min_order_by
+}
+
+# input type for inserting array relation for remote table "role"
+input role_arr_rel_insert_input {
+  data: [role_insert_input!]!
+  on_conflict: role_on_conflict
+}
+
+# Boolean expression to filter rows from the table "role". All fields are combined with a logical 'AND'.
+input role_bool_exp {
+  _and: [role_bool_exp]
+  _not: role_bool_exp
+  _or: [role_bool_exp]
+  role: text_comparison_exp
+}
+
+# unique or primary key constraints on table "role"
+enum role_constraint {
+  # unique or primary key constraint
+  role_pkey
+}
+
+# input type for inserting data into table "role"
+input role_insert_input {
+  role: String
+}
+
+# aggregate max on columns
+type role_max_fields {
+  role: String
+}
+
+# order by max() on columns of table "role"
+input role_max_order_by {
+  role: order_by
+}
+
+# aggregate min on columns
+type role_min_fields {
+  role: String
+}
+
+# order by min() on columns of table "role"
+input role_min_order_by {
+  role: order_by
+}
+
+# response of any mutation on the table "role"
+type role_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [role!]!
+}
+
+# input type for inserting object relation for remote table "role"
+input role_obj_rel_insert_input {
+  data: role_insert_input!
+  on_conflict: role_on_conflict
+}
+
+# on conflict condition type for table "role"
+input role_on_conflict {
+  constraint: role_constraint!
+  update_columns: [role_update_column!]!
+}
+
+# ordering options when selecting data from "role"
+input role_order_by {
+  role: order_by
+}
+
+# select columns of table "role"
+enum role_select_column {
+  # column name
+  role
+}
+
+# input type for updating data in table "role"
+input role_set_input {
+  role: String
+}
+
+# update columns of table "role"
+enum role_update_column {
+  # column name
+  role
+}
+
+input search_ipa_args {
+  search: String!
+}
+
+# columns and relationships of "status"
+type status {
+  status: String!
+}
+
+# aggregated selection of "status"
+type status_aggregate {
+  aggregate: status_aggregate_fields
+  nodes: [status!]!
+}
+
+# aggregate fields of "status"
+type status_aggregate_fields {
+  count(columns: [status_select_column!], distinct: Boolean): Int
+  max: status_max_fields
+  min: status_min_fields
+}
+
+# order by aggregate values of table "status"
+input status_aggregate_order_by {
+  count: order_by
+  max: status_max_order_by
+  min: status_min_order_by
+}
+
+# input type for inserting array relation for remote table "status"
+input status_arr_rel_insert_input {
+  data: [status_insert_input!]!
+  on_conflict: status_on_conflict
+}
+
+# Boolean expression to filter rows from the table "status". All fields are combined with a logical 'AND'.
+input status_bool_exp {
+  _and: [status_bool_exp]
+  _not: status_bool_exp
+  _or: [status_bool_exp]
+  status: text_comparison_exp
+}
+
+# unique or primary key constraints on table "status"
+enum status_constraint {
+  # unique or primary key constraint
+  status_pkey
+}
+
+# input type for inserting data into table "status"
+input status_insert_input {
+  status: String
+}
+
+# aggregate max on columns
+type status_max_fields {
+  status: String
+}
+
+# order by max() on columns of table "status"
+input status_max_order_by {
+  status: order_by
+}
+
+# aggregate min on columns
+type status_min_fields {
+  status: String
+}
+
+# order by min() on columns of table "status"
+input status_min_order_by {
+  status: order_by
+}
+
+# response of any mutation on the table "status"
+type status_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [status!]!
+}
+
+# input type for inserting object relation for remote table "status"
+input status_obj_rel_insert_input {
+  data: status_insert_input!
+  on_conflict: status_on_conflict
+}
+
+# on conflict condition type for table "status"
+input status_on_conflict {
+  constraint: status_constraint!
+  update_columns: [status_update_column!]!
+}
+
+# ordering options when selecting data from "status"
+input status_order_by {
+  status: order_by
+}
+
+# select columns of table "status"
+enum status_select_column {
+  # column name
+  status
+}
+
+# input type for updating data in table "status"
+input status_set_input {
+  status: String
+}
+
+# update columns of table "status"
+enum status_update_column {
+  # column name
+  status
+}
+
+# subscription root
+type subscription_root {
+  # fetch data from the table: "ipa_ou"
+  ipa_ou(
+    # distinct select on columns
+    distinct_on: [ipa_ou_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_ou_order_by!]
+
+    # filter the rows returned
+    where: ipa_ou_bool_exp
+  ): [ipa_ou!]!
+
+  # fetch aggregated fields from the table: "ipa_ou"
+  ipa_ou_aggregate(
+    # distinct select on columns
+    distinct_on: [ipa_ou_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_ou_order_by!]
+
+    # filter the rows returned
+    where: ipa_ou_bool_exp
+  ): ipa_ou_aggregate!
+
+  # fetch data from the table: "ipa_ou" using primary key columns
+  ipa_ou_by_pk(cod_amm: String!, cod_ou: String!): ipa_ou
+
+  # fetch data from the table: "ipa_pa"
+  ipa_pa(
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): [ipa_pa!]!
+
+  # fetch aggregated fields from the table: "ipa_pa"
+  ipa_pa_aggregate(
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): ipa_pa_aggregate!
+
+  # fetch data from the table: "ipa_pa" using primary key columns
+  ipa_pa_by_pk(cod_amm: String!): ipa_pa
+
+  # fetch data from the table: "language"
+  language(
+    # distinct select on columns
+    distinct_on: [language_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [language_order_by!]
+
+    # filter the rows returned
+    where: language_bool_exp
+  ): [language!]!
+
+  # fetch aggregated fields from the table: "language"
+  language_aggregate(
+    # distinct select on columns
+    distinct_on: [language_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [language_order_by!]
+
+    # filter the rows returned
+    where: language_bool_exp
+  ): language_aggregate!
+
+  # fetch data from the table: "language" using primary key columns
+  language_by_pk(language: String!): language
+
+  # fetch data from the table: "node"
+  node(
+    # distinct select on columns
+    distinct_on: [node_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_order_by!]
+
+    # filter the rows returned
+    where: node_bool_exp
+  ): [node!]!
+
+  # fetch aggregated fields from the table: "node"
+  node_aggregate(
+    # distinct select on columns
+    distinct_on: [node_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_order_by!]
+
+    # filter the rows returned
+    where: node_bool_exp
+  ): node_aggregate!
+
+  # fetch data from the table: "node" using primary key columns
+  node_by_pk(id: uuid!): node
+
+  # fetch data from the table: "node_revision"
+  node_revision(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): [node_revision!]!
+
+  # fetch aggregated fields from the table: "node_revision"
+  node_revision_aggregate(
+    # distinct select on columns
+    distinct_on: [node_revision_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_revision_order_by!]
+
+    # filter the rows returned
+    where: node_revision_bool_exp
+  ): node_revision_aggregate!
+
+  # fetch data from the table: "node_revision" using primary key columns
+  node_revision_by_pk(id: uuid!, version: Int!): node_revision
+
+  # fetch data from the table: "node_types"
+  node_types(
+    # distinct select on columns
+    distinct_on: [node_types_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_types_order_by!]
+
+    # filter the rows returned
+    where: node_types_bool_exp
+  ): [node_types!]!
+
+  # fetch aggregated fields from the table: "node_types"
+  node_types_aggregate(
+    # distinct select on columns
+    distinct_on: [node_types_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_types_order_by!]
+
+    # filter the rows returned
+    where: node_types_bool_exp
+  ): node_types_aggregate!
+
+  # fetch data from the table: "node_types" using primary key columns
+  node_types_by_pk(node_type: String!): node_types
+
+  # fetch data from the table: "role"
+  role(
+    # distinct select on columns
+    distinct_on: [role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [role_order_by!]
+
+    # filter the rows returned
+    where: role_bool_exp
+  ): [role!]!
+
+  # fetch aggregated fields from the table: "role"
+  role_aggregate(
+    # distinct select on columns
+    distinct_on: [role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [role_order_by!]
+
+    # filter the rows returned
+    where: role_bool_exp
+  ): role_aggregate!
+
+  # fetch data from the table: "role" using primary key columns
+  role_by_pk(role: String!): role
+
+  # execute function "search_ipa" which returns "ipa_pa"
+  search_ipa(
+    # input parameters for function "search_ipa"
+    args: search_ipa_args!
+
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): [ipa_pa!]!
+
+  # execute function "search_ipa" and query aggregates on result of table type "ipa_pa"
+  search_ipa_aggregate(
+    # input parameters for function "search_ipa"
+    args: search_ipa_args!
+
+    # distinct select on columns
+    distinct_on: [ipa_pa_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [ipa_pa_order_by!]
+
+    # filter the rows returned
+    where: ipa_pa_bool_exp
+  ): ipa_pa_aggregate!
+
+  # fetch data from the table: "status"
+  status(
+    # distinct select on columns
+    distinct_on: [status_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [status_order_by!]
+
+    # filter the rows returned
+    where: status_bool_exp
+  ): [status!]!
+
+  # fetch aggregated fields from the table: "status"
+  status_aggregate(
+    # distinct select on columns
+    distinct_on: [status_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [status_order_by!]
+
+    # filter the rows returned
+    where: status_bool_exp
+  ): status_aggregate!
+
+  # fetch data from the table: "status" using primary key columns
+  status_by_pk(status: String!): status
+
+  # fetch data from the table: "user"
+  user(
+    # distinct select on columns
+    distinct_on: [user_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_order_by!]
+
+    # filter the rows returned
+    where: user_bool_exp
+  ): [user!]!
+
+  # fetch aggregated fields from the table: "user"
+  user_aggregate(
+    # distinct select on columns
+    distinct_on: [user_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_order_by!]
+
+    # filter the rows returned
+    where: user_bool_exp
+  ): user_aggregate!
+
+  # fetch data from the table: "user" using primary key columns
+  user_by_pk(id: uuid!): user
+
+  # fetch data from the table: "user_role"
+  user_role(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): [user_role!]!
+
+  # fetch aggregated fields from the table: "user_role"
+  user_role_aggregate(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): user_role_aggregate!
+
+  # fetch data from the table: "user_role" using primary key columns
+  user_role_by_pk(role_id: String!, user_id: uuid!): user_role
+}
+
+# expression to compare columns of type text. All fields are combined with logical 'AND'.
+input text_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
+scalar timestamptz
+
+# expression to compare columns of type timestamptz. All fields are combined with logical 'AND'.
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz]
+}
+
+# columns and relationships of "user"
+type user {
+  email: String!
+  id: uuid!
+  metadata(
+    # JSON select path
+    path: String
+  ): jsonb!
+
+  # An array relationship
+  user_roles(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): [user_role!]!
+
+  # An aggregated array relationship
+  user_roles_aggregate(
+    # distinct select on columns
+    distinct_on: [user_role_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_role_order_by!]
+
+    # filter the rows returned
+    where: user_role_bool_exp
+  ): user_role_aggregate!
+}
+
+# aggregated selection of "user"
+type user_aggregate {
+  aggregate: user_aggregate_fields
+  nodes: [user!]!
+}
+
+# aggregate fields of "user"
+type user_aggregate_fields {
+  count(columns: [user_select_column!], distinct: Boolean): Int
+  max: user_max_fields
+  min: user_min_fields
+}
+
+# order by aggregate values of table "user"
+input user_aggregate_order_by {
+  count: order_by
+  max: user_max_order_by
+  min: user_min_order_by
+}
+
+# append existing jsonb value of filtered columns with new jsonb value
+input user_append_input {
+  metadata: jsonb
+}
+
+# input type for inserting array relation for remote table "user"
+input user_arr_rel_insert_input {
+  data: [user_insert_input!]!
+  on_conflict: user_on_conflict
+}
+
+# Boolean expression to filter rows from the table "user". All fields are combined with a logical 'AND'.
+input user_bool_exp {
+  _and: [user_bool_exp]
+  _not: user_bool_exp
+  _or: [user_bool_exp]
+  email: text_comparison_exp
+  id: uuid_comparison_exp
+  metadata: jsonb_comparison_exp
+  user_roles: user_role_bool_exp
+}
+
+# unique or primary key constraints on table "user"
+enum user_constraint {
+  # unique or primary key constraint
+  user_email_key
+
+  # unique or primary key constraint
+  user_pkey
+}
+
+# delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+input user_delete_at_path_input {
+  metadata: [String]
+}
+
+# delete the array element with specified index (negative integers count from the
+# end). throws an error if top level container is not an array
+input user_delete_elem_input {
+  metadata: Int
+}
+
+# delete key/value pair or string element. key/value pairs are matched based on their key value
+input user_delete_key_input {
+  metadata: String
+}
+
+# input type for inserting data into table "user"
+input user_insert_input {
+  email: String
+  id: uuid
+  metadata: jsonb
+  user_roles: user_role_arr_rel_insert_input
+}
+
+# aggregate max on columns
+type user_max_fields {
+  email: String
+}
+
+# order by max() on columns of table "user"
+input user_max_order_by {
+  email: order_by
+}
+
+# aggregate min on columns
+type user_min_fields {
+  email: String
+}
+
+# order by min() on columns of table "user"
+input user_min_order_by {
+  email: order_by
+}
+
+# response of any mutation on the table "user"
+type user_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user!]!
+}
+
+# input type for inserting object relation for remote table "user"
+input user_obj_rel_insert_input {
+  data: user_insert_input!
+  on_conflict: user_on_conflict
+}
+
+# on conflict condition type for table "user"
+input user_on_conflict {
+  constraint: user_constraint!
+  update_columns: [user_update_column!]!
+}
+
+# ordering options when selecting data from "user"
+input user_order_by {
+  email: order_by
+  id: order_by
+  metadata: order_by
+  user_roles_aggregate: user_role_aggregate_order_by
+}
+
+# prepend existing jsonb value of filtered columns with new jsonb value
+input user_prepend_input {
+  metadata: jsonb
+}
+
+# columns and relationships of "user_role"
+type user_role {
+  role_id: String!
+  user_id: uuid!
+}
+
+# aggregated selection of "user_role"
+type user_role_aggregate {
+  aggregate: user_role_aggregate_fields
+  nodes: [user_role!]!
+}
+
+# aggregate fields of "user_role"
+type user_role_aggregate_fields {
+  count(columns: [user_role_select_column!], distinct: Boolean): Int
+  max: user_role_max_fields
+  min: user_role_min_fields
+}
+
+# order by aggregate values of table "user_role"
+input user_role_aggregate_order_by {
+  count: order_by
+  max: user_role_max_order_by
+  min: user_role_min_order_by
+}
+
+# input type for inserting array relation for remote table "user_role"
+input user_role_arr_rel_insert_input {
+  data: [user_role_insert_input!]!
+  on_conflict: user_role_on_conflict
+}
+
+# Boolean expression to filter rows from the table "user_role". All fields are combined with a logical 'AND'.
+input user_role_bool_exp {
+  _and: [user_role_bool_exp]
+  _not: user_role_bool_exp
+  _or: [user_role_bool_exp]
+  role_id: text_comparison_exp
+  user_id: uuid_comparison_exp
+}
+
+# unique or primary key constraints on table "user_role"
+enum user_role_constraint {
+  # unique or primary key constraint
+  user_role_pkey
+}
+
+# input type for inserting data into table "user_role"
+input user_role_insert_input {
+  role_id: String
+  user_id: uuid
+}
+
+# aggregate max on columns
+type user_role_max_fields {
+  role_id: String
+}
+
+# order by max() on columns of table "user_role"
+input user_role_max_order_by {
+  role_id: order_by
+}
+
+# aggregate min on columns
+type user_role_min_fields {
+  role_id: String
+}
+
+# order by min() on columns of table "user_role"
+input user_role_min_order_by {
+  role_id: order_by
+}
+
+# response of any mutation on the table "user_role"
+type user_role_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user_role!]!
+}
+
+# input type for inserting object relation for remote table "user_role"
+input user_role_obj_rel_insert_input {
+  data: user_role_insert_input!
+  on_conflict: user_role_on_conflict
+}
+
+# on conflict condition type for table "user_role"
+input user_role_on_conflict {
+  constraint: user_role_constraint!
+  update_columns: [user_role_update_column!]!
+}
+
+# ordering options when selecting data from "user_role"
+input user_role_order_by {
+  role_id: order_by
+  user_id: order_by
+}
+
+# select columns of table "user_role"
+enum user_role_select_column {
+  # column name
+  role_id
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "user_role"
+input user_role_set_input {
+  role_id: String
+  user_id: uuid
+}
+
+# update columns of table "user_role"
+enum user_role_update_column {
+  # column name
+  role_id
+
+  # column name
+  user_id
+}
+
+# select columns of table "user"
+enum user_select_column {
+  # column name
+  email
+
+  # column name
+  id
+
+  # column name
+  metadata
+}
+
+# input type for updating data in table "user"
+input user_set_input {
+  email: String
+  id: uuid
+  metadata: jsonb
+}
+
+# update columns of table "user"
+enum user_update_column {
+  # column name
+  email
+
+  # column name
+  id
+
+  # column name
+  metadata
+}
+
+scalar uuid
+
+# expression to compare columns of type uuid. All fields are combined with logical 'AND'.
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid]
+}
+

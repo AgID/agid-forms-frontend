@@ -4,9 +4,37 @@ import Image from "../components/Image";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
+import { gql } from "apollo-boost";
+import { Query } from "react-apollo";
+
+const GET_IPA = gql`
+  query GetIpa {
+    ipa_pa(where: { cod_amm: { _eq: "agid" } }) {
+      cod_amm
+      des_amm
+    }
+    ipa_ou(
+      where: {
+        _and: {
+          cod_amm: { _eq: "agid" }
+          cod_ou: { _eq: "Ufficio_Transizione_Digitale" }
+        }
+      }
+    ) {
+      cod_ou
+      nome_resp
+      cogn_resp
+      mail_resp
+    }
+  }
+`;
+
 type MenuConfigQueryT = {
   data: any;
 };
+
+import { GetIpa } from "../generated/graphql/GetIpa";
+class GetIpaQuery extends Query<GetIpa> {}
 
 const IndexPage = ({ data }: MenuConfigQueryT) => {
   return (
@@ -18,6 +46,20 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>
+      <GetIpaQuery query={GET_IPA}>
+        {({ loading, error, data: pdata }) => {
+          if (loading) {
+            return <div>Loading...</div>;
+          }
+          if (error) {
+            return <div>Error</div>;
+          }
+          if (pdata) {
+            return JSON.stringify(pdata.ipa_pa[0]);
+          }
+          return "";
+        }}
+      </GetIpaQuery>{" "}
     </Layout>
   );
 };

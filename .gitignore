@@ -71,3 +71,4 @@ yarn-error.log
 local
 
 .vscode
+generated/**/*.ts
