@@ -10,7 +10,7 @@ type MenuConfigQueryT = {
 
 const IndexPage = ({ data }: MenuConfigQueryT) => {
   return (
-    <Layout menu={data.allConfigYaml.edges[1].node.menu}>
+    <Layout menu={data.allConfigYaml.edges[0].node.menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>
@@ -24,7 +24,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
 
 export const query = graphql`
   query IndexConfigQuery {
-    allConfigYaml {
+    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
       edges {
         node {
           menu {

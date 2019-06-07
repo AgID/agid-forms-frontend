@@ -32,7 +32,12 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-tslint`,
+    {
+      resolve: "gatsby-plugin-tslint",
+      options: {
+        project: "."
+      }
+    },
     `gatsby-transformer-yaml`,
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,

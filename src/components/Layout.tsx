@@ -17,7 +17,7 @@ const Layout = ({ children, menu }: LayoutProps) => (
   <StaticQuery
     query={graphql`
       query SiteConfigQuery {
-        allConfigYaml {
+        allConfigYaml(filter: { title: { ne: null } }) {
           edges {
             node {
               title
@@ -45,8 +45,7 @@ const Layout = ({ children, menu }: LayoutProps) => (
       }
     `}
     render={data => {
-      const config = data.allConfigYaml.edges[1].node;
-      console.log(data.allConfigYaml, menu);
+      const config = data.allConfigYaml.edges[0].node;
       return (
         <>
           <div className="skiplinks">
