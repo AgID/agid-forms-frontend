@@ -1,37 +1,84 @@
-import ApolloClient from "apollo-boost";
-import fetch from "isomorphic-fetch";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloClient } from "apollo-client";
+import { ApolloLink } from "apollo-link";
+import { setContext } from "apollo-link-context";
+import { onError } from "apollo-link-error";
+import { HttpLink } from "apollo-link-http";
+import { RestLink } from "apollo-link-rest";
+
+import * as fetch from "isomorphic-fetch";
+
+import gql from "graphql-tag";
+import {
+  GATSBY_BACKEND_ENDPOINT,
+  GATSBY_HASURA_GRAPHQL_ENDPOINT,
+  GATSBY_HASURA_TEST_TOKEN
+} from "../config";
+
+// setup your `RestLink` with your endpoint
+const restLink = new RestLink({ uri: GATSBY_BACKEND_ENDPOINT });
+
+const httpLink = new HttpLink({
+  uri: GATSBY_HASURA_GRAPHQL_ENDPOINT,
+  fetch
+});
 
 // see https://www.apollographql.com/docs/react/recipes/authentication/#Header
 
-// tslint:disable-next-line: no-console
-const HASURA_GRAPHQL_ENDPOINT = "https://graphql.danilospinelli.com/v1/graphql";
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  // const token = localStorage.getItem("token");
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbiI6ZmFsc2UsImh0dHBzOi8vaGFzdXJhLmlvL2p3dC9jbGFpbXMiOnsieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6WyJydGQiXSwieC1oYXN1cmEtZGVmYXVsdC1yb2xlIjoicnRkIiwieC1oYXN1cmEtb3JnLWlkIjoiYWdpZCIsIngtaGFzdXJhLXVzZXItaWQiOiJkN2ZmN2FmNS01MWJhLTRmMDYtOWU5MS1hMDE0ZTA3Mjg3MWYifSwibmFtZSI6ImFsdmFyb0BhZ2lkLmdvdi5pdCIsImlhdCI6MTU1OTg5OTE1NywiZXhwIjoxNTYyNDkxMTU3fQ.ZoIvaAtyDxoX0qN9rxbogsprQAAR8QUZiNbbGpnzjOg";
+  // tslint:disable-next-line: no-console
+  console.log("getting token from local storage");
+
+  return {
+    headers: {
+      ...headers,
+      Authorization: GATSBY_HASURA_TEST_TOKEN
+        ? `Bearer ${GATSBY_HASURA_TEST_TOKEN}`
+        : ""
+    }
+  };
+});
+
+const onErrorLink = onError(({ graphQLErrors, networkError }) => {
+  if (graphQLErrors) {
+    // tslint:disable-next-line: no-console
+    console.error(graphQLErrors);
+  }
+  if (networkError) {
+    // tslint:disable-next-line: no-console
+    console.error(networkError);
+  }
+});
+
+const typeDefs = gql`
+  type GetPaFromIpa {
+    cod_amm: String!
+  }
+
+  type LoginTokens {
+    backend_token: String!
+    graphql_token: String!
+  }
+
+  input LoginCredentialsInput {
+    secret: String!
+  }
+
+  extend type mutation_root {
+    RequestTokensResponse(
+      cod_amm: String!
+      body: LoginCredentialsInput!
+    ): LoginTokens
+
+    RequestEmailResponse(cod_amm: String!, body: String!): GetPaFromIpa!
+  }
+`;
 
 export const client = new ApolloClient({
-  uri: HASURA_GRAPHQL_ENDPOINT,
-  request: async operation => {
-    // const token = localStorage.getItem("token");
-    // tslint:disable-next-line: no-console
-    console.log("getting token from local storage");
-    operation.setContext({
-      headers: token
-        ? {
-            Authorization: `Bearer ${token}`
-          }
-        : {}
-    });
-  },
-  onError: ({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      // tslint:disable-next-line: no-console
-      console.error(graphQLErrors);
-    }
-    if (networkError) {
-      // tslint:disable-next-line: no-console
-      console.error(networkError);
-    }
-  },
-  fetch
+  cache: new InMemoryCache(),
+  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink]),
+  typeDefs
 });

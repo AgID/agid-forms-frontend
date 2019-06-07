@@ -6,6 +6,10 @@
 // START Enums and Input Objects
 //==============================================================
 
+export interface LoginCredentialsInput {
+  readonly secret: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

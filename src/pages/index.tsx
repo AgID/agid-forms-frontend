@@ -5,7 +5,36 @@ import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
 import { gql } from "apollo-boost";
-import { Query } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
+
+const GET_SECRET = gql`
+  mutation RequestEmail($cod_amm: String!, $body: String!) {
+    RequestEmailResponse(cod_amm: $cod_amm, body: $body)
+      @rest(
+        path: "/auth/email/{args.cod_amm}"
+        type: "GetPaFromIpa"
+        method: "POST"
+        bodyKey: "body"
+      ) {
+      cod_amm
+    }
+  }
+`;
+
+const GET_TOKENS = gql`
+  mutation RequestTokens($cod_amm: String!, $secret: LoginCredentialsInput!) {
+    RequestTokensResponse(cod_amm: $cod_amm, body: $secret)
+      @rest(
+        path: "/auth/login/{args.cod_amm}"
+        type: "LoginTokens"
+        method: "POST"
+        bodyKey: "body"
+      ) {
+      graphql_token
+      backend_token
+    }
+  }
+`;
 
 const GET_IPA = gql`
   query GetIpa {
@@ -28,6 +57,10 @@ const GET_IPA = gql`
     }
   }
 `;
+
+type TSFix = {
+  data?: any;
+};
 
 type MenuConfigQueryT = {
   data: any;
@@ -59,6 +92,17 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
           return "";
         }}
       </Query>{" "}
+      <Mutation mutation={GET_SECRET}>
+        {(getSecret: any) => (
+          <button
+            onClick={() =>
+              getSecret({ variables: { cod_amm: "agid", body: "{}" } })
+            }
+          >
+            getSecret
+          </button>
+        )}
+      </Mutation>{" "}
     </Layout>
   );
 };
