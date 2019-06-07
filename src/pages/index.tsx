@@ -34,7 +34,6 @@ type MenuConfigQueryT = {
 };
 
 import { GetIpa } from "../generated/graphql/GetIpa";
-class GetIpaQuery extends Query<GetIpa> {}
 
 const IndexPage = ({ data }: MenuConfigQueryT) => {
   return (
@@ -46,7 +45,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
       <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
         <Image />
       </div>
-      <GetIpaQuery query={GET_IPA}>
+      <Query<GetIpa> query={GET_IPA}>
         {({ loading, error, data: pdata }) => {
           if (loading) {
             return <div>Loading...</div>;
@@ -59,7 +58,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
           }
           return "";
         }}
-      </GetIpaQuery>{" "}
+      </Query>{" "}
     </Layout>
   );
 };
