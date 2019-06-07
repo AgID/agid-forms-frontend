@@ -1,0 +1,61 @@
+type GetPaFromIpa {
+  ipa_pa: GetPaFromIpa_ipa_pa!
+  ipa_ou: GetPaFromIpa_ipa_ou!
+}
+
+type GetPaFromIpa_ipa_ou {
+  cod_ou: String!
+  nome_resp: String!
+  cogn_resp: String!
+  mail_resp: String!
+}
+
+type GetPaFromIpa_ipa_pa {
+  comune: String!
+  provincia: String!
+  regione: String!
+
+  """PA description."""
+  des_amm: String!
+
+  """IPA code."""
+  cod_amm: String!
+}
+
+input LoginCredentialsInput {
+  secret: String!
+}
+
+type LoginTokens {
+  backend_token: String!
+  graphql_token: String!
+}
+
+type Mutation {
+  """
+  Send an email with a secret code to the RTD of the Public Administration
+  (organization) identified by the IPA code. 
+  Gets the information on the organization from the
+  [IPA](https://indicepa.gov.it) catalogue using the provided IPA code.
+  The secret code will be used by the client to login into the backend.
+  
+  """
+  post_auth_email_ipa_code(ipa_code: String!, body: String!): GetPaFromIpa!
+  """
+  The client post a secret code and the IPA code of the Public Administration
+  he wants to personify. If the secret is valid for the provided IPA code,
+  then the backend returns a bearer token to authenicate subsequent API calls.
+  
+  """
+  post_auth_login_ipa_code(ipa_code: String!, body: LoginCredentialsInput!): LoginTokens!
+
+  """
+  Delete the session identified by the provided bearer token.
+  
+  """
+  post_auth_logout: SuccessResponse!
+}
+
+type SuccessResponse {
+  message: String
+}

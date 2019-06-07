@@ -8,24 +8,29 @@ import { gql } from "apollo-boost";
 import { Mutation, Query } from "react-apollo";
 
 const GET_SECRET = gql`
-  mutation RequestEmail($cod_amm: String!, $body: String!) {
-    RequestEmailResponse(cod_amm: $cod_amm, body: $body)
+  mutation PostAuthEmailIpaCode($ipa_code: String!, $body: String!) {
+    post_auth_email_ipa_code(ipa_code: $ipa_code, body: $body)
       @rest(
-        path: "/auth/email/{args.cod_amm}"
+        path: "/auth/email/{args.ipa_code}"
         type: "GetPaFromIpa"
         method: "POST"
         bodyKey: "body"
       ) {
-      cod_amm
+      ipa_pa @type(name: "ipa_pa") {
+        cod_amm
+      }
     }
   }
 `;
 
 const GET_TOKENS = gql`
-  mutation RequestTokens($cod_amm: String!, $secret: LoginCredentialsInput!) {
-    RequestTokensResponse(cod_amm: $cod_amm, body: $secret)
+  mutation PostAuthLoginIpaCode(
+    $ipa_code: String!
+    $body: LoginCredentialsInput!
+  ) {
+    post_auth_login_ipa_code(ipa_code: $ipa_code, body: $body)
       @rest(
-        path: "/auth/login/{args.cod_amm}"
+        path: "/auth/login/{args.ipa_code}"
         type: "LoginTokens"
         method: "POST"
         bodyKey: "body"
@@ -57,10 +62,6 @@ const GET_IPA = gql`
     }
   }
 `;
-
-type TSFix = {
-  data?: any;
-};
 
 type MenuConfigQueryT = {
   data: any;
@@ -96,10 +97,27 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
         {(getSecret: any) => (
           <button
             onClick={() =>
-              getSecret({ variables: { cod_amm: "agid", body: "{}" } })
+              getSecret({ variables: { ipa_code: "agid", body: {} } })
             }
           >
             getSecret
+          </button>
+        )}
+      </Mutation>{" "}
+      <Mutation mutation={GET_TOKENS}>
+        {(getTokens: any) => (
+          <button
+            onClick={() =>
+              getTokens({
+                variables: {
+                  body: {
+                    secret: "x"
+                  }
+                }
+              })
+            }
+          >
+            getTokens
           </button>
         )}
       </Mutation>{" "}

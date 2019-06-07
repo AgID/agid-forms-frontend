@@ -53,32 +53,7 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-const typeDefs = gql`
-  type GetPaFromIpa {
-    cod_amm: String!
-  }
-
-  type LoginTokens {
-    backend_token: String!
-    graphql_token: String!
-  }
-
-  input LoginCredentialsInput {
-    secret: String!
-  }
-
-  extend type mutation_root {
-    RequestTokensResponse(
-      cod_amm: String!
-      body: LoginCredentialsInput!
-    ): LoginTokens
-
-    RequestEmailResponse(cod_amm: String!, body: String!): GetPaFromIpa!
-  }
-`;
-
 export const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink]),
-  typeDefs
+  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink])
 });
