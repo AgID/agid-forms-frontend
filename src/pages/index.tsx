@@ -4,64 +4,10 @@ import Image from "../components/Image";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
-import { gql } from "apollo-boost";
+import { GET_SECRET, GET_TOKENS } from "../apollo/backend_queries";
+import { GET_IPA } from "../apollo/hasura_queries";
+
 import { Mutation, Query } from "react-apollo";
-
-const GET_SECRET = gql`
-  mutation PostAuthEmailIpaCode($ipa_code: String!, $body: String!) {
-    post_auth_email_ipa_code(ipa_code: $ipa_code, body: $body)
-      @rest(
-        path: "/auth/email/{args.ipa_code}"
-        type: "GetPaFromIpa"
-        method: "POST"
-        bodyKey: "body"
-      ) {
-      ipa_pa @type(name: "ipa_pa") {
-        cod_amm
-      }
-    }
-  }
-`;
-
-const GET_TOKENS = gql`
-  mutation PostAuthLoginIpaCode(
-    $ipa_code: String!
-    $body: LoginCredentialsInput!
-  ) {
-    post_auth_login_ipa_code(ipa_code: $ipa_code, body: $body)
-      @rest(
-        path: "/auth/login/{args.ipa_code}"
-        type: "LoginTokens"
-        method: "POST"
-        bodyKey: "body"
-      ) {
-      graphql_token
-      backend_token
-    }
-  }
-`;
-
-const GET_IPA = gql`
-  query GetIpa {
-    ipa_pa(where: { cod_amm: { _eq: "agid" } }) {
-      cod_amm
-      des_amm
-    }
-    ipa_ou(
-      where: {
-        _and: {
-          cod_amm: { _eq: "agid" }
-          cod_ou: { _eq: "Ufficio_Transizione_Digitale" }
-        }
-      }
-    ) {
-      cod_ou
-      nome_resp
-      cogn_resp
-      mail_resp
-    }
-  }
-`;
 
 type MenuConfigQueryT = {
   data: any;

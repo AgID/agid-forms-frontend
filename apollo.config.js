@@ -9,10 +9,11 @@ module.exports = {
         "X-Hasura-Admin-Secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET
       }
     },
-    service: {
-      name: "rest-api",
-      localSchemaFile: "./api_backend.graphql"
-    },
-    includes: ["./src/**/*.{ts,tsx}"]
+    // },
+    // service: {
+    //   name: "rest-api",
+    //   localSchemaFile: "./api_backend.graphql"
+    // },
+    includes: ["api_backend.graphql", "./src/**/*.{ts,tsx}"]
   }
 };

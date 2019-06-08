@@ -7,13 +7,15 @@ fi
 
 set -o allexport; source .env; set +o allexport
 
-gq $HASURA_GRAPHQL_ENDPOINT -H "X-Hasura-Admin-Secret: $HASURA_GRAPHQL_ADMIN_SECRET" --introspect > schema.graphql
+# gq $HASURA_GRAPHQL_ENDPOINT -H "X-Hasura-Admin-Secret: $HASURA_GRAPHQL_ADMIN_SECRET" --introspect > schema.graphql
 
-apollo client:codegen \
+yarn apollo client:codegen \
+  --tag rest-api \
   --target typescript \
   --tagName=gql \
   --clientName GraphqlClient \
   --useReadOnlyTypes \
+  --globalTypesFile=./src/generated/graphql/graphql_globals.ts \
   --outputFlat  ./src/generated/graphql
 
   # --passthroughCustomScalars

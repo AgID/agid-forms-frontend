@@ -31,7 +31,7 @@ type LoginTokens {
   graphql_token: String!
 }
 
-type Mutation {
+extend type mutation_root {
   """
   Send an email with a secret code to the RTD of the Public Administration
   (organization) identified by the IPA code. 

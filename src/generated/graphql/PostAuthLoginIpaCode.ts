@@ -2,7 +2,7 @@
 /* eslint-disable */
 // This file was automatically generated and should not be edited.
 
-import { LoginCredentialsInput } from "./globalTypes";
+import { LoginCredentialsInput } from "./graphql_globals";
 
 // ====================================================
 // GraphQL mutation operation: PostAuthLoginIpaCode
