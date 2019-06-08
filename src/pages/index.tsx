@@ -47,12 +47,13 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
       <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
         mutation={GET_SECRET}
       >
-        {(getSecret, { loading, error }) => {
+        {(getSecret, { loading, error, data: getSecretData }) => {
           if (loading) {
             return "loading...";
-          }
-          if (error) {
+          } else if (error) {
             return "error...";
+          } else if (getSecretData) {
+            return JSON.stringify(getSecretData);
           }
           return (
             <button
@@ -66,21 +67,27 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
         }}
       </Mutation>{" "}
       <Mutation mutation={GET_TOKENS}>
-        {(getTokens: any) => (
-          <button
-            onClick={() =>
-              getTokens({
-                variables: {
-                  body: {
-                    secret: "x"
-                  }
+        {(getTokens: any) => {
+          return (
+            <div>
+              <label>secret</label>
+              <input type="text" name="secret" />
+              <button
+                onClick={() =>
+                  getTokens({
+                    variables: {
+                      body: {
+                        secret: "x"
+                      }
+                    }
+                  })
                 }
-              })
-            }
-          >
-            getTokens
-          </button>
-        )}
+              >
+                getTokens
+              </button>
+            </div>
+          );
+        }}
       </Mutation>{" "}
     </Layout>
   );
