@@ -6,14 +6,17 @@
 // GraphQL mutation operation: PostAuthEmailIpaCode
 // ====================================================
 
-export interface PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_ou {
-  readonly __typename: "GetPaFromIpa_ipa_ou";
-  readonly cod_ou: string;
+export interface PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_pa {
+  readonly __typename: "GetPaFromIpa_ipa_pa";
+  /**
+   * IPA code.
+   */
+  readonly cod_amm: string;
 }
 
 export interface PostAuthEmailIpaCode_post_auth_email_ipa_code {
   readonly __typename: "GetPaFromIpa";
-  readonly ipa_ou: PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_ou;
+  readonly ipa_pa: PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_pa;
 }
 
 export interface PostAuthEmailIpaCode {

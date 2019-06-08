@@ -6,7 +6,7 @@
 
 import React from "react";
 import { ApolloProvider } from "react-apollo";
-import { GraphqlClient } from "./src/apollo/client";
+import { GraphqlClient } from "./src/graphql/client";
 
 export const wrapRootElement = ({ element }) => (
   <ApolloProvider client={GraphqlClient}>{element}</ApolloProvider>

@@ -1,11 +1,12 @@
-import { graphql } from "gatsby";
 import * as React from "react";
 import Image from "../components/Image";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
-import { GET_SECRET, GET_TOKENS } from "../apollo/backend_queries";
-import { GET_IPA } from "../apollo/hasura_queries";
+import { graphql } from "gatsby";
+
+import { GET_SECRET, GET_TOKENS } from "../graphql/backend_queries";
+import { GET_IPA } from "../graphql/hasura_queries";
 
 import { Mutation, Query } from "react-apollo";
 
@@ -14,6 +15,10 @@ type MenuConfigQueryT = {
 };
 
 import { GetIpa } from "../generated/graphql/GetIpa";
+import {
+  PostAuthEmailIpaCode,
+  PostAuthEmailIpaCodeVariables
+} from "../generated/graphql/PostAuthEmailIpaCode";
 
 const IndexPage = ({ data }: MenuConfigQueryT) => {
   return (
@@ -39,16 +44,26 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
           return "";
         }}
       </Query>{" "}
-      <Mutation mutation={GET_SECRET}>
-        {(getSecret: any) => (
-          <button
-            onClick={() =>
-              getSecret({ variables: { ipa_code: "agid", body: {} } })
-            }
-          >
-            getSecret
-          </button>
-        )}
+      <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
+        mutation={GET_SECRET}
+      >
+        {(getSecret, { loading, error }) => {
+          if (loading) {
+            return "loading...";
+          }
+          if (error) {
+            return "error...";
+          }
+          return (
+            <button
+              onClick={() =>
+                getSecret({ variables: { ipa_code: "agid", body: "{}" } })
+              }
+            >
+              getSecret
+            </button>
+          );
+        }}
       </Mutation>{" "}
       <Mutation mutation={GET_TOKENS}>
         {(getTokens: any) => (
@@ -72,7 +87,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
 };
 
 export const query = graphql`
-  query IndexConfigQuery {
+  query PageConfig {
     allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
       edges {
         node {

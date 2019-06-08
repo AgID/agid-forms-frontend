@@ -18,6 +18,5 @@ yarn apollo client:codegen \
   --globalTypesFile=./src/generated/graphql/graphql_globals.ts \
   --outputFlat  ./src/generated/graphql
 
-  # --passthroughCustomScalars
   # --customScalarsPrefix Agid  
   # --localSchemaFile=schema.graphql

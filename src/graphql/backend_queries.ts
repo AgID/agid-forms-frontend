@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import gql from "graphql-tag";
 
 export const GET_SECRET = gql`
   mutation PostAuthEmailIpaCode($ipa_code: String!, $body: String!) {
@@ -8,9 +8,10 @@ export const GET_SECRET = gql`
         type: "GetPaFromIpa"
         method: "POST"
         bodyKey: "body"
+        bodySerializer: "Json"
       ) {
-      ipa_ou @type(name: "ipa_ou") {
-        cod_ou
+      ipa_pa @type(name: "ipa_pa") {
+        cod_amm
       }
     }
   }

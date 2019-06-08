@@ -16,14 +16,19 @@ const NotFoundPage = ({ data }: MenuConfigQueryT) => (
 );
 
 export const query = graphql`
-  query NotFoundConfigQuery {
-    configYaml {
-      menu {
-        name
-        slug
-        subtree {
-          name
-          slug
+  query NotFoundConfig {
+    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
+      edges {
+        node {
+          menu {
+            name
+            slug
+            subtree {
+              name
+              slug
+              subtitle
+            }
+          }
         }
       }
     }
