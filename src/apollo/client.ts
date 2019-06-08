@@ -8,7 +8,6 @@ import { RestLink } from "apollo-link-rest";
 
 import * as fetch from "isomorphic-fetch";
 
-import gql from "graphql-tag";
 import {
   GATSBY_BACKEND_ENDPOINT,
   GATSBY_HASURA_GRAPHQL_ENDPOINT,
@@ -53,7 +52,7 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
   }
 });
 
-export const client = new ApolloClient({
+export const GraphqlClient = new ApolloClient({
   cache: new InMemoryCache(),
   link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink])
 });
