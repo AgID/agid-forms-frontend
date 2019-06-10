@@ -10,6 +10,7 @@ export interface GetIpa_ipa_pa {
   readonly __typename: "ipa_pa";
   readonly cod_amm: string;
   readonly des_amm: string;
+  readonly Comune: string;
 }
 
 export interface GetIpa_ipa_ou {
@@ -29,4 +30,8 @@ export interface GetIpa {
    * fetch data from the table: "ipa_ou"
    */
   readonly ipa_ou: ReadonlyArray<GetIpa_ipa_ou>;
+}
+
+export interface GetIpaVariables {
+  readonly ipa_code: string;
 }

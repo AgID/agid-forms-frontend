@@ -13,6 +13,9 @@ export const GET_SECRET = gql`
       ipa_pa @type(name: "ipa_pa") {
         cod_amm
       }
+      ipa_ou @type(name: "ipa_ou") {
+        mail_resp
+      }
     }
   }
 `;

@@ -14,9 +14,15 @@ export interface PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_pa {
   readonly cod_amm: string;
 }
 
+export interface PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_ou {
+  readonly __typename: "GetPaFromIpa_ipa_ou";
+  readonly mail_resp: string;
+}
+
 export interface PostAuthEmailIpaCode_post_auth_email_ipa_code {
   readonly __typename: "GetPaFromIpa";
   readonly ipa_pa: PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_pa;
+  readonly ipa_ou: PostAuthEmailIpaCode_post_auth_email_ipa_code_ipa_ou;
 }
 
 export interface PostAuthEmailIpaCode {
