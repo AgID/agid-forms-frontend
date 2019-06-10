@@ -35,6 +35,7 @@
     "reactstrap": "^8.0.0",
     "typeface-lora": "^0.0.72",
     "typeface-titillium-web": "^0.0.72",
+    "use-debounce": "^2.1.0",
     "use-throttle": "^0.0.3"
   },
   "devDependencies": {

@@ -68,7 +68,7 @@ const Layout = ({ children, menu }: LayoutProps) => (
               menu={menu}
             />
           </div>
-          <Container className="justify-content-md-center main" id="main">
+          <Container className="py-5 justify-content-md-center main" id="main">
             {children}
           </Container>
           <Footer
