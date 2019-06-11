@@ -61,3 +61,19 @@ export const UPSERT_NODE = gql`
     }
   }
 `;
+
+export const GET_NODE = gql`
+  query GetNode($id: uuid!) {
+    node(where: { id: { _eq: $id } }) {
+      id
+      created_at
+      updated_at
+      title
+      content
+      language
+      status
+      version
+      type
+    }
+  }
+`;

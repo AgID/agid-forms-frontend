@@ -184,7 +184,7 @@ const FormTemplate = ({
                 <Form>
                   {renderFormFields(form.form_fields, fmk)}
                   <Button type="submit" disabled={fmk.isSubmitting}>
-                    Invia dati
+                    Salva bozza
                   </Button>
                 </Form>
               )}

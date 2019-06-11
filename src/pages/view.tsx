@@ -9,21 +9,21 @@ import { FormConfig } from "../generated/graphql/FormConfig";
 // @ts-ignore
 import { PageConfigFragment } from "../graphql/gatsby_fragments";
 
-import FormTemplate from "./forms/form-template";
+import ViewTemplate from "./forms/view-template";
 
-const Form = ({ data }: { data: FormConfig }) => (
+const View = ({ data }: { data: FormConfig }) => (
   <Router>
     <RouterPage
-      pageComponent={(props: RouteComponentProps<{ formId: string }>) => (
-        <FormTemplate data={data} formId={props.formId} />
+      pageComponent={(props: RouteComponentProps<{ uuid: string }>) => (
+        <ViewTemplate data={data} uuid={props.uuid!} />
       )}
-      path="/form/:formId"
+      path="/view/:uuid"
     />
   </Router>
 );
 
 export const query = graphql`
-  query FormConfig {
+  query ViewConfig {
     allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
       ...PageConfigFragment
     }
@@ -45,4 +45,4 @@ export const query = graphql`
   }
 `;
 
-export default Form;
+export default View;
