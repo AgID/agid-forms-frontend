@@ -16,7 +16,17 @@ yarn apollo client:codegen \
   --clientName GraphqlClient \
   --useReadOnlyTypes \
   --globalTypesFile=./src/generated/graphql/graphql_globals.ts \
-  --outputFlat  ./src/generated/graphql
+  --outputFlat ./src/generated/graphql
 
   # --customScalarsPrefix Agid  
   # --localSchemaFile=schema.graphql
+
+yarn apollo client:codegen \
+  --tag gatsby-api \
+  --target=typescript \
+  --tagName=graphql \
+  --useReadOnlyTypes \
+  --localSchemaFile=./gatsby-schema.json \
+  --includes='./{src,.cache}/**/*.{ts,tsx,js,jsx}' \
+  --globalTypesFile=./src/generated/graphql/gatsby_globals.ts \
+  --outputFlat ./src/generated/graphql

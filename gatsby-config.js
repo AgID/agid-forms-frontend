@@ -67,6 +67,16 @@ module.exports = {
         path: `${__dirname}/src/pages`,
         name: `markdown-pages`
       }
+    },
+    {
+      resolve: `gatsby-plugin-create-client-paths`,
+      options: { prefixes: [`/form/*`] }
+    },
+    {
+      resolve: "gatsby-plugin-extract-schema",
+      options: {
+        dest: `${__dirname}/gatsby-schema.json`
+      }
     }
   ]
 };
