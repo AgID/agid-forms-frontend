@@ -37,3 +37,27 @@ export const GET_IPA = gql`
     }
   }
 `;
+
+export const UPSERT_NODE = gql`
+  mutation UpsertNode($node: node_insert_input!) {
+    insert_node(
+      objects: [$node]
+      on_conflict: {
+        constraint: node_pkey
+        update_columns: [language, status, title, content]
+      }
+    ) {
+      returning {
+        id
+        type
+        created_at
+        updated_at
+        language
+        status
+        title
+        content
+        version
+      }
+    }
+  }
+`;

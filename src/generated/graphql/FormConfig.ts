@@ -42,8 +42,6 @@ export interface FormConfig_allFormYaml_edges_node_form_fields {
   readonly name: string | null;
   readonly title: string | null;
   readonly type: string | null;
-  readonly value: string | null;
-  readonly checked: number | null;
 }
 
 export interface FormConfig_allFormYaml_edges_node {

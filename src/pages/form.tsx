@@ -45,7 +45,6 @@ export const query = graphql`
             name
             title
             type
-            checked
           }
         }
       }

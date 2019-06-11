@@ -7,6 +7,11 @@ import {
   FormConfig_allFormYaml_edges_node_form_fields
 } from "../../generated/graphql/FormConfig";
 
+import {
+  UpsertNode,
+  UpsertNodeVariables
+} from "../../generated/graphql/UpsertNode";
+
 import { Button, FormGroup, Input, Label } from "reactstrap";
 
 import {
@@ -17,6 +22,8 @@ import {
   FormikActions,
   FormikProps
 } from "formik";
+import { Mutation } from "react-apollo";
+import { UPSERT_NODE } from "../../graphql/hasura_queries";
 
 const FIELD_DEFAULTS: Record<string, any> = {
   text: "",
@@ -107,11 +114,11 @@ const FormTemplate = ({
     ? data.allFormYaml.edges.filter(node => node.node.id === formId)
     : null;
   if (!forms || !forms[0] || !forms[0].node) {
-    return "";
+    return <></>;
   }
   const form = forms[0].node;
   if (!form.form_fields) {
-    return "";
+    return <></>;
   }
   const initialValues = form.form_fields.reduce(
     (prev, cur) =>
@@ -126,32 +133,56 @@ const FormTemplate = ({
         : prev,
     {} as Record<string, string>
   );
-  // tslint:disable-next-line: no-console
-  console.log("initial", initialValues);
   return (
     <Layout menu={menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <h1>Form {formId}</h1>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(
-          values: MyFormValues,
-          actions: FormikActions<MyFormValues>
-        ) => {
-          // tslint:disable-next-line: no-console
-          console.log({ values, actions });
-          alert(JSON.stringify(values, null, 2));
-          actions.setSubmitting(false);
+      <Mutation<UpsertNode, UpsertNodeVariables> mutation={UPSERT_NODE}>
+        {(upsertNode, { loading, error, data: upsertNodeResult }) => {
+          if (loading) {
+            return <p>Invio i dati...</p>;
+          }
+          if (error) {
+            return (
+              <p>Errore nell'invio dei dati: {JSON.stringify(error)}...</p>
+            );
+          }
+          if (upsertNodeResult) {
+            return <p>Risultato: {JSON.stringify(upsertNodeResult)}...</p>;
+          }
+          return (
+            <Formik
+              initialValues={initialValues}
+              onSubmit={async (
+                values: MyFormValues,
+                actions: FormikActions<MyFormValues>
+              ) => {
+                // tslint:disable-next-line: no-console
+                console.log({ values, actions });
+                await upsertNode({
+                  variables: {
+                    node: {
+                      content: values,
+                      language: "it",
+                      title: "dichiarazione accessibilita foo",
+                      type: "dichiarazione_accessibilita"
+                    }
+                  }
+                });
+                return actions.setSubmitting(false);
+              }}
+              render={(fmk: FormikProps<MyFormValues>) => (
+                <Form>
+                  {renderFormFields(form.form_fields, fmk)}
+                  <Button type="submit" disabled={fmk.isSubmitting}>
+                    Invia dati
+                  </Button>
+                </Form>
+              )}
+            />
+          );
         }}
-        render={(fmk: FormikProps<MyFormValues>) => (
-          <Form>
-            {renderFormFields(form.form_fields, fmk)}
-            <Button type="submit" disabled={fmk.isSubmitting}>
-              Invia dati
-            </Button>
-          </Form>
-        )}
-      />
+      </Mutation>
     </Layout>
   );
 };
