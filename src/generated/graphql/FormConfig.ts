@@ -6,18 +6,10 @@
 // GraphQL query operation: FormConfig
 // ====================================================
 
-export interface FormConfig_allConfigYaml_edges_node_menu_subtree {
-  readonly __typename: "ConfigYamlMenuSubtree";
-  readonly name: string | null;
-  readonly slug: string | null;
-  readonly subtitle: string | null;
-}
-
 export interface FormConfig_allConfigYaml_edges_node_menu {
   readonly __typename: "ConfigYamlMenu";
   readonly name: string | null;
   readonly slug: string | null;
-  readonly subtree: ReadonlyArray<(FormConfig_allConfigYaml_edges_node_menu_subtree | null)> | null;
 }
 
 export interface FormConfig_allConfigYaml_edges_node {
@@ -47,6 +39,7 @@ export interface FormConfig_allFormYaml_edges_node_form_fields {
 export interface FormConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
+  readonly version: string | null;
   readonly form_fields: ReadonlyArray<(FormConfig_allFormYaml_edges_node_form_fields | null)> | null;
 }
 

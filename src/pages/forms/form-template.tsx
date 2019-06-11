@@ -50,23 +50,28 @@ const getFormfield = (
   switch (cur.type) {
     case "text":
       return (
-        <FormGroup check={true} key={cur.name!}>
+        <FormGroup check={true} key={cur.name!} className="mb-5">
           <Label htmlFor={cur.name!} check={true}>
             {cur.title}
           </Label>
-          {cur.description && <p className="mb-0">{cur.description}</p>}
+          {cur.description && (
+            <p className="mb-0 small neutral-1-color-a5">{cur.description}</p>
+          )}
           <Field
             name={cur.name}
             type="text"
             component={CustomTextInputComponent}
+            className="pl-0"
           />
           <ErrorMessage name={cur.name!} component="p" />
         </FormGroup>
       );
     case "checkbox":
       return (
-        <FormGroup check={true} key={cur.name!}>
-          {cur.description && <p className="mb-0">{cur.description}</p>}
+        <FormGroup check={true} key={cur.name!} className="mb-5">
+          {cur.description && (
+            <p className="mb-0 small neutral-1-color-a5y">{cur.description}</p>
+          )}
           <Field
             name={cur.name}
             type="checkbox"
@@ -157,14 +162,18 @@ const FormTemplate = ({
                 values: MyFormValues,
                 actions: FormikActions<MyFormValues>
               ) => {
-                // tslint:disable-next-line: no-console
-                console.log({ values, actions });
                 await upsertNode({
                   variables: {
                     node: {
-                      content: values,
+                      content: {
+                        values,
+                        schema: {
+                          id: form.id,
+                          version: form.version
+                        }
+                      },
                       language: "it",
-                      title: "dichiarazione accessibilita foo",
+                      title: "dichiarazione accessibilita",
                       type: "dichiarazione_accessibilita"
                     }
                   }

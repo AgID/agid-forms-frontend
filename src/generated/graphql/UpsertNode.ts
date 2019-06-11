@@ -8,21 +8,6 @@ import { node_insert_input } from "./graphql_globals";
 // GraphQL mutation operation: UpsertNode
 // ====================================================
 
-export interface UpsertNode_insert_node_returning_user_user_roles {
-  readonly __typename: "user_role";
-  readonly role_id: string;
-}
-
-export interface UpsertNode_insert_node_returning_user {
-  readonly __typename: "user";
-  readonly id: any;
-  /**
-   * An array relationship
-   */
-  readonly user_roles: ReadonlyArray<UpsertNode_insert_node_returning_user_user_roles>;
-  readonly email: string;
-}
-
 export interface UpsertNode_insert_node_returning {
   readonly __typename: "node";
   readonly id: any;
@@ -34,10 +19,6 @@ export interface UpsertNode_insert_node_returning {
   readonly title: string;
   readonly content: any;
   readonly version: number;
-  /**
-   * An object relationship
-   */
-  readonly user: UpsertNode_insert_node_returning_user;
 }
 
 export interface UpsertNode_insert_node {

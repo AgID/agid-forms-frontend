@@ -1,12 +1,18 @@
 id: dichiarazione-usabilita
-version: 0.0.3
+name: dichiarazione di usabilità
+version: 0.1.0
 form-fields:
-  - name: il mio nome qui 3
+  - name: tre
     title: primo item
     type: text
     description: la mia descrizione
     default: ecco il default    
-  - name: il mio nome qui
+  - name: due
+    title: secondo item
+    type: text
+    description: la mia descrizione
+    default: ecco il default
+  - name: uno
     title: secondo item
     type: text
     description: la mia descrizione

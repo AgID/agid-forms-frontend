@@ -6,18 +6,10 @@
 // GraphQL fragment: PageConfigFragment
 // ====================================================
 
-export interface PageConfigFragment_edges_node_menu_subtree {
-  readonly __typename: "ConfigYamlMenuSubtree";
-  readonly name: string | null;
-  readonly slug: string | null;
-  readonly subtitle: string | null;
-}
-
 export interface PageConfigFragment_edges_node_menu {
   readonly __typename: "ConfigYamlMenu";
   readonly name: string | null;
   readonly slug: string | null;
-  readonly subtree: ReadonlyArray<(PageConfigFragment_edges_node_menu_subtree | null)> | null;
 }
 
 export interface PageConfigFragment_edges_node {

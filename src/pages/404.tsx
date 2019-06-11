@@ -23,11 +23,6 @@ export const query = graphql`
           menu {
             name
             slug
-            subtree {
-              name
-              slug
-              subtitle
-            }
           }
         }
       }
