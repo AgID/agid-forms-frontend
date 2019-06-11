@@ -16,7 +16,7 @@ import * as React from "react";
 const Image = () => (
   <StaticQuery
     query={graphql`
-      query {
+      query PlaceholderImage {
         placeholderImage: file(relativePath: { eq: "gatsby-astronaut.png" }) {
           childImageSharp {
             fluid(maxWidth: 300) {
