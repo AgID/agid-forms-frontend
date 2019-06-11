@@ -1,0 +1,13 @@
+id: dichiarazione-usabilita
+version: 0.0.3
+form-fields:
+  - name: il mio nome qui 3
+    title: primo item
+    type: text
+    description: la mia descrizione
+    default: ecco il default    
+  - name: il mio nome qui
+    title: secondo item
+    type: text
+    description: la mia descrizione
+    default: ecco il default

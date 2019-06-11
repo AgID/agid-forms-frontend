@@ -1,0 +1,13 @@
+id: dichiarazione-accessibilita
+version: 0.0.2
+form-fields:
+  - name: il mio nome qui 2
+    title: primo item
+    type: text
+    description: la mia descrizione
+    default: ecco il default    
+  - name: il mio nome qui
+    title: secondo item
+    type: text
+    description: la mia descrizione
+    default: ecco il default

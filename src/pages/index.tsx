@@ -3,7 +3,10 @@ import { useState } from "react";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
+
+// @ts-ignore
+import { PageConfigFragment } from "../graphql/gatsby_fragments";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
@@ -269,11 +272,13 @@ const LoginButtonComponent = ({
 const LoginButtonConnectedComponent = ({
   secret,
   setSecret,
-  selectedPa
+  selectedPa,
+  storeTokens
 }: {
   secret?: string;
   setSecret: Dispatcher<string | undefined>;
   selectedPa: string;
+  storeTokens: (data: PostAuthLoginIpaCode) => void;
 }) => (
   <Mutation<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>
     mutation={GET_TOKENS}
@@ -287,7 +292,7 @@ const LoginButtonConnectedComponent = ({
       } else if (mutationError) {
         return "error...";
       } else if (getTokensData) {
-        return <p>{JSON.stringify(getTokensData)}</p>;
+        storeTokens(getTokensData);
       }
       return (
         <LoginButtonComponent
@@ -306,6 +311,13 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
 
+  if (
+    localStorage.getItem("backend_token") &&
+    localStorage.getItem("graphql_token")
+  ) {
+    navigate("/actions");
+  }
+
   return (
     <Layout menu={data.allConfigYaml.edges[0].node.menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
@@ -323,6 +335,17 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
           secret={secret}
           selectedPa={selectedPa}
           setSecret={setSecret}
+          storeTokens={tokens => {
+            localStorage.setItem(
+              "backend_token",
+              tokens.post_auth_login_ipa_code.backend_token
+            );
+            localStorage.setItem(
+              "graphql_token",
+              tokens.post_auth_login_ipa_code.graphql_token
+            );
+            navigate("/actions");
+          }}
         />
       )}
     </Layout>
@@ -332,19 +355,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
 export const query = graphql`
   query PageConfig {
     allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
-      edges {
-        node {
-          menu {
-            name
-            slug
-            subtree {
-              name
-              slug
-              subtitle
-            }
-          }
-        }
-      }
+      ...PageConfigFragment
     }
   }
 `;
