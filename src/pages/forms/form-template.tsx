@@ -47,7 +47,7 @@ const getFormfield = (
   cur: FormConfig_allFormYaml_edges_node_form_fields,
   fmk: FormikProps<MyFormValues>
 ) => {
-  switch (cur.type) {
+  switch (cur.widget) {
     case "text":
       return (
         <FormGroup check={true} key={cur.name!} className="mb-5">
@@ -133,7 +133,7 @@ const FormTemplate = ({
             [cur.name!]:
               cur.default !== undefined && cur.default !== null
                 ? cur.default
-                : FIELD_DEFAULTS[cur.type!]
+                : FIELD_DEFAULTS[cur.widget!]
           }
         : prev,
     {} as Record<string, string>

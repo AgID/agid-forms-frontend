@@ -4,27 +4,27 @@ version: 0.1.0
 form-fields:
   - name: primo-item
     title: primo item
-    type: text
+    widget: text
     description: la mia descrizione eccola
     default: un valore di default
   - name: terzo-item
     title: terzo item
-    type: text
+    widget: text
     description: la mia descrizione eccola
     default: un altro valore di default
   - name: quarto-item
     title: terzo item
-    type: text
+    widget: text
     description: la mia descrizione eccola
   - name: sesto-item
     title: secondo item
-    type: checkbox
+    widget: checkbox
     description: la mia descrizione
   - name: quinto-item
     title: terzo item
-    type: text
+    widget: text
     description: la mia descrizione eccola
   - name: secondo-item
     title: secondo item
-    type: checkbox
+    widget: checkbox
     description: la mia descrizione

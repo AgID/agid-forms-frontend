@@ -4,16 +4,21 @@ version: 0.1.0
 form-fields:
   - name: tre
     title: primo item
-    type: text
+    widget: text
     description: la mia descrizione
-    default: ecco il default    
+    default: ecco il default
   - name: due
     title: secondo item
-    type: text
+    widget: text
     description: la mia descrizione
     default: ecco il default
   - name: uno
     title: secondo item
-    type: text
+    widget: text
+    description: la mia descrizione
+    default: ecco il default
+  - name: ciao
+    title: secondo item
+    widget: text
     description: la mia descrizione
     default: ecco il default

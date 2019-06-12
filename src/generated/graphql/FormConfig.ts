@@ -33,7 +33,7 @@ export interface FormConfig_allFormYaml_edges_node_form_fields {
   readonly description: string | null;
   readonly name: string | null;
   readonly title: string | null;
-  readonly type: string | null;
+  readonly widget: string | null;
 }
 
 export interface FormConfig_allFormYaml_edges_node {

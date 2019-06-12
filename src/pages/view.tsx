@@ -37,7 +37,7 @@ export const query = graphql`
             description
             name
             title
-            type
+            widget
           }
         }
       }

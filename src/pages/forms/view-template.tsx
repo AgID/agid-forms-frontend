@@ -15,11 +15,6 @@ import {
 } from "../../generated/graphql/GetNode";
 import { GET_NODE } from "../../graphql/hasura_queries";
 
-const FIELD_DEFAULTS: Record<string, any> = {
-  text: "",
-  checkbox: false
-};
-
 const getViewfield = (
   cur: FormConfig_allFormYaml_edges_node_form_fields,
   value: string
