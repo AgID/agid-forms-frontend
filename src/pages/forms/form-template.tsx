@@ -34,7 +34,7 @@ interface MyFormValues {
   [k: string]: any;
 }
 
-const CustomTextInputComponent = ({
+const CustomInputComponent = ({
   field,
   form,
   ...props
@@ -60,7 +60,7 @@ const getFormfield = (
           <Field
             name={cur.name}
             type="text"
-            component={CustomTextInputComponent}
+            component={CustomInputComponent}
             className="pl-0"
           />
           <ErrorMessage name={cur.name!} component="p" />
@@ -88,6 +88,31 @@ const getFormfield = (
           >
             {cur.title}
           </Label>
+          <ErrorMessage name={cur.name!} component="p" />
+        </FormGroup>
+      );
+    case "select":
+      return (
+        <FormGroup check={true} key={cur.name!} className="mb-5">
+          <Label htmlFor={cur.name!} check={true}>
+            {cur.title}
+          </Label>
+          {cur.description && (
+            <p className="mb-0 small neutral-1-color-a5">{cur.description}</p>
+          )}
+          <Field
+            name={cur.name}
+            type="select"
+            multiple={cur.multiple}
+            component={CustomInputComponent}
+            className="pl-0"
+          >
+            {cur.options!.map(({ value, label }) => (
+              <option key={value} value={value}>
+                {label}
+              </option>
+            ))}
+          </Field>
           <ErrorMessage name={cur.name!} component="p" />
         </FormGroup>
       );

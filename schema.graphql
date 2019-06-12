@@ -1221,11 +1221,11 @@ type mutation_root {
     where: node_revision_bool_exp!
   ): node_revision_mutation_response
 
-  # delete data from the table: "node_types"
-  delete_node_types(
+  # delete data from the table: "node_type"
+  delete_node_type(
     # filter the rows which have to be deleted
-    where: node_types_bool_exp!
-  ): node_types_mutation_response
+    where: node_type_bool_exp!
+  ): node_type_mutation_response
 
   # delete data from the table: "role"
   delete_role(
@@ -1296,14 +1296,14 @@ type mutation_root {
     on_conflict: node_revision_on_conflict
   ): node_revision_mutation_response
 
-  # insert data into the table: "node_types"
-  insert_node_types(
+  # insert data into the table: "node_type"
+  insert_node_type(
     # the rows to be inserted
-    objects: [node_types_insert_input!]!
+    objects: [node_type_insert_input!]!
 
     # on conflict condition
-    on_conflict: node_types_on_conflict
-  ): node_types_mutation_response
+    on_conflict: node_type_on_conflict
+  ): node_type_mutation_response
 
   # insert data into the table: "role"
   insert_role(
@@ -1424,14 +1424,14 @@ type mutation_root {
     where: node_revision_bool_exp!
   ): node_revision_mutation_response
 
-  # update data of the table: "node_types"
-  update_node_types(
+  # update data of the table: "node_type"
+  update_node_type(
     # sets the columns of the filtered rows to the given values
-    _set: node_types_set_input
+    _set: node_type_set_input
 
     # filter the rows which have to be updated
-    where: node_types_bool_exp!
-  ): node_types_mutation_response
+    where: node_type_bool_exp!
+  ): node_type_mutation_response
 
   # update data of the table: "role"
   update_role(
@@ -2200,115 +2200,115 @@ input node_sum_order_by {
   version: order_by
 }
 
-# columns and relationships of "node_types"
-type node_types {
+# columns and relationships of "node_type"
+type node_type {
   node_type: String!
 }
 
-# aggregated selection of "node_types"
-type node_types_aggregate {
-  aggregate: node_types_aggregate_fields
-  nodes: [node_types!]!
+# aggregated selection of "node_type"
+type node_type_aggregate {
+  aggregate: node_type_aggregate_fields
+  nodes: [node_type!]!
 }
 
-# aggregate fields of "node_types"
-type node_types_aggregate_fields {
-  count(columns: [node_types_select_column!], distinct: Boolean): Int
-  max: node_types_max_fields
-  min: node_types_min_fields
+# aggregate fields of "node_type"
+type node_type_aggregate_fields {
+  count(columns: [node_type_select_column!], distinct: Boolean): Int
+  max: node_type_max_fields
+  min: node_type_min_fields
 }
 
-# order by aggregate values of table "node_types"
-input node_types_aggregate_order_by {
+# order by aggregate values of table "node_type"
+input node_type_aggregate_order_by {
   count: order_by
-  max: node_types_max_order_by
-  min: node_types_min_order_by
+  max: node_type_max_order_by
+  min: node_type_min_order_by
 }
 
-# input type for inserting array relation for remote table "node_types"
-input node_types_arr_rel_insert_input {
-  data: [node_types_insert_input!]!
-  on_conflict: node_types_on_conflict
+# input type for inserting array relation for remote table "node_type"
+input node_type_arr_rel_insert_input {
+  data: [node_type_insert_input!]!
+  on_conflict: node_type_on_conflict
 }
 
-# Boolean expression to filter rows from the table "node_types". All fields are combined with a logical 'AND'.
-input node_types_bool_exp {
-  _and: [node_types_bool_exp]
-  _not: node_types_bool_exp
-  _or: [node_types_bool_exp]
+# Boolean expression to filter rows from the table "node_type". All fields are combined with a logical 'AND'.
+input node_type_bool_exp {
+  _and: [node_type_bool_exp]
+  _not: node_type_bool_exp
+  _or: [node_type_bool_exp]
   node_type: text_comparison_exp
 }
 
-# unique or primary key constraints on table "node_types"
-enum node_types_constraint {
+# unique or primary key constraints on table "node_type"
+enum node_type_constraint {
   # unique or primary key constraint
-  node_types_pkey
+  node_type_pkey
 }
 
-# input type for inserting data into table "node_types"
-input node_types_insert_input {
+# input type for inserting data into table "node_type"
+input node_type_insert_input {
   node_type: String
 }
 
 # aggregate max on columns
-type node_types_max_fields {
+type node_type_max_fields {
   node_type: String
 }
 
-# order by max() on columns of table "node_types"
-input node_types_max_order_by {
+# order by max() on columns of table "node_type"
+input node_type_max_order_by {
   node_type: order_by
 }
 
 # aggregate min on columns
-type node_types_min_fields {
+type node_type_min_fields {
   node_type: String
 }
 
-# order by min() on columns of table "node_types"
-input node_types_min_order_by {
+# order by min() on columns of table "node_type"
+input node_type_min_order_by {
   node_type: order_by
 }
 
-# response of any mutation on the table "node_types"
-type node_types_mutation_response {
+# response of any mutation on the table "node_type"
+type node_type_mutation_response {
   # number of affected rows by the mutation
   affected_rows: Int!
 
   # data of the affected rows by the mutation
-  returning: [node_types!]!
+  returning: [node_type!]!
 }
 
-# input type for inserting object relation for remote table "node_types"
-input node_types_obj_rel_insert_input {
-  data: node_types_insert_input!
-  on_conflict: node_types_on_conflict
+# input type for inserting object relation for remote table "node_type"
+input node_type_obj_rel_insert_input {
+  data: node_type_insert_input!
+  on_conflict: node_type_on_conflict
 }
 
-# on conflict condition type for table "node_types"
-input node_types_on_conflict {
-  constraint: node_types_constraint!
-  update_columns: [node_types_update_column!]!
+# on conflict condition type for table "node_type"
+input node_type_on_conflict {
+  constraint: node_type_constraint!
+  update_columns: [node_type_update_column!]!
 }
 
-# ordering options when selecting data from "node_types"
-input node_types_order_by {
+# ordering options when selecting data from "node_type"
+input node_type_order_by {
   node_type: order_by
 }
 
-# select columns of table "node_types"
-enum node_types_select_column {
+# select columns of table "node_type"
+enum node_type_select_column {
   # column name
   node_type
 }
 
-# input type for updating data in table "node_types"
-input node_types_set_input {
+# input type for updating data in table "node_type"
+input node_type_set_input {
   node_type: String
 }
 
-# update columns of table "node_types"
-enum node_types_update_column {
+# update columns of table "node_type"
+enum node_type_update_column {
   # column name
   node_type
 }
@@ -2513,9 +2513,6 @@ type query_root {
     where: language_bool_exp
   ): language_aggregate!
 
-  # fetch data from the table: "language" using primary key columns
-  language_by_pk(language: String!): language
-
   # fetch data from the table: "node"
   node(
     # distinct select on columns
@@ -2594,10 +2591,10 @@ type query_root {
   # fetch data from the table: "node_revision" using primary key columns
   node_revision_by_pk(id: uuid!, version: Int!): node_revision
 
-  # fetch data from the table: "node_types"
-  node_types(
+  # fetch data from the table: "node_type"
+  node_type(
     # distinct select on columns
-    distinct_on: [node_types_select_column!]
+    distinct_on: [node_type_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -2606,16 +2603,16 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [node_types_order_by!]
+    order_by: [node_type_order_by!]
 
     # filter the rows returned
-    where: node_types_bool_exp
-  ): [node_types!]!
+    where: node_type_bool_exp
+  ): [node_type!]!
 
-  # fetch aggregated fields from the table: "node_types"
-  node_types_aggregate(
+  # fetch aggregated fields from the table: "node_type"
+  node_type_aggregate(
     # distinct select on columns
-    distinct_on: [node_types_select_column!]
+    distinct_on: [node_type_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -2624,14 +2621,11 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [node_types_order_by!]
+    order_by: [node_type_order_by!]
 
     # filter the rows returned
-    where: node_types_bool_exp
-  ): node_types_aggregate!
-
-  # fetch data from the table: "node_types" using primary key columns
-  node_types_by_pk(node_type: String!): node_types
+    where: node_type_bool_exp
+  ): node_type_aggregate!
 
   # fetch data from the table: "role"
   role(
@@ -2668,9 +2662,6 @@ type query_root {
     # filter the rows returned
     where: role_bool_exp
   ): role_aggregate!
-
-  # fetch data from the table: "role" using primary key columns
-  role_by_pk(role: String!): role
 
   # execute function "search_ipa" which returns "ipa_pa"
   search_ipa(
@@ -3178,9 +3169,6 @@ type subscription_root {
     where: language_bool_exp
   ): language_aggregate!
 
-  # fetch data from the table: "language" using primary key columns
-  language_by_pk(language: String!): language
-
   # fetch data from the table: "node"
   node(
     # distinct select on columns
@@ -3259,10 +3247,10 @@ type subscription_root {
   # fetch data from the table: "node_revision" using primary key columns
   node_revision_by_pk(id: uuid!, version: Int!): node_revision
 
-  # fetch data from the table: "node_types"
-  node_types(
+  # fetch data from the table: "node_type"
+  node_type(
     # distinct select on columns
-    distinct_on: [node_types_select_column!]
+    distinct_on: [node_type_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3271,16 +3259,16 @@ type subscription_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [node_types_order_by!]
+    order_by: [node_type_order_by!]
 
     # filter the rows returned
-    where: node_types_bool_exp
-  ): [node_types!]!
+    where: node_type_bool_exp
+  ): [node_type!]!
 
-  # fetch aggregated fields from the table: "node_types"
-  node_types_aggregate(
+  # fetch aggregated fields from the table: "node_type"
+  node_type_aggregate(
     # distinct select on columns
-    distinct_on: [node_types_select_column!]
+    distinct_on: [node_type_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3289,14 +3277,11 @@ type subscription_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [node_types_order_by!]
+    order_by: [node_type_order_by!]
 
     # filter the rows returned
-    where: node_types_bool_exp
-  ): node_types_aggregate!
-
-  # fetch data from the table: "node_types" using primary key columns
-  node_types_by_pk(node_type: String!): node_types
+    where: node_type_bool_exp
+  ): node_type_aggregate!
 
   # fetch data from the table: "role"
   role(
@@ -3333,9 +3318,6 @@ type subscription_root {
     # filter the rows returned
     where: role_bool_exp
   ): role_aggregate!
-
-  # fetch data from the table: "role" using primary key columns
-  role_by_pk(role: String!): role
 
   # execute function "search_ipa" which returns "ipa_pa"
   search_ipa(

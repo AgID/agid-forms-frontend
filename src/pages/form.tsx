@@ -36,8 +36,13 @@ export const query = graphql`
             default
             description
             name
+            multiple
             title
             widget
+            options {
+              value
+              label
+            }
           }
         }
       }

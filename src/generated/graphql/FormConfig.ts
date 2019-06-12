@@ -27,13 +27,21 @@ export interface FormConfig_allConfigYaml {
   readonly edges: ReadonlyArray<FormConfig_allConfigYaml_edges>;
 }
 
+export interface FormConfig_allFormYaml_edges_node_form_fields_options {
+  readonly __typename: "FormYamlForm_fieldsOptions";
+  readonly value: string | null;
+  readonly label: string | null;
+}
+
 export interface FormConfig_allFormYaml_edges_node_form_fields {
   readonly __typename: "FormYamlForm_fields";
   readonly default: string | null;
   readonly description: string | null;
   readonly name: string | null;
+  readonly multiple: boolean | null;
   readonly title: string | null;
   readonly widget: string | null;
+  readonly options: ReadonlyArray<(FormConfig_allFormYaml_edges_node_form_fields_options | null)> | null;
 }
 
 export interface FormConfig_allFormYaml_edges_node {

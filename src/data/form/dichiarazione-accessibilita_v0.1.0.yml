@@ -7,24 +7,32 @@ form-fields:
     widget: text
     description: la mia descrizione eccola
     default: un valore di default
+  - name: select-item
+    title: secondo item
+    widget: select
+    description: la mia descrizione
+    multiple: false
+    options:
+      - label: prima opzione
+        value: primo valore
+      - label: seconda opzione
+        value: secondo valore
+      - label: terza opzione
+        value: terzo valore
   - name: terzo-item
     title: terzo item
     widget: text
     description: la mia descrizione eccola
     default: un altro valore di default
   - name: quarto-item
-    title: terzo item
+    title: quarto item
+    widget: text
+    description: la mia descrizione eccola
+  - name: quinto-item
+    title: quinto item
     widget: text
     description: la mia descrizione eccola
   - name: sesto-item
-    title: secondo item
-    widget: checkbox
-    description: la mia descrizione
-  - name: quinto-item
-    title: terzo item
-    widget: text
-    description: la mia descrizione eccola
-  - name: secondo-item
-    title: secondo item
+    title: sesto item
     widget: checkbox
     description: la mia descrizione
