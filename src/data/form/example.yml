@@ -1,0 +1,47 @@
+id: example-form
+enabled: true
+name: form di esempio
+language: it
+version: 0.1.0
+form-fields:
+  - name: terzo-item
+    title: valore computato
+    widget: text
+    description: potenza di 2
+    default: un altro valore di default
+    computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
+  - name: quarto-item
+    title: quarto item
+    widget: text
+    description: la mia descrizione eccola
+  - name: quinto-item
+    title: quinto item
+    widget: text
+    description: la mia descrizione eccola
+  - name: select-item
+    title: quinto item
+    widget: select
+    description: la mia descrizione eccola
+    multiple: false
+    options:
+      - label: prima opzione
+        value: primo valore
+      - label: seconda opzione
+        value: secondo valore
+  - name: sesto-item
+    title: sesto item
+    widget: checkbox
+    description: la mia descrizione
+  - name: settimo-item
+    title: email
+    widget: text
+    description: deve essere un indirizzo email
+    show_if: this["sesto-item"]
+    valid_if: value == "" || RegExp("^.+@[^.]+\\..+$").test(value)
+    error_msg: il campo deve avere un formato corretto per l'email
+  - name: ottavo-item
+    title: email
+    widget: text
+    description: anche questo deve essere un indirizzo email
+    show_if: this["sesto-item"]
+    valid_if: Yup.string().email('formato email non valido').validate(value)

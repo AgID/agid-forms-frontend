@@ -2,6 +2,8 @@ import * as React from "react";
 import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
+import { Link } from "gatsby";
+
 import {
   FormConfig,
   FormConfig_allFormYaml_edges_node_form_fields
@@ -20,12 +22,10 @@ const getViewfield = (
   value: string
 ) => {
   return (
-    <p key={cur.name!}>
-      {cur.title}:{" "}
-      {value !== "" && value !== undefined && value !== null
-        ? value.toString()
-        : ""}
-    </p>
+    <tr key={cur.name!} className="mb-4">
+      <th scope="row">{cur.title}</th>
+      <td>{value || (cur.widget === "checkbox" ? "0" : "")}</td>
+    </tr>
   );
 };
 
@@ -80,8 +80,6 @@ const ViewTemplate = ({
             if (!forms || !forms[0] || !forms[0].node) {
               return <p>Form non trovato</p>;
             }
-            // tslint:disable-next-line: no-console
-            console.log("values", getNodeResult.node[0]);
             const form = forms[0].node;
             if (!form.form_fields) {
               return <p>Form vuoto.</p>;
@@ -90,9 +88,19 @@ const ViewTemplate = ({
               <>
                 <h1>{getNodeResult.node[0].title}</h1>
                 <div className="mb-4">
-                  <small>{getNodeResult.node[0].id}</small>
+                  <small>
+                    <Link
+                      to={`/form/${getNodeResult.node[0].content.schema.id}/${getNodeResult.node[0].id}`}
+                    >
+                      {getNodeResult.node[0].id}
+                    </Link>
+                  </small>
                 </div>
-                {renderViewFields(form.form_fields, getNodeResult.node[0])}
+                <table className="table table-hover table-bordered table-striped">
+                  <tbody>
+                    {renderViewFields(form.form_fields, getNodeResult.node[0])}
+                  </tbody>
+                </table>
               </>
             );
           }

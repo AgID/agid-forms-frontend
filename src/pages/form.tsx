@@ -14,6 +14,14 @@ import FormTemplate from "./forms/form-template";
 const Form = ({ data }: { data: FormConfig }) => (
   <Router>
     <RouterPage
+      pageComponent={(
+        props: RouteComponentProps<{ formId: string; nodeId: string }>
+      ) => (
+        <FormTemplate data={data} formId={props.formId} nodeId={props.nodeId} />
+      )}
+      path="/form/:formId/:nodeId"
+    />
+    <RouterPage
       pageComponent={(props: RouteComponentProps<{ formId: string }>) => (
         <FormTemplate data={data} formId={props.formId} />
       )}
@@ -32,6 +40,8 @@ export const query = graphql`
         node {
           id
           version
+          language
+          enabled
           form_fields {
             default
             description

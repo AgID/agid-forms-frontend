@@ -9,7 +9,7 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.1.1 Contenuti non testuali (livello AA)
-    default: true
+    default: "1"
   - name: 111-note
     title: Nota
     widget: text
@@ -20,7 +20,7 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.2.1 Solo audio e solo video (preregistrati)
-    default: true
+    default: "1"
   - name: 121-note
     title: Nota
     widget: text
@@ -31,7 +31,7 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.2.2 Sottotitoli (preregistrati)
-    default: true
+    default: "1"
   - name: 122-note
     title: Nota
     widget: text
@@ -42,7 +42,7 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato)
-    default: true
+    default: "1"
   - name: 123-note
     title: Nota
     widget: text
@@ -53,7 +53,7 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.2.4 Sottotitoli (in tempo reale)
-    default: true
+    default: "1"
   - name: 124-note
     title: Nota
     widget: text
@@ -64,52 +64,8 @@ form-fields:
     description: >
       Norma EN 301 549, criterio:
       9.1.2.5 Audiodescrizione (preregistrata)
-    default: true
+    default: "1"
   - name: 125-note
     title: Nota
     widget: text
     show_if: "!this[125]"
-#
-# ___EXAMPLE__
-#
-  - name: terzo-item
-    title: valore computato
-    widget: text
-    description: potenza di 2
-    default: un altro valore di default
-    computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
-  - name: quarto-item
-    title: quarto item
-    widget: text
-    description: la mia descrizione eccola
-  - name: quinto-item
-    title: quinto item
-    widget: text
-    description: la mia descrizione eccola
-  - name: select-item
-    title: quinto item
-    widget: select
-    description: la mia descrizione eccola
-    multiple: false
-    options:
-      - label: prima opzione
-        value: primo valore
-      - label: seconda opzione
-        value: secondo valore
-  - name: sesto-item
-    title: sesto item
-    widget: checkbox
-    description: la mia descrizione
-  - name: settimo-item
-    title: email
-    widget: text
-    description: deve essere un indirizzo email
-    show_if: this["sesto-item"]
-    valid_if: value == "" || RegExp("^.+@[^.]+\\..+$").test(value)
-    error_msg: il campo deve avere un formato corretto per l'email
-  - name: ottavo-item
-    title: email
-    widget: text
-    description: anche questo deve essere un indirizzo email
-    show_if: this["sesto-item"]
-    valid_if: Yup.string().email('formato email non valido').required('il campo è obbligatorio').validate(value)

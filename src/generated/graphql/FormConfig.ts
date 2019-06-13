@@ -52,6 +52,8 @@ export interface FormConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
   readonly version: string | null;
+  readonly language: string | null;
+  readonly enabled: boolean | null;
   readonly form_fields: ReadonlyArray<(FormConfig_allFormYaml_edges_node_form_fields | null)> | null;
 }
 
