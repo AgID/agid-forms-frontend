@@ -1,24 +1,77 @@
 id: dichiarazione-accessibilita
 name: dichiarazione di accessibilità
+language: it
 version: 0.1.0
 form-fields:
-  - name: primo-item
-    title: primo item
+  - name: "111"
+    widget: checkbox
+    title: 1.1.1 Contenuti non testuali (livello A)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.1.1 Contenuti non testuali (livello AA)
+    default: true
+  - name: 111-note
+    title: Nota
     widget: text
-    description: la mia descrizione eccola
-    default: un valore di default
-  - name: select-item
-    title: secondo item
-    widget: select
-    description: la mia descrizione
-    multiple: false
-    options:
-      - label: prima opzione
-        value: primo valore
-      - label: seconda opzione
-        value: secondo valore
-      - label: terza opzione
-        value: terzo valore
+    show_if: "!this[111]"
+  - name: "121"
+    widget: checkbox
+    title: 1.2.1 Solo audio e solo video (preregistrati) (Level A)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.2.1 Solo audio e solo video (preregistrati)
+    default: true
+  - name: 121-note
+    title: Nota
+    widget: text
+    show_if: "!this[121]"
+  - name: "122"
+    widget: checkbox
+    title: 1.2.2 Sottotitoli (preregistrati) (livello A)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.2.2 Sottotitoli (preregistrati)
+    default: true
+  - name: 122-note
+    title: Nota
+    widget: text
+    show_if: "!this[122]"
+  - name: "123"
+    widget: checkbox
+    title: 1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato) (livello A)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato)
+    default: true
+  - name: 123-note
+    title: Nota
+    widget: text
+    show_if: "!this[123]"
+  - name: "124"
+    widget: checkbox
+    title: 1.2.4 Sottotitoli (in tempo reale) (Level AA)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.2.4 Sottotitoli (in tempo reale)
+    default: true
+  - name: 124-note
+    title: Nota
+    widget: text
+    show_if: "!this[124]"
+  - name: "125"
+    widget: checkbox
+    title: 1.2.5 Audiodescrizione (preregistrata) (Level AA)
+    description: >
+      Norma EN 301 549, criterio:
+      9.1.2.5 Audiodescrizione (preregistrata)
+    default: true
+  - name: 125-note
+    title: Nota
+    widget: text
+    show_if: "!this[125]"
+#
+# ___EXAMPLE__
+#
   - name: terzo-item
     title: valore computato
     widget: text
@@ -33,6 +86,16 @@ form-fields:
     title: quinto item
     widget: text
     description: la mia descrizione eccola
+  - name: select-item
+    title: quinto item
+    widget: select
+    description: la mia descrizione eccola
+    multiple: false
+    options:
+      - label: prima opzione
+        value: primo valore
+      - label: seconda opzione
+        value: secondo valore
   - name: sesto-item
     title: sesto item
     widget: checkbox

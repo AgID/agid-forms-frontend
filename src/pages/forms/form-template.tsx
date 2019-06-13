@@ -83,7 +83,7 @@ const getFormfield = (
         <FormGroup
           check={true}
           key={cur.name!}
-          className="mb-5"
+          className="mb-3"
           hidden={hidden}
         >
           <Label
@@ -121,7 +121,7 @@ const getFormfield = (
                             : e.toString())
                       )
                 : // TODO: validate required field
-                  () => null
+                  () => Promise.resolve(null)
             }
             value={
               valueExpression
@@ -147,7 +147,7 @@ const getFormfield = (
         <FormGroup
           check={true}
           key={cur.name!}
-          className="mb-5"
+          className="mb-3"
           hidden={hidden}
         >
           <Field
@@ -182,7 +182,7 @@ const getFormfield = (
         <FormGroup
           check={true}
           key={cur.name!}
-          className="mb-5"
+          className="mb-3"
           hidden={hidden}
         >
           <Label
@@ -301,9 +301,9 @@ const FormTemplate = ({
                           version: form.version
                         }
                       },
-                      language: "it",
-                      title: "dichiarazione accessibilita",
-                      type: "dichiarazione_accessibilita"
+                      language: form.language,
+                      title: form.id,
+                      type: form.id
                     }
                   }
                 });
@@ -321,9 +321,22 @@ const FormTemplate = ({
                   {!fmk.isValid && Object.keys(fmk.touched).length > 0 && (
                     <div className="mt-3 alert alert-warning">
                       <small className="text-warning text-sans-serif">
-                        assicurati di aver corretto tutti gli errori prima di
-                        salvare il modulo
+                        assicurati di aver corretto tutti gli errori ed aver
+                        compilato tutti i campi obbligatori prima di salvare il
+                        modulo
                       </small>
+                      <div className="mt-3">
+                        {Object.keys(fmk.errors).map(k => (
+                          <small key={k} className="text-warning">
+                            {
+                              form.form_fields!.filter(
+                                field => field!.name === k
+                              )[0]!.title
+                            }
+                            : {fmk.errors[k]}
+                          </small>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </Form>
