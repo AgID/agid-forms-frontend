@@ -4,14 +4,14 @@ import { graphql } from "gatsby";
 import * as React from "react";
 
 import RouterPage from "../components/RouterPage";
-import { FormConfig } from "../generated/graphql/FormConfig";
 
 // @ts-ignore
 import { PageConfigFragment } from "../graphql/gatsby_fragments";
 
+import { ViewConfig } from "../generated/graphql/ViewConfig";
 import ViewTemplate from "./forms/view-template";
 
-const View = ({ data }: { data: FormConfig }) => (
+const View = ({ data }: { data: ViewConfig }) => (
   <Router>
     <RouterPage
       pageComponent={(props: RouteComponentProps<{ uuid: string }>) => (

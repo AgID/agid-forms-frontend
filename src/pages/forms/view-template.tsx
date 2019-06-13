@@ -5,9 +5,9 @@ import SEO from "../../components/Seo";
 import { Link } from "gatsby";
 
 import {
-  FormConfig,
-  FormConfig_allFormYaml_edges_node_form_fields
-} from "../../generated/graphql/FormConfig";
+  ViewConfig,
+  ViewConfig_allFormYaml_edges_node_form_fields
+} from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
 import {
@@ -18,7 +18,7 @@ import {
 import { GET_NODE } from "../../graphql/hasura_queries";
 
 const getViewfield = (
-  cur: FormConfig_allFormYaml_edges_node_form_fields,
+  cur: ViewConfig_allFormYaml_edges_node_form_fields,
   value: string
 ) => {
   return (
@@ -30,7 +30,7 @@ const getViewfield = (
 };
 
 const renderViewFields = (
-  customPageFields: ReadonlyArray<FormConfig_allFormYaml_edges_node_form_fields | null> | null,
+  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_form_fields | null> | null,
   node: GetNode_node
 ): readonly JSX.Element[] =>
   customPageFields
@@ -47,7 +47,7 @@ const ViewTemplate = ({
   data,
   uuid
 }: {
-  data: FormConfig;
+  data: ViewConfig;
   formId?: string;
   uuid: string;
 }) => {
