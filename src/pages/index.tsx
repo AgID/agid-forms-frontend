@@ -110,7 +110,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
             }
           >
             {ipaData && ipaData.ipa_pa[0]
-              ? `Invia l'email`
+              ? "Invia l'email"
               : "Scegli prima un'amministrazione"}
           </Button>
           {ipaData && ipaData.ipa_pa[0] && (
@@ -289,18 +289,19 @@ const LoginButtonConnectedComponent = ({
     ) => {
       if (mutationLoading) {
         return "loading...";
-      } else if (mutationError) {
-        return "error...";
       } else if (getTokensData) {
         storeTokens(getTokensData);
       }
       return (
-        <LoginButtonComponent
-          getTokens={getTokens}
-          secret={secret}
-          selectedPa={selectedPa}
-          setSecret={setSecret}
-        />
+        <>
+          {mutationError && <p className="text-danger">password errata</p>}
+          <LoginButtonComponent
+            getTokens={getTokens}
+            secret={secret}
+            selectedPa={selectedPa}
+            setSecret={setSecret}
+          />
+        </>
       );
     }}
   </Mutation>
@@ -316,6 +317,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
     localStorage.getItem("graphql_token")
   ) {
     navigate("/actions");
+    return <></>;
   }
 
   return (

@@ -18,6 +18,7 @@ const PrivateRoute = function<T>({
   if (!isLoggedIn() && location && location.pathname !== `/`) {
     // If we’re not logged in, redirect to the home page.
     navigate(`/`);
+    return <></>;
   }
   return (Component as any)(rest);
 };

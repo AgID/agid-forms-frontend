@@ -4,24 +4,35 @@ name: form di esempio
 language: it
 version: 0.1.0
 form-fields:
+  # - name: quinto-item-x
+  #   title: potenze di 3
+  #   widget: text
+  #   description: computa la potenza di 3
+  # - name: terzo-item-x
+  #   title: valore computato
+  #   widget: text
+  #   description: potenza di 3
+  #   default: questo campo ha un valore di default
+  #   computed_value: "Math.pow(3, this[\"quinto-item-x\"] / 1)"
+  #   show_if: this["quinto-item-x"] > 4
+  - name: quinto-item
+    title: potenze di 2
+    widget: text
+    description: computa la potenza di 2
   - name: terzo-item
     title: valore computato
     widget: text
     description: potenza di 2
-    default: un altro valore di default
+    default: questo campo ha un valore di default
     computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
   - name: quarto-item
     title: quarto item
     widget: text
-    description: la mia descrizione eccola
-  - name: quinto-item
-    title: quinto item
-    widget: text
-    description: la mia descrizione eccola
+    description: la mia descrizione del quarto item
   - name: select-item
-    title: quinto item
+    title: select item
     widget: select
-    description: la mia descrizione eccola
+    description: la mia descrizione della select
     multiple: false
     options:
       - label: prima opzione
@@ -31,7 +42,7 @@ form-fields:
   - name: sesto-item
     title: sesto item
     widget: checkbox
-    description: la mia descrizione
+    description: la mia descrizione del sesto item
   - name: settimo-item
     title: email
     widget: text
