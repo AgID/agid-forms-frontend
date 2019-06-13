@@ -20,10 +20,11 @@ form-fields:
       - label: terza opzione
         value: terzo valore
   - name: terzo-item
-    title: terzo item
+    title: valore computato
     widget: text
-    description: la mia descrizione eccola
+    description: potenza di 2
     default: un altro valore di default
+    computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
   - name: quarto-item
     title: quarto item
     widget: text
@@ -36,3 +37,16 @@ form-fields:
     title: sesto item
     widget: checkbox
     description: la mia descrizione
+  - name: settimo-item
+    title: email
+    widget: text
+    description: deve essere un indirizzo email
+    show_if: this["sesto-item"]
+    valid_if: value == "" || RegExp("^.+@[^.]+\\..+$").test(value)
+    error_msg: il campo deve avere un formato corretto per l'email
+  - name: ottavo-item
+    title: email
+    widget: text
+    description: anche questo deve essere un indirizzo email
+    show_if: this["sesto-item"]
+    valid_if: Yup.string().email('formato email non valido').required('il campo è obbligatorio').validate(value)

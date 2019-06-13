@@ -2,6 +2,10 @@ import * as React from "react";
 import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
+import * as parser from "expression-eval";
+import { navigate } from "gatsby";
+import * as Yup from "yup";
+
 import {
   FormConfig,
   FormConfig_allFormYaml_edges_node_form_fields
@@ -25,6 +29,10 @@ import {
 import { Mutation } from "react-apollo";
 import { UPSERT_NODE } from "../../graphql/hasura_queries";
 
+const SHOW_IF_EXPRESSION_CACHE: Record<string, any> = {};
+const COMPUTED_VALUES_EXPRESSION_CACHE: Record<string, any> = {};
+const VALIDATION_EXPRESSION_CACHE: Record<string, any> = {};
+
 const FIELD_DEFAULTS: Record<string, any> = {
   text: "",
   checkbox: false
@@ -47,31 +55,101 @@ const getFormfield = (
   cur: FormConfig_allFormYaml_edges_node_form_fields,
   fmk: FormikProps<MyFormValues>
 ) => {
+  const showIfExpression =
+    cur.show_if && cur.name
+      ? SHOW_IF_EXPRESSION_CACHE[cur.name] ||
+        // tslint:disable-next-line: no-object-mutation
+        (SHOW_IF_EXPRESSION_CACHE[cur.name] = parser.compile(cur.show_if))
+      : null;
+  const valueExpression =
+    cur.computed_value && cur.name
+      ? COMPUTED_VALUES_EXPRESSION_CACHE[cur.name] ||
+        // tslint:disable-next-line: no-object-mutation
+        (COMPUTED_VALUES_EXPRESSION_CACHE[cur.name] = parser.compile(
+          cur.computed_value
+        ))
+      : null;
+  const validationExpression =
+    cur.valid_if && cur.name
+      ? VALIDATION_EXPRESSION_CACHE[cur.name] ||
+        // tslint:disable-next-line: no-object-mutation
+        (VALIDATION_EXPRESSION_CACHE[cur.name] = parser.compile(cur.valid_if))
+      : null;
+
+  const hidden = cur.show_if ? !showIfExpression(fmk.values) : false;
   switch (cur.widget) {
     case "text":
       return (
-        <FormGroup check={true} key={cur.name!} className="mb-5">
-          <Label htmlFor={cur.name!} check={true}>
+        <FormGroup
+          check={true}
+          key={cur.name!}
+          className="mb-5"
+          hidden={hidden}
+        >
+          <Label
+            htmlFor={cur.name!}
+            check={true}
+            className="font-weight-semibold"
+          >
             {cur.title}
           </Label>
-          {cur.description && (
-            <p className="mb-0 small neutral-1-color-a5">{cur.description}</p>
-          )}
           <Field
             name={cur.name}
             type="text"
             component={CustomInputComponent}
             className="pl-0"
+            validate={
+              validationExpression
+                ? (value: any) =>
+                    Promise.resolve()
+                      .then(() =>
+                        validationExpression({
+                          Yup,
+                          RegExp,
+                          value,
+                          ...fmk.values
+                        })
+                      )
+                      .then(validationResult =>
+                        validationResult === false ? cur.error_msg : null
+                      )
+                      .catch(
+                        e =>
+                          cur.error_msg ||
+                          (e.errors && e.errors.join
+                            ? e.errors.join(", ")
+                            : e.toString())
+                      )
+                : // TODO: validate required field
+                  () => null
+            }
+            value={
+              valueExpression
+                ? // tslint:disable-next-line: restrict-plus-operands
+                  valueExpression({ Math, ...fmk.values }) + ""
+                : fmk.values[cur.name!]
+            }
           />
-          <ErrorMessage name={cur.name!} component="p" />
+          <ErrorMessage
+            name={cur.name!}
+            component="div"
+            className="alert alert-warning text-warning"
+          />
+          {cur.description && (
+            <small className="mb-0 form-text text-muted">
+              {cur.description}
+            </small>
+          )}
         </FormGroup>
       );
     case "checkbox":
       return (
-        <FormGroup check={true} key={cur.name!} className="mb-5">
-          {cur.description && (
-            <p className="mb-0 small neutral-1-color-a5y">{cur.description}</p>
-          )}
+        <FormGroup
+          check={true}
+          key={cur.name!}
+          className="mb-5"
+          hidden={hidden}
+        >
           <Field
             name={cur.name}
             type="checkbox"
@@ -81,25 +159,39 @@ const getFormfield = (
             htmlFor={cur.name!}
             check={true}
             onClick={() => {
-              // tslint:disable-next-line: no-console
-              console.log(cur.name, fmk.values);
               fmk.setFieldValue(cur.name!, !fmk.values[cur.name!]);
             }}
+            className="font-weight-semibold"
           >
             {cur.title}
           </Label>
-          <ErrorMessage name={cur.name!} component="p" />
+          <ErrorMessage
+            name={cur.name!}
+            component="div"
+            className="alert alert-warning text-warning"
+          />
+          {cur.description && (
+            <small className="mb-0 form-text text-muted">
+              {cur.description}
+            </small>
+          )}
         </FormGroup>
       );
     case "select":
       return (
-        <FormGroup check={true} key={cur.name!} className="mb-5">
-          <Label htmlFor={cur.name!} check={true}>
+        <FormGroup
+          check={true}
+          key={cur.name!}
+          className="mb-5"
+          hidden={hidden}
+        >
+          <Label
+            htmlFor={cur.name!}
+            check={true}
+            className="font-weight-semibold mb-2"
+          >
             {cur.title}
           </Label>
-          {cur.description && (
-            <p className="mb-0 small neutral-1-color-a5">{cur.description}</p>
-          )}
           <Field
             name={cur.name}
             type="select"
@@ -107,13 +199,24 @@ const getFormfield = (
             component={CustomInputComponent}
             className="pl-0"
           >
-            {cur.options!.map(({ value, label }) => (
-              <option key={value} value={value}>
-                {label}
-              </option>
-            ))}
+            {cur.options!.map(option =>
+              option && option.value && option.label ? (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ) : null
+            )}
           </Field>
-          <ErrorMessage name={cur.name!} component="p" />
+          <ErrorMessage
+            name={cur.name!}
+            component="div"
+            className="alert alert-warning text-warning"
+          />
+          {cur.description && (
+            <small className="mb-0 form-text text-muted">
+              {cur.description}
+            </small>
+          )}
         </FormGroup>
       );
     default:
@@ -177,8 +280,8 @@ const FormTemplate = ({
               <p>Errore nell'invio dei dati: {JSON.stringify(error)}...</p>
             );
           }
-          if (upsertNodeResult) {
-            return <p>Risultato: {JSON.stringify(upsertNodeResult)}...</p>;
+          if (upsertNodeResult && upsertNodeResult.insert_node) {
+            navigate(`/view/${upsertNodeResult.insert_node.returning[0].id}`);
           }
           return (
             <Formik
@@ -208,9 +311,20 @@ const FormTemplate = ({
               render={(fmk: FormikProps<MyFormValues>) => (
                 <Form>
                   {renderFormFields(form.form_fields, fmk)}
-                  <Button type="submit" disabled={fmk.isSubmitting}>
+                  <Button
+                    type="submit"
+                    disabled={fmk.isSubmitting || !fmk.isValid}
+                  >
                     Salva bozza
                   </Button>
+                  {!fmk.isValid && Object.keys(fmk.touched).length > 0 && (
+                    <div className="mt-3 alert alert-warning">
+                      <small className="text-warning text-sans-serif">
+                        assicurati di aver corretto tutti gli errori prima di
+                        salvare il modulo
+                      </small>
+                    </div>
+                  )}
                 </Form>
               )}
             />

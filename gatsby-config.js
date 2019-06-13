@@ -77,6 +77,13 @@ module.exports = {
       options: {
         dest: `${__dirname}/gatsby-schema.json`
       }
+    },
+    {
+      resolve: "gatsby-plugin-webpack-bundle-analyzer",
+      options: {
+        analyzerPort: 3000,
+        production: true
+      }
     }
   ]
 };

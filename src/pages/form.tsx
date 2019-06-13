@@ -39,6 +39,10 @@ export const query = graphql`
             multiple
             title
             widget
+            show_if
+            valid_if
+            error_msg
+            computed_value
             options {
               value
               label

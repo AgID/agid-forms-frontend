@@ -41,6 +41,10 @@ export interface FormConfig_allFormYaml_edges_node_form_fields {
   readonly multiple: boolean | null;
   readonly title: string | null;
   readonly widget: string | null;
+  readonly show_if: string | null;
+  readonly valid_if: string | null;
+  readonly error_msg: string | null;
+  readonly computed_value: string | null;
   readonly options: ReadonlyArray<(FormConfig_allFormYaml_edges_node_form_fields_options | null)> | null;
 }
 
