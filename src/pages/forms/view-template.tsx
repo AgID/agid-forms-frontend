@@ -55,7 +55,6 @@ const ViewTemplate = ({
   return (
     <Layout menu={menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
-      <h1>View {uuid}</h1>
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
         variables={{
@@ -87,7 +86,15 @@ const ViewTemplate = ({
             if (!form.form_fields) {
               return <p>Form vuoto.</p>;
             }
-            return renderViewFields(form.form_fields, getNodeResult.node[0]);
+            return (
+              <>
+                <h1>{getNodeResult.node[0].title}</h1>
+                <div className="mb-4">
+                  <small>{getNodeResult.node[0].id}</small>
+                </div>
+                {renderViewFields(form.form_fields, getNodeResult.node[0])}
+              </>
+            );
           }
           return <></>;
         }}

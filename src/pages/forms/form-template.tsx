@@ -269,7 +269,7 @@ const FormTemplate = ({
   return (
     <Layout menu={menu}>
       <SEO title="Home" meta={[]} keywords={[]} />
-      <h1>Form {formId}</h1>
+      <h1 className="mb-4">Form {formId}</h1>
       <Mutation<UpsertNode, UpsertNodeVariables> mutation={UPSERT_NODE}>
         {(upsertNode, { loading, error, data: upsertNodeResult }) => {
           if (loading) {
@@ -286,6 +286,7 @@ const FormTemplate = ({
           return (
             <Formik
               initialValues={initialValues}
+              validateOnChange={true}
               onSubmit={async (
                 values: MyFormValues,
                 actions: FormikActions<MyFormValues>
