@@ -397,14 +397,16 @@ const FormTemplate = ({
                               </small>
                               <div className="mt-3">
                                 {Object.keys(fmk.errors).map(k => (
-                                  <small key={k} className="text-warning">
-                                    {
-                                      form.form_fields!.filter(
-                                        field => field!.name === k
-                                      )[0]!.title
-                                    }
-                                    : {fmk.errors[k]}
-                                  </small>
+                                  <div key={k}>
+                                    <small className="text-warning">
+                                      {
+                                        form.form_fields!.filter(
+                                          field => field!.name === k
+                                        )[0]!.title
+                                      }
+                                      : {fmk.errors[k]}
+                                    </small>
+                                  </div>
                                 ))}
                               </div>
                             </div>
