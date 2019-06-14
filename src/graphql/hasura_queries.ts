@@ -77,3 +77,19 @@ export const GET_NODE = gql`
     }
   }
 `;
+
+// (where: { user_id: { _eq: $userId } })
+export const GET_USER_NODES = gql`
+  query GetUserNodes {
+    node {
+      id
+      created_at
+      updated_at
+      title
+      language
+      status
+      version
+      type
+    }
+  }
+`;
