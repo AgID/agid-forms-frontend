@@ -3,7 +3,9 @@ enabled: true
 name: form di esempio
 language: it
 version: 0.1.0
-form-fields:
+slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
+title_pattern: title
+form_fields:
   # - name: quinto-item-x
   #   title: potenze di 3
   #   widget: text
@@ -19,6 +21,7 @@ form-fields:
     title: potenze di 2
     widget: text
     description: computa la potenza di 2
+    valid_if: Yup.number().positive().min(0).max(10).validate(value)
   - name: terzo-item
     title: valore computato
     widget: text
@@ -28,12 +31,14 @@ form-fields:
   - name: quarto-item
     title: quarto item
     widget: text
-    description: la mia descrizione del quarto item
+    description: richiesto se il primo valore è maggiore di 4
+    required_if: this["quinto-item"] > 4
   - name: select-item
     title: select item
     widget: select
     description: la mia descrizione della select
     multiple: false
+    required_if: "true"
     options:
       - label: prima opzione
         value: primo valore

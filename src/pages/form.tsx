@@ -51,6 +51,7 @@ export const query = graphql`
             widget
             show_if
             valid_if
+            required_if
             error_msg
             computed_value
             options {

@@ -33,6 +33,7 @@ import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
 const SHOW_IF_EXPRESSION_CACHE: Record<string, any> = {};
 const COMPUTED_VALUES_EXPRESSION_CACHE: Record<string, any> = {};
 const VALIDATION_EXPRESSION_CACHE: Record<string, any> = {};
+const REQUIRED_EXPRESSION_CACHE: Record<string, any> = {};
 
 const FIELD_DEFAULTS: Record<string, any> = {
   text: "",
@@ -76,8 +77,18 @@ const getFormfield = (
         // tslint:disable-next-line: no-object-mutation
         (VALIDATION_EXPRESSION_CACHE[cur.name] = parser.compile(cur.valid_if))
       : null;
+  const requiredExpression =
+    cur.required_if && cur.name
+      ? REQUIRED_EXPRESSION_CACHE[cur.name] ||
+        // tslint:disable-next-line: no-object-mutation
+        (REQUIRED_EXPRESSION_CACHE[cur.name] = parser.compile(cur.required_if))
+      : null;
 
-  const hidden = cur.show_if ? !showIfExpression(fmk.values) : false;
+  const isHidden = cur.show_if ? !showIfExpression(fmk.values) : false;
+  const isRequired = cur.required_if
+    ? requiredExpression({ Math, ...fmk.values })
+    : false;
+
   switch (cur.widget) {
     case "text":
       return (
@@ -85,32 +96,44 @@ const getFormfield = (
           check={true}
           key={cur.name!}
           className="mb-3"
-          hidden={hidden}
+          hidden={isHidden}
         >
           <Label
             htmlFor={cur.name!}
             check={true}
             className="font-weight-semibold"
           >
-            {cur.title}
+            {cur.title} {isRequired && "(richiesto)"}
           </Label>
           <Field
             name={cur.name}
             type="text"
+            required={isRequired}
             component={CustomInputComponent}
             className="pl-0"
             validate={
-              validationExpression
+              isRequired || validationExpression
                 ? (value: any) =>
                     Promise.resolve()
-                      .then(() =>
-                        validationExpression({
-                          Yup,
-                          RegExp,
-                          value,
-                          ...fmk.values
-                        })
-                      )
+                      .then(() => {
+                        if (
+                          isRequired &&
+                          (value === undefined ||
+                            value === null ||
+                            value === "")
+                        ) {
+                          // tslint:disable-next-line: no-string-throw
+                          throw "Campo richiesto";
+                        }
+                        return validationExpression
+                          ? validationExpression({
+                              Yup,
+                              RegExp,
+                              value,
+                              ...fmk.values
+                            })
+                          : true;
+                      })
                       .then(validationResult =>
                         validationResult === false ? cur.error_msg : null
                       )
@@ -121,8 +144,7 @@ const getFormfield = (
                             ? e.errors.join(", ")
                             : e.toString())
                       )
-                : // TODO: validate required field
-                  () => Promise.resolve(null)
+                : () => Promise.resolve(null)
             }
             value={
               valueExpression
@@ -149,7 +171,7 @@ const getFormfield = (
           check={true}
           key={cur.name!}
           className="mb-3"
-          hidden={hidden}
+          hidden={isHidden}
         >
           <Field
             name={cur.name}
@@ -184,7 +206,7 @@ const getFormfield = (
           check={true}
           key={cur.name!}
           className="mb-3"
-          hidden={hidden}
+          hidden={isHidden}
         >
           <Label
             htmlFor={cur.name!}

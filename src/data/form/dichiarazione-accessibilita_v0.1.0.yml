@@ -2,7 +2,15 @@ id: dichiarazione-accessibilita
 name: dichiarazione di accessibilità
 language: it
 version: 0.1.0
-form-fields:
+slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
+title_pattern: title
+form_fields:
+  - name: "title"
+    widget: text
+    title: Sito web
+    description: indirizzo del sito web, es. http://www.example.com
+    valid_if: Yup.string().url().required().validate(value)
+    required_if: "true"
   - name: "111"
     widget: checkbox
     title: 1.1.1 Contenuti non testuali (livello A)
