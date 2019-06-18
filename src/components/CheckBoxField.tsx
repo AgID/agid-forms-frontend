@@ -9,7 +9,7 @@ import {
   FormValuesT,
   isEmptyField,
   validateField
-} from "./DefaultFormField";
+} from "./FormField";
 
 export const CheckboxField = ({
   field,

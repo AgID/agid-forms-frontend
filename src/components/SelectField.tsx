@@ -1,14 +1,34 @@
 import * as React from "react";
 
-import { ErrorMessage, Field, FormikProps } from "formik";
+import { ErrorMessage, Field, FieldAttributes, FormikProps } from "formik";
 import { FormGroup, Label } from "reactstrap";
 
-import {
-  CustomInputComponent,
-  FieldT,
-  FormValuesT,
-  validateField
-} from "./DefaultFormField";
+import SelectBase from "react-select";
+import { FieldT, FormValuesT, validateField } from "./FormField";
+
+export const CustomSelectComponent = ({
+  field,
+  form,
+  options,
+  ...props
+}: {
+  field: FieldAttributes<any>;
+  form: FormikProps<FormValuesT>;
+  options: ReadonlyArray<{ value: string; label: string }>;
+}) => {
+  const value = options
+    ? options.find(option => option.value === field.value)
+    : "";
+  return (
+    <SelectBase
+      {...field}
+      {...props}
+      value={value}
+      options={options}
+      onChange={(option: any) => form.setFieldValue(field.name, option.value)}
+    />
+  );
+};
 
 export const SelectField = ({
   field,
@@ -24,6 +44,7 @@ export const SelectField = ({
   isRequired: boolean;
   validationExpression: any;
   valueExpression: any;
+  options: Record<string, string>;
 }) => {
   return (
     <FormGroup
@@ -46,7 +67,7 @@ export const SelectField = ({
         name={field.name}
         type="select"
         checked={form.values[field.name!]}
-        component={CustomInputComponent}
+        component={CustomSelectComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
@@ -57,15 +78,8 @@ export const SelectField = ({
               valueExpression({ Math, ...form.values }).toString()
             : form.values[field.name!]
         }
-      >
-        {field.options!.map(option =>
-          option && option.value && option.label ? (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ) : null
-        )}
-      </Field>
+        options={field.options}
+      />
       <ErrorMessage
         name={field.name!}
         component="div"
