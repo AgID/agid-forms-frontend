@@ -30,10 +30,17 @@ import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
 
-const SHOW_IF_EXPRESSION_CACHE: Record<string, any> = {};
-const COMPUTED_VALUES_EXPRESSION_CACHE: Record<string, any> = {};
-const VALIDATION_EXPRESSION_CACHE: Record<string, any> = {};
-const REQUIRED_EXPRESSION_CACHE: Record<string, any> = {};
+import * as memoize from "memoizee";
+
+const getExpression = (
+  name: keyof FormConfig_allFormYaml_edges_node_form_fields,
+  field: FormConfig_allFormYaml_edges_node_form_fields
+) => (field[name] ? parser.compile(field[name] as string) : null);
+
+const getExpressionMemoized = memoize(getExpression, {
+  normalizer: ([name, field]: Parameters<typeof getExpression>) =>
+    `${name}_${field.name}`
+});
 
 const FIELD_DEFAULTS: Record<string, any> = {
   text: "",
@@ -57,35 +64,13 @@ const getFormfield = (
   cur: FormConfig_allFormYaml_edges_node_form_fields,
   fmk: FormikProps<MyFormValues>
 ) => {
-  const showIfExpression =
-    cur.show_if && cur.name
-      ? SHOW_IF_EXPRESSION_CACHE[cur.name] ||
-        // tslint:disable-next-line: no-object-mutation
-        (SHOW_IF_EXPRESSION_CACHE[cur.name] = parser.compile(cur.show_if))
-      : null;
-  const valueExpression =
-    cur.computed_value && cur.name
-      ? COMPUTED_VALUES_EXPRESSION_CACHE[cur.name] ||
-        // tslint:disable-next-line: no-object-mutation
-        (COMPUTED_VALUES_EXPRESSION_CACHE[cur.name] = parser.compile(
-          cur.computed_value
-        ))
-      : null;
-  const validationExpression =
-    cur.valid_if && cur.name
-      ? VALIDATION_EXPRESSION_CACHE[cur.name] ||
-        // tslint:disable-next-line: no-object-mutation
-        (VALIDATION_EXPRESSION_CACHE[cur.name] = parser.compile(cur.valid_if))
-      : null;
-  const requiredExpression =
-    cur.required_if && cur.name
-      ? REQUIRED_EXPRESSION_CACHE[cur.name] ||
-        // tslint:disable-next-line: no-object-mutation
-        (REQUIRED_EXPRESSION_CACHE[cur.name] = parser.compile(cur.required_if))
-      : null;
+  const showIfExpression = getExpressionMemoized("show_if", cur);
+  const valueExpression = getExpressionMemoized("computed_value", cur);
+  const validationExpression = getExpressionMemoized("valid_if", cur);
+  const requiredExpression = getExpressionMemoized("required_if", cur);
 
-  const isHidden = cur.show_if ? !showIfExpression(fmk.values) : false;
-  const isRequired = cur.required_if
+  const isHidden = showIfExpression ? !showIfExpression(fmk.values) : false;
+  const isRequired = requiredExpression
     ? requiredExpression({ Math, ...fmk.values })
     : false;
 
