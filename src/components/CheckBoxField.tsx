@@ -1,7 +1,9 @@
 import * as React from "react";
 
-import { ErrorMessage, Field, FormikProps } from "formik";
-import { FormGroup, Label } from "reactstrap";
+import { Field, FormikProps } from "formik";
+import { ErrorMessage } from "./ErrorMessage";
+import { FormGroup } from "./FormGroup";
+import { Label } from "./Label";
 
 import {
   CustomInputComponent,
@@ -27,12 +29,7 @@ export const CheckboxField = ({
   valueExpression: any;
 }) => {
   return (
-    <FormGroup
-      check={true}
-      key={field.name!}
-      className="mb-3"
-      hidden={isHidden}
-    >
+    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
       <Field
         name={field.name}
         type="checkbox"
@@ -50,23 +47,17 @@ export const CheckboxField = ({
         }
       />
       <Label
-        htmlFor={field.name!}
-        check={true}
+        fieldName={field.name!}
+        title={field.title!}
+        isRequired={isRequired}
         onClick={() => {
           form.setFieldValue(
             field.name!,
             isEmptyField(form.values[field.name!]) ? field.name : ""
           );
         }}
-        className="font-weight-semibold"
-      >
-        {field.title}{" "}
-      </Label>
-      <ErrorMessage
-        name={field.name!}
-        component="div"
-        className="alert alert-warning text-warning"
       />
+      <ErrorMessage name={field.name!} />
       {field.description && (
         <small className="mb-0 form-text text-muted">{field.description}</small>
       )}

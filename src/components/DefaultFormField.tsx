@@ -1,7 +1,10 @@
 import * as React from "react";
 
-import { ErrorMessage, Field } from "formik";
-import { FormGroup, Label } from "reactstrap";
+import { Field } from "formik";
+import { ErrorMessage } from "./ErrorMessage";
+import { FormGroup } from "./FormGroup";
+import { Label } from "./Label";
+
 import {
   CustomInputComponent,
   FormFieldPropsT,
@@ -17,22 +20,12 @@ export const DefaultFormField = ({
   valueExpression
 }: FormFieldPropsT) => {
   return (
-    <FormGroup
-      check={true}
-      key={field.name!}
-      className="mb-3"
-      hidden={isHidden}
-    >
+    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
       <Label
-        htmlFor={field.name!}
-        check={true}
-        className="d-block font-weight-semibold"
-      >
-        {field.title}{" "}
-        {isRequired && (
-          <small className="float-right text-warning">(campo richiesto)</small>
-        )}
-      </Label>
+        fieldName={field.name!}
+        title={field.title!}
+        isRequired={isRequired}
+      />
       <Field
         name={field.name}
         type="text"
@@ -49,11 +42,7 @@ export const DefaultFormField = ({
             : form.values[field.name!]
         }
       />
-      <ErrorMessage
-        name={field.name!}
-        component="div"
-        className="alert alert-warning text-warning"
-      />
+      <ErrorMessage name={field.name!} />
       {field.description && (
         <small className="mb-0 form-text text-muted">{field.description}</small>
       )}
