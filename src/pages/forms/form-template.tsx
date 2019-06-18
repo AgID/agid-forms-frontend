@@ -1,39 +1,32 @@
 import * as React from "react";
-import Layout from "../../components/Layout";
-
+import * as memoize from "memoizee";
 import * as parser from "expression-eval";
-import { Link, navigate } from "gatsby";
 
+import { Link, navigate } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
+
+import Layout from "../../components/Layout";
 
 import {
   UpsertNode,
   UpsertNodeVariables
 } from "../../generated/graphql/UpsertNode";
 
-import { Button, FormGroup, Label } from "reactstrap";
+import { Button } from "reactstrap";
 
+import { CheckboxField } from "../../components/CheckBoxField";
 import {
-  CustomInputComponent,
   FieldT,
-  FormField,
+  DefaultFormField,
   FormValuesT,
-  isEmptyField
-} from "../../components/FormField";
+  FormT
+} from "../../components/DefaultFormField";
+import { SelectField } from "../../components/SelectField";
 
-import {
-  ErrorMessage,
-  Field,
-  Form,
-  Formik,
-  FormikActions,
-  FormikProps
-} from "formik";
+import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
-
-import * as memoize from "memoizee";
 
 /**
  * Parse and cache compiled javascript expressions.
@@ -46,7 +39,13 @@ const getExpressionMemoized = memoize(getExpression, {
     `${name}_${field.name}`
 });
 
-const getFormfield = (field: FieldT, form: FormikProps<FormValuesT>) => {
+const Formfield = ({
+  field,
+  form
+}: {
+  field: FieldT;
+  form: FormikProps<FormValuesT>;
+}) => {
   const showIfExpression = getExpressionMemoized("show_if", field);
   const valueExpression = getExpressionMemoized("computed_value", field);
   const validationExpression = getExpressionMemoized("valid_if", field);
@@ -63,112 +62,26 @@ const getFormfield = (field: FieldT, form: FormikProps<FormValuesT>) => {
     !isHidden &&
     (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
 
+  const widgetOpts = {
+    field,
+    form,
+    validationExpression,
+    valueExpression,
+    isHidden,
+    isRequired
+  };
+
   switch (field.widget) {
     case "text":
-      return FormField({
-        field,
-        form,
-        validationExpression,
-        valueExpression,
-        isHidden,
-        isRequired
-      });
+      return DefaultFormField(widgetOpts);
     case "checkbox":
-      return (
-        <FormGroup
-          check={true}
-          key={field.name!}
-          className="mb-3"
-          hidden={isHidden}
-        >
-          <Field
-            name={field.name}
-            type="checkbox"
-            checked={form.values[field.name!]}
-            value={field.name}
-          />
-          <Label
-            htmlFor={field.name!}
-            check={true}
-            onClick={() => {
-              form.setFieldValue(
-                field.name!,
-                isEmptyField(form.values[field.name!]) ? field.name : ""
-              );
-            }}
-            className="font-weight-semibold"
-          >
-            {field.title}
-          </Label>
-          <ErrorMessage
-            name={field.name!}
-            component="div"
-            className="alert alert-warning text-warning"
-          />
-          {field.description && (
-            <small className="mb-0 form-text text-muted">
-              {field.description}
-            </small>
-          )}
-        </FormGroup>
-      );
+      return CheckboxField(widgetOpts);
     case "select":
-      return (
-        <FormGroup
-          check={true}
-          key={field.name!}
-          className="mb-3"
-          hidden={isHidden}
-        >
-          <Label
-            htmlFor={field.name!}
-            check={true}
-            className="font-weight-semibold mb-2"
-          >
-            {field.title}
-          </Label>
-          <Field
-            name={field.name}
-            type="select"
-            multiple={field.multiple}
-            component={CustomInputComponent}
-            className="pl-0"
-          >
-            {field.options!.map(option =>
-              option && option.value && option.label ? (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ) : null
-            )}
-          </Field>
-          <ErrorMessage
-            name={field.name!}
-            component="div"
-            className="alert alert-warning text-warning"
-          />
-          {field.description && (
-            <small className="mb-0 form-text text-muted">
-              {field.description}
-            </small>
-          )}
-        </FormGroup>
-      );
+      return SelectField(widgetOpts);
     default:
       return <></>;
   }
 };
-
-const renderFormFields = (
-  customPageFields: ReadonlyArray<FieldT | null> | null,
-  fmk: FormikProps<FormValuesT>
-): readonly JSX.Element[] =>
-  customPageFields
-    ? customPageFields.reduce(
-        (prev, cur) => (cur ? [...prev, getFormfield(cur, fmk)] : prev),
-        [] as readonly JSX.Element[]
-      )
-    : [];
 
 const getMenuTree = (data: FormConfig) =>
   data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
@@ -205,6 +118,52 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
         : prev,
     {} as Record<string, string>
   );
+
+const toNode = (values: FormValuesT, form: FormT) => ({
+  variables: {
+    node: {
+      content: {
+        values,
+        schema: {
+          id: form.id,
+          version: form.version
+        }
+      },
+      language: form.language,
+      title: form.id,
+      type: form.id.replace("-", "_")
+    }
+  }
+});
+
+const FormErrors = ({
+  fmk,
+  form
+}: {
+  fmk: FormikProps<FormValuesT>;
+  form: FormT;
+}) => {
+  const hasErrors =
+    Object.keys(fmk.errors).length > 0 && Object.keys(fmk.touched).length > 0;
+  return hasErrors ? (
+    <div className="mt-3 alert alert-warning">
+      <small className="text-warning text-sans-serif">
+        assicurati di aver corretto tutti gli errori ed aver compilato tutti i
+        campi obbligatori prima di salvare il modulo
+      </small>
+      <div className="mt-3">
+        {Object.keys(fmk.errors).map(k => (
+          <div key={k}>
+            <small className="text-warning">
+              {form.form_fields!.filter(field => field!.name === k)[0]!.title}:{" "}
+              {fmk.errors[k]}
+            </small>
+          </div>
+        ))}
+      </div>
+    </div>
+  ) : null;
+};
 
 /**
  * Form page component
@@ -312,22 +271,7 @@ const FormTemplate = ({
                         values: FormValuesT,
                         actions: FormikActions<FormValuesT>
                       ) => {
-                        const node = {
-                          variables: {
-                            node: {
-                              content: {
-                                values,
-                                schema: {
-                                  id: form.id,
-                                  version: form.version
-                                }
-                              },
-                              language: form.language,
-                              title: form.id,
-                              type: form.id.replace("-", "_")
-                            }
-                          }
-                        };
+                        const node = toNode(values, form);
                         // store form values into database
                         await upsertNode({
                           ...node,
@@ -344,7 +288,17 @@ const FormTemplate = ({
                       }}
                       render={(fmk: FormikProps<FormValuesT>) => (
                         <Form>
-                          {renderFormFields(form.form_fields, fmk)}
+                          {(form.form_fields || []).map(field =>
+                            field && field.name ? (
+                              <Formfield
+                                key={field.name}
+                                field={field}
+                                form={fmk}
+                              />
+                            ) : (
+                              <></>
+                            )
+                          )}
                           <Button
                             type="submit"
                             disabled={
@@ -354,30 +308,7 @@ const FormTemplate = ({
                           >
                             Salva bozza
                           </Button>
-                          {Object.keys(fmk.errors).length > 0 &&
-                            Object.keys(fmk.touched).length > 0 && (
-                              <div className="mt-3 alert alert-warning">
-                                <small className="text-warning text-sans-serif">
-                                  assicurati di aver corretto tutti gli errori
-                                  ed aver compilato tutti i campi obbligatori
-                                  prima di salvare il modulo
-                                </small>
-                                <div className="mt-3">
-                                  {Object.keys(fmk.errors).map(k => (
-                                    <div key={k}>
-                                      <small className="text-warning">
-                                        {
-                                          form.form_fields!.filter(
-                                            field => field!.name === k
-                                          )[0]!.title
-                                        }
-                                        : {fmk.errors[k]}
-                                      </small>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
+                          <FormErrors fmk={fmk} form={form} />
                         </Form>
                       )}
                     />
