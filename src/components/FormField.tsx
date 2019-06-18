@@ -9,6 +9,7 @@ import { Input } from "reactstrap";
 
 import { CheckboxField } from "./CheckBoxField";
 import { DefaultFormField } from "./DefaultFormField";
+import { HtmlField } from "./HtmlField";
 import { SelectField } from "./SelectField";
 
 import {
@@ -139,6 +140,8 @@ export const Formfield = ({
       return CheckboxField(widgetOpts);
     case "select":
       return SelectField(widgetOpts);
+    case "html":
+      return HtmlField({ field, form, isHidden, valueExpression });
     default:
       return <></>;
   }

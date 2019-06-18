@@ -60,3 +60,9 @@ form_fields:
     description: anche questo deve essere un indirizzo email
     show_if: this["sesto-item"]
     valid_if: Yup.string().email('formato email non valido').validate(value)
+  - name: text-field
+    widget: html
+    default: "<p>this is some <strong>html</strong> content"
+  - name: text-field-uppercase
+    widget: html
+    computed_value: "\"uppercase: \" + this[\"quarto-item\"].toUpperCase()"
