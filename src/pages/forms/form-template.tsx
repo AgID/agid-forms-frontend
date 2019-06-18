@@ -1,10 +1,10 @@
 import * as React from "react";
-import * as memoize from "memoizee";
-import * as parser from "expression-eval";
 
 import { Link, navigate } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
 
+import { FormErrors } from "../../components/FormErrors";
+import { Formfield, getExpressionMemoized } from "../../components/FormField";
 import Layout from "../../components/Layout";
 
 import {
@@ -14,74 +14,12 @@ import {
 
 import { Button } from "reactstrap";
 
-import { CheckboxField } from "../../components/CheckBoxField";
-import {
-  FieldT,
-  DefaultFormField,
-  FormValuesT,
-  FormT
-} from "../../components/DefaultFormField";
-import { SelectField } from "../../components/SelectField";
+import { FieldT, FormT, FormValuesT } from "../../components/DefaultFormField";
 
 import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
-
-/**
- * Parse and cache compiled javascript expressions.
- */
-const getExpression = (name: keyof FieldT, field: FieldT) =>
-  field[name] ? parser.compile(field[name] as string) : null;
-
-const getExpressionMemoized = memoize(getExpression, {
-  normalizer: ([name, field]: Parameters<typeof getExpression>) =>
-    `${name}_${field.name}`
-});
-
-const Formfield = ({
-  field,
-  form
-}: {
-  field: FieldT;
-  form: FormikProps<FormValuesT>;
-}) => {
-  const showIfExpression = getExpressionMemoized("show_if", field);
-  const valueExpression = getExpressionMemoized("computed_value", field);
-  const validationExpression = getExpressionMemoized("valid_if", field);
-  const requiredExpression = getExpressionMemoized("required_if", field);
-
-  const isHidden = showIfExpression ? !showIfExpression(form.values) : false;
-
-  // clear field value if is hidden but not empty
-  if (isHidden && form.values[field.name!] !== "") {
-    form.setFieldValue(field.name!, "");
-  }
-
-  const isRequired =
-    !isHidden &&
-    (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
-
-  const widgetOpts = {
-    field,
-    form,
-    validationExpression,
-    valueExpression,
-    isHidden,
-    isRequired
-  };
-
-  switch (field.widget) {
-    case "text":
-      return DefaultFormField(widgetOpts);
-    case "checkbox":
-      return CheckboxField(widgetOpts);
-    case "select":
-      return SelectField(widgetOpts);
-    default:
-      return <></>;
-  }
-};
 
 const getMenuTree = (data: FormConfig) =>
   data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
@@ -119,6 +57,9 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
     {} as Record<string, string>
   );
 
+/**
+ *  Convert form values to node structure.
+ */
 const toNode = (values: FormValuesT, form: FormT) => ({
   variables: {
     node: {
@@ -135,35 +76,6 @@ const toNode = (values: FormValuesT, form: FormT) => ({
     }
   }
 });
-
-const FormErrors = ({
-  fmk,
-  form
-}: {
-  fmk: FormikProps<FormValuesT>;
-  form: FormT;
-}) => {
-  const hasErrors =
-    Object.keys(fmk.errors).length > 0 && Object.keys(fmk.touched).length > 0;
-  return hasErrors ? (
-    <div className="mt-3 alert alert-warning">
-      <small className="text-warning text-sans-serif">
-        assicurati di aver corretto tutti gli errori ed aver compilato tutti i
-        campi obbligatori prima di salvare il modulo
-      </small>
-      <div className="mt-3">
-        {Object.keys(fmk.errors).map(k => (
-          <div key={k}>
-            <small className="text-warning">
-              {form.form_fields!.filter(field => field!.name === k)[0]!.title}:{" "}
-              {fmk.errors[k]}
-            </small>
-          </div>
-        ))}
-      </div>
-    </div>
-  ) : null;
-};
 
 /**
  * Form page component
@@ -286,14 +198,14 @@ const FormTemplate = ({
                         });
                         return actions.setSubmitting(false);
                       }}
-                      render={(fmk: FormikProps<FormValuesT>) => (
+                      render={(formik: FormikProps<FormValuesT>) => (
                         <Form>
                           {(form.form_fields || []).map(field =>
                             field && field.name ? (
                               <Formfield
                                 key={field.name}
                                 field={field}
-                                form={fmk}
+                                form={formik}
                               />
                             ) : (
                               <></>
@@ -302,13 +214,13 @@ const FormTemplate = ({
                           <Button
                             type="submit"
                             disabled={
-                              fmk.isSubmitting ||
-                              Object.keys(fmk.errors).length > 0
+                              formik.isSubmitting ||
+                              Object.keys(formik.errors).length > 0
                             }
                           >
                             Salva bozza
                           </Button>
-                          <FormErrors fmk={fmk} form={form} />
+                          <FormErrors formik={formik} form={form} />
                         </Form>
                       )}
                     />
