@@ -1,22 +1,25 @@
 import * as React from "react";
 import Layout from "../../components/Layout";
-import SEO from "../../components/Seo";
 
 import * as parser from "expression-eval";
 import { Link, navigate } from "gatsby";
-import * as Yup from "yup";
 
-import {
-  FormConfig,
-  FormConfig_allFormYaml_edges_node_form_fields
-} from "../../generated/graphql/FormConfig";
+import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import {
   UpsertNode,
   UpsertNodeVariables
 } from "../../generated/graphql/UpsertNode";
 
-import { Button, FormGroup, Input, Label } from "reactstrap";
+import { Button, FormGroup, Label } from "reactstrap";
+
+import {
+  CustomInputComponent,
+  FieldT,
+  FormField,
+  FormValuesT,
+  isEmptyField
+} from "../../components/FormField";
 
 import {
   ErrorMessage,
@@ -32,155 +35,79 @@ import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
 
 import * as memoize from "memoizee";
 
-const getExpression = (
-  name: keyof FormConfig_allFormYaml_edges_node_form_fields,
-  field: FormConfig_allFormYaml_edges_node_form_fields
-) => (field[name] ? parser.compile(field[name] as string) : null);
+/**
+ * Parse and cache compiled javascript expressions.
+ */
+const getExpression = (name: keyof FieldT, field: FieldT) =>
+  field[name] ? parser.compile(field[name] as string) : null;
 
 const getExpressionMemoized = memoize(getExpression, {
   normalizer: ([name, field]: Parameters<typeof getExpression>) =>
     `${name}_${field.name}`
 });
 
-const FIELD_DEFAULTS: Record<string, any> = {
-  text: "",
-  checkbox: false
-};
+const getFormfield = (field: FieldT, form: FormikProps<FormValuesT>) => {
+  const showIfExpression = getExpressionMemoized("show_if", field);
+  const valueExpression = getExpressionMemoized("computed_value", field);
+  const validationExpression = getExpressionMemoized("valid_if", field);
+  const requiredExpression = getExpressionMemoized("required_if", field);
 
-interface MyFormValues {
-  [k: string]: any;
-}
+  const isHidden = showIfExpression ? !showIfExpression(form.values) : false;
 
-const CustomInputComponent = ({
-  field,
-  form,
-  ...props
-}: {
-  field: any;
-  form: any;
-}) => <Input {...field} {...props} />;
+  // clear field value if is hidden but not empty
+  if (isHidden && form.values[field.name!] !== "") {
+    form.setFieldValue(field.name!, "");
+  }
 
-const getFormfield = (
-  cur: FormConfig_allFormYaml_edges_node_form_fields,
-  fmk: FormikProps<MyFormValues>
-) => {
-  const showIfExpression = getExpressionMemoized("show_if", cur);
-  const valueExpression = getExpressionMemoized("computed_value", cur);
-  const validationExpression = getExpressionMemoized("valid_if", cur);
-  const requiredExpression = getExpressionMemoized("required_if", cur);
+  const isRequired =
+    !isHidden &&
+    (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
 
-  const isHidden = showIfExpression ? !showIfExpression(fmk.values) : false;
-  const isRequired = requiredExpression
-    ? requiredExpression({ Math, ...fmk.values })
-    : false;
-
-  switch (cur.widget) {
+  switch (field.widget) {
     case "text":
-      return (
-        <FormGroup
-          check={true}
-          key={cur.name!}
-          className="mb-3"
-          hidden={isHidden}
-        >
-          <Label
-            htmlFor={cur.name!}
-            check={true}
-            className="font-weight-semibold"
-          >
-            {cur.title} {isRequired && "(richiesto)"}
-          </Label>
-          <Field
-            name={cur.name}
-            type="text"
-            required={isRequired}
-            component={CustomInputComponent}
-            className="pl-0"
-            validate={
-              isRequired || validationExpression
-                ? (value: any) =>
-                    Promise.resolve()
-                      .then(() => {
-                        if (
-                          isRequired &&
-                          (value === undefined ||
-                            value === null ||
-                            value === "")
-                        ) {
-                          // tslint:disable-next-line: no-string-throw
-                          throw "Campo richiesto";
-                        }
-                        return validationExpression
-                          ? validationExpression({
-                              Yup,
-                              RegExp,
-                              value,
-                              ...fmk.values
-                            })
-                          : true;
-                      })
-                      .then(validationResult =>
-                        validationResult === false ? cur.error_msg : null
-                      )
-                      .catch(
-                        e =>
-                          cur.error_msg ||
-                          (e.errors && e.errors.join
-                            ? e.errors.join(", ")
-                            : e.toString())
-                      )
-                : () => Promise.resolve(null)
-            }
-            value={
-              valueExpression
-                ? // tslint:disable-next-line: restrict-plus-operands
-                  valueExpression({ Math, ...fmk.values }) + ""
-                : fmk.values[cur.name!]
-            }
-          />
-          <ErrorMessage
-            name={cur.name!}
-            component="div"
-            className="alert alert-warning text-warning"
-          />
-          {cur.description && (
-            <small className="mb-0 form-text text-muted">
-              {cur.description}
-            </small>
-          )}
-        </FormGroup>
-      );
+      return FormField({
+        field,
+        form,
+        validationExpression,
+        valueExpression,
+        isHidden,
+        isRequired
+      });
     case "checkbox":
       return (
         <FormGroup
           check={true}
-          key={cur.name!}
+          key={field.name!}
           className="mb-3"
           hidden={isHidden}
         >
           <Field
-            name={cur.name}
+            name={field.name}
             type="checkbox"
-            checked={fmk.values[cur.name!]}
+            checked={form.values[field.name!]}
+            value={field.name}
           />
           <Label
-            htmlFor={cur.name!}
+            htmlFor={field.name!}
             check={true}
             onClick={() => {
-              fmk.setFieldValue(cur.name!, !fmk.values[cur.name!]);
+              form.setFieldValue(
+                field.name!,
+                isEmptyField(form.values[field.name!]) ? field.name : ""
+              );
             }}
             className="font-weight-semibold"
           >
-            {cur.title}
+            {field.title}
           </Label>
           <ErrorMessage
-            name={cur.name!}
+            name={field.name!}
             component="div"
             className="alert alert-warning text-warning"
           />
-          {cur.description && (
+          {field.description && (
             <small className="mb-0 form-text text-muted">
-              {cur.description}
+              {field.description}
             </small>
           )}
         </FormGroup>
@@ -189,25 +116,25 @@ const getFormfield = (
       return (
         <FormGroup
           check={true}
-          key={cur.name!}
+          key={field.name!}
           className="mb-3"
           hidden={isHidden}
         >
           <Label
-            htmlFor={cur.name!}
+            htmlFor={field.name!}
             check={true}
             className="font-weight-semibold mb-2"
           >
-            {cur.title}
+            {field.title}
           </Label>
           <Field
-            name={cur.name}
+            name={field.name}
             type="select"
-            multiple={cur.multiple}
+            multiple={field.multiple}
             component={CustomInputComponent}
             className="pl-0"
           >
-            {cur.options!.map(option =>
+            {field.options!.map(option =>
               option && option.value && option.label ? (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -216,13 +143,13 @@ const getFormfield = (
             )}
           </Field>
           <ErrorMessage
-            name={cur.name!}
+            name={field.name!}
             component="div"
             className="alert alert-warning text-warning"
           />
-          {cur.description && (
+          {field.description && (
             <small className="mb-0 form-text text-muted">
-              {cur.description}
+              {field.description}
             </small>
           )}
         </FormGroup>
@@ -233,8 +160,8 @@ const getFormfield = (
 };
 
 const renderFormFields = (
-  customPageFields: ReadonlyArray<FormConfig_allFormYaml_edges_node_form_fields | null> | null,
-  fmk: FormikProps<MyFormValues>
+  customPageFields: ReadonlyArray<FieldT | null> | null,
+  fmk: FormikProps<FormValuesT>
 ): readonly JSX.Element[] =>
   customPageFields
     ? customPageFields.reduce(
@@ -243,6 +170,45 @@ const renderFormFields = (
       )
     : [];
 
+const getMenuTree = (data: FormConfig) =>
+  data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
+
+const getForm = (data: FormConfig, formId?: string) => {
+  if (!formId) {
+    return null;
+  }
+  const forms = data.allFormYaml
+    ? data.allFormYaml.edges.filter(node => node.node.id === formId)
+    : null;
+  if (!forms || !forms[0] || !forms[0].node) {
+    return null;
+  }
+  const form = forms[0].node;
+  if (!form.form_fields) {
+    return null;
+  }
+  return form;
+};
+
+const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
+  fields.reduce(
+    (prev, cur) =>
+      cur
+        ? {
+            ...prev,
+            [cur.name!]: cur.default_checked
+              ? cur.name!
+              : cur.default !== undefined && cur.default !== null
+              ? cur.default
+              : ""
+          }
+        : prev,
+    {} as Record<string, string>
+  );
+
+/**
+ * Form page component
+ */
 const FormTemplate = ({
   data,
   formId,
@@ -252,43 +218,32 @@ const FormTemplate = ({
   formId?: string;
   nodeId?: string;
 }) => {
-  const menu = data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
-  const forms = data.allFormYaml
-    ? data.allFormYaml.edges.filter(node => node.node.id === formId)
-    : null;
-  if (!forms || !forms[0] || !forms[0].node) {
-    return <p>No form found.</p>;
-  }
-  const form = forms[0].node;
-  if (!form.form_fields) {
-    return <p>No fields found.</p>;
-  }
-  const initialValues = form.form_fields.reduce(
-    (prev, cur) =>
-      cur
-        ? {
-            ...prev,
-            [cur.name!]:
-              cur.default !== undefined && cur.default !== null
-                ? cur.default
-                : FIELD_DEFAULTS[cur.widget!]
-          }
-        : prev,
-    {} as Record<string, string>
-  );
+  // clear memoization cache on unmount
+  React.useEffect(() => getExpressionMemoized.clear);
 
+  const menu = getMenuTree(data);
+
+  // get form schema
+  const form = getForm(data, formId);
+  if (!form || !form.form_fields) {
+    return <p>Form not found or empty.</p>;
+  }
+
+  // extract default values form form schema
+  const initialValues = getInitialValues(form.form_fields);
+
+  // redirect user to results page on submit
   const [redirectToId, setRedirectToId] = React.useState();
-
   if (redirectToId) {
     navigate(`/view/${redirectToId}`);
-    return <></>;
+    return <p>redirecting to results...</p>;
   }
 
   return (
     <Layout menu={menu}>
-      <SEO title="Home" meta={[]} keywords={[]} />
       <h1 className="mb-4">Form {formId}</h1>
 
+      {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
         skip={!nodeId}
@@ -343,7 +298,7 @@ const FormTemplate = ({
                     setRedirectToId(
                       upsertNodeResult.insert_node.returning[0].id
                     );
-                    return <></>;
+                    return <p>stored data...</p>;
                   }
                   return (
                     <Formik
@@ -354,8 +309,8 @@ const FormTemplate = ({
                       }
                       validateOnChange={true}
                       onSubmit={async (
-                        values: MyFormValues,
-                        actions: FormikActions<MyFormValues>
+                        values: FormValuesT,
+                        actions: FormikActions<FormValuesT>
                       ) => {
                         const node = {
                           variables: {
@@ -373,6 +328,7 @@ const FormTemplate = ({
                             }
                           }
                         };
+                        // store form values into database
                         await upsertNode({
                           ...node,
                           variables: {
@@ -386,38 +342,42 @@ const FormTemplate = ({
                         });
                         return actions.setSubmitting(false);
                       }}
-                      render={(fmk: FormikProps<MyFormValues>) => (
+                      render={(fmk: FormikProps<FormValuesT>) => (
                         <Form>
                           {renderFormFields(form.form_fields, fmk)}
                           <Button
                             type="submit"
-                            disabled={fmk.isSubmitting || !fmk.isValid}
+                            disabled={
+                              fmk.isSubmitting ||
+                              Object.keys(fmk.errors).length > 0
+                            }
                           >
                             Salva bozza
                           </Button>
-                          {!fmk.isValid && Object.keys(fmk.touched).length > 0 && (
-                            <div className="mt-3 alert alert-warning">
-                              <small className="text-warning text-sans-serif">
-                                assicurati di aver corretto tutti gli errori ed
-                                aver compilato tutti i campi obbligatori prima
-                                di salvare il modulo
-                              </small>
-                              <div className="mt-3">
-                                {Object.keys(fmk.errors).map(k => (
-                                  <div key={k}>
-                                    <small className="text-warning">
-                                      {
-                                        form.form_fields!.filter(
-                                          field => field!.name === k
-                                        )[0]!.title
-                                      }
-                                      : {fmk.errors[k]}
-                                    </small>
-                                  </div>
-                                ))}
+                          {Object.keys(fmk.errors).length > 0 &&
+                            Object.keys(fmk.touched).length > 0 && (
+                              <div className="mt-3 alert alert-warning">
+                                <small className="text-warning text-sans-serif">
+                                  assicurati di aver corretto tutti gli errori
+                                  ed aver compilato tutti i campi obbligatori
+                                  prima di salvare il modulo
+                                </small>
+                                <div className="mt-3">
+                                  {Object.keys(fmk.errors).map(k => (
+                                    <div key={k}>
+                                      <small className="text-warning">
+                                        {
+                                          form.form_fields!.filter(
+                                            field => field!.name === k
+                                          )[0]!.title
+                                        }
+                                        : {fmk.errors[k]}
+                                      </small>
+                                    </div>
+                                  ))}
+                                </div>
                               </div>
-                            </div>
-                          )}
+                            )}
                         </Form>
                       )}
                     />

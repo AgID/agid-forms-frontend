@@ -44,6 +44,7 @@ export const query = graphql`
           enabled
           form_fields {
             default
+            default_checked
             description
             name
             multiple

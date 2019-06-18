@@ -36,6 +36,7 @@ export interface FormConfig_allFormYaml_edges_node_form_fields_options {
 export interface FormConfig_allFormYaml_edges_node_form_fields {
   readonly __typename: "FormYamlForm_fields";
   readonly default: string | null;
+  readonly default_checked: boolean | null;
   readonly description: string | null;
   readonly name: string | null;
   readonly multiple: boolean | null;

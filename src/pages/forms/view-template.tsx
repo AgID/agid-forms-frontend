@@ -24,7 +24,7 @@ const getViewfield = (
   return (
     <tr key={cur.name!} className="mb-4">
       <th scope="row">{cur.title}</th>
-      <td>{value || (cur.widget === "checkbox" ? "0" : "")}</td>
+      <td>{value.toString()}</td>
     </tr>
   );
 };

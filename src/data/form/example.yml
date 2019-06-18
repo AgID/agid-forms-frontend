@@ -48,12 +48,11 @@ form_fields:
     title: sesto item
     widget: checkbox
     description: la mia descrizione del sesto item
-  - name: settimo-item
+  - name: 125-note
     title: email
     widget: text
     description: deve essere un indirizzo email
     show_if: this["sesto-item"]
-    valid_if: value == "" || RegExp("^.+@[^.]+\\..+$").test(value)
     error_msg: il campo deve avere un formato corretto per l'email
   - name: ottavo-item
     title: email
