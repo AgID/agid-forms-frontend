@@ -21,6 +21,8 @@ import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
 
+import { useTranslation } from "react-i18next";
+
 const getMenuTree = (data: FormConfig) =>
   data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
 
@@ -92,6 +94,8 @@ const FormTemplate = ({
   // clear memoization cache on unmount
   React.useEffect(() => getExpressionMemoized.clear);
 
+  const { t } = useTranslation();
+
   const menu = getMenuTree(data);
 
   // get form schema
@@ -112,7 +116,9 @@ const FormTemplate = ({
 
   return (
     <Layout menu={menu}>
-      <h1>Form {formId}</h1>
+      <h1>
+        {t("hello")} {formId}
+      </h1>
 
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
