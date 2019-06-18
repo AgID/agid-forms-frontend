@@ -2,6 +2,7 @@ import * as React from "react";
 
 import { Field, FormikProps } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
+import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
@@ -59,7 +60,7 @@ export const CheckboxField = ({
       />
       <ErrorMessage name={field.name!} />
       {field.description && (
-        <small className="mb-0 form-text text-muted">{field.description}</small>
+        <FieldDescription description={field.description} />
       )}
     </FormGroup>
   );
