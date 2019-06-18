@@ -112,7 +112,7 @@ const FormTemplate = ({
 
   return (
     <Layout menu={menu}>
-      <h1 className="mb-4">Form {formId}</h1>
+      <h1>Form {formId}</h1>
 
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
@@ -139,7 +139,7 @@ const FormTemplate = ({
                 <div className="mb-4">
                   <small>
                     <Link to={`/view/${existingNode.node[0].id}`}>
-                      {existingNode.node[0].id}
+                      visualizza
                     </Link>
                   </small>
                 </div>

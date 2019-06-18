@@ -92,7 +92,7 @@ const ViewTemplate = ({
                     <Link
                       to={`/form/${getNodeResult.node[0].content.schema.id}/${getNodeResult.node[0].id}`}
                     >
-                      {getNodeResult.node[0].id}
+                      modifica
                     </Link>
                   </small>
                 </div>
