@@ -16,6 +16,11 @@ import {
   FormConfig_allFormYaml_edges_node_form_fields
 } from "../generated/graphql/FormConfig";
 
+import { setLocale } from "yup";
+import { ItLocale } from "../utils/yup_locale_it";
+
+setLocale(ItLocale);
+
 export const isEmptyField = (value: any) =>
   value === undefined || value === null || value === "";
 
