@@ -1,3 +1,4 @@
+import * as parser from "expression-eval";
 import * as React from "react";
 
 import { Link, navigate } from "gatsby";
@@ -6,6 +7,8 @@ import { FormConfig } from "../../generated/graphql/FormConfig";
 import { FormErrors } from "../../components/FormErrors";
 import { Formfield, getExpressionMemoized } from "../../components/FormField";
 import Layout from "../../components/Layout";
+
+import { format } from "date-fns";
 
 import {
   UpsertNode,
@@ -62,7 +65,11 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
 /**
  *  Convert form values to node structure.
  */
-const toNode = (values: FormValuesT, form: FormT) => ({
+const toNode = (
+  values: FormValuesT,
+  form: FormT,
+  titleExpression?: ReturnType<typeof parser.compile> | null
+) => ({
   variables: {
     node: {
       content: {
@@ -73,7 +80,9 @@ const toNode = (values: FormValuesT, form: FormT) => ({
         }
       },
       language: form.language,
-      title: form.id,
+      title: titleExpression
+        ? titleExpression({ ...values, formatDate: format, Date })
+        : form.id,
       type: form.id.replace("-", "_")
     }
   }
@@ -104,6 +113,11 @@ const FormTemplate = ({
     return <p>Form not found or empty.</p>;
   }
 
+  // get the expression to generate title
+  const titleExpression = form.title_pattern
+    ? parser.compile(form.title_pattern)
+    : null;
+
   // extract default values form form schema
   const initialValues = getInitialValues(form.form_fields);
 
@@ -116,10 +130,6 @@ const FormTemplate = ({
 
   return (
     <Layout menu={menu}>
-      <h1>
-        {t("hello")} {formId}
-      </h1>
-
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
@@ -141,14 +151,17 @@ const FormTemplate = ({
           }
           return (
             <>
-              {existingNode && (
+              {existingNode ? (
                 <div className="mb-4">
+                  <h1>{existingNode.node[0].title}</h1>
                   <small>
                     <Link to={`/view/${existingNode.node[0].id}`}>
                       visualizza
                     </Link>
                   </small>
                 </div>
+              ) : (
+                <h1>{formId}</h1>
               )}
               <Mutation<UpsertNode, UpsertNodeVariables> mutation={UPSERT_NODE}>
                 {(
@@ -189,7 +202,7 @@ const FormTemplate = ({
                         values: FormValuesT,
                         actions: FormikActions<FormValuesT>
                       ) => {
-                        const node = toNode(values, form);
+                        const node = toNode(values, form, titleExpression);
                         // store form values into database
                         await upsertNode({
                           ...node,
