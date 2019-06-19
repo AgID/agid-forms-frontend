@@ -17,16 +17,12 @@ export interface Form00PageConfig_allConfigYaml_edges_node_menu {
   readonly __typename: "ConfigYamlMenu";
   readonly name: string | null;
   readonly slug: string | null;
-  readonly subtree: ReadonlyArray<
-    Form00PageConfig_allConfigYaml_edges_node_menu_subtree | null
-  > | null;
+  readonly subtree: ReadonlyArray<Form00PageConfig_allConfigYaml_edges_node_menu_subtree | null> | null;
 }
 
 export interface Form00PageConfig_allConfigYaml_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<
-    Form00PageConfig_allConfigYaml_edges_node_menu | null
-  > | null;
+  readonly menu: ReadonlyArray<Form00PageConfig_allConfigYaml_edges_node_menu | null> | null;
 }
 
 export interface Form00PageConfig_allConfigYaml_edges {
@@ -51,9 +47,7 @@ export interface Form00PageConfig_allFormYaml_edges_node_form_fields {
 export interface Form00PageConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
-  readonly form_fields: ReadonlyArray<
-    Form00PageConfig_allFormYaml_edges_node_form_fields | null
-  > | null;
+  readonly form_fields: ReadonlyArray<Form00PageConfig_allFormYaml_edges_node_form_fields | null> | null;
 }
 
 export interface Form00PageConfig_allFormYaml_edges {

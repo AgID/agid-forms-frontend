@@ -14,7 +14,9 @@ export interface ViewConfig_allConfigYaml_edges_node_menu {
 
 export interface ViewConfig_allConfigYaml_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<(ViewConfig_allConfigYaml_edges_node_menu | null)> | null;
+  readonly menu: ReadonlyArray<
+    ViewConfig_allConfigYaml_edges_node_menu | null
+  > | null;
 }
 
 export interface ViewConfig_allConfigYaml_edges {
@@ -40,7 +42,9 @@ export interface ViewConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
   readonly version: string | null;
-  readonly form_fields: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_form_fields | null)> | null;
+  readonly form_fields: ReadonlyArray<
+    ViewConfig_allFormYaml_edges_node_form_fields | null
+  > | null;
 }
 
 export interface ViewConfig_allFormYaml_edges {
