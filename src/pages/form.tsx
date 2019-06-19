@@ -42,6 +42,8 @@ export const query = graphql`
           version
           language
           enabled
+          slug_pattern
+          title_pattern
           form_fields {
             default
             default_checked
