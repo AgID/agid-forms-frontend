@@ -5,7 +5,6 @@
   "version": "0.1.0",
   "author": "AGID <info@agid.gov.it>",
   "dependencies": {
-    "@flipbyte/formik-json": "^0.3.0",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.2",
     "apollo-link": "^1.2.11",
@@ -23,7 +22,6 @@
     "graphql": "14.2.1",
     "graphql-anywhere": "^4.2.4",
     "graphql-tag": "^2.10.1",
-    "graphql-type-json": "^0.3.0",
     "i18next": "^17.0.3",
     "i18next-browser-languagedetector": "^3.0.1",
     "io-ts": "^1.8.6",
@@ -122,5 +120,8 @@
   },
   "bugs": {
     "url": "https://github.com/AGID/agid-forms-frontend/issues"
+  },
+  "resolutions": {
+    "@types/react": "^16.8.19"
   }
 }

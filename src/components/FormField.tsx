@@ -107,7 +107,7 @@ export const Formfield = ({
 }: {
   field: FieldT;
   form: FormikProps<FormValuesT>;
-}) => {
+}): JSX.Element => {
   const showIfExpression = getExpressionMemoized("show_if", field);
   const valueExpression = getExpressionMemoized("computed_value", field);
   const validationExpression = getExpressionMemoized("valid_if", field);

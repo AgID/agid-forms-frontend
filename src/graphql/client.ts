@@ -5,7 +5,6 @@ import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { HttpLink } from "apollo-link-http";
 import { RestLink } from "apollo-link-rest";
-import GraphQLJSON, { GraphQLJSONObject } from "graphql-type-json";
 
 import * as fetch from "isomorphic-fetch";
 
@@ -62,6 +61,5 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
 
 export const GraphqlClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink]),
-  resolvers: { JSON: GraphQLJSON, JSONObject: GraphQLJSONObject }
+  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink])
 });

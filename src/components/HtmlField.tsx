@@ -18,9 +18,9 @@ export const HtmlField = ({
     ? // compute field value then cast to string
       valueExpression({ Math, ...form.values }).toString()
     : field.default;
-  return (
-    !isHidden && (
-      <div key={field.name!} dangerouslySetInnerHTML={{ __html: content }} />
-    )
+  return isHidden ? (
+    <div key={field.name!} dangerouslySetInnerHTML={{ __html: content }} />
+  ) : (
+    <></>
   );
 };

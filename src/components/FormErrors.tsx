@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import { FormikProps } from "formik";
-import { FormT, FormValuesT } from "./DefaultFormField";
+import { FieldT, FormT, FormValuesT } from "./FormField";
 
 export const FormErrors = ({
   formik,
@@ -23,8 +23,12 @@ export const FormErrors = ({
         {Object.keys(formik.errors).map(k => (
           <div key={k}>
             <small className="text-warning">
-              {form.form_fields!.filter(field => field!.name === k)[0]!.title}:{" "}
-              {formik.errors[k]}
+              {
+                form.form_fields!.filter(
+                  (field: FieldT | null) => field && field.name === k
+                )[0]!.title
+              }
+              : {formik.errors[k]}
             </small>
           </div>
         ))}

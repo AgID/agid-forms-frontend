@@ -14,7 +14,7 @@ import {
 
 import { Button } from "reactstrap";
 
-import { FieldT, FormT, FormValuesT } from "../../components/DefaultFormField";
+import { FieldT, FormT, FormValuesT } from "../../components/FormField";
 
 import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
