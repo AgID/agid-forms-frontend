@@ -14,9 +14,7 @@ export interface NotFoundConfig_allConfigYaml_edges_node_menu {
 
 export interface NotFoundConfig_allConfigYaml_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<
-    NotFoundConfig_allConfigYaml_edges_node_menu | null
-  > | null;
+  readonly menu: ReadonlyArray<NotFoundConfig_allConfigYaml_edges_node_menu | null> | null;
 }
 
 export interface NotFoundConfig_allConfigYaml_edges {

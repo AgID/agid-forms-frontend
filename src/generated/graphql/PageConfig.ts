@@ -14,9 +14,7 @@ export interface PageConfig_allConfigYaml_edges_node_menu {
 
 export interface PageConfig_allConfigYaml_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<
-    PageConfig_allConfigYaml_edges_node_menu | null
-  > | null;
+  readonly menu: ReadonlyArray<PageConfig_allConfigYaml_edges_node_menu | null> | null;
 }
 
 export interface PageConfig_allConfigYaml_edges {
