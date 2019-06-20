@@ -3,16 +3,12 @@ import * as React from "react";
 
 import MegaMenu from "./MegaMenu";
 
-type MainHeaderProps = {
-  title: string;
-  description: string;
-  socialLinks: ReadonlyArray<{
-    name: string;
-    url: string;
-    icon: string;
-  }>;
-  menu: ReadonlyArray<any>;
-};
+import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+
+type MainHeaderProps = Pick<
+  ReturnType<typeof getSiteConfig>,
+  "title" | "description"
+> & { menu: ReturnType<typeof getMenu> };
 
 const MainHeader = ({ title, description, menu }: MainHeaderProps) => (
   <>

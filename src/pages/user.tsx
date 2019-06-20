@@ -24,8 +24,13 @@ const UserProfile = ({ data }: { data: UserProfileConfig }) => (
 
 export const query = graphql`
   query UserProfileConfig {
-    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
+    menu: allConfigYaml(
+      filter: { menu: { elemMatch: { name: { ne: null } } } }
+    ) {
       ...PageConfigFragment
+    }
+    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
+      ...SiteConfigFragment
     }
   }
 `;

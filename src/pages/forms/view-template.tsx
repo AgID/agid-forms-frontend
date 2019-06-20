@@ -15,6 +15,7 @@ import {
   GetNode_node,
   GetNodeVariables
 } from "../../generated/graphql/GetNode";
+import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
 import { GET_NODE } from "../../graphql/hasura_queries";
 
 const getViewfield = (
@@ -51,9 +52,8 @@ const ViewTemplate = ({
   formId?: string;
   uuid: string;
 }) => {
-  const menu = data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
   return (
-    <Layout menu={menu}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}

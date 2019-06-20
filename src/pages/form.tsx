@@ -32,8 +32,13 @@ const Form = ({ data }: { data: FormConfig }) => (
 
 export const query = graphql`
   query FormConfig {
-    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
+    menu: allConfigYaml(
+      filter: { menu: { elemMatch: { name: { ne: null } } } }
+    ) {
       ...PageConfigFragment
+    }
+    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
+      ...SiteConfigFragment
     }
     allFormYaml {
       edges {
