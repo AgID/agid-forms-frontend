@@ -107,6 +107,16 @@
   font-weight: 600;
 }
 
+@media (min-width: 992px) {
+  .font-size-xxs {
+    font-size: 14px !important;
+  }
+}
+
+.font-weight-300 {
+  font-weight: 300;
+}
+
 .card .card-body li {
   font-size: 0.775rem;
 }

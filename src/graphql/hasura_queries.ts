@@ -93,3 +93,12 @@ export const GET_USER_NODES = gql`
     }
   }
 `;
+
+export const GET_USER_INFO = gql`
+  query GetUserInfo($userId: uuid) {
+    user(where: { id: { _eq: $userId } }) {
+      id
+      email
+    }
+  }
+`;

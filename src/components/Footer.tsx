@@ -9,10 +9,10 @@ import Icon from "./Icon";
 type FooterProps = Pick<
   ReturnType<typeof getSiteConfig>,
   "footerLinks" | "socialLinks"
->;
+> & { id: string };
 
-const Footer = ({ footerLinks, socialLinks }: FooterProps) => (
-  <footer className="neutral-1-bg-a9">
+const Footer = ({ footerLinks, socialLinks, ...props }: FooterProps) => (
+  <footer className="neutral-1-bg-a9" {...props}>
     <Container>
       <Row className="py-4">
         <Col xs="12" sm="6" md="4">

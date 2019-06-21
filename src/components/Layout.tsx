@@ -11,6 +11,7 @@ import MainHeader from "./MainHeader";
 import SlimHeader from "./SlimHeader";
 
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import { getUser } from "../utils/auth";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -34,6 +35,7 @@ const Layout = ({ children, menu, siteConfig }: LayoutProps) => (
         slimHeaderLinks={siteConfig.slimHeaderLinks}
         languages={siteConfig.languages}
         defaultLanguage={siteConfig.defaultLanguage}
+        user={getUser()}
       />
       <MainHeader
         title={siteConfig.title}

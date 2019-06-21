@@ -34,6 +34,10 @@ export const GET_TOKENS = gql`
       ) {
       graphql_token
       backend_token
+      user {
+        id
+        email
+      }
     }
   }
 `;
