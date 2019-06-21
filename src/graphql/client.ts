@@ -10,9 +10,9 @@ import * as fetch from "isomorphic-fetch";
 
 import {
   GATSBY_BACKEND_ENDPOINT,
-  GATSBY_HASURA_GRAPHQL_ENDPOINT,
-  GATSBY_HASURA_TEST_TOKEN
+  GATSBY_HASURA_GRAPHQL_ENDPOINT
 } from "../config";
+import { getGraphqlToken } from "../utils/auth";
 
 // setup your `RestLink` with your endpoint
 const restLink = new RestLink({
@@ -35,15 +35,11 @@ const httpLink = new HttpLink({
 // see https://www.apollographql.com/docs/react/recipes/authentication/#Header
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
-  // const token = localStorage.getItem("token");
-
+  const token = getGraphqlToken();
   return {
     headers: {
       ...headers,
-      Authorization: GATSBY_HASURA_TEST_TOKEN
-        ? `Bearer ${GATSBY_HASURA_TEST_TOKEN}`
-        : ""
+      Authorization: token ? `Bearer ${token}` : ""
     }
   };
 });

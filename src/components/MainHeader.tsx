@@ -4,13 +4,19 @@ import * as React from "react";
 import MegaMenu from "./MegaMenu";
 
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import Icon from "./Icon";
 
 type MainHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
-  "title" | "description"
+  "title" | "description" | "socialLinks"
 > & { menu: ReturnType<typeof getMenu> };
 
-const MainHeader = ({ title, description, menu }: MainHeaderProps) => (
+const MainHeader = ({
+  title,
+  description,
+  menu,
+  socialLinks
+}: MainHeaderProps) => (
   <>
     <div className="it-nav-wrapper">
       <div className="it-header-center-wrapper it-small-header">
@@ -30,7 +36,26 @@ const MainHeader = ({ title, description, menu }: MainHeaderProps) => (
                   </Link>
                 </div>
                 <div className="it-right-zone">
-                  <div className="it-socials d-none d-md-flex" />
+                  <div className="it-socials d-none d-md-flex">
+                    <ul>
+                      {(socialLinks || []).map(
+                        socialLink =>
+                          socialLink &&
+                          socialLink.name &&
+                          socialLink.url &&
+                          socialLink.icon && (
+                            <li key={socialLink.name}>
+                              <a
+                                href={socialLink.url}
+                                aria-label={socialLink.name}
+                              >
+                                <Icon icon={socialLink.icon} />
+                              </a>
+                            </li>
+                          )
+                      )}
+                    </ul>
+                  </div>
                   <div className="it-search-wrapper" />
                 </div>
               </div>

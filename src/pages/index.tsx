@@ -35,6 +35,7 @@ import {
   PostAuthLoginIpaCode,
   PostAuthLoginIpaCodeVariables
 } from "../generated/graphql/PostAuthLoginIpaCode";
+import { isLoggedIn, storeTokens, storeUser } from "../utils/auth";
 
 type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -274,12 +275,12 @@ const LoginButtonConnectedComponent = ({
   secret,
   setSecret,
   selectedPa,
-  storeTokens
+  onStoreTokens
 }: {
   secret?: string;
   setSecret: Dispatcher<string | undefined>;
   selectedPa: string;
-  storeTokens: (data: PostAuthLoginIpaCode) => void;
+  onStoreTokens: (data: PostAuthLoginIpaCode) => void;
 }) => (
   <Mutation<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>
     mutation={GET_TOKENS}
@@ -291,7 +292,7 @@ const LoginButtonConnectedComponent = ({
       if (mutationLoading) {
         return "loading...";
       } else if (getTokensData) {
-        storeTokens(getTokensData);
+        onStoreTokens(getTokensData);
       }
       return (
         <>
@@ -313,10 +314,7 @@ const IndexPage = (data: PageConfig) => {
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
 
-  if (
-    localStorage.getItem("backend_token") &&
-    localStorage.getItem("graphql_token")
-  ) {
+  if (isLoggedIn()) {
     navigate("/actions");
     return <></>;
   }
@@ -338,15 +336,12 @@ const IndexPage = (data: PageConfig) => {
           secret={secret}
           selectedPa={selectedPa}
           setSecret={setSecret}
-          storeTokens={tokens => {
-            localStorage.setItem(
-              "backend_token",
-              tokens.post_auth_login_ipa_code.backend_token
-            );
-            localStorage.setItem(
-              "graphql_token",
+          onStoreTokens={tokens => {
+            storeTokens(
+              tokens.post_auth_login_ipa_code.backend_token,
               tokens.post_auth_login_ipa_code.graphql_token
             );
+            storeUser(tokens.post_auth_login_ipa_code.user);
             navigate("/actions");
           }}
         />

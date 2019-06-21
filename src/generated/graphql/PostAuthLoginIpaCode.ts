@@ -8,10 +8,17 @@ import { LoginCredentialsInput } from "./graphql_globals";
 // GraphQL mutation operation: PostAuthLoginIpaCode
 // ====================================================
 
+export interface PostAuthLoginIpaCode_post_auth_login_ipa_code_user {
+  readonly __typename: "UserProfile";
+  readonly id: string;
+  readonly email: string;
+}
+
 export interface PostAuthLoginIpaCode_post_auth_login_ipa_code {
-  readonly __typename: "LoginTokens";
+  readonly __typename: "LoginResult";
   readonly graphql_token: string;
   readonly backend_token: string;
+  readonly user: PostAuthLoginIpaCode_post_auth_login_ipa_code_user;
 }
 
 export interface PostAuthLoginIpaCode {

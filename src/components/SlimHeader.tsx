@@ -6,19 +6,21 @@ import {
   DropdownToggle
 } from "reactstrap";
 import { getSiteConfig } from "../graphql/gatsby_fragments";
+import { getUser, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
 type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
   "owners" | "slimHeaderLinks" | "defaultLanguage" | "languages"
->;
+> & { user: ReturnType<typeof getUser> };
 
 export const SlimHeader = ({
   owners,
   slimHeaderLinks,
   defaultLanguage,
-  languages
+  languages,
+  user
 }: SlimHeaderProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
   return (
@@ -69,7 +71,7 @@ export const SlimHeader = ({
                           slimHeaderLink.name &&
                           slimHeaderLink.url && (
                             <li key={slimHeaderLink.name}>
-                              <a href={slimHeaderLink.url}>
+                              <a href={slimHeaderLink.url} className="px-2">
                                 {slimHeaderLink.name}
                               </a>
                             </li>
@@ -86,7 +88,7 @@ export const SlimHeader = ({
                     isOpen={isOpen}
                     toggle={() => setIsOpen(!isOpen)}
                   >
-                    <DropdownToggle caret={true} tag="a">
+                    <DropdownToggle caret={true} tag="a" className="nav-link">
                       {defaultLanguage}
                       <Icon className="icon d-none d-lg-block" icon="expand" />
                     </DropdownToggle>
@@ -105,14 +107,20 @@ export const SlimHeader = ({
                     </DropdownMenu>
                   </Dropdown>
                 )}
-                {/* TODO */}
-                {false && (
-                  <div className="it-access-top-wrapper">
-                    <button className="btn btn-primary btn-sm" type="button">
+                <div className="it-access-top-wrapper">
+                  {isLoggedIn() && user ? (
+                    <a
+                      href={`/user/${user.id}`}
+                      className="btn btn-primary btn-sm"
+                    >
+                      {user.email}
+                    </a>
+                  ) : (
+                    <a href="/" className="btn btn-primary btn-sm">
                       Accedi
-                    </button>
-                  </div>
-                )}
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </div>

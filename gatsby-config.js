@@ -1,18 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Drupal Forms`,
+    title: `AGID Forms`,
     description: ``,
     author: `@gunzip`
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`
-      }
-    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sass`,
@@ -32,12 +25,6 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     `gatsby-plugin-typescript`,
-    {
-      resolve: "gatsby-plugin-tslint",
-      options: {
-        project: "."
-      }
-    },
     `gatsby-transformer-yaml`,
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,

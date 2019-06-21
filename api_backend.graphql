@@ -26,9 +26,15 @@ input LoginCredentialsInput {
   secret: String!
 }
 
-type LoginTokens {
+type UserProfile {
+  id: String!
+  email: String!
+}
+
+type LoginResult {
   backend_token: String!
   graphql_token: String!
+  user: UserProfile!
 }
 
 extend type mutation_root {
@@ -47,7 +53,7 @@ extend type mutation_root {
   then the backend returns a bearer token to authenicate subsequent API calls.
   
   """
-  post_auth_login_ipa_code(ipa_code: String!, body: LoginCredentialsInput!): LoginTokens!
+  post_auth_login_ipa_code(ipa_code: String!, body: LoginCredentialsInput!): LoginResult!
 
   """
   Delete the session identified by the provided bearer token.
