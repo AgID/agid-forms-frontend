@@ -1,12 +1,6 @@
 import { graphql } from "gatsby";
 import { PageConfig } from "../generated/graphql/PageConfig";
 
-// subtree {
-//   name
-//   slug
-//   subtitle
-// }
-
 export const PageConfigFragment = graphql`
   fragment PageConfigFragment on ConfigYamlConnection {
     edges {
@@ -14,6 +8,10 @@ export const PageConfigFragment = graphql`
         menu {
           name
           slug
+          subtree {
+            name
+            slug
+          }
         }
       }
     }

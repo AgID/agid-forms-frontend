@@ -90,7 +90,7 @@ export const SlimHeader = ({
                       {defaultLanguage}
                       <Icon className="icon d-none d-lg-block" icon="expand" />
                     </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu" isOpen={isOpen}>
+                    <DropdownMenu className="dropdown-menu">
                       {(languages || []).map(
                         lang =>
                           lang &&

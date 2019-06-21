@@ -3,10 +3,12 @@ import * as React from "react";
 
 import Icons from "../icons/icons.svg";
 
-type IconProps = { className?: string; icon: string };
+type IconProps = { className?: string; icon: string } & React.SVGProps<
+  SVGSVGElement
+>;
 
-const Icon = ({ className, icon }: IconProps) => (
-  <svg className={classNames("icon", className)}>
+const Icon = ({ className, icon, ...props }: IconProps) => (
+  <svg className={classNames("icon", className)} {...props}>
     <use xlinkHref={`${Icons}#it-${icon}`} />
   </svg>
 );

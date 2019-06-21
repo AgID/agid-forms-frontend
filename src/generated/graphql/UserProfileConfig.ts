@@ -6,10 +6,17 @@
 // GraphQL query operation: UserProfileConfig
 // ====================================================
 
+export interface UserProfileConfig_menu_edges_node_menu_subtree {
+  readonly __typename: "ConfigYamlMenuSubtree";
+  readonly name: string | null;
+  readonly slug: string | null;
+}
+
 export interface UserProfileConfig_menu_edges_node_menu {
   readonly __typename: "ConfigYamlMenu";
   readonly name: string | null;
   readonly slug: string | null;
+  readonly subtree: ReadonlyArray<(UserProfileConfig_menu_edges_node_menu_subtree | null)> | null;
 }
 
 export interface UserProfileConfig_menu_edges_node {
