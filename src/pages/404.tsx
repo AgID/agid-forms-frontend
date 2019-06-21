@@ -2,13 +2,11 @@ import { graphql } from "gatsby";
 import * as React from "react";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
+import { NotFoundConfig } from "../generated/graphql/NotFoundConfig";
+import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 
-type MenuConfigQueryT = {
-  data: any;
-};
-
-const NotFoundPage = ({ data }: MenuConfigQueryT) => (
-  <Layout menu={data.menu}>
+const NotFoundPage = ({ data }: { data: NotFoundConfig }) => (
+  <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
     <SEO title="404: Not found" meta={[]} keywords={[]} />
     <h1>NOT FOUND</h1>
     <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
@@ -17,15 +15,13 @@ const NotFoundPage = ({ data }: MenuConfigQueryT) => (
 
 export const query = graphql`
   query NotFoundConfig {
-    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
-      edges {
-        node {
-          menu {
-            name
-            slug
-          }
-        }
-      }
+    menu: allConfigYaml(
+      filter: { menu: { elemMatch: { name: { ne: null } } } }
+    ) {
+      ...PageConfigFragment
+    }
+    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
+      ...SiteConfigFragment
     }
   }
 `;

@@ -8,6 +8,7 @@ import { Link } from "gatsby";
 import { Query } from "react-apollo";
 import { GetUserNodes } from "../../generated/graphql/GetUserNodes";
 import { UserProfileConfig } from "../../generated/graphql/UserProfileConfig";
+import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
 import { GET_USER_NODES } from "../../graphql/hasura_queries";
 
 const UserProfileTemplate = ({
@@ -17,9 +18,8 @@ const UserProfileTemplate = ({
   data: UserProfileConfig;
   userId: string;
 }) => {
-  const menu = data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
   return (
-    <Layout menu={menu}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetUserNodes> query={GET_USER_NODES}>
         {({

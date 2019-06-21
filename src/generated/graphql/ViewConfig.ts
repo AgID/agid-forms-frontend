@@ -6,27 +6,84 @@
 // GraphQL query operation: ViewConfig
 // ====================================================
 
-export interface ViewConfig_allConfigYaml_edges_node_menu {
-  readonly __typename: "ConfigYamlMenu";
+export interface ViewConfig_menu_edges_node_menu_subtree {
+  readonly __typename: "ConfigYamlMenuSubtree";
   readonly name: string | null;
   readonly slug: string | null;
 }
 
-export interface ViewConfig_allConfigYaml_edges_node {
+export interface ViewConfig_menu_edges_node_menu {
+  readonly __typename: "ConfigYamlMenu";
+  readonly name: string | null;
+  readonly slug: string | null;
+  readonly subtree: ReadonlyArray<(ViewConfig_menu_edges_node_menu_subtree | null)> | null;
+}
+
+export interface ViewConfig_menu_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<
-    ViewConfig_allConfigYaml_edges_node_menu | null
-  > | null;
+  readonly menu: ReadonlyArray<(ViewConfig_menu_edges_node_menu | null)> | null;
 }
 
-export interface ViewConfig_allConfigYaml_edges {
+export interface ViewConfig_menu_edges {
   readonly __typename: "ConfigYamlEdge";
-  readonly node: ViewConfig_allConfigYaml_edges_node;
+  readonly node: ViewConfig_menu_edges_node;
 }
 
-export interface ViewConfig_allConfigYaml {
+export interface ViewConfig_menu {
   readonly __typename: "ConfigYamlConnection";
-  readonly edges: ReadonlyArray<ViewConfig_allConfigYaml_edges>;
+  readonly edges: ReadonlyArray<ViewConfig_menu_edges>;
+}
+
+export interface ViewConfig_siteConfig_edges_node_owners {
+  readonly __typename: "ConfigYamlOwners";
+  readonly name: string | null;
+  readonly url: string | null;
+}
+
+export interface ViewConfig_siteConfig_edges_node_languages {
+  readonly __typename: "ConfigYamlLanguages";
+  readonly name: string | null;
+}
+
+export interface ViewConfig_siteConfig_edges_node_slimHeaderLinks {
+  readonly __typename: "ConfigYamlSlimHeaderLinks";
+  readonly name: string | null;
+  readonly url: string | null;
+}
+
+export interface ViewConfig_siteConfig_edges_node_socialLinks {
+  readonly __typename: "ConfigYamlSocialLinks";
+  readonly name: string | null;
+  readonly url: string | null;
+  readonly icon: string | null;
+}
+
+export interface ViewConfig_siteConfig_edges_node_footerLinks {
+  readonly __typename: "ConfigYamlFooterLinks";
+  readonly name: string | null;
+  readonly url: string | null;
+}
+
+export interface ViewConfig_siteConfig_edges_node {
+  readonly __typename: "ConfigYaml";
+  readonly title: string | null;
+  readonly description: string | null;
+  readonly defaultLanguage: string | null;
+  readonly owners: ReadonlyArray<(ViewConfig_siteConfig_edges_node_owners | null)> | null;
+  readonly languages: ReadonlyArray<(ViewConfig_siteConfig_edges_node_languages | null)> | null;
+  readonly slimHeaderLinks: ReadonlyArray<(ViewConfig_siteConfig_edges_node_slimHeaderLinks | null)> | null;
+  readonly socialLinks: ReadonlyArray<(ViewConfig_siteConfig_edges_node_socialLinks | null)> | null;
+  readonly footerLinks: ReadonlyArray<(ViewConfig_siteConfig_edges_node_footerLinks | null)> | null;
+}
+
+export interface ViewConfig_siteConfig_edges {
+  readonly __typename: "ConfigYamlEdge";
+  readonly node: ViewConfig_siteConfig_edges_node;
+}
+
+export interface ViewConfig_siteConfig {
+  readonly __typename: "ConfigYamlConnection";
+  readonly edges: ReadonlyArray<ViewConfig_siteConfig_edges>;
 }
 
 export interface ViewConfig_allFormYaml_edges_node_form_fields {
@@ -42,9 +99,7 @@ export interface ViewConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
   readonly version: string | null;
-  readonly form_fields: ReadonlyArray<
-    ViewConfig_allFormYaml_edges_node_form_fields | null
-  > | null;
+  readonly form_fields: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_form_fields | null)> | null;
 }
 
 export interface ViewConfig_allFormYaml_edges {
@@ -58,6 +113,7 @@ export interface ViewConfig_allFormYaml {
 }
 
 export interface ViewConfig {
-  readonly allConfigYaml: ViewConfig_allConfigYaml | null;
+  readonly menu: ViewConfig_menu | null;
+  readonly siteConfig: ViewConfig_siteConfig | null;
   readonly allFormYaml: ViewConfig_allFormYaml | null;
 }

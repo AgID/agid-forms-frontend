@@ -22,12 +22,8 @@ import { FieldT, FormT, FormValuesT } from "../../components/FormField";
 import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
+import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
-
-import { useTranslation } from "react-i18next";
-
-const getMenuTree = (data: FormConfig) =>
-  data.allConfigYaml ? data.allConfigYaml.edges[0].node.menu : {};
 
 const getForm = (data: FormConfig, formId?: string) => {
   if (!formId) {
@@ -103,10 +99,6 @@ const FormTemplate = ({
   // clear memoization cache on unmount
   React.useEffect(() => getExpressionMemoized.clear);
 
-  const { t } = useTranslation();
-
-  const menu = getMenuTree(data);
-
   // get form schema
   const form = getForm(data, formId);
   if (!form || !form.form_fields) {
@@ -129,7 +121,7 @@ const FormTemplate = ({
   }
 
   return (
-    <Layout menu={menu}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}

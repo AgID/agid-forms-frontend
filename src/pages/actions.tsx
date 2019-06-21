@@ -2,18 +2,24 @@ import { graphql, Link } from "gatsby";
 import * as React from "react";
 
 // @ts-ignore
-import { PageConfigFragment } from "../graphql/gatsby_fragments";
+import {
+  getMenu,
+  getSiteConfig,
+  PageConfigFragment
+} from "../graphql/gatsby_fragments";
 
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
 
+const getForms = (data: ActionsPageConfig) => data.allFormYaml!.edges;
+
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => (
-  <Layout menu={data.allConfigYaml!.edges[0].node.menu}>
+  <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
     <SEO title="Actions" meta={[]} keywords={[]} />
     <h1>Modulistica AGID</h1>
     <ul>
-      {data.allFormYaml!.edges.map(({ node }) => {
+      {getForms(data).map(({ node }) => {
         return (
           <li key={node.id}>
             <Link to={`/form/${node.id}`}>{node.name}</Link>
@@ -26,8 +32,13 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => (
 
 export const query = graphql`
   query ActionsPageConfig {
-    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
+    menu: allConfigYaml(
+      filter: { menu: { elemMatch: { name: { ne: null } } } }
+    ) {
       ...PageConfigFragment
+    }
+    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
+      ...SiteConfigFragment
     }
     allFormYaml {
       edges {

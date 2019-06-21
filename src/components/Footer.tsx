@@ -2,14 +2,14 @@ import { Link } from "gatsby";
 import * as React from "react";
 import { Col, Container, Row } from "reactstrap";
 
+import { getSiteConfig } from "../graphql/gatsby_fragments";
 import * as AgidLogo from "../images/logo-agid.svg";
 import Icon from "./Icon";
 
-type FooterProps = {
-  footerLinks: ReadonlyArray<{ name: string; url: string }>;
-  id?: string;
-  socialLinks: ReadonlyArray<{ name: string; url: string; icon: string }>;
-};
+type FooterProps = Pick<
+  ReturnType<typeof getSiteConfig>,
+  "footerLinks" | "socialLinks"
+>;
 
 const Footer = ({ footerLinks, socialLinks }: FooterProps) => (
   <footer className="neutral-1-bg-a9">
@@ -32,36 +32,45 @@ const Footer = ({ footerLinks, socialLinks }: FooterProps) => (
         </Col>
         <Col xs="12" sm="6" md="4" className="text-white text-right pt-2">
           <span>Seguici su</span>
-          {socialLinks.map(socialLink => {
-            return (
-              <a
-                className="text-white p-2"
-                key={socialLink.icon}
-                href={socialLink.url}
-                aria-label={socialLink.name}
-              >
-                <Icon
-                  icon={socialLink.icon}
-                  className="icon-sm icon-light align-top"
-                />
-              </a>
-            );
-          })}
+          {(socialLinks || []).map(
+            socialLink =>
+              socialLink &&
+              socialLink.icon &&
+              socialLink.name &&
+              socialLink.url && (
+                <a
+                  className="text-white p-2"
+                  key={socialLink.icon}
+                  href={socialLink.url}
+                  aria-label={socialLink.name}
+                >
+                  <Icon
+                    icon={socialLink.icon}
+                    className="icon-sm icon-light align-top"
+                  />
+                </a>
+              )
+          )}
         </Col>
       </Row>
       <Row className="py-4 border-white border-top">
         <ul className="col list-inline small">
-          {footerLinks.map((footerLink, itemIndex) => (
-            <li key={itemIndex} className="list-inline-item px-1">
-              <Link
-                className="small-prints font-weight-bold"
-                style={{ color: "#0bd9d2" }}
-                to={footerLink.url}
-              >
-                {footerLink.name}
-              </Link>
-            </li>
-          ))}
+          {(footerLinks || []).map(
+            footerLink =>
+              footerLink &&
+              footerLink.name &&
+              footerLink.url && (
+                <li key={footerLink.name} className="list-inline-item px-1">
+                  <Link
+                    className="small-prints font-weight-bold"
+                    style={{ color: "#0bd9d2" }}
+                    to={footerLink.url}
+                  >
+                    {footerLink.name}
+                  </Link>
+                </li>
+              )
+          )}
         </ul>
       </Row>
     </Container>

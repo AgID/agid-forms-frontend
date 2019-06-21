@@ -1,146 +1,125 @@
 import * as React from "react";
-import { Col, Collapse, Container, Row } from "reactstrap";
-
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle
+} from "reactstrap";
+import { getSiteConfig } from "../graphql/gatsby_fragments";
 import Icon from "./Icon";
 
-type SlimHeaderProps = {
-  owners: ReadonlyArray<{
-    name: string;
-    url: string;
-  }>;
-  slimHeaderLinks: ReadonlyArray<
-    ReadonlyArray<{
-      name: string;
-      url: string;
-    }>
-  >;
-};
+type SlimHeaderProps = Pick<
+  ReturnType<typeof getSiteConfig>,
+  // tslint:disable-next-line: max-union-size
+  "owners" | "slimHeaderLinks" | "defaultLanguage" | "languages"
+>;
 
-type SlimHeaderState = {
-  isOpen: boolean;
-};
-
-type Owner = {
-  name: string;
-  url: string;
-};
-
-const OwnerComponent = (institutionalOwner: Owner) => (
-  <a
-    className="navbar-brand mr-1 mr-lg-3"
-    key={institutionalOwner.name}
-    href={institutionalOwner.url}
-  >
-    {institutionalOwner.name}
-  </a>
-);
-
-class SlimHeader extends React.Component<SlimHeaderProps, SlimHeaderState> {
-  public state = {
-    isOpen: false
-  };
-
-  public toggle() {
-    this.setState(prevState => {
-      return {
-        isOpen: !prevState.isOpen
-      };
-    });
-  }
-
-  public render() {
-    return (
-      <div className="it-header-slim-wrapper">
-        <Container>
-          <Row>
-            <Col xs="12">
-              <div className="it-header-slim-wrapper-content">
-                <div className="d-none d-lg-block">
-                  {this.props.owners.map(OwnerComponent)}
-                  {/*
-                    .reduce((prev, curr, index) => [
-                      prev,
-                      <span
-                        key={index}
-                        className="navbar-brand text-white mr-1 mr-lg-3"
-                      >
-                        +
-                      </span>,
-                      curr
-                    ])}
-                    */}
-                </div>
-                <span className="nav-mobile col-12 col-lg-auto">
-                  <nav aria-label="navigazione network">
-                    <div className="d-flex">
-                      <div className="d-lg-none">
-                        {this.props.owners.map(OwnerComponent)}
-                        {/*
-                          .reduce((prev, curr, index) => [
-                            prev,
-                            <span
-                              key={index}
-                              className="navbar-brand text-white mr-1 mr-lg-3"
-                            >
-                              +
-                            </span>,
-                            curr
-                          ])}
-                        */}
-                      </div>
-                      <a
-                        className="it-opener d-lg-none p-1 ml-auto"
-                        role="button"
-                        aria-label="Espandi link slim header"
-                        aria-expanded={this.state.isOpen}
-                        aria-controls="slimHeaderLinks"
-                        onClick={() => this.toggle()}
-                      >
-                        <Icon icon="expand" />
-                      </a>
-                    </div>
-                    <Collapse
-                      isOpen={this.state.isOpen}
-                      className="link-list-wrapper"
-                      id="slimHeaderLinks"
+export const SlimHeader = ({
+  owners,
+  slimHeaderLinks,
+  defaultLanguage,
+  languages
+}: SlimHeaderProps) => {
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <div className="it-header-slim-wrapper">
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+            <div className="it-header-slim-wrapper-content">
+              {(owners || []).map(
+                owner =>
+                  owner &&
+                  owner.url && (
+                    <a
+                      className="d-none d-lg-block navbar-brand"
+                      href={owner.url}
+                      key={owner.url}
+                      role="button"
+                      aria-expanded="false"
+                      aria-controls="header-links"
                     >
-                      <ul className="link-list border-0">
-                        {this.props.slimHeaderLinks.map(
-                          (slimHeaderLinkGroup, groupIndex) =>
-                            slimHeaderLinkGroup.map(
-                              (slimHeaderLinkItem, itemIndex) => (
-                                <li
-                                  key={[groupIndex, itemIndex].join("-")}
-                                  className={
-                                    itemIndex + 1 ===
-                                      slimHeaderLinkGroup.length &&
-                                    groupIndex + 1 !==
-                                      this.props.slimHeaderLinks.length
-                                      ? "border-lg-right border-bottom border-lg-bottom-0"
-                                      : ""
-                                  }
-                                >
-                                  <a
-                                    href={slimHeaderLinkItem.url}
-                                    className="px-0 px-lg-3"
-                                  >
-                                    {slimHeaderLinkItem.name}
-                                  </a>
-                                </li>
-                              )
-                            )
-                        )}
-                      </ul>
-                    </Collapse>
-                  </nav>
-                </span>
+                      <span>{owner.name}</span>
+                    </a>
+                  )
+              )}
+              <div className="nav-mobile">
+                <nav>
+                  {(owners || []).map(
+                    owner =>
+                      owner &&
+                      owner.url && (
+                        <a
+                          className="d-lg-none"
+                          href={owner.url}
+                          key={owner.url}
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls="header-links"
+                        >
+                          <span>{owner.name}</span>
+                        </a>
+                      )
+                  )}
+                  <div className="link-list-wrapper collapse" id="header-links">
+                    <ul className="link-list">
+                      {(slimHeaderLinks || []).map(
+                        slimHeaderLink =>
+                          slimHeaderLink &&
+                          slimHeaderLink.name &&
+                          slimHeaderLink.url && (
+                            <li key={slimHeaderLink.name}>
+                              <a href={slimHeaderLink.url}>
+                                {slimHeaderLink.name}
+                              </a>
+                            </li>
+                          )
+                      )}
+                    </ul>
+                  </div>
+                </nav>
               </div>
-            </Col>
-          </Row>
-        </Container>
+              <div className="header-slim-right-zone">
+                {languages && (
+                  <Dropdown
+                    className="nav-item"
+                    isOpen={isOpen}
+                    toggle={() => setIsOpen(!isOpen)}
+                  >
+                    <DropdownToggle caret={true} tag="a">
+                      {defaultLanguage}
+                      <Icon className="icon d-none d-lg-block" icon="expand" />
+                    </DropdownToggle>
+                    <DropdownMenu className="dropdown-menu">
+                      {(languages || []).map(
+                        lang =>
+                          lang &&
+                          lang.name && (
+                            <DropdownItem key={lang.name} tag="span">
+                              <a className="list-item text-primary" href="#">
+                                <span>{lang.name}</span>
+                              </a>
+                            </DropdownItem>
+                          )
+                      )}
+                    </DropdownMenu>
+                  </Dropdown>
+                )}
+                {/* TODO */}
+                {false && (
+                  <div className="it-access-top-wrapper">
+                    <button className="btn btn-primary btn-sm" type="button">
+                      Accedi
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default SlimHeader;

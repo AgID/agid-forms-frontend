@@ -6,7 +6,11 @@ import SEO from "../components/Seo";
 import { graphql, navigate } from "gatsby";
 
 // @ts-ignore
-import { PageConfigFragment } from "../graphql/gatsby_fragments";
+import {
+  getMenu,
+  getSiteConfig,
+  PageConfigFragment
+} from "../graphql/gatsby_fragments";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
@@ -19,13 +23,10 @@ import { Mutation, MutationFn, Query } from "react-apollo";
 import SelectBase from "react-select";
 import { useDebounce } from "use-debounce";
 
-type MenuConfigQueryT = {
-  data: any;
-};
-
 import { GetIpa, GetIpaVariables } from "../generated/graphql/GetIpa";
 
 import { ValueType } from "react-select/lib/types";
+import { PageConfig } from "../generated/graphql/PageConfig";
 import {
   PostAuthEmailIpaCode,
   PostAuthEmailIpaCodeVariables
@@ -307,7 +308,7 @@ const LoginButtonConnectedComponent = ({
   </Mutation>
 );
 
-const IndexPage = ({ data }: MenuConfigQueryT) => {
+const IndexPage = (data: PageConfig) => {
   const [selectedPa, setSelectedPa] = useState<string>();
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
@@ -321,7 +322,7 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
   }
 
   return (
-    <Layout menu={data.allConfigYaml.edges[0].node.menu}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <h1>Modulistica AGID</h1>
       <SelectOrganizationConnectedComponent
@@ -356,8 +357,13 @@ const IndexPage = ({ data }: MenuConfigQueryT) => {
 
 export const query = graphql`
   query PageConfig {
-    allConfigYaml(filter: { menu: { elemMatch: { name: { ne: null } } } }) {
+    menu: allConfigYaml(
+      filter: { menu: { elemMatch: { name: { ne: null } } } }
+    ) {
       ...PageConfigFragment
+    }
+    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
+      ...SiteConfigFragment
     }
   }
 `;

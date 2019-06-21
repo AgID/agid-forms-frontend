@@ -12,6 +12,11 @@ export interface SiteConfigQuery_allConfigYaml_edges_node_owners {
   readonly url: string | null;
 }
 
+export interface SiteConfigQuery_allConfigYaml_edges_node_languages {
+  readonly __typename: "ConfigYamlLanguages";
+  readonly name: string | null;
+}
+
 export interface SiteConfigQuery_allConfigYaml_edges_node_slimHeaderLinks {
   readonly __typename: "ConfigYamlSlimHeaderLinks";
   readonly name: string | null;
@@ -35,20 +40,12 @@ export interface SiteConfigQuery_allConfigYaml_edges_node {
   readonly __typename: "ConfigYaml";
   readonly title: string | null;
   readonly description: string | null;
-  readonly owners: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_owners | null
-  > | null;
-  readonly slimHeaderLinks: ReadonlyArray<
-    ReadonlyArray<
-      SiteConfigQuery_allConfigYaml_edges_node_slimHeaderLinks | null
-    > | null
-  > | null;
-  readonly socialLinks: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_socialLinks | null
-  > | null;
-  readonly footerLinks: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_footerLinks | null
-  > | null;
+  readonly defaultLanguage: string | null;
+  readonly owners: ReadonlyArray<(SiteConfigQuery_allConfigYaml_edges_node_owners | null)> | null;
+  readonly languages: ReadonlyArray<(SiteConfigQuery_allConfigYaml_edges_node_languages | null)> | null;
+  readonly slimHeaderLinks: ReadonlyArray<(SiteConfigQuery_allConfigYaml_edges_node_slimHeaderLinks | null)> | null;
+  readonly socialLinks: ReadonlyArray<(SiteConfigQuery_allConfigYaml_edges_node_socialLinks | null)> | null;
+  readonly footerLinks: ReadonlyArray<(SiteConfigQuery_allConfigYaml_edges_node_footerLinks | null)> | null;
 }
 
 export interface SiteConfigQuery_allConfigYaml_edges {

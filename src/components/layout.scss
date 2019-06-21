@@ -72,10 +72,11 @@
   display: inline-block;
 }
 
-.megamenu-list.depth-0 {
+.two-columns {
   @include media-breakpoint-up(md) {
     columns: 2;
-    column-gap: 1em;
+    column-gap: 4em;
+    column-count: 2;
   }
 }
 
