@@ -5,10 +5,10 @@ import SEO from "../components/Seo";
 
 import { graphql, navigate } from "gatsby";
 
-// @ts-ignore
 import {
   getMenu,
   getSiteConfig,
+  // @ts-ignore
   PageConfigFragment
 } from "../graphql/gatsby_fragments";
 
@@ -26,6 +26,7 @@ import { useDebounce } from "use-debounce";
 import { GetIpa, GetIpaVariables } from "../generated/graphql/GetIpa";
 
 import { ValueType } from "react-select/lib/types";
+import { DUMB_IPA_VALUE_FOR_NULL } from "../config";
 import { PageConfig } from "../generated/graphql/PageConfig";
 import {
   PostAuthEmailIpaCode,
@@ -89,6 +90,14 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
           </p>
         );
       }
+
+      const hasRtd =
+        ipaData &&
+        ipaData.ipa_ou &&
+        ipaData.ipa_ou[0].mail_resp &&
+        ipaData.ipa_ou[0].mail_resp !== "null" &&
+        ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
+
       return getSecretData ? (
         <p>
           Un'email contenente la password di accesso è stata inviata
@@ -115,11 +124,27 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
               ? "Invia l'email"
               : "Scegli prima un'amministrazione"}
           </Button>
-          {ipaData && ipaData.ipa_pa[0] && (
+          {!hasRtd && (
+            <p className="text-warning">
+              L'indirizzo email del responsabile per la transizione digitale non
+              è stato ancora inserito nell'indice delle pubbliche
+              amministrazioni, pertanto non è possibile proseguire con
+              l'autenticazione. Puoi verificarlo visitando la pagina relativa:
+              <br />
+              <a
+                href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
+                  ipaData!.ipa_pa[0].cod_amm
+                }`}
+              >
+                {ipaData!.ipa_pa[0].des_amm}
+              </a>
+            </p>
+          )}
+          {hasRtd && (
             <p>
               proseguendo verrà inviata un'email all'indirizzo del responsabile
-              per la transizione digitale dell'ente {ipaData.ipa_pa[0].des_amm}:{" "}
-              {ipaData.ipa_ou[0].mail_resp}
+              per la transizione digitale dell'ente {ipaData!.ipa_pa[0].des_amm}
+              : {ipaData!.ipa_ou[0].mail_resp}
             </p>
           )}
         </>
