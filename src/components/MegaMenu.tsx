@@ -159,7 +159,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
-                    <li className="nav-item megamenu">
+                    <li className="nav-item megamenu" key={menuItem.slug!}>
                       <Link
                         to={menuItem.slug!}
                         className="nav-link dropdown-toggle"

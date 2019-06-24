@@ -12,7 +12,7 @@ import {
   GATSBY_BACKEND_ENDPOINT,
   GATSBY_HASURA_GRAPHQL_ENDPOINT
 } from "../config";
-import { getGraphqlToken } from "../utils/auth";
+import { getBackendToken, getGraphqlToken } from "../utils/auth";
 
 // setup your `RestLink` with your endpoint
 const restLink = new RestLink({
@@ -22,6 +22,17 @@ const restLink = new RestLink({
       return {
         body: data,
         headers: { ...headers, "Content-Type": "application/json" }
+      };
+    },
+    AuthenticatedJson: (data: any, headers: Headers) => {
+      const token = getBackendToken();
+      return {
+        body: data,
+        headers: {
+          ...headers,
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
       };
     }
   }
@@ -33,15 +44,16 @@ const httpLink = new HttpLink({
 });
 
 // see https://www.apollographql.com/docs/react/recipes/authentication/#Header
-
-const authLink = setContext((_, { headers }) => {
+const graphqlAuthLink = setContext((_, { headers }) => {
   const token = getGraphqlToken();
-  return {
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : ""
-    }
-  };
+  return token
+    ? {
+        headers: {
+          ...headers,
+          Authorization: `Bearer ${token}`
+        }
+      }
+    : headers;
 });
 
 const onErrorLink = onError(({ graphQLErrors, networkError }) => {
@@ -57,5 +69,5 @@ const onErrorLink = onError(({ graphQLErrors, networkError }) => {
 
 export const GraphqlClient = new ApolloClient({
   cache: new InMemoryCache(),
-  link: ApolloLink.from([onErrorLink, restLink, authLink, httpLink])
+  link: ApolloLink.from([onErrorLink, restLink, graphqlAuthLink, httpLink])
 });

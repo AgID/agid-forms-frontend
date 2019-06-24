@@ -10,8 +10,9 @@ import Footer from "./Footer";
 import MainHeader from "./MainHeader";
 import SlimHeader from "./SlimHeader";
 
+import { GraphqlClient } from "../graphql/client";
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
-import { getUser } from "../utils/auth";
+import { getUser, logout } from "../utils/auth";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -36,6 +37,7 @@ const Layout = ({ children, menu, siteConfig }: LayoutProps) => (
         languages={siteConfig.languages}
         defaultLanguage={siteConfig.defaultLanguage}
         user={getUser()}
+        onLogout={() => logout(GraphqlClient)}
       />
       <MainHeader
         title={siteConfig.title}

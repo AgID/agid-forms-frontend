@@ -2,35 +2,11 @@ menu:
   - name: Home
     slug: "/"
   - name: Test menu dropdown
-    slug: "1"
+    slug: "/1"
     subtree:
       - name: Test child
-        slug: "2"
+        slug: "/2"
       - name: Test child 2
-        slug: "3"
+        slug: "/3"
       - name: Test child 3
-        slug: "4"
-      - name: Test child 4
-        slug: "5"
-      - name: Test child 5
-        slug: "6"
-      - name: Test child 6
-        slug: "7"
-      - name: Test child 7
-        slug: "8"
-      - name: Test child 8
-        slug: "9"
-      - name: Test child 9
-        slug: "10"
-      - name: Test child 10
-        slug: "11"
-      - name: Test child 11
-        slug: "12"
-      - name: Test child 12
-        slug: "13"
-      - name: Test child 13
-        slug: "14"
-      - name: Test child 14
-        slug: "15"
-      - name: Test child 15
-        slug: "16"
+        slug: "/4"

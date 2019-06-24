@@ -41,3 +41,18 @@ export const GET_TOKENS = gql`
     }
   }
 `;
+
+export const LOGOUT = gql`
+  mutation PostAuthLogout($body: String!) {
+    post_auth_logout(body: $body)
+      @rest(
+        path: "/auth/logout"
+        type: "LoginTokens"
+        method: "POST"
+        bodyKey: "body"
+        bodySerializer: "AuthenticatedJson"
+      ) {
+      message
+    }
+  }
+`;
