@@ -12,7 +12,7 @@ import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
 
-const getForms = (data: ActionsPageConfig) => data.allFormYaml!.edges;
+const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => (
   <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
@@ -40,7 +40,7 @@ export const query = graphql`
     siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
       ...SiteConfigFragment
     }
-    allFormYaml {
+    forms: allFormYaml(filter: { enabled: { eq: true } }) {
       edges {
         node {
           id

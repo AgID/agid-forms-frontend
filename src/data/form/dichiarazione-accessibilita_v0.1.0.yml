@@ -1,6 +1,7 @@
 id: dichiarazione-accessibilita
 name: dichiarazione di accessibilità
 language: it
+enabled: true
 version: 0.1.0
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: "'Dichiarazione accessibilita ' + title"
