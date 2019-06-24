@@ -19,6 +19,7 @@ import {
 
 import { setLocale } from "yup";
 import { ItLocale } from "../utils/yup_locale_it";
+import { RadioField } from "./RadioField";
 
 setLocale(ItLocale);
 
@@ -138,6 +139,8 @@ export const Formfield = ({
       return DefaultFormField(widgetOpts);
     case "checkbox":
       return CheckboxField(widgetOpts);
+    case "radio":
+      return RadioField(widgetOpts);
     case "select":
       return SelectField(widgetOpts);
     case "html":

@@ -66,3 +66,17 @@ form_fields:
   - name: text-field-uppercase
     widget: html
     computed_value: "\"uppercase: \" + this[\"quarto-item\"].toUpperCase()"
+  - name: radio-item
+    title: radio-item
+    widget: radio
+    description: la mia descrizione del radio-item-1
+    options:
+      - label: prima opzione
+        value: primo valore
+      - label: seconda opzione
+        value: secondo valore
+      - label: terza opzione
+        value: terzo valore
+      - label: quarta opzione
+        value: quarto valore
+    required_if: "true"
