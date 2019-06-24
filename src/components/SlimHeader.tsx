@@ -129,20 +129,20 @@ export const SlimHeader = ({
                       <DropdownToggle
                         caret={true}
                         tag="a"
-                        className="btn btn-primary btn-xs"
+                        className="btn btn-xs"
                         style={{
                           cursor: "pointer",
                           marginRight: "-16px"
                         }}
                       >
                         <Icon className="icon d-block d-md-none" icon="user" />
-                        <Icon
-                          className="icon d-none d-md-block"
-                          icon="expand"
-                        />
-                        <span className="icon d-none d-md-block text-lowercase">
+                        <span className="d-none d-md-inline-block text-lowercase">
                           {user.email}
                         </span>
+                        <Icon
+                          className="icon d-none d-md-inline-block"
+                          icon="expand"
+                        />
                       </DropdownToggle>
                       <DropdownMenu className="dropdown-menu">
                         <span className="d-inline-block d-md-none p-4">

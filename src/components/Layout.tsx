@@ -10,6 +10,7 @@ import Footer from "./Footer";
 import MainHeader from "./MainHeader";
 import SlimHeader from "./SlimHeader";
 
+import { navigate } from "gatsby";
 import { GraphqlClient } from "../graphql/client";
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 import { getUser, logout } from "../utils/auth";
@@ -37,7 +38,10 @@ const Layout = ({ children, menu, siteConfig }: LayoutProps) => (
         languages={siteConfig.languages}
         defaultLanguage={siteConfig.defaultLanguage}
         user={getUser()}
-        onLogout={() => logout(GraphqlClient)}
+        onLogout={async () => {
+          await logout(GraphqlClient);
+          navigate("/");
+        }}
       />
       <MainHeader
         title={siteConfig.title}
