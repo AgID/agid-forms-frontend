@@ -41,21 +41,11 @@ export interface SiteConfigQuery_allConfigYaml_edges_node {
   readonly title: string | null;
   readonly description: string | null;
   readonly defaultLanguage: string | null;
-  readonly owners: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_owners | null
-  > | null;
-  readonly languages: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_languages | null
-  > | null;
-  readonly slimHeaderLinks: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_slimHeaderLinks | null
-  > | null;
-  readonly socialLinks: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_socialLinks | null
-  > | null;
-  readonly footerLinks: ReadonlyArray<
-    SiteConfigQuery_allConfigYaml_edges_node_footerLinks | null
-  > | null;
+  readonly owners: ReadonlyArray<SiteConfigQuery_allConfigYaml_edges_node_owners | null> | null;
+  readonly languages: ReadonlyArray<SiteConfigQuery_allConfigYaml_edges_node_languages | null> | null;
+  readonly slimHeaderLinks: ReadonlyArray<SiteConfigQuery_allConfigYaml_edges_node_slimHeaderLinks | null> | null;
+  readonly socialLinks: ReadonlyArray<SiteConfigQuery_allConfigYaml_edges_node_socialLinks | null> | null;
+  readonly footerLinks: ReadonlyArray<SiteConfigQuery_allConfigYaml_edges_node_footerLinks | null> | null;
 }
 
 export interface SiteConfigQuery_allConfigYaml_edges {
