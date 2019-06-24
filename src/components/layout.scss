@@ -130,3 +130,7 @@
 .centered h1 {
   margin: auto;
 }
+
+.form-check [type='checkbox'] + label, .form-check [type='radio'] + label {
+  height: auto !important;
+}

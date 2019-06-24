@@ -13,16 +13,20 @@ type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
   "owners" | "slimHeaderLinks" | "defaultLanguage" | "languages"
-> & { user: ReturnType<typeof getUser> };
+> & { user: ReturnType<typeof getUser> } & { onLogout: (args: any) => any };
 
 export const SlimHeader = ({
   owners,
   slimHeaderLinks,
   defaultLanguage,
   languages,
-  user
+  user,
+  onLogout
 }: SlimHeaderProps) => {
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = React.useState(
+    false
+  );
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = React.useState(false);
   return (
     <div className="it-header-slim-wrapper">
       <div className="container">
@@ -71,7 +75,7 @@ export const SlimHeader = ({
                           slimHeaderLink.name &&
                           slimHeaderLink.url && (
                             <li key={slimHeaderLink.name}>
-                              <a href={slimHeaderLink.url} className="px-2">
+                              <a href={slimHeaderLink.url} className="px-3">
                                 {slimHeaderLink.name}
                               </a>
                             </li>
@@ -85,12 +89,21 @@ export const SlimHeader = ({
                 {languages && (
                   <Dropdown
                     className="nav-item"
-                    isOpen={isOpen}
-                    toggle={() => setIsOpen(!isOpen)}
+                    isOpen={isLanguageDropdownOpen}
+                    toggle={() =>
+                      setIsLanguageDropdownOpen(!isLanguageDropdownOpen)
+                    }
                   >
-                    <DropdownToggle caret={true} tag="a" className="nav-link">
+                    <DropdownToggle
+                      caret={true}
+                      tag="a"
+                      className="nav-link"
+                      style={{
+                        cursor: "pointer"
+                      }}
+                    >
                       {defaultLanguage}
-                      <Icon className="icon d-none d-lg-block" icon="expand" />
+                      <Icon className="icon d-block" icon="expand" />
                     </DropdownToggle>
                     <DropdownMenu className="dropdown-menu">
                       {(languages || []).map(
@@ -109,12 +122,51 @@ export const SlimHeader = ({
                 )}
                 <div className="it-access-top-wrapper">
                   {isLoggedIn() && user ? (
-                    <a
-                      href={`/user/${user.id}`}
-                      className="btn btn-primary btn-sm"
+                    <Dropdown
+                      isOpen={isUserDropdownOpen}
+                      toggle={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                     >
-                      {user.email}
-                    </a>
+                      <DropdownToggle
+                        caret={true}
+                        tag="a"
+                        className="btn btn-primary btn-xs"
+                        style={{
+                          cursor: "pointer",
+                          marginRight: "-16px"
+                        }}
+                      >
+                        <Icon className="icon d-block d-md-none" icon="user" />
+                        <Icon
+                          className="icon d-none d-md-block"
+                          icon="expand"
+                        />
+                        <span className="icon d-none d-md-block text-lowercase">
+                          {user.email}
+                        </span>
+                      </DropdownToggle>
+                      <DropdownMenu className="dropdown-menu">
+                        <span className="d-inline-block d-md-none p-4">
+                          {user.email}
+                        </span>
+                        <DropdownItem tag="span">
+                          <a
+                            className="list-item text-primary"
+                            href={`/user/${user.id}`}
+                          >
+                            <span>profile</span>
+                          </a>
+                        </DropdownItem>
+                        <DropdownItem tag="span">
+                          <a
+                            className="list-item text-primary"
+                            href="#"
+                            onClick={onLogout}
+                          >
+                            <span className="text-danger">logout</span>
+                          </a>
+                        </DropdownItem>
+                      </DropdownMenu>
+                    </Dropdown>
                   ) : (
                     <a href="/" className="btn btn-primary btn-sm">
                       Accedi

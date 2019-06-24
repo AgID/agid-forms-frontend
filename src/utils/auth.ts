@@ -1,3 +1,6 @@
+import { LOGOUT } from "../graphql/backend_queries";
+import { GraphqlClient } from "../graphql/client";
+
 export type UserProfile = {
   id: string;
   email: string;
@@ -31,6 +34,13 @@ export const getUser = (): UserProfile | null => {
   return userStr ? JSON.parse(userStr) : null;
 };
 
-export const logout = () => {
+export const logout = async (client: typeof GraphqlClient) => {
+  await client.mutate({
+    mutation: LOGOUT,
+    variables: {
+      body: "{}"
+    }
+  });
+  await client.clearStore();
   localStorage.clear();
 };

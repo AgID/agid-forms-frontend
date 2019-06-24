@@ -73,11 +73,11 @@ const UserProfileTemplate = ({
                       <td>{node.status}</td>
                       <td>
                         <Link
-                          to={`form/${node.type.replace("_", "-")}/${node.id}`}
+                          to={`/form/${node.type.replace("_", "-")}/${node.id}`}
                         >
                           edit
                         </Link>{" "}
-                        <Link to={`view//${node.id}`}>view</Link>
+                        <Link to={`/view/${node.id}`}>view</Link>
                       </td>
                     </tr>
                   );

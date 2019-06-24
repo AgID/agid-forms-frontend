@@ -59,7 +59,7 @@ extend type mutation_root {
   Delete the session identified by the provided bearer token.
   
   """
-  post_auth_logout: SuccessResponse!
+  post_auth_logout(body: String!): SuccessResponse!
 }
 
 type SuccessResponse {

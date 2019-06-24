@@ -309,7 +309,7 @@ const LoginButtonConnectedComponent = ({
   </Mutation>
 );
 
-const IndexPage = (data: PageConfig) => {
+const IndexPage = ({ data }: { data: PageConfig }) => {
   const [selectedPa, setSelectedPa] = useState<string>();
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
