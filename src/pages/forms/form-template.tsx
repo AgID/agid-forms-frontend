@@ -48,14 +48,16 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
       cur
         ? {
             ...prev,
-            [cur.name!]: cur.default_checked
+            [cur.name!]: cur.default_multiple_selection
+              ? (cur.default_multiple_selection as ReadonlyArray<string>)
+              : cur.default_checked
               ? cur.name!
               : cur.default !== undefined && cur.default !== null
               ? cur.default
               : ""
           }
         : prev,
-    {} as Record<string, string>
+    {} as Record<string, string | ReadonlyArray<string>>
   );
 
 /**

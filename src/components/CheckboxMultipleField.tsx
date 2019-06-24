@@ -9,7 +9,7 @@ import { Label } from "./Label";
 import { Input } from "reactstrap";
 import { FieldT, FormValuesT, validateField } from "./FormField";
 
-export const CustomRadioComponent = ({
+export const CustomCheckboxComponent = ({
   field,
   form,
   options,
@@ -21,28 +21,36 @@ export const CustomRadioComponent = ({
   options: ReadonlyArray<{ value: string; label: string }>;
   isRequired: boolean;
 }) => {
-  return options.map(option => (
-    <div key={option.value}>
-      <Input
-        {...field}
-        {...props}
-        value={option.value}
-        checked={option.value === field.value}
-        onClick={() => form.setFieldValue(field.name, option.value)}
-      />
-      <Label
-        fieldName={field.name}
-        title={option.label}
-        isRequired={isRequired}
-        onClick={() => {
-          form.setFieldValue(field.name, option.value);
-        }}
-      />
-    </div>
-  ));
+  return options.map(option => {
+    const isChecked =
+      (form.values[field.name] || []).indexOf(option.value) !== -1;
+    return (
+      <div key={option.value}>
+        <Input {...field} {...props} value={option.value} checked={isChecked} />
+        <Label
+          fieldName={field.name}
+          title={option.label}
+          isRequired={isRequired}
+          onClick={() => {
+            isChecked
+              ? form.setFieldValue(
+                  field.name,
+                  (form.values[field.name] || []).filter(
+                    (v: any) => v !== option.value
+                  )
+                )
+              : form.setFieldValue(
+                  field.name,
+                  (form.values[field.name] || []).concat(option.value)
+                );
+          }}
+        />
+      </div>
+    );
+  });
 };
 
-export const RadioField = ({
+export const CheckboxMultipleField = ({
   field,
   form,
   isHidden,
@@ -66,9 +74,9 @@ export const RadioField = ({
       />
       <Field
         name={field.name}
-        type="radio"
+        type="checkbox"
         checked={form.values[field.name!]}
-        component={CustomRadioComponent}
+        component={CustomCheckboxComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={

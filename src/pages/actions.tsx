@@ -1,10 +1,10 @@
 import { graphql, Link } from "gatsby";
 import * as React from "react";
 
-// @ts-ignore
 import {
   getMenu,
   getSiteConfig,
+  // @ts-ignore
   PageConfigFragment
 } from "../graphql/gatsby_fragments";
 
