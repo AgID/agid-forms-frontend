@@ -7,7 +7,8 @@ import { FormikProps } from "formik";
 
 import { Input } from "reactstrap";
 
-import { CheckboxField } from "./CheckBoxField";
+import { CheckboxField } from "./CheckboxField";
+import { CheckboxMultipleField } from "./CheckboxMultipleField";
 import { DefaultFormField } from "./DefaultFormField";
 import { HtmlField } from "./HtmlField";
 import { SelectField } from "./SelectField";
@@ -138,7 +139,9 @@ export const Formfield = ({
     case "text":
       return DefaultFormField(widgetOpts);
     case "checkbox":
-      return CheckboxField(widgetOpts);
+      return widgetOpts.field.options
+        ? CheckboxMultipleField(widgetOpts)
+        : CheckboxField(widgetOpts);
     case "radio":
       return RadioField(widgetOpts);
     case "select":
