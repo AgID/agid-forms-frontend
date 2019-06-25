@@ -204,7 +204,8 @@ const FormTemplate = ({
                             node: existingNode
                               ? {
                                   ...node.variables.node,
-                                  id: existingNode.node[0].id
+                                  id: existingNode.node[0].id,
+                                  version: existingNode.node[0].version + 1
                                 }
                               : node.variables.node
                           }

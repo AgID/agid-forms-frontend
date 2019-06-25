@@ -44,7 +44,7 @@ export const UPSERT_NODE = gql`
       objects: [$node]
       on_conflict: {
         constraint: node_pkey
-        update_columns: [language, status, title, content]
+        update_columns: [language, status, title, content, version]
       }
     ) {
       returning {
