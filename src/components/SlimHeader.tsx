@@ -9,6 +9,21 @@ import { getSiteConfig } from "../graphql/gatsby_fragments";
 import { getUser, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
+const dropdownModifiers = {
+  relativePosition: {
+    enabled: true,
+    fn: (data: any) => ({
+      ...data,
+      styles: {
+        ...data.styles,
+        borderRadius: "4px",
+        transform: "translate3d(0px, 55px, 0px)",
+        animationDuration: "0.2s"
+      }
+    })
+  }
+};
+
 type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
@@ -105,7 +120,10 @@ export const SlimHeader = ({
                       {defaultLanguage}
                       <Icon className="icon d-block" icon="expand" />
                     </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu">
+                    <DropdownMenu
+                      className="dropdown-menu"
+                      modifiers={dropdownModifiers}
+                    >
                       {(languages || []).map(
                         lang =>
                           lang &&
@@ -129,23 +147,35 @@ export const SlimHeader = ({
                       <DropdownToggle
                         caret={true}
                         tag="a"
-                        className="btn btn-xs"
+                        className="bg-white text-primary font-weight-600 btn btn-xs px-3 text-decoration-none"
                         style={{
                           cursor: "pointer",
                           marginRight: "-16px"
                         }}
                       >
-                        <Icon className="icon d-block d-md-none" icon="user" />
-                        <span className="d-none d-md-inline-block text-lowercase">
+                        <Icon
+                          className="icon d-block d-md-none text-primary"
+                          style={{
+                            fill: "#0066cc"
+                          }}
+                          icon="user"
+                        />
+                        <span className="d-none d-md-inline-block text-lowercase text-decoration-none">
                           {user.email}
                         </span>
                         <Icon
-                          className="icon d-none d-md-inline-block"
+                          className="icon d-none d-md-inline-block text-primary"
+                          style={{
+                            fill: "#0066cc"
+                          }}
                           icon="expand"
                         />
                       </DropdownToggle>
-                      <DropdownMenu className="dropdown-menu">
-                        <span className="d-inline-block d-md-none p-4">
+                      <DropdownMenu
+                        className="dropdown-menu"
+                        modifiers={dropdownModifiers}
+                      >
+                        <span className="d-inline-block d-md-none p-4 text-decoration-none">
                           {user.email}
                         </span>
                         <DropdownItem tag="span">

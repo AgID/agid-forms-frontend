@@ -135,6 +135,18 @@
   height: auto !important;
 }
 
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: transparent !important;
+}
+
+.it-header-slim-wrapper .it-header-slim-wrapper-content a:hover {
+  color: white;
+}
+
+a.bg-white:hover {
+  background-color: white !important;
+}
+
 /* menu */
 
 .megamenu-top-links {
