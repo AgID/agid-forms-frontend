@@ -104,7 +104,7 @@
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 @media (min-width: 992px) {
@@ -114,7 +114,7 @@
 }
 
 .font-weight-300 {
-  font-weight: 300;
+  font-weight: 300 !important;
 }
 
 .card .card-body li {
@@ -134,3 +134,36 @@
 .form-check [type='checkbox'] + label, .form-check [type='radio'] + label {
   height: auto !important;
 }
+
+/* menu */
+
+.megamenu-top-links {
+  margin-bottom: -0.5em;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.megamenu-top-links > li {
+  padding: 0.2em;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.megamenu-top-links > li:active {
+  border-bottom: 4px solid #0066cc;
+}
+
+.megamenu-top-links > li:first-child {
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+.megamenu-top-links > li:last-child {
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  border-right: none;
+}
+
+.megamenu-top-links .nav-link {
+  color: #455B71 !important;
+}
+

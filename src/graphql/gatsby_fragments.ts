@@ -8,10 +8,7 @@ export const PageConfigFragment = graphql`
         menu {
           name
           slug
-          subtree {
-            name
-            slug
-          }
+          authenticated
         }
       }
     }

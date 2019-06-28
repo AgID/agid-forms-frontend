@@ -15,8 +15,8 @@ type MegaMenuProps = {
   menu: ReturnType<typeof getMenu>;
 };
 
-const BACKGROUND_COLOR = "#0066cc";
-const FOREGROUND_COLOR = "#fff";
+const BACKGROUND_COLOR = "#ffffff";
+const FOREGROUND_COLOR = "#455B71";
 
 const dropdownModifiers = (isOffcanvasOpen: boolean) => ({
   relativePosition: {
@@ -36,7 +36,7 @@ const dropdownModifiers = (isOffcanvasOpen: boolean) => ({
             styles: {
               ...data.styles,
               borderRadius: "4px",
-              transform: "translate3d(15px, 45px, 0px)",
+              transform: "translate3d(15px, 65px, 0px)",
               animationDuration: "0.2s"
             }
           }
@@ -95,7 +95,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
             </button>
           </div>
           <div className="menu-wrapper">
-            <ul className="navbar-nav">
+            <ul className="navbar-nav megamenu-top-links shadow mt-4">
               {menu.map(menuItem => {
                 return (
                   menuItem &&
@@ -117,7 +117,8 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                       <DropdownToggle
                         caret={true}
                         tag="a"
-                        className="nav-link"
+                        className="nav-link megamenu-top-link font-weight-600"
+                        activeClassName="active"
                         role="button"
                         style={{
                           cursor: "pointer"
@@ -138,7 +139,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                         modifiers={dropdownModifiers(isOffcanvasOpen)}
                       >
                         <div className="link-list-wrapper">
-                          <ul className="two-columns mt-2">
+                          <ul className="mt-2">
                             {menuItem.subtree.map(
                               item =>
                                 item &&
@@ -162,7 +163,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                     <li className="nav-item megamenu" key={menuItem.slug!}>
                       <Link
                         to={menuItem.slug!}
-                        className="nav-link dropdown-toggle"
+                        className="nav-link megamenu-top-link font-weight-600"
                       >
                         {menuItem.name}
                       </Link>
