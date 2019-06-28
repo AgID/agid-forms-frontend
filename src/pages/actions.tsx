@@ -8,6 +8,7 @@ import {
   PageConfigFragment
 } from "../graphql/gatsby_fragments";
 
+import BodyStyles from "../components/BodyColor";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
@@ -15,9 +16,13 @@ import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => (
-  <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+  <Layout
+    menu={getMenu(data)}
+    siteConfig={getSiteConfig(data)}
+    title="Modulistica AGID"
+  >
+    <BodyStyles backgroundColor="#e7e6ff" />
     <SEO title="Actions" meta={[]} keywords={[]} />
-    <h1>Modulistica AGID</h1>
     <ul>
       {getForms(data).map(({ node }) => {
         return (

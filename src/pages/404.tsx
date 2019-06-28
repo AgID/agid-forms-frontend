@@ -6,9 +6,12 @@ import { NotFoundConfig } from "../generated/graphql/NotFoundConfig";
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 
 const NotFoundPage = ({ data }: { data: NotFoundConfig }) => (
-  <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+  <Layout
+    menu={getMenu(data)}
+    siteConfig={getSiteConfig(data)}
+    title="Pagina non trovata"
+  >
     <SEO title="404: Not found" meta={[]} keywords={[]} />
-    <h1>NOT FOUND</h1>
     <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
   </Layout>
 );

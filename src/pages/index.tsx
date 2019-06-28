@@ -345,9 +345,12 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
   }
 
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+    <Layout
+      menu={getMenu(data)}
+      siteConfig={getSiteConfig(data)}
+      title="Moduli"
+    >
       <SEO title="Home" meta={[]} keywords={[]} />
-      <h1>Modulistica AGID</h1>
       <SelectOrganizationConnectedComponent
         selectedPa={selectedPa}
         setHasSecret={setHasSecret}

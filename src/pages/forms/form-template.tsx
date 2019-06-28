@@ -22,25 +22,12 @@ import { FieldT, FormT, FormValuesT } from "../../components/FormField";
 import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
+import {
+  getForm,
+  getMenu,
+  getSiteConfig
+} from "../../graphql/gatsby_fragments";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
-
-const getForm = (data: FormConfig, formId?: string) => {
-  if (!formId) {
-    return null;
-  }
-  const forms = data.allFormYaml
-    ? data.allFormYaml.edges.filter(node => node.node.id === formId)
-    : null;
-  if (!forms || !forms[0] || !forms[0].node) {
-    return null;
-  }
-  const form = forms[0].node;
-  if (!form.form_fields) {
-    return null;
-  }
-  return form;
-};
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
@@ -115,6 +102,8 @@ const FormTemplate = ({
   // extract default values form form schema
   const initialValues = getInitialValues(form.form_fields);
 
+  const [title, setTitle] = React.useState(formId);
+
   // redirect user to results page on submit
   const [redirectToId, setRedirectToId] = React.useState();
   if (redirectToId) {
@@ -123,13 +112,16 @@ const FormTemplate = ({
   }
 
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
         skip={!nodeId}
         variables={{
           id: nodeId
+        }}
+        onCompleted={x => {
+          setTitle(x.node[0].title || formId);
         }}
       >
         {({
@@ -147,7 +139,6 @@ const FormTemplate = ({
             <>
               {existingNode ? (
                 <div className="mb-4">
-                  <h1>{existingNode.node[0].title}</h1>
                   <small>
                     <Link to={`/view/${existingNode.node[0].id}`}>
                       visualizza
@@ -155,7 +146,7 @@ const FormTemplate = ({
                   </small>
                 </div>
               ) : (
-                <h1>{formId}</h1>
+                <></>
               )}
               <Mutation<UpsertNode, UpsertNodeVariables> mutation={UPSERT_NODE}>
                 {(

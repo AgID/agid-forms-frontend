@@ -15,7 +15,11 @@ import {
   GetNode_node,
   GetNodeVariables
 } from "../../generated/graphql/GetNode";
-import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
+import {
+  getForm,
+  getMenu,
+  getSiteConfig
+} from "../../graphql/gatsby_fragments";
 import { GET_NODE } from "../../graphql/hasura_queries";
 
 const getViewfield = (
@@ -52,8 +56,9 @@ const ViewTemplate = ({
   formId?: string;
   uuid: string;
 }) => {
+  const [title, setTitle] = React.useState("");
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
@@ -71,22 +76,14 @@ const ViewTemplate = ({
             );
           }
           if (getNodeResult && getNodeResult.node[0]) {
-            const forms = data.allFormYaml
-              ? data.allFormYaml.edges.filter(
-                  node =>
-                    node.node.id === getNodeResult.node[0].content.schema.id
-                )
-              : null;
-            if (!forms || !forms[0] || !forms[0].node) {
-              return <p>Form non trovato</p>;
-            }
-            const form = forms[0].node;
-            if (!form.form_fields) {
+            const formId = getNodeResult.node[0].content.schema.id;
+            const form = getForm(data, formId);
+            if (!form || !form.form_fields) {
               return <p>Form vuoto.</p>;
             }
+            setTitle(getNodeResult.node[0].title);
             return (
               <>
-                <h1>{getNodeResult.node[0].title}</h1>
                 <div className="mb-4">
                   <small>
                     <Link
