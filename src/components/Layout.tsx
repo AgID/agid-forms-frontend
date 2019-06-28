@@ -54,7 +54,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => (
     <Container className="py-5 justify-content-md-center main" id="main">
       <main>
         {title && <h1>{title}</h1>}
-        <div className="page-container shadow py-md-5 px-md-3 mt-md-5 rounded bg-white">
+        <div className="page-container shadow py-md-5 px-md-5 mt-md-5 rounded bg-white">
           {children}
         </div>
       </main>

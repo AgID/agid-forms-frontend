@@ -21,6 +21,7 @@ import {
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
 import { GET_NODE } from "../../graphql/hasura_queries";
+import BodyStyles from "../../components/BodyColor";
 
 const getViewfield = (
   cur: ViewConfig_allFormYaml_edges_node_form_fields,
@@ -59,6 +60,7 @@ const ViewTemplate = ({
   const [title, setTitle] = React.useState("");
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+      <BodyStyles backgroundColor="#e7e6ff" />
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}

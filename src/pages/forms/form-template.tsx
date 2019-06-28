@@ -28,6 +28,7 @@ import {
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
 import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
+import BodyStyles from "../../components/BodyColor";
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
@@ -113,6 +114,7 @@ const FormTemplate = ({
 
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+      <BodyStyles backgroundColor="#e7e6ff" />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_NODE}
