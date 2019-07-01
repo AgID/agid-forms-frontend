@@ -1,12 +1,23 @@
 menu:
-  - name: Home
+  - name: Moduli
+    authenticated: true
     slug: "/"
-  - name: Test menu dropdown
-    slug: "/1"
-    subtree:
-      - name: Test child
-        slug: "/2"
-      - name: Test child 2
-        slug: "/3"
-      - name: Test child 3
-        slug: "/4"
+  - name: Dashboard
+    authenticated: true
+    slug: "/user"
+  - name: Utenti
+    authenticated: true
+    slug: "/dashboard"
+    #
+    # See src/graphql/gatsby_fragments.ts
+    #
+    # subtree:
+    #   - name: Moduli
+    #     authenticated: true
+    #     slug: "/"
+    #   - name: Dashboard
+    #     authenticated: true
+    #     slug: "/user"
+    #   - name: Utenti
+    #     authenticated: true
+    #     slug: "/user"

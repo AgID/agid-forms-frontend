@@ -9,6 +9,31 @@ import { getSiteConfig } from "../graphql/gatsby_fragments";
 import { getUser, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
+const dropdownModifiers = {
+  flip: {
+    enabled: true
+  },
+  shift: {
+    enabled: true
+  },
+  preventOverflow: {
+    enabled: true,
+    boundariesElement: "viewport" as "viewport"
+  },
+  relativePosition: {
+    enabled: true,
+    fn: (data: any) => ({
+      ...data,
+      styles: {
+        ...data.styles,
+        borderRadius: "4px",
+        transform: "translate3d(0px, 55px, 0px)",
+        animationDuration: "0.2s"
+      }
+    })
+  }
+};
+
 type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
@@ -27,6 +52,7 @@ export const SlimHeader = ({
     false
   );
   const [isUserDropdownOpen, setIsUserDropdownOpen] = React.useState(false);
+  const [isLinksDropdownOpen, setIsLinksDropdownOpen] = React.useState(false);
   return (
     <div className="it-header-slim-wrapper">
       <div className="container">
@@ -56,18 +82,28 @@ export const SlimHeader = ({
                       owner &&
                       owner.url && (
                         <a
-                          className="d-lg-none"
+                          className="d-lg-none it-opener collapsed"
                           href={owner.url}
                           key={owner.url}
                           role="button"
                           aria-expanded="false"
                           aria-controls="header-links"
+                          onClick={e => {
+                            e.preventDefault();
+                            setIsLinksDropdownOpen(!isLinksDropdownOpen);
+                          }}
                         >
                           <span>{owner.name}</span>
+                          <Icon className="icon d-lg-none" icon="expand" />
                         </a>
                       )
                   )}
-                  <div className="link-list-wrapper collapse" id="header-links">
+                  <div
+                    className={`link-list-wrapper collapse ${
+                      isLinksDropdownOpen ? "show" : ""
+                    }`}
+                    id="header-links"
+                  >
                     <ul className="link-list">
                       {(slimHeaderLinks || []).map(
                         slimHeaderLink =>
@@ -105,7 +141,10 @@ export const SlimHeader = ({
                       {defaultLanguage}
                       <Icon className="icon d-block" icon="expand" />
                     </DropdownToggle>
-                    <DropdownMenu className="dropdown-menu">
+                    <DropdownMenu
+                      className="dropdown-menu"
+                      modifiers={dropdownModifiers}
+                    >
                       {(languages || []).map(
                         lang =>
                           lang &&
@@ -129,23 +168,35 @@ export const SlimHeader = ({
                       <DropdownToggle
                         caret={true}
                         tag="a"
-                        className="btn btn-xs"
+                        className="bg-white text-primary font-weight-600 btn btn-xs px-3 text-decoration-none"
                         style={{
                           cursor: "pointer",
                           marginRight: "-16px"
                         }}
                       >
-                        <Icon className="icon d-block d-md-none" icon="user" />
-                        <span className="d-none d-md-inline-block text-lowercase">
+                        <Icon
+                          className="icon d-block d-md-none text-primary"
+                          style={{
+                            fill: "#0066cc"
+                          }}
+                          icon="user"
+                        />
+                        <span className="d-none d-md-inline-block text-lowercase text-decoration-none">
                           {user.email}
                         </span>
                         <Icon
-                          className="icon d-none d-md-inline-block"
+                          className="icon d-none d-md-inline-block text-primary"
+                          style={{
+                            fill: "#0066cc"
+                          }}
                           icon="expand"
                         />
                       </DropdownToggle>
-                      <DropdownMenu className="dropdown-menu">
-                        <span className="d-inline-block d-md-none p-4">
+                      <DropdownMenu
+                        className="dropdown-menu"
+                        modifiers={dropdownModifiers}
+                      >
+                        <span className="d-inline-block d-md-none p-4 text-decoration-none">
                           {user.email}
                         </span>
                         <DropdownItem tag="span">

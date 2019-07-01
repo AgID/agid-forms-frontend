@@ -1,5 +1,14 @@
 @import "bootstrap-italia/src/scss/bootstrap-italia.scss";
 
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    .shadow#{$infix} {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+  }
+}
+
 // responsive borders
 @each $breakpoint in map-keys($grid-breakpoints) {
   @include media-breakpoint-up($breakpoint) {
@@ -47,6 +56,10 @@
       border-bottom: $border-width solid $border-color;
     }
   }
+}
+
+main {
+  min-height: 50vh;
 }
 
 .u-layout-releaseFull {
@@ -104,7 +117,7 @@
 }
 
 .font-weight-600 {
-  font-weight: 600;
+  font-weight: 600 !important;
 }
 
 @media (min-width: 992px) {
@@ -114,7 +127,7 @@
 }
 
 .font-weight-300 {
-  font-weight: 300;
+  font-weight: 300 !important;
 }
 
 .card .card-body li {
@@ -134,3 +147,48 @@
 .form-check [type='checkbox'] + label, .form-check [type='radio'] + label {
   height: auto !important;
 }
+
+.dropdown-item:hover, .dropdown-item:focus {
+  background-color: transparent !important;
+}
+
+.it-header-slim-wrapper .it-header-slim-wrapper-content a:hover {
+  color: white;
+}
+
+a.bg-white:hover {
+  background-color: white !important;
+}
+
+/* menu */
+
+.megamenu-top-links {
+  margin-bottom: -0.5em;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.megamenu-top-links > li {
+  padding: 0.2em;
+  background-color: #fff;
+  border-right: 1px solid #ddd;
+}
+
+.megamenu-top-links > li:active {
+  border-bottom: 4px solid #0066cc;
+}
+
+.megamenu-top-links > li:first-child {
+  border-top-left-radius: 0.3rem;
+  border-bottom-left-radius: 0.3rem;
+}
+.megamenu-top-links > li:last-child {
+  border-top-right-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+  border-right: none;
+}
+
+.megamenu-top-links .nav-link {
+  color: #455B71 !important;
+}
+

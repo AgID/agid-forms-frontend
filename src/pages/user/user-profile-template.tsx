@@ -19,7 +19,11 @@ const UserProfileTemplate = ({
   userId: string;
 }) => {
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)}>
+    <Layout
+      menu={getMenu(data)}
+      siteConfig={getSiteConfig(data)}
+      title="Dashboard"
+    >
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetUserNodes> query={GET_USER_NODES}>
         {({

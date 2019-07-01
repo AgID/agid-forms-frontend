@@ -19,9 +19,10 @@ type LayoutProps = {
   children: React.ReactNode;
   menu: ReturnType<typeof getMenu>;
   siteConfig: ReturnType<typeof getSiteConfig>;
+  title?: string;
 };
 
-const Layout = ({ children, menu, siteConfig }: LayoutProps) => (
+const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => (
   <>
     <div className="skiplinks">
       <a className="sr-only sr-only-focusable" href="#main">
@@ -51,7 +52,12 @@ const Layout = ({ children, menu, siteConfig }: LayoutProps) => (
       />
     </div>
     <Container className="py-5 justify-content-md-center main" id="main">
-      {children}
+      <main>
+        {title && <h1>{title}</h1>}
+        <div className="page-container shadow-md py-4 py-md-5 px-md-5 mt-md-4 rounded bg-white">
+          {children}
+        </div>
+      </main>
     </Container>
     <Footer
       id="footer"
