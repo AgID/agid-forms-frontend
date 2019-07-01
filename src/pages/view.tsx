@@ -17,7 +17,7 @@ const View = ({ data }: { data: ViewConfig }) => (
       pageComponent={(props: RouteComponentProps<{ uuid: string }>) => (
         <ViewTemplate data={data} uuid={props.uuid!} />
       )}
-      path="/view/:uuid"
+      path="/view/:uuid/*"
     />
   </Router>
 );
