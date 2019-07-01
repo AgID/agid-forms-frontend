@@ -7,7 +7,7 @@ menu:
     slug: "/user"
   - name: Utenti
     authenticated: true
-    slug: "/user"
+    slug: "/dashboard"
     #
     # See src/graphql/gatsby_fragments.ts
     #
