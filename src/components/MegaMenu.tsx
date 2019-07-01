@@ -95,7 +95,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
             </button>
           </div>
           <div className="menu-wrapper">
-            <ul className="navbar-nav megamenu-top-links shadow mt-4">
+            <ul className="navbar-nav megamenu-top-links shadow-md mt-4">
               {menu.map(menuItem => {
                 return (
                   menuItem &&

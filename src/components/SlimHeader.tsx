@@ -10,6 +10,16 @@ import { getUser, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
 const dropdownModifiers = {
+  flip: {
+    enabled: true
+  },
+  shift: {
+    enabled: true
+  },
+  preventOverflow: {
+    enabled: true,
+    boundariesElement: "viewport" as "viewport"
+  },
   relativePosition: {
     enabled: true,
     fn: (data: any) => ({
@@ -42,6 +52,7 @@ export const SlimHeader = ({
     false
   );
   const [isUserDropdownOpen, setIsUserDropdownOpen] = React.useState(false);
+  const [isLinksDropdownOpen, setIsLinksDropdownOpen] = React.useState(false);
   return (
     <div className="it-header-slim-wrapper">
       <div className="container">
@@ -71,18 +82,28 @@ export const SlimHeader = ({
                       owner &&
                       owner.url && (
                         <a
-                          className="d-lg-none"
+                          className="d-lg-none it-opener collapsed"
                           href={owner.url}
                           key={owner.url}
                           role="button"
                           aria-expanded="false"
                           aria-controls="header-links"
+                          onClick={e => {
+                            e.preventDefault();
+                            setIsLinksDropdownOpen(!isLinksDropdownOpen);
+                          }}
                         >
                           <span>{owner.name}</span>
+                          <Icon className="icon d-lg-none" icon="expand" />
                         </a>
                       )
                   )}
-                  <div className="link-list-wrapper collapse" id="header-links">
+                  <div
+                    className={`link-list-wrapper collapse ${
+                      isLinksDropdownOpen ? "show" : ""
+                    }`}
+                    id="header-links"
+                  >
                     <ul className="link-list">
                       {(slimHeaderLinks || []).map(
                         slimHeaderLink =>
