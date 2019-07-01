@@ -10,6 +10,7 @@ import {
 } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
+import BodyStyles from "../../components/BodyColor";
 import {
   GetNode,
   GetNode_node,
@@ -21,7 +22,7 @@ import {
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
 import { GET_NODE } from "../../graphql/hasura_queries";
-import BodyStyles from "../../components/BodyColor";
+import { isLoggedIn } from "../../utils/auth";
 
 const getViewfield = (
   cur: ViewConfig_allFormYaml_edges_node_form_fields,
@@ -77,6 +78,9 @@ const ViewTemplate = ({
               <p>Errore nel ricevere i dati: {JSON.stringify(error)}...</p>
             );
           }
+          if (getNodeResult && getNodeResult.node && !getNodeResult.node[0]) {
+            return <p>La pagina è ancora da verificare.</p>;
+          }
           if (getNodeResult && getNodeResult.node[0]) {
             const formId = getNodeResult.node[0].content.schema.id;
             const form = getForm(data, formId);
@@ -86,15 +90,17 @@ const ViewTemplate = ({
             setTitle(getNodeResult.node[0].title);
             return (
               <>
-                <div className="mb-4">
-                  <small>
-                    <Link
-                      to={`/form/${getNodeResult.node[0].content.schema.id}/${getNodeResult.node[0].id}`}
-                    >
-                      modifica
-                    </Link>
-                  </small>
-                </div>
+                {isLoggedIn() && (
+                  <div className="mb-4">
+                    <small>
+                      <Link
+                        to={`/form/${getNodeResult.node[0].content.schema.id}/${getNodeResult.node[0].id}`}
+                      >
+                        modifica
+                      </Link>
+                    </small>
+                  </div>
+                )}
                 <table className="table table-hover table-bordered table-striped">
                   <tbody>
                     {renderViewFields(form.form_fields, getNodeResult.node[0])}
