@@ -8,11 +8,13 @@ import { RestLink } from "apollo-link-rest";
 
 import * as fetch from "isomorphic-fetch";
 
+import { navigate } from "gatsby";
 import {
   GATSBY_BACKEND_ENDPOINT,
   GATSBY_HASURA_GRAPHQL_ENDPOINT
 } from "../config";
-import { getBackendToken, getGraphqlToken } from "../utils/auth";
+import { getBackendToken, getGraphqlToken, logout } from "../utils/auth";
+import { ApolloErrorsT, isJwtExpiredError } from "../utils/errors";
 
 // setup your `RestLink` with your endpoint
 const restLink = new RestLink({
@@ -56,14 +58,16 @@ const graphqlAuthLink = setContext((_, { headers }) => {
     : headers;
 });
 
-const onErrorLink = onError(({ graphQLErrors, networkError }) => {
-  if (graphQLErrors) {
-    // tslint:disable-next-line: no-console
-    console.error(graphQLErrors);
-  }
-  if (networkError) {
-    // tslint:disable-next-line: no-console
-    console.error(networkError);
+const onErrorLink = onError(res => {
+  const error = {
+    graphQLErrors: res.graphQLErrors,
+    networkError: res.networkError,
+    message: (res as ApolloErrorsT).message
+  };
+  if (isJwtExpiredError(error)) {
+    logout(GraphqlClient)
+      .then(() => navigate("/?session-expired"))
+      .catch(() => navigate("/?session-expired"));
   }
 });
 
