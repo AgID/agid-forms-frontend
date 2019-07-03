@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
+import ApolloErrors, { ApolloErrorsT } from "../components/ApolloErrors";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
@@ -37,6 +38,7 @@ import {
   PostAuthLoginIpaCodeVariables
 } from "../generated/graphql/PostAuthLoginIpaCode";
 import { isLoggedIn, storeTokens, storeUser } from "../utils/auth";
+import { isTooManyRequestError } from "../utils/errors";
 
 type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -85,8 +87,10 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
         return <p>Invio in corso...</p>;
       } else if (mutationError) {
         return (
-          <p>
-            Si è verificato un errore durante l'operazione: {mutationError}...
+          <p className="text-danger">
+            Si è verificato un errore durante l'operazione:
+            <br />
+            <ApolloErrors errors={mutationError} />
           </p>
         );
       }
@@ -94,6 +98,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
       const hasRtd =
         ipaData &&
         ipaData.ipa_ou &&
+        ipaData.ipa_ou[0] &&
         ipaData.ipa_ou[0].mail_resp &&
         ipaData.ipa_ou[0].mail_resp !== "null" &&
         ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
@@ -106,24 +111,24 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
         </p>
       ) : (
         <>
-          <Button
-            className="mb-3"
-            color="primary"
-            onClick={() =>
-              ipaData && ipaData.ipa_pa[0]
-                ? getSecret({
-                    variables: {
-                      ipa_code: ipaData.ipa_pa[0].cod_amm,
-                      body: "{}"
-                    }
-                  })
-                : () => ({})
-            }
-          >
-            {ipaData && ipaData.ipa_pa[0]
-              ? "Invia l'email"
-              : "Scegli prima un'amministrazione"}
-          </Button>
+          {hasRtd && (
+            <Button
+              className="mb-3"
+              color="primary"
+              onClick={async () =>
+                ipaData && ipaData.ipa_pa[0]
+                  ? await getSecret({
+                      variables: {
+                        ipa_code: ipaData.ipa_pa[0].cod_amm,
+                        body: "{}"
+                      }
+                    })
+                  : () => ({})
+              }
+            >
+              Invia l'email
+            </Button>
+          )}
           {!hasRtd && (
             <p className="text-warning">
               L'indirizzo email del responsabile per la transizione digitale non
@@ -164,9 +169,9 @@ const GetSecretConnectedComponent = ({
   >
     {({ loading, error, data: ipaData }) => {
       if (loading) {
-        return "loading...";
+        return <p>carico i dati</p>;
       } else if (error) {
-        return "error...";
+        return <p>errore: {JSON.stringify(error)}</p>;
       } else {
         return <GetSecretComponent ipaData={ipaData} />;
       }
@@ -236,7 +241,7 @@ const SelectOrganizationConnectedComponent = ({
     >
       {({ loading, error, data: ipaData }) => {
         if (error) {
-          return <div>Errore nella query: {error}</div>;
+          return <div>Errore nella query: {JSON.stringify(error)}</div>;
         }
         return (
           <>
@@ -321,7 +326,15 @@ const LoginButtonConnectedComponent = ({
       }
       return (
         <>
-          {mutationError && <p className="text-danger">password errata</p>}
+          {mutationError && (
+            <p className="text-danger">
+              {isTooManyRequestError(mutationError) ? (
+                <ApolloErrors errors={mutationError} />
+              ) : (
+                <span>password errata</span>
+              )}
+            </p>
+          )}
           <LoginButtonComponent
             getTokens={getTokens}
             secret={secret}
