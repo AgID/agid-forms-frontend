@@ -35,12 +35,12 @@ export const getUser = (): UserProfile | null => {
 };
 
 export const logout = async (client: typeof GraphqlClient) => {
+  localStorage.clear();
+  await client.clearStore();
   await client.mutate({
     mutation: LOGOUT,
     variables: {
       body: "{}"
     }
   });
-  await client.clearStore();
-  localStorage.clear();
 };
