@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useState } from "react";
-import ApolloErrors, { ApolloErrorsT } from "../components/ApolloErrors";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 
@@ -27,6 +26,7 @@ import { useDebounce } from "use-debounce";
 import { GetIpa, GetIpaVariables } from "../generated/graphql/GetIpa";
 
 import { ValueType } from "react-select/lib/types";
+import ApolloErrors from "../components/ApolloErrors";
 import { DUMB_IPA_VALUE_FOR_NULL } from "../config";
 import { PageConfig } from "../generated/graphql/PageConfig";
 import {
@@ -357,6 +357,9 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
     return <></>;
   }
 
+  const isSessionExpired =
+    window.location.search.indexOf("session-expired") !== -1;
+
   return (
     <Layout
       menu={getMenu(data)}
@@ -364,6 +367,11 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
       title="Moduli"
     >
       <SEO title="Home" meta={[]} keywords={[]} />
+      {isSessionExpired && (
+        <p className="alert alert-warning w-100">
+          La tua sessione è scaduta, è necessario effettuare un nuovo login
+        </p>
+      )}
       <SelectOrganizationConnectedComponent
         selectedPa={selectedPa}
         setHasSecret={setHasSecret}
