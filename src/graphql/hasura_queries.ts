@@ -64,7 +64,7 @@ export const UPSERT_NODE = gql`
 
 export const GET_LATEST_NODE_WITH_PUBLISHED = gql`
   query GetNode($id: uuid!) {
-    latest: node(where: { id: { _eq: $id } }) {
+    latest: node(where: { id: { _eq: $id } }, limit: 1) {
       id
       created_at
       updated_at
@@ -92,10 +92,11 @@ export const GET_LATEST_NODE_WITH_PUBLISHED = gql`
   }
 `;
 
-export const GET_NODE_REVISION = gql`
+export const GET_NODE_REVISION_WITH_PUBLISHED = gql`
   query GetNodeRevision($id: uuid!, $version: Int!) {
     revision: node_revision(
       where: { _and: { id: { _eq: $id }, version: { _eq: $version } } }
+      limit: 1
     ) {
       id
       created_at
@@ -106,6 +107,20 @@ export const GET_NODE_REVISION = gql`
       status
       version
       type
+    }
+    published: node_revision(
+      where: { _and: { id: { _eq: $id }, status: { _eq: "published" } } }
+      order_by: { version: desc }
+      limit: 1
+    ) {
+      id
+      created_at
+      updated_at
+      title
+      content
+      language
+      status
+      version
     }
   }
 `;

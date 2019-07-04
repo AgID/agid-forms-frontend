@@ -36,7 +36,7 @@ const getViewfield = (
   );
 };
 
-const renderViewFields = (
+export const renderViewFields = (
   customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_form_fields | null> | null,
   node: GetNode_latest_published
 ): readonly JSX.Element[] =>
@@ -89,6 +89,14 @@ const ViewTemplate = ({
             latestNode && latestNode.published && latestNode.published[0]
               ? latestNode.published[0]
               : null;
+          if (!publishedNode) {
+            return (
+              <p>
+                Non è stato trovato un contenuto pubblicato corrispondente alla
+                url.
+              </p>
+            );
+          }
           const isLatestPublishedVersion =
             publishedNode && publishedNode.version === latestNode.version;
           {
@@ -99,7 +107,7 @@ const ViewTemplate = ({
           if (!form || !form.form_fields) {
             return <p>Form vuoto.</p>;
           }
-          setTitle(latestNode.title);
+          setTitle(publishedNode.title);
           return (
             <>
               {isLoggedIn() && (
@@ -112,9 +120,14 @@ const ViewTemplate = ({
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
-                    <p className="alert-warning">
+                    <p className="alert alert-warning">
                       Il nodo pubblicato non corrisponde alla sua ultima
-                      revisione
+                      revisione.<br />
+                      <Link
+                        to={`/revision/${latestNode.id}/${latestNode.version}`}
+                      >
+                        visualizza l'ultima versione
+                      </Link>
                     </p>
                   )}
                 </div>

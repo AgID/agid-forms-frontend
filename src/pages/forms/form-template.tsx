@@ -108,13 +108,6 @@ const FormTemplate = ({
 
   const [title, setTitle] = React.useState(formId);
 
-  // redirect user to results page on submit
-  const [redirectToId, setRedirectToId] = React.useState();
-  if (redirectToId) {
-    navigate(`/view/${redirectToId}`);
-    return <p>redirecting to results...</p>;
-  }
-
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
@@ -149,7 +142,11 @@ const FormTemplate = ({
               {latestNode ? (
                 <div className="mb-4">
                   <small>
-                    <Link to={`/view/${latestNode.id}`}>visualizza</Link>
+                    <Link
+                      to={`/revision/${latestNode.id}/${latestNode.version}`}
+                    >
+                      visualizza
+                    </Link>
                   </small>
                 </div>
               ) : (
@@ -177,10 +174,9 @@ const FormTemplate = ({
                     );
                   }
                   if (upsertNodeResult && upsertNodeResult.insert_node) {
-                    setRedirectToId(
-                      upsertNodeResult.insert_node.returning[0].id
+                    navigate(
+                      `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`
                     );
-                    return <p>stored data...</p>;
                   }
                   return (
                     <Formik

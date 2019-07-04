@@ -81,7 +81,9 @@ const UserProfileTemplate = ({
                         >
                           edit
                         </Link>{" "}
-                        <Link to={`/view/${node.id}`}>view</Link>
+                        <Link to={`/revision/${node.id}/${node.version}`}>
+                          view
+                        </Link>
                       </td>
                     </tr>
                   );
