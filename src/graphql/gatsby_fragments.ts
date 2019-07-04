@@ -1,7 +1,13 @@
 import { graphql } from "gatsby";
-import { FormConfig } from "../generated/graphql/FormConfig";
+import {
+  FormConfig,
+  FormConfig_allFormYaml_edges_node
+} from "../generated/graphql/FormConfig";
 import { PageConfig } from "../generated/graphql/PageConfig";
-import { ViewConfig } from "../generated/graphql/ViewConfig";
+import {
+  ViewConfig,
+  ViewConfig_allFormYaml_edges_node
+} from "../generated/graphql/ViewConfig";
 
 export const PageConfigFragment = graphql`
   fragment PageConfigFragment on ConfigYamlConnection {
@@ -22,7 +28,25 @@ export const getMenu = (data: PageConfig) => data.menu!.edges[0].node.menu;
 export const getSiteConfig = (data: PageConfig) =>
   data.siteConfig!.edges[0].node;
 
-export const getForm = (data: FormConfig | ViewConfig, formId?: string) => {
+// overload
+export function getForm(
+  data: FormConfig,
+  formId?: string
+): FormConfig_allFormYaml_edges_node | null;
+
+// overload
+export function getForm(
+  data: ViewConfig,
+  formId?: string
+): ViewConfig_allFormYaml_edges_node | null;
+
+export function getForm(
+  data: FormConfig | ViewConfig,
+  formId?: string
+):
+  | ViewConfig_allFormYaml_edges_node
+  | FormConfig_allFormYaml_edges_node
+  | null {
   if (!formId) {
     return null;
   }
@@ -37,7 +61,7 @@ export const getForm = (data: FormConfig | ViewConfig, formId?: string) => {
     return null;
   }
   return form;
-};
+}
 
 export const SiteConfigFragment = graphql`
   fragment SiteConfigFragment on ConfigYamlConnection {

@@ -21,14 +21,17 @@ import { FieldT, FormT, FormValuesT } from "../../components/FormField";
 
 import { Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
+import BodyStyles from "../../components/BodyColor";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
-import { GET_NODE, UPSERT_NODE } from "../../graphql/hasura_queries";
-import BodyStyles from "../../components/BodyColor";
+import {
+  GET_LATEST_NODE_WITH_PUBLISHED,
+  UPSERT_NODE
+} from "../../graphql/hasura_queries";
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
@@ -105,25 +108,18 @@ const FormTemplate = ({
 
   const [title, setTitle] = React.useState(formId);
 
-  // redirect user to results page on submit
-  const [redirectToId, setRedirectToId] = React.useState();
-  if (redirectToId) {
-    navigate(`/view/${redirectToId}`);
-    return <p>redirecting to results...</p>;
-  }
-
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
-        query={GET_NODE}
+        query={GET_LATEST_NODE_WITH_PUBLISHED}
         skip={!nodeId}
         variables={{
           id: nodeId
         }}
-        onCompleted={x => {
-          setTitle(x.node[0].title || formId);
+        onCompleted={node => {
+          setTitle(node.latest[0].title || formId);
         }}
       >
         {({
@@ -137,12 +133,18 @@ const FormTemplate = ({
           if (getNodeError) {
             return <p>Errore nella query: {JSON.stringify(getNodeError)}</p>;
           }
+          const latestNode =
+            existingNode && existingNode.latest && existingNode.latest[0]
+              ? existingNode.latest[0]
+              : null;
           return (
             <>
-              {existingNode ? (
+              {latestNode ? (
                 <div className="mb-4">
                   <small>
-                    <Link to={`/view/${existingNode.node[0].id}`}>
+                    <Link
+                      to={`/revision/${latestNode.id}/${latestNode.version}`}
+                    >
                       visualizza
                     </Link>
                   </small>
@@ -172,17 +174,14 @@ const FormTemplate = ({
                     );
                   }
                   if (upsertNodeResult && upsertNodeResult.insert_node) {
-                    setRedirectToId(
-                      upsertNodeResult.insert_node.returning[0].id
+                    navigate(
+                      `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`
                     );
-                    return <p>stored data...</p>;
                   }
                   return (
                     <Formik
                       initialValues={
-                        existingNode
-                          ? existingNode.node[0].content.values
-                          : initialValues
+                        latestNode ? latestNode.content.values : initialValues
                       }
                       validateOnChange={true}
                       onSubmit={async (
@@ -194,11 +193,11 @@ const FormTemplate = ({
                         await upsertNode({
                           ...node,
                           variables: {
-                            node: existingNode
+                            node: latestNode
                               ? {
                                   ...node.variables.node,
-                                  id: existingNode.node[0].id,
-                                  version: existingNode.node[0].version + 1
+                                  id: latestNode.id,
+                                  version: latestNode.version + 1
                                 }
                               : node.variables.node
                           }

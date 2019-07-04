@@ -13,7 +13,7 @@ import { Query } from "react-apollo";
 import BodyStyles from "../../components/BodyColor";
 import {
   GetNode,
-  GetNode_node,
+  GetNode_latest_published,
   GetNodeVariables
 } from "../../generated/graphql/GetNode";
 import {
@@ -21,7 +21,7 @@ import {
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
-import { GET_NODE } from "../../graphql/hasura_queries";
+import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
 const getViewfield = (
@@ -36,9 +36,9 @@ const getViewfield = (
   );
 };
 
-const renderViewFields = (
+export const renderViewFields = (
   customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_form_fields | null> | null,
-  node: GetNode_node
+  node: GetNode_latest_published
 ): readonly JSX.Element[] =>
   customPageFields
     ? customPageFields.reduce(
@@ -64,7 +64,7 @@ const ViewTemplate = ({
       <BodyStyles backgroundColor="#e7e6ff" />
       <SEO title="Home" meta={[]} keywords={[]} />
       <Query<GetNode, GetNodeVariables>
-        query={GET_NODE}
+        query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{
           id: uuid
         }}
@@ -78,38 +78,68 @@ const ViewTemplate = ({
               <p>Errore nel ricevere i dati: {JSON.stringify(error)}...</p>
             );
           }
-          if (getNodeResult && getNodeResult.node && !getNodeResult.node[0]) {
-            return <p>La pagina è ancora da verificare.</p>;
+          const latestNode =
+            getNodeResult && getNodeResult.latest && getNodeResult.latest[0]
+              ? getNodeResult.latest[0]
+              : null;
+          if (!latestNode) {
+            return <p>La pagina non esiste.</p>;
           }
-          if (getNodeResult && getNodeResult.node[0]) {
-            const formId = getNodeResult.node[0].content.schema.id;
-            const form = getForm(data, formId);
-            if (!form || !form.form_fields) {
-              return <p>Form vuoto.</p>;
-            }
-            setTitle(getNodeResult.node[0].title);
+          const publishedNode =
+            latestNode && latestNode.published && latestNode.published[0]
+              ? latestNode.published[0]
+              : null;
+          if (!publishedNode) {
             return (
-              <>
-                {isLoggedIn() && (
-                  <div className="mb-4">
-                    <small>
-                      <Link
-                        to={`/form/${getNodeResult.node[0].content.schema.id}/${getNodeResult.node[0].id}`}
-                      >
-                        modifica
-                      </Link>
-                    </small>
-                  </div>
-                )}
-                <table className="table table-hover table-bordered table-striped">
-                  <tbody>
-                    {renderViewFields(form.form_fields, getNodeResult.node[0])}
-                  </tbody>
-                </table>
-              </>
+              <p>
+                Non è stato trovato un contenuto pubblicato corrispondente alla
+                url.
+              </p>
             );
           }
-          return <></>;
+          const isLatestPublishedVersion =
+            publishedNode && publishedNode.version === latestNode.version;
+          {
+            /* shows the latest published page with an eventual link to latest version (only if the user is logged in) */
+          }
+          const formId = latestNode.content.schema.id;
+          const form = getForm(data, formId);
+          if (!form || !form.form_fields) {
+            return <p>Form vuoto.</p>;
+          }
+          setTitle(publishedNode.title);
+          return (
+            <>
+              {isLoggedIn() && (
+                <div className="mb-4">
+                  <small>
+                    <Link
+                      to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
+                    >
+                      modifica
+                    </Link>
+                  </small>
+                  {!isLatestPublishedVersion && (
+                    <p className="alert alert-warning">
+                      Il nodo pubblicato non corrisponde alla sua ultima
+                      revisione.<br />
+                      <Link
+                        to={`/revision/${latestNode.id}/${latestNode.version}`}
+                      >
+                        visualizza l'ultima versione
+                      </Link>
+                    </p>
+                  )}
+                </div>
+              )}
+              <table className="table table-hover table-bordered table-striped">
+                <tbody>
+                  {publishedNode &&
+                    renderViewFields(form.form_fields, publishedNode)}
+                </tbody>
+              </table>
+            </>
+          );
         }}
       </Query>
     </Layout>

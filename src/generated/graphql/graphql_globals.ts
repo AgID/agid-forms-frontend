@@ -10,7 +10,7 @@
  * unique or primary key constraints on table "node_revision"
  */
 export enum node_revision_constraint {
-  node_revision_pkey = "node_revision_pkey"
+  node_revision_pkey = "node_revision_pkey",
 }
 
 /**
@@ -26,7 +26,7 @@ export enum node_revision_update_column {
   type = "type",
   updated_at = "updated_at",
   user_id = "user_id",
-  version = "version"
+  version = "version",
 }
 
 /**
@@ -34,14 +34,14 @@ export enum node_revision_update_column {
  */
 export enum user_constraint {
   user_email_key = "user_email_key",
-  user_pkey = "user_pkey"
+  user_pkey = "user_pkey",
 }
 
 /**
  * unique or primary key constraints on table "user_role"
  */
 export enum user_role_constraint {
-  user_role_pkey = "user_role_pkey"
+  user_role_pkey = "user_role_pkey",
 }
 
 /**
@@ -49,7 +49,7 @@ export enum user_role_constraint {
  */
 export enum user_role_update_column {
   role_id = "role_id",
-  user_id = "user_id"
+  user_id = "user_id",
 }
 
 /**
@@ -58,7 +58,7 @@ export enum user_role_update_column {
 export enum user_update_column {
   email = "email",
   id = "id",
-  metadata = "metadata"
+  metadata = "metadata",
 }
 
 export interface LoginCredentialsInput {

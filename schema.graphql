@@ -2513,6 +2513,9 @@ type query_root {
     where: language_bool_exp
   ): language_aggregate!
 
+  # fetch data from the table: "language" using primary key columns
+  language_by_pk(language: String!): language
+
   # fetch data from the table: "node"
   node(
     # distinct select on columns
@@ -2627,6 +2630,9 @@ type query_root {
     where: node_type_bool_exp
   ): node_type_aggregate!
 
+  # fetch data from the table: "node_type" using primary key columns
+  node_type_by_pk(node_type: String!): node_type
+
   # fetch data from the table: "role"
   role(
     # distinct select on columns
@@ -2662,6 +2668,9 @@ type query_root {
     # filter the rows returned
     where: role_bool_exp
   ): role_aggregate!
+
+  # fetch data from the table: "role" using primary key columns
+  role_by_pk(role: String!): role
 
   # execute function "search_ipa" which returns "ipa_pa"
   search_ipa(
@@ -3169,6 +3178,9 @@ type subscription_root {
     where: language_bool_exp
   ): language_aggregate!
 
+  # fetch data from the table: "language" using primary key columns
+  language_by_pk(language: String!): language
+
   # fetch data from the table: "node"
   node(
     # distinct select on columns
@@ -3283,6 +3295,9 @@ type subscription_root {
     where: node_type_bool_exp
   ): node_type_aggregate!
 
+  # fetch data from the table: "node_type" using primary key columns
+  node_type_by_pk(node_type: String!): node_type
+
   # fetch data from the table: "role"
   role(
     # distinct select on columns
@@ -3318,6 +3333,9 @@ type subscription_root {
     # filter the rows returned
     where: role_bool_exp
   ): role_aggregate!
+
+  # fetch data from the table: "role" using primary key columns
+  role_by_pk(role: String!): role
 
   # execute function "search_ipa" which returns "ipa_pa"
   search_ipa(

@@ -72,6 +72,13 @@ const onErrorLink = onError(res => {
 });
 
 export const GraphqlClient = new ApolloClient({
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    dataIdFromObject: object => {
+      if ((object as any).version) {
+        return `${object.id}:${(object as any).version}`;
+      }
+      return object.id;
+    }
+  }),
   link: ApolloLink.from([onErrorLink, restLink, graphqlAuthLink, httpLink])
 });

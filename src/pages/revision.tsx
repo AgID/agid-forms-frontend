@@ -3,24 +3,29 @@ import { RouteComponentProps, Router } from "@reach/router";
 import { graphql } from "gatsby";
 import * as React from "react";
 
-import RouterPage from "../components/RouterPage";
-
+import PrivateRoute from "../components/PrivateRoute";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
-import ViewTemplate from "./forms/view-template";
+import RevisionTemplate from "./forms/revision-template";
 
 const View = ({ data }: { data: ViewConfig }) => (
   <Router>
-    <RouterPage
-      pageComponent={(props: RouteComponentProps<{ uuid: string }>) => (
-        <ViewTemplate data={data} uuid={props.uuid!} />
+    <PrivateRoute
+      component={(
+        props: RouteComponentProps<{ uuid: string; version: number }>
+      ) => (
+        <RevisionTemplate
+          data={data}
+          uuid={props.uuid!}
+          version={props.version!}
+        />
       )}
-      path="/view/:uuid/*"
+      path="/revision/:uuid/:version"
     />
   </Router>
 );
 
 export const query = graphql`
-  query ViewConfig {
+  query RevisionConfig {
     menu: allConfigYaml(
       filter: { menu: { elemMatch: { name: { ne: null } } } }
     ) {
