@@ -15,7 +15,9 @@ export interface RevisionConfig_menu_edges_node_menu {
 
 export interface RevisionConfig_menu_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<(RevisionConfig_menu_edges_node_menu | null)> | null;
+  readonly menu: ReadonlyArray<
+    RevisionConfig_menu_edges_node_menu | null
+  > | null;
 }
 
 export interface RevisionConfig_menu_edges {
@@ -63,11 +65,21 @@ export interface RevisionConfig_siteConfig_edges_node {
   readonly title: string | null;
   readonly description: string | null;
   readonly defaultLanguage: string | null;
-  readonly owners: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_owners | null)> | null;
-  readonly languages: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_languages | null)> | null;
-  readonly slimHeaderLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_slimHeaderLinks | null)> | null;
-  readonly socialLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_socialLinks | null)> | null;
-  readonly footerLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_footerLinks | null)> | null;
+  readonly owners: ReadonlyArray<
+    RevisionConfig_siteConfig_edges_node_owners | null
+  > | null;
+  readonly languages: ReadonlyArray<
+    RevisionConfig_siteConfig_edges_node_languages | null
+  > | null;
+  readonly slimHeaderLinks: ReadonlyArray<
+    RevisionConfig_siteConfig_edges_node_slimHeaderLinks | null
+  > | null;
+  readonly socialLinks: ReadonlyArray<
+    RevisionConfig_siteConfig_edges_node_socialLinks | null
+  > | null;
+  readonly footerLinks: ReadonlyArray<
+    RevisionConfig_siteConfig_edges_node_footerLinks | null
+  > | null;
 }
 
 export interface RevisionConfig_siteConfig_edges {
@@ -93,7 +105,9 @@ export interface RevisionConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
   readonly version: string | null;
-  readonly form_fields: ReadonlyArray<(RevisionConfig_allFormYaml_edges_node_form_fields | null)> | null;
+  readonly form_fields: ReadonlyArray<
+    RevisionConfig_allFormYaml_edges_node_form_fields | null
+  > | null;
 }
 
 export interface RevisionConfig_allFormYaml_edges {

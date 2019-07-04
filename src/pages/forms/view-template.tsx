@@ -122,7 +122,8 @@ const ViewTemplate = ({
                   {!isLatestPublishedVersion && (
                     <p className="alert alert-warning">
                       Il nodo pubblicato non corrisponde alla sua ultima
-                      revisione.<br />
+                      revisione.
+                      <br />
                       <Link
                         to={`/revision/${latestNode.id}/${latestNode.version}`}
                       >
