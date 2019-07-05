@@ -34,12 +34,13 @@ export const query = graphql`
         node {
           id
           version
-          form_fields {
-            default
-            description
-            name
-            title
-            widget
+          sections {
+            fields {
+              description
+              name
+              title
+              widget
+            }
           }
         }
       }

@@ -1,7 +1,9 @@
 import { graphql } from "gatsby";
 import {
   FormConfig,
-  FormConfig_allFormYaml_edges_node
+  FormConfig_allFormYaml_edges_node,
+  FormConfig_allFormYaml_edges_node_sections,
+  FormConfig_allFormYaml_edges_node_sections_fields
 } from "../generated/graphql/FormConfig";
 import { PageConfig } from "../generated/graphql/PageConfig";
 import {
@@ -56,11 +58,33 @@ export function getForm(
   if (!forms || !forms[0] || !forms[0].node) {
     return null;
   }
-  const form = forms[0].node;
-  if (!form.form_fields) {
-    return null;
+  return forms[0].node;
+}
+
+/**
+ * Flatten form fields into array
+ */
+export function getFormFields(
+  form: ViewConfig_allFormYaml_edges_node | FormConfig_allFormYaml_edges_node
+) {
+  if (!form.sections || !form.sections[0]) {
+    return [];
   }
-  return form;
+  return (form.sections as ReadonlyArray<
+    FormConfig_allFormYaml_edges_node_sections
+  >).reduce(
+    (
+      prev: ReadonlyArray<FormConfig_allFormYaml_edges_node_sections_fields>,
+      cur: FormConfig_allFormYaml_edges_node_sections
+    ) => {
+      return cur && cur.fields
+        ? ([...prev, ...cur.fields] as ReadonlyArray<
+            FormConfig_allFormYaml_edges_node_sections_fields
+          >)
+        : prev;
+    },
+    [] as ReadonlyArray<FormConfig_allFormYaml_edges_node_sections_fields>
+  );
 }
 
 export const SiteConfigFragment = graphql`

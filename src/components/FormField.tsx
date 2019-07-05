@@ -15,7 +15,7 @@ import { SelectField } from "./SelectField";
 
 import {
   FormConfig_allFormYaml_edges_node,
-  FormConfig_allFormYaml_edges_node_form_fields
+  FormConfig_allFormYaml_edges_node_sections_fields
 } from "../generated/graphql/FormConfig";
 
 import { setLocale } from "yup";
@@ -31,7 +31,7 @@ export interface FormValuesT {
   [k: string]: any;
 }
 
-export type FieldT = FormConfig_allFormYaml_edges_node_form_fields;
+export type FieldT = FormConfig_allFormYaml_edges_node_sections_fields;
 export type FormT = FormConfig_allFormYaml_edges_node;
 
 export type FormFieldPropsT = {

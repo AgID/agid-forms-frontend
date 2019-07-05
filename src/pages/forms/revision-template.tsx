@@ -14,6 +14,7 @@ import {
 } from "../../generated/graphql/GetNodeRevision";
 import {
   getForm,
+  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
@@ -73,7 +74,7 @@ const RevisionTemplate = ({
           }
           const formId = nodeRevision.content.schema.id;
           const form = getForm(data, formId);
-          if (!form || !form.form_fields) {
+          if (!form) {
             return <p>Form vuoto.</p>;
           }
           setTitle(nodeRevision.title);
@@ -103,7 +104,7 @@ const RevisionTemplate = ({
               <table className="table table-hover table-bordered table-striped">
                 <tbody>
                   {nodeRevision &&
-                    renderViewFields(form.form_fields, nodeRevision)}
+                    renderViewFields(getFormFields(form), nodeRevision)}
                 </tbody>
               </table>
             </>

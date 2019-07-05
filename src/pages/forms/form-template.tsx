@@ -25,6 +25,7 @@ import BodyStyles from "../../components/BodyColor";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
+  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
@@ -94,9 +95,11 @@ const FormTemplate = ({
 
   // get form schema
   const form = getForm(data, formId);
-  if (!form || !form.form_fields) {
+  if (!form) {
     return <p>Form not found or empty.</p>;
   }
+
+  const formFields = getFormFields(form);
 
   // get the expression to generate title
   const titleExpression = form.title_pattern
@@ -104,7 +107,7 @@ const FormTemplate = ({
     : null;
 
   // extract default values form form schema
-  const initialValues = getInitialValues(form.form_fields);
+  const initialValues = getInitialValues(formFields);
 
   const [title, setTitle] = React.useState(formId);
 
@@ -206,17 +209,30 @@ const FormTemplate = ({
                       }}
                       render={(formik: FormikProps<FormValuesT>) => (
                         <Form>
-                          {(form.form_fields || []).map(field =>
-                            field && field.name ? (
-                              <Formfield
-                                key={field.name}
-                                field={field}
-                                form={formik}
-                              />
-                            ) : (
-                              <></>
-                            )
-                          )}
+                          {form.sections!.map(section => {
+                            if (!section) {
+                              return null;
+                            }
+                            return (
+                              <div key={`${section.title}`}>
+                                {section.title && <h2>{section.title}</h2>}
+                                {section.description && (
+                                  <p>{section.description}</p>
+                                )}
+                                {section.fields!.map(field =>
+                                  field && field.name ? (
+                                    <Formfield
+                                      key={field.name}
+                                      field={field}
+                                      form={formik}
+                                    />
+                                  ) : (
+                                    <></>
+                                  )
+                                )}
+                              </div>
+                            );
+                          })}
                           <Button
                             type="submit"
                             disabled={

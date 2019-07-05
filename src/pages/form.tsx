@@ -49,23 +49,27 @@ export const query = graphql`
           enabled
           slug_pattern
           title_pattern
-          form_fields {
-            default
-            default_checked
-            default_multiple_selection
-            description
-            name
-            multiple
+          sections {
             title
-            widget
-            show_if
-            valid_if
-            required_if
-            error_msg
-            computed_value
-            options {
-              value
-              label
+            description
+            fields {
+              default
+              default_checked
+              default_multiple_selection
+              description
+              name
+              multiple
+              title
+              widget
+              show_if
+              valid_if
+              required_if
+              error_msg
+              computed_value
+              options {
+                value
+                label
+              }
             }
           }
         }
