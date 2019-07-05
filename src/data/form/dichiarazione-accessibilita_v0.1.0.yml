@@ -5,82 +5,85 @@ enabled: true
 version: 0.1.0
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: "'Dichiarazione accessibilita ' + title"
-form_fields:
-  - name: "title"
-    widget: text
-    title: Sito web
-    description: indirizzo del sito web, es. http://www.example.com
-    valid_if: Yup.string().url().required().validate(value)
-    required_if: "true"
-  - name: "111"
-    widget: checkbox
-    title: 1.1.1 Contenuti non testuali (livello A)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.1.1 Contenuti non testuali (livello AA)
-    default_checked: true
-  - name: 111-note
-    title: Nota
-    widget: text
-    show_if: "!this[111]"
-    required_if: "!this[111]"
-  - name: "121"
-    widget: checkbox
-    title: 1.2.1 Solo audio e solo video (preregistrati) (Level A)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.2.1 Solo audio e solo video (preregistrati)
-    default_checked: true
-  - name: 121-note
-    title: Nota
-    widget: text
-    show_if: "!this[121]"
-    required_if: "!this[121]"
-  - name: "122"
-    widget: checkbox
-    title: 1.2.2 Sottotitoli (preregistrati) (livello A)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.2.2 Sottotitoli (preregistrati)
-    default_checked: true
-  - name: 122-note
-    title: Nota
-    widget: text
-    show_if: "!this[122]"
-    required_if: "!this[122]"
-  - name: "123"
-    widget: checkbox
-    title: 1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato) (livello A)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato)
-    default_checked: true
-  - name: 123-note
-    title: Nota
-    widget: text
-    show_if: "!this[123]"
-    required_if: "!this[123]"
-  - name: "124"
-    widget: checkbox
-    title: 1.2.4 Sottotitoli (in tempo reale) (Level AA)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.2.4 Sottotitoli (in tempo reale)
-    default_checked: true
-  - name: 124-note
-    title: Nota
-    widget: text
-    show_if: "!this[124]"
-    required_if: "!this[124]"
-  - name: "125"
-    widget: checkbox
-    title: 1.2.5 Audiodescrizione (preregistrata) (Level AA)
-    description: >
-      Norma EN 301 549, criterio:
-      9.1.2.5 Audiodescrizione (preregistrata)
-    default_checked: true
-  - name: 125-note
-    title: Nota
-    widget: text
-    show_if: "!this[125]"
-    required_if: "!this[125]"
+sections:
+  - title: sezione 1
+    description: descrizione della sezione 1
+    fields:
+      - name: "title"
+        widget: text
+        title: Sito web
+        description: indirizzo del sito web, es. http://www.example.com
+        valid_if: Yup.string().url().required().validate(value)
+        required_if: "true"
+      - name: "111"
+        widget: checkbox
+        title: 1.1.1 Contenuti non testuali (livello A)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.1.1 Contenuti non testuali (livello AA)
+        default_checked: true
+      - name: 111-note
+        title: Nota
+        widget: text
+        show_if: "!this[111]"
+        required_if: "!this[111]"
+      - name: "121"
+        widget: checkbox
+        title: 1.2.1 Solo audio e solo video (preregistrati) (Level A)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.2.1 Solo audio e solo video (preregistrati)
+        default_checked: true
+      - name: 121-note
+        title: Nota
+        widget: text
+        show_if: "!this[121]"
+        required_if: "!this[121]"
+      - name: "122"
+        widget: checkbox
+        title: 1.2.2 Sottotitoli (preregistrati) (livello A)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.2.2 Sottotitoli (preregistrati)
+        default_checked: true
+      - name: 122-note
+        title: Nota
+        widget: text
+        show_if: "!this[122]"
+        required_if: "!this[122]"
+      - name: "123"
+        widget: checkbox
+        title: 1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato) (livello A)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato)
+        default_checked: true
+      - name: 123-note
+        title: Nota
+        widget: text
+        show_if: "!this[123]"
+        required_if: "!this[123]"
+      - name: "124"
+        widget: checkbox
+        title: 1.2.4 Sottotitoli (in tempo reale) (Level AA)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.2.4 Sottotitoli (in tempo reale)
+        default_checked: true
+      - name: 124-note
+        title: Nota
+        widget: text
+        show_if: "!this[124]"
+        required_if: "!this[124]"
+      - name: "125"
+        widget: checkbox
+        title: 1.2.5 Audiodescrizione (preregistrata) (Level AA)
+        description: >
+          Norma EN 301 549, criterio:
+          9.1.2.5 Audiodescrizione (preregistrata)
+        default_checked: true
+      - name: 125-note
+        title: Nota
+        widget: text
+        show_if: "!this[125]"
+        required_if: "!this[125]"

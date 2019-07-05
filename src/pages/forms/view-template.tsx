@@ -6,7 +6,7 @@ import { Link } from "gatsby";
 
 import {
   ViewConfig,
-  ViewConfig_allFormYaml_edges_node_form_fields
+  ViewConfig_allFormYaml_edges_node_sections_fields
 } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
@@ -18,6 +18,7 @@ import {
 } from "../../generated/graphql/GetNode";
 import {
   getForm,
+  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
@@ -25,7 +26,7 @@ import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
 const getViewfield = (
-  cur: ViewConfig_allFormYaml_edges_node_form_fields,
+  cur: ViewConfig_allFormYaml_edges_node_sections_fields,
   value: string
 ) => {
   return (
@@ -37,7 +38,7 @@ const getViewfield = (
 };
 
 export const renderViewFields = (
-  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_form_fields | null> | null,
+  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_sections_fields | null> | null,
   node: GetNode_latest_published
 ): readonly JSX.Element[] =>
   customPageFields
@@ -104,7 +105,7 @@ const ViewTemplate = ({
           }
           const formId = latestNode.content.schema.id;
           const form = getForm(data, formId);
-          if (!form || !form.form_fields) {
+          if (!form) {
             return <p>Form vuoto.</p>;
           }
           setTitle(publishedNode.title);
@@ -136,7 +137,7 @@ const ViewTemplate = ({
               <table className="table table-hover table-bordered table-striped">
                 <tbody>
                   {publishedNode &&
-                    renderViewFields(form.form_fields, publishedNode)}
+                    renderViewFields(getFormFields(form), publishedNode)}
                 </tbody>
               </table>
             </>

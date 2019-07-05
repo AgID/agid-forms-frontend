@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { FormikProps } from "formik";
+import { getFormFields } from "../graphql/gatsby_fragments";
 import { FieldT, FormT, FormValuesT } from "./FormField";
 
 export const FormErrors = ({
@@ -24,9 +25,9 @@ export const FormErrors = ({
           <div key={k}>
             <small className="text-warning">
               {
-                form.form_fields!.filter(
+                getFormFields(form).filter(
                   (field: FieldT | null) => field && field.name === k
-                )[0]!.title
+                )[0].title
               }
               : {formik.errors[k]}
             </small>

@@ -28,7 +28,7 @@ export interface PostAuthEmailIpaCode_post_auth_email_ipa_code {
 export interface PostAuthEmailIpaCode {
   /**
    * Send an email with a secret code to the RTD of the Public Administration
-   * (organization) identified by the IPA code.
+   * (organization) identified by the IPA code. 
    * Gets the information on the organization from the
    * [IPA](https: // indicepa.gov.it) catalogue using the provided IPA code.
    * The secret code will be used by the client to login into the backend.
