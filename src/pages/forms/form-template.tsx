@@ -123,6 +123,10 @@ const FormFieldArray = ({
       key={group.name}
       name={group.name}
       render={arrayHelpers => {
+        const existingValues = formik.values[group.name!];
+        if (!existingValues) {
+          return null;
+        }
         const defaultValues = groupFields.reduce(
           (prev, cur) => ({
             ...prev,
@@ -135,7 +139,7 @@ const FormFieldArray = ({
             curField ? { ...prev, [curField.name!]: curField } : prev,
           {} as Record<string, FieldT>
         );
-        const existingFields = formik.values[group.name!].map(
+        const existingFields = existingValues.map(
           (o: Record<string, string>, index: number) =>
             Object.keys(o).map(fieldName => {
               return (
@@ -270,9 +274,9 @@ const FormTemplate = ({
                     );
                   }
                   if (upsertNodeResult && upsertNodeResult.insert_node) {
-                    navigate(
-                      `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`
-                    );
+                    // force page reload to avoid redirect loop
+                    // tslint:disable-next-line: no-object-mutation
+                    window.location.href = `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`;
                   }
                   return (
                     <Formik
