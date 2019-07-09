@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FormFieldPropsT } from "./FormField";
+import { FormFieldPropsT } from "../utils/forms";
 
 export const HtmlField = ({
   field,
@@ -18,7 +18,7 @@ export const HtmlField = ({
     ? // compute field value then cast to string
       valueExpression({ Math, ...form.values }).toString()
     : field.default;
-  return isHidden ? (
+  return !isHidden ? (
     <div key={field.name!} dangerouslySetInnerHTML={{ __html: content }} />
   ) : (
     <></>

@@ -52,23 +52,29 @@ export const query = graphql`
           sections {
             title
             description
-            fields {
-              default
-              default_checked
-              default_multiple_selection
-              description
+            groups {
               name
-              multiple
               title
-              widget
-              show_if
-              valid_if
-              required_if
-              error_msg
-              computed_value
-              options {
-                value
-                label
+              description
+              repeatable
+              fields {
+                default
+                default_checked
+                default_multiple_selection
+                description
+                name
+                multiple
+                title
+                widget
+                show_if
+                valid_if
+                required_if
+                error_msg
+                computed_value
+                options {
+                  value
+                  label
+                }
               }
             }
           }

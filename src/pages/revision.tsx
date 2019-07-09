@@ -40,11 +40,15 @@ export const query = graphql`
           id
           version
           sections {
-            fields {
-              description
+            groups {
               name
-              title
-              widget
+              repeatable
+              fields {
+                description
+                name
+                title
+                widget
+              }
             }
           }
         }

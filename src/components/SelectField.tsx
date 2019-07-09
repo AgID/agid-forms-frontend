@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import { Field, FieldAttributes, FormikProps } from "formik";
+import { Field, FieldAttributes, FormikProps, getIn } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import SelectBase from "react-select";
-import { FieldT, FormValuesT, validateField } from "./FormField";
+import { FieldT, FormValuesT, validateField } from "../utils/forms";
 
 export const CustomSelectComponent = ({
   field,
@@ -48,17 +48,17 @@ export const SelectField = ({
   validationExpression: any;
   valueExpression: any;
 }) => {
-  return (
-    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
+  return field.name ? (
+    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
       <Label
-        fieldName={field.name!}
+        fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
       />
       <Field
         name={field.name}
         type="select"
-        checked={form.values[field.name!]}
+        checked={getIn(form.values, field.name)}
         component={CustomSelectComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
@@ -68,14 +68,14 @@ export const SelectField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : form.values[field.name!]
+            : getIn(form.values, field.name)
         }
         options={field.options}
       />
-      <ErrorMessage name={field.name!} />
+      <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />
       )}
     </FormGroup>
-  );
+  ) : null;
 };

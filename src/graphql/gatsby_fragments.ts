@@ -3,7 +3,8 @@ import {
   FormConfig,
   FormConfig_allFormYaml_edges_node,
   FormConfig_allFormYaml_edges_node_sections,
-  FormConfig_allFormYaml_edges_node_sections_fields
+  FormConfig_allFormYaml_edges_node_sections_groups,
+  FormConfig_allFormYaml_edges_node_sections_groups_fields
 } from "../generated/graphql/FormConfig";
 import { PageConfig } from "../generated/graphql/PageConfig";
 import {
@@ -61,12 +62,22 @@ export function getForm(
   return forms[0].node;
 }
 
+export function getGroupFields(
+  group: FormConfig_allFormYaml_edges_node_sections_groups
+) {
+  return group.fields && group.repeatable
+    ? (group.fields as ReadonlyArray<
+        FormConfig_allFormYaml_edges_node_sections_groups_fields
+      >).map(field =>
+        field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
+      )
+    : group.fields || [];
+}
+
 /**
  * Flatten form fields into array
  */
-export function getFormFields(
-  form: ViewConfig_allFormYaml_edges_node | FormConfig_allFormYaml_edges_node
-) {
+export function getFormFields(form: FormConfig_allFormYaml_edges_node) {
   if (!form.sections || !form.sections[0]) {
     return [];
   }
@@ -74,16 +85,34 @@ export function getFormFields(
     FormConfig_allFormYaml_edges_node_sections
   >).reduce(
     (
-      prev: ReadonlyArray<FormConfig_allFormYaml_edges_node_sections_fields>,
-      cur: FormConfig_allFormYaml_edges_node_sections
+      prevSection: ReadonlyArray<
+        FormConfig_allFormYaml_edges_node_sections_groups_fields
+      >,
+      curSection: FormConfig_allFormYaml_edges_node_sections
     ) => {
-      return cur && cur.fields
-        ? ([...prev, ...cur.fields] as ReadonlyArray<
-            FormConfig_allFormYaml_edges_node_sections_fields
-          >)
-        : prev;
+      return curSection && curSection.groups
+        ? [
+            ...prevSection,
+            ...curSection.groups.reduce(
+              (prevGroup, curGroup) =>
+                curGroup && curGroup.fields
+                  ? ([
+                      ...prevGroup,
+                      ...getGroupFields(curGroup)
+                    ] as ReadonlyArray<
+                      FormConfig_allFormYaml_edges_node_sections_groups_fields
+                    >)
+                  : prevGroup,
+              [] as ReadonlyArray<
+                FormConfig_allFormYaml_edges_node_sections_groups_fields
+              >
+            )
+          ]
+        : prevSection;
     },
-    [] as ReadonlyArray<FormConfig_allFormYaml_edges_node_sections_fields>
+    [] as ReadonlyArray<
+      FormConfig_allFormYaml_edges_node_sections_groups_fields
+    >
   );
 }
 

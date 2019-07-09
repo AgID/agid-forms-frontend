@@ -6,7 +6,7 @@ import { Link } from "gatsby";
 
 import {
   ViewConfig,
-  ViewConfig_allFormYaml_edges_node_sections_fields
+  ViewConfig_allFormYaml_edges_node_sections_groups_fields
 } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
@@ -26,7 +26,7 @@ import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
 const getViewfield = (
-  cur: ViewConfig_allFormYaml_edges_node_sections_fields,
+  cur: ViewConfig_allFormYaml_edges_node_sections_groups_fields,
   value: string
 ) => {
   return (
@@ -38,7 +38,7 @@ const getViewfield = (
 };
 
 export const renderViewFields = (
-  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_sections_fields | null> | null,
+  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_sections_groups_fields | null> | null,
   node: GetNode_latest_published
 ): readonly JSX.Element[] =>
   customPageFields
