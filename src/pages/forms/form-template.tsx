@@ -1,7 +1,7 @@
 import * as parser from "expression-eval";
 import * as React from "react";
 
-import { Link, navigate } from "gatsby";
+import { Link } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import { FormErrors } from "../../components/FormErrors";
