@@ -17,7 +17,13 @@ import {
 
 import { Button } from "reactstrap";
 
-import { FieldT, FormGroupT, FormT, FormValuesT } from "../../utils/forms";
+import {
+  FieldT,
+  FormGroupT,
+  FormT,
+  FormValuesT,
+  getDefaultValue
+} from "../../utils/forms";
 
 import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
@@ -41,42 +47,29 @@ import {
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
-    (prev, cur) => {
-      if (!cur || !cur.name) {
-        return prev;
+    (prevValues, field) => {
+      if (!field || !field.name) {
+        return prevValues;
       }
-      if (cur.default_multiple_selection) {
-        return {
-          ...prev,
-          [cur.name]: cur.default_multiple_selection as ReadonlyArray<string>
-        };
-      }
-      if (isGroupField(cur.name)) {
+      if (isGroupField(field.name)) {
         // set up nested object structure for default values of FieldArrays
         // (alias: repeatable fields)
-        const [groupName, indexStr, fieldName] = getFieldNameParts(cur.name);
+        const [groupName, indexStr, fieldName] = getFieldNameParts(field.name);
         const index = parseInt(indexStr, 10);
         return {
-          ...prev,
+          ...prevValues,
           [groupName]: [
             {
-              ...(prev[groupName] &&
-              prev[groupName][index] !== null &&
-              typeof prev[groupName][index] === "object"
-                ? (prev[groupName][index] as object)
+              ...(prevValues[groupName] &&
+              typeof prevValues[groupName][index] === "object"
+                ? (prevValues[groupName][index] as object)
                 : {}),
-              [fieldName]: cur.default || ""
+              [fieldName]: getDefaultValue(field)
             }
           ]
         };
       }
-      if (cur.default_checked) {
-        return { ...prev, [cur.name]: cur.name };
-      }
-      if (cur.default !== undefined && cur.default !== null) {
-        return { ...prev, [cur.name]: cur.default };
-      }
-      return { ...prev, [cur.name]: "" };
+      return { ...prevValues, [field.name]: getDefaultValue(field) };
     },
     {} as Record<string, string | ReadonlyArray<string> | ReadonlyArray<object>>
   );

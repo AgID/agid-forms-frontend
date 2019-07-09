@@ -247,3 +247,16 @@ export function flattenFormValues(
     {} as Record<string, string>
   );
 }
+
+export function getDefaultValue(field: FieldT) {
+  if (field.default_multiple_selection) {
+    return field.default_multiple_selection as ReadonlyArray<string>;
+  }
+  if (field.name && field.default_checked) {
+    return field.name;
+  }
+  if (field.default !== undefined && field.default !== null) {
+    return field.default;
+  }
+  return "";
+}
