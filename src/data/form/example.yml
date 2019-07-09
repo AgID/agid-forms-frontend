@@ -134,3 +134,35 @@ sections:
             widget: text
             default: "20"
             valid_if: Yup.number().positive().validate(value)
+          - name: radio-item-repeat
+            title: radio-item
+            widget: radio
+            description: la mia descrizione del radio-item-1
+            default: "secondo valore"
+            options:
+              - label: prima opzione
+                value: primo valore
+              - label: seconda opzione
+                value: secondo valore
+              - label: terza opzione
+                value: terzo valore
+              - label: quarta opzione
+                value: quarto valore
+            required_if: "true"
+          - name: checkbox-multiple-repeat
+            title: checkbox multiple
+            widget: checkbox
+            description: la mia descrizione delle checkbox multiple
+            required_if: "true"
+            options:
+              - label: prima opzione
+                value: primo valore
+              - label: seconda opzione
+                value: secondo valore
+              - label: terza opzione
+                value: terzo valore
+              - label: quarta opzione
+                value: quarto valore
+            default_multiple_selection:
+              - secondo valore
+              - terzo valore

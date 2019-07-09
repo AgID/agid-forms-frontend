@@ -15,7 +15,9 @@ export interface NotFoundConfig_menu_edges_node_menu {
 
 export interface NotFoundConfig_menu_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<(NotFoundConfig_menu_edges_node_menu | null)> | null;
+  readonly menu: ReadonlyArray<
+    NotFoundConfig_menu_edges_node_menu | null
+  > | null;
 }
 
 export interface NotFoundConfig_menu_edges {
@@ -63,11 +65,21 @@ export interface NotFoundConfig_siteConfig_edges_node {
   readonly title: string | null;
   readonly description: string | null;
   readonly defaultLanguage: string | null;
-  readonly owners: ReadonlyArray<(NotFoundConfig_siteConfig_edges_node_owners | null)> | null;
-  readonly languages: ReadonlyArray<(NotFoundConfig_siteConfig_edges_node_languages | null)> | null;
-  readonly slimHeaderLinks: ReadonlyArray<(NotFoundConfig_siteConfig_edges_node_slimHeaderLinks | null)> | null;
-  readonly socialLinks: ReadonlyArray<(NotFoundConfig_siteConfig_edges_node_socialLinks | null)> | null;
-  readonly footerLinks: ReadonlyArray<(NotFoundConfig_siteConfig_edges_node_footerLinks | null)> | null;
+  readonly owners: ReadonlyArray<
+    NotFoundConfig_siteConfig_edges_node_owners | null
+  > | null;
+  readonly languages: ReadonlyArray<
+    NotFoundConfig_siteConfig_edges_node_languages | null
+  > | null;
+  readonly slimHeaderLinks: ReadonlyArray<
+    NotFoundConfig_siteConfig_edges_node_slimHeaderLinks | null
+  > | null;
+  readonly socialLinks: ReadonlyArray<
+    NotFoundConfig_siteConfig_edges_node_socialLinks | null
+  > | null;
+  readonly footerLinks: ReadonlyArray<
+    NotFoundConfig_siteConfig_edges_node_footerLinks | null
+  > | null;
 }
 
 export interface NotFoundConfig_siteConfig_edges {
