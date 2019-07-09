@@ -34,8 +34,8 @@ import {
 } from "../../graphql/hasura_queries";
 
 import {
+  flattenFormFields,
   getFieldNameParts,
-  getFormFields,
   isGroupField
 } from "../../utils/forms";
 
@@ -192,7 +192,7 @@ const FormTemplate = ({
     return <p>Form not found or empty.</p>;
   }
 
-  const formFields = getFormFields(form);
+  const formFields = flattenFormFields(form);
 
   // get the expression to generate title
   const titleExpression = form.title_pattern

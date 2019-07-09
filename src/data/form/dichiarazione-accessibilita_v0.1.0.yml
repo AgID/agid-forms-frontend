@@ -89,3 +89,14 @@ sections:
             widget: text
             show_if: "!this[125]"
             required_if: "!this[125]"
+      - name: group-2
+        repeatable: true
+        fields:
+          - name: repeatable-1
+            title: Nota ripetibile 1
+            widget: text
+            default: ""
+          - name: repeatable-2
+            title: Nota ripetibile 2
+            widget: text
+            default: ""

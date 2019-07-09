@@ -8,11 +8,7 @@ import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
 import BodyStyles from "../../components/BodyColor";
-import {
-  GetNode,
-  GetNode_latest_published,
-  GetNodeVariables
-} from "../../generated/graphql/GetNode";
+import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
   getMenu,
@@ -20,30 +16,48 @@ import {
 } from "../../graphql/gatsby_fragments";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
-import { FieldT, getFormFields } from "../../utils/forms";
+import {
+  FieldT,
+  flattenFormFieldsWithKeys,
+  flattenFormValues,
+  isGroupField,
+  toFirstGroupFieldName
+} from "../../utils/forms";
 
-const getViewfield = (cur: FieldT, value: string) => {
-  return (
-    <tr key={cur.name!} className="mb-4">
-      <th scope="row">{cur.title}</th>
+const getViewfield = (fieldName: string, field: FieldT, value: string) => {
+  return fieldName ? (
+    <tr key={fieldName} className="mb-4">
+      <th scope="row">{field.title}</th>
       <td>{value.toString()}</td>
     </tr>
+  ) : (
+    <></>
   );
 };
 
 export const renderViewFields = (
-  customPageFields: ReadonlyArray<FieldT | null> | null,
-  node: GetNode_latest_published
-): readonly JSX.Element[] =>
-  customPageFields
-    ? customPageFields.reduce(
-        (prev, cur) =>
-          cur
-            ? [...prev, getViewfield(cur, node.content.values[cur.name!])]
+  fields: Record<string, FieldT>,
+  values: Record<string, string>
+): readonly JSX.Element[] => {
+  return fields && values
+    ? Object.keys(values).reduce(
+        (prev, valueKey) =>
+          valueKey
+            ? [
+                ...prev,
+                getViewfield(
+                  valueKey,
+                  isGroupField(valueKey)
+                    ? fields[toFirstGroupFieldName(valueKey)]
+                    : fields[valueKey],
+                  values[valueKey]
+                )
+              ]
             : prev,
         [] as readonly JSX.Element[]
       )
     : [];
+};
 
 const ViewTemplate = ({
   data,
@@ -131,7 +145,10 @@ const ViewTemplate = ({
               <table className="table table-hover table-bordered table-striped">
                 <tbody>
                   {publishedNode &&
-                    renderViewFields(getFormFields(form), publishedNode)}
+                    renderViewFields(
+                      flattenFormFieldsWithKeys(form),
+                      flattenFormValues(publishedNode.content.values)
+                    )}
                 </tbody>
               </table>
             </>

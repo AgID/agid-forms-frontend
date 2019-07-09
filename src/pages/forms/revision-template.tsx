@@ -20,7 +20,10 @@ import {
 import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
-import { getFormFields } from "../../utils/forms";
+import {
+  flattenFormFieldsWithKeys,
+  flattenFormValues
+} from "../../utils/forms";
 import { renderViewFields } from "./view-template";
 
 const RevisionTemplate = ({
@@ -104,7 +107,10 @@ const RevisionTemplate = ({
               <table className="table table-hover table-bordered table-striped">
                 <tbody>
                   {nodeRevision &&
-                    renderViewFields(getFormFields(form), nodeRevision)}
+                    renderViewFields(
+                      flattenFormFieldsWithKeys(form),
+                      flattenFormValues(nodeRevision.content.values)
+                    )}
                 </tbody>
               </table>
             </>

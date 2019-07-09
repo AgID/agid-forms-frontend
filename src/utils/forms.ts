@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { ItLocale } from "../utils/yup_locale_it";
 
-import { FormikErrors, FormikProps } from "formik";
+import { FormikProps } from "formik";
 
 import { PatternString } from "italia-ts-commons/lib/strings";
 import {
@@ -34,6 +34,11 @@ export const getFieldNameParts = (name: typeof GROUP_FIELD_PATTERN) => {
     throw new Error("invalid group name");
   }
   return matches.slice(1);
+};
+
+export const toFirstGroupFieldName = (name: typeof GROUP_FIELD_PATTERN) => {
+  const [groupName, , fieldName] = getFieldNameParts(name);
+  return [groupName, "0", fieldName].join(".");
 };
 
 export const isEmptyField = (value: any) =>
@@ -110,7 +115,7 @@ export function getGroupFields(group: FormGroupT) {
 /**
  * Flatten form fields into a plain array
  */
-export function getFormFields(form: FormT) {
+export function flattenFormFields(form: FormT) {
   if (!form.sections || !form.sections[0]) {
     return [];
   }
@@ -137,7 +142,18 @@ export function getFormFields(form: FormT) {
 }
 
 /**
- * Flatten form fields into array considering field groups
+ * Flatten form fields into a plain object
+ */
+export function flattenFormFieldsWithKeys(form: FormT): Record<string, FieldT> {
+  const fields = flattenFormFields(form);
+  return fields.reduce(
+    (prev, cur) => (cur && cur.name ? { ...prev, [cur.name]: cur } : prev),
+    {} as Record<string, FieldT>
+  );
+}
+
+/**
+ * Flatten form errors into an array considering field groups
  */
 export function flattenFormErrors(
   errors: Record<string, any>
@@ -161,7 +177,9 @@ export function flattenFormErrors(
               ...Object.keys(groupField).reduce(
                 (prevObjField, groupFieldKey) => ({
                   ...prevObjField,
-                  [`${fieldName}.${index}.${groupFieldKey}`]: errors[fieldName]
+                  [`${fieldName}.${index}.${groupFieldKey}`]: errors[fieldName][
+                    index
+                  ][groupFieldKey]
                 }),
                 {} as Record<string, string>
               )
@@ -177,6 +195,54 @@ export function flattenFormErrors(
         };
       }
       return prevErrors;
+    },
+    {} as Record<string, string>
+  );
+}
+
+/**
+ * Flatten form values into array considering field groups
+ */
+export function flattenFormValues(
+  values: Record<string, any>
+): Record<string, string> {
+  return Object.keys(values).reduce(
+    (prevValues: Record<string, string>, fieldName: string) => {
+      if (!fieldName || !values[fieldName]) {
+        return prevValues;
+      }
+      if (Array.isArray(values[fieldName])) {
+        const group: ReadonlyArray<any> = values[fieldName];
+        return {
+          ...prevValues,
+          ...group.reduce(
+            (
+              prevGroupField: Record<string, string>,
+              groupField: any,
+              index: number
+            ) => ({
+              ...prevGroupField,
+              ...Object.keys(groupField).reduce(
+                (prevObjField, groupFieldKey) => ({
+                  ...prevObjField,
+                  [`${fieldName}.${index}.${groupFieldKey}`]: values[fieldName][
+                    index
+                  ][groupFieldKey].toString()
+                }),
+                {} as Record<string, string>
+              )
+            }),
+            {} as Record<string, string>
+          )
+        };
+      }
+      if (typeof values[fieldName] === "string") {
+        return {
+          ...prevValues,
+          [fieldName]: values[fieldName].toString()
+        };
+      }
+      return prevValues;
     },
     {} as Record<string, string>
   );
