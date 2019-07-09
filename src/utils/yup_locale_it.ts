@@ -1,9 +1,21 @@
+const LOCALIZED_TYPES: Record<string, string> = {
+  number: "numerico",
+  string: "stringa",
+  date: "data",
+  boolean: "booleano",
+  object: "oggetto",
+  array: "array",
+  mixed: "mixed"
+};
+
 export const mixed = {
   default: "non ha un formato valido",
   required: "è un campo richiesto",
   oneOf: "deve avere uno tra i seguenti valori: ${values}",
   notOneOf: "non deve avere il valore: ${values}",
-  notType: "deve essere di tipo '${type}"
+  notType: ({ type }: { type: string }) => {
+    return `deve essere di tipo ${LOCALIZED_TYPES[type]}`;
+  }
 };
 
 // tslint:disable-next-line: variable-name

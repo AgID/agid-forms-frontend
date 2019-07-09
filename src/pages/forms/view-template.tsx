@@ -15,13 +15,12 @@ import {
 } from "../../generated/graphql/GetNode";
 import {
   getForm,
-  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
-import { FieldT } from "../../utils/forms";
+import { FieldT, getFormFields } from "../../utils/forms";
 
 const getViewfield = (cur: FieldT, value: string) => {
   return (

@@ -127,8 +127,10 @@ sections:
           - name: repeatable-items-1
             title: repeatable items 1
             widget: text
-            default: hello
+            default: "10"
+            valid_if: Yup.number().positive().validate(value)
           - name: repeatable-items-2
             title: repeatable items 2
             widget: text
-            default: world
+            default: "20"
+            valid_if: Yup.number().positive().validate(value)

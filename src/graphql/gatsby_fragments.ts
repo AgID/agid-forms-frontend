@@ -2,7 +2,7 @@ import { graphql } from "gatsby";
 import { FormConfig } from "../generated/graphql/FormConfig";
 import { PageConfig } from "../generated/graphql/PageConfig";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
-import { FieldT, FormGroupT, FormsectionT, FormT } from "../utils/forms";
+import { FormT } from "../utils/forms";
 
 export const FormSchemaFragment = graphql`
   fragment FormSchemaFragment on FormYamlConnection {
@@ -81,43 +81,6 @@ export function getForm(
     return null;
   }
   return forms[0].node;
-}
-
-export function getGroupFields(group: FormGroupT) {
-  return group.fields && group.repeatable
-    ? (group.fields as ReadonlyArray<FieldT>).map(field =>
-        field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
-      )
-    : group.fields || [];
-}
-
-/**
- * Flatten form fields into array
- */
-export function getFormFields(form: FormT) {
-  if (!form.sections || !form.sections[0]) {
-    return [];
-  }
-  return (form.sections as ReadonlyArray<FormsectionT>).reduce(
-    (prevSection: ReadonlyArray<FieldT>, curSection: FormsectionT) => {
-      return curSection && curSection.groups
-        ? [
-            ...prevSection,
-            ...curSection.groups.reduce(
-              (prevGroup, curGroup) =>
-                curGroup && curGroup.fields
-                  ? ([
-                      ...prevGroup,
-                      ...getGroupFields(curGroup)
-                    ] as ReadonlyArray<FieldT>)
-                  : prevGroup,
-              [] as ReadonlyArray<FieldT>
-            )
-          ]
-        : prevSection;
-    },
-    [] as ReadonlyArray<FieldT>
-  );
 }
 
 export const SiteConfigFragment = graphql`

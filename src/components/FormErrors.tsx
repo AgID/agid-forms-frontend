@@ -1,15 +1,23 @@
 import * as React from "react";
 
-import { FormikProps } from "formik";
-import { getFormFields } from "../graphql/gatsby_fragments";
-import { FieldT, FormT, FormValuesT } from "../utils/forms";
+import { Field, FormikProps, getIn } from "formik";
+import { flattenFormErrors, FormValuesT } from "../utils/forms";
+
+const ErrorMessage = ({ name }: { name: string }) => (
+  <Field
+    name={name}
+    render={({ form }: { form: FormikProps<FormValuesT> }) => {
+      const error = getIn(form.errors, name);
+      const touch = getIn(form.touched, name);
+      return touch && error ? `${name}: ${error}` : null;
+    }}
+  />
+);
 
 export const FormErrors = ({
-  formik,
-  form
+  formik
 }: {
   formik: FormikProps<FormValuesT>;
-  form: FormT;
 }) => {
   const hasErrors =
     Object.keys(formik.errors).length > 0 &&
@@ -21,18 +29,15 @@ export const FormErrors = ({
         campi obbligatori prima di salvare il modulo
       </small>
       <div className="mt-3">
-        {Object.keys(formik.errors).map(k => (
-          <div key={k}>
-            <small className="text-warning">
-              {
-                getFormFields(form).filter(
-                  (field: FieldT | null) => field && field.name === k
-                )[0].title
-              }
-              : {formik.errors[k]}
-            </small>
-          </div>
-        ))}
+        {Object.keys(flattenFormErrors(formik.errors)).map(fieldName => {
+          return (
+            <div key={fieldName}>
+              <small className="text-warning">
+                <ErrorMessage name={fieldName} />
+              </small>
+            </div>
+          );
+        })}
       </div>
     </div>
   ) : null;

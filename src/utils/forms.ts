@@ -2,7 +2,7 @@ import * as Yup from "yup";
 
 import { ItLocale } from "../utils/yup_locale_it";
 
-import { FormikProps } from "formik";
+import { FormikErrors, FormikProps } from "formik";
 
 import { PatternString } from "italia-ts-commons/lib/strings";
 import {
@@ -93,3 +93,91 @@ export const validateField = (
             );
           })
     : () => Promise.resolve(null);
+
+/**
+ * Flatten and rename fields that belog to a group
+ *
+ * ie. group[0][fielName] => { fieldName: group.0.fieldname }
+ */
+export function getGroupFields(group: FormGroupT) {
+  return group.fields && group.repeatable
+    ? (group.fields as ReadonlyArray<FieldT>).map(field =>
+        field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
+      )
+    : group.fields || [];
+}
+
+/**
+ * Flatten form fields into a plain array
+ */
+export function getFormFields(form: FormT) {
+  if (!form.sections || !form.sections[0]) {
+    return [];
+  }
+  return (form.sections as ReadonlyArray<FormsectionT>).reduce(
+    (prevSection: ReadonlyArray<FieldT>, curSection: FormsectionT) => {
+      return curSection && curSection.groups
+        ? [
+            ...prevSection,
+            ...curSection.groups.reduce(
+              (prevGroup, curGroup) =>
+                curGroup && curGroup.fields
+                  ? ([
+                      ...prevGroup,
+                      ...getGroupFields(curGroup)
+                    ] as ReadonlyArray<FieldT>)
+                  : prevGroup,
+              [] as ReadonlyArray<FieldT>
+            )
+          ]
+        : prevSection;
+    },
+    [] as ReadonlyArray<FieldT>
+  );
+}
+
+/**
+ * Flatten form fields into array considering field groups
+ */
+export function flattenFormErrors(
+  errors: Record<string, any>
+): Record<string, string> {
+  return Object.keys(errors).reduce(
+    (prevErrors: Record<string, string>, fieldName: string) => {
+      if (!fieldName || !errors[fieldName]) {
+        return prevErrors;
+      }
+      if (Array.isArray(errors[fieldName])) {
+        const group: ReadonlyArray<any> = errors[fieldName];
+        return {
+          ...prevErrors,
+          ...group.reduce(
+            (
+              prevGroupField: Record<string, string>,
+              groupField: any,
+              index: number
+            ) => ({
+              ...prevGroupField,
+              ...Object.keys(groupField).reduce(
+                (prevObjField, groupFieldKey) => ({
+                  ...prevObjField,
+                  [`${fieldName}.${index}.${groupFieldKey}`]: errors[fieldName]
+                }),
+                {} as Record<string, string>
+              )
+            }),
+            {} as Record<string, string>
+          )
+        };
+      }
+      if (typeof errors[fieldName] === "string") {
+        return {
+          ...prevErrors,
+          [fieldName]: errors[fieldName]
+        };
+      }
+      return prevErrors;
+    },
+    {} as Record<string, string>
+  );
+}

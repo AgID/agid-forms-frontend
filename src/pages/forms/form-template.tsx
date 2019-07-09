@@ -25,7 +25,6 @@ import BodyStyles from "../../components/BodyColor";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
-  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
@@ -34,7 +33,11 @@ import {
   UPSERT_NODE
 } from "../../graphql/hasura_queries";
 
-import { getFieldNameParts, isGroupField } from "../../utils/forms";
+import {
+  getFieldNameParts,
+  getFormFields,
+  isGroupField
+} from "../../utils/forms";
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
@@ -148,14 +151,14 @@ const FormFieldArray = ({
             })
         );
         const button = (
-          <button
+          <Button
             type="button"
             onClick={() => {
               arrayHelpers.push(defaultValues);
             }}
           >
             Add
-          </button>
+          </Button>
         );
         return (
           <>
@@ -349,10 +352,11 @@ const FormTemplate = ({
                               formik.isSubmitting ||
                               Object.keys(formik.errors).length > 0
                             }
+                            className="mt-4"
                           >
                             Salva bozza
                           </Button>
-                          <FormErrors formik={formik} form={form} />
+                          <FormErrors formik={formik} />
                         </Form>
                       )}
                     />
