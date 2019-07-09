@@ -1,16 +1,14 @@
 import * as React from "react";
 
-import { Field } from "formik";
+import { Field, getIn } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
-import {
-  CustomInputComponent,
-  FormFieldPropsT,
-  validateField
-} from "./FormField";
+import { CustomInputComponent } from "./FormField";
+
+import { FormFieldPropsT, validateField } from "../utils/forms";
 
 export const DefaultFormField = ({
   field,
@@ -20,10 +18,10 @@ export const DefaultFormField = ({
   validationExpression,
   valueExpression
 }: FormFieldPropsT) => {
-  return (
-    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
+  return field.name ? (
+    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
       <Label
-        fieldName={field.name!}
+        fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
       />
@@ -40,13 +38,13 @@ export const DefaultFormField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : form.values[field.name!]
+            : getIn(form.values, field.name)
         }
       />
-      <ErrorMessage name={field.name!} />
+      <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />
       )}
     </FormGroup>
-  );
+  ) : null;
 };

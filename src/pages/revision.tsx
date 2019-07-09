@@ -35,20 +35,7 @@ export const query = graphql`
       ...SiteConfigFragment
     }
     allFormYaml {
-      edges {
-        node {
-          id
-          version
-          sections {
-            fields {
-              description
-              name
-              title
-              widget
-            }
-          }
-        }
-      }
+      ...FormSchemaFragment
     }
   }
 `;

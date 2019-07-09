@@ -1,18 +1,18 @@
 import * as React from "react";
 
-import { Field, FormikProps } from "formik";
+import { Field, FormikProps, getIn } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import {
-  CustomInputComponent,
   FieldT,
   FormValuesT,
   isEmptyField,
   validateField
-} from "./FormField";
+} from "../utils/forms";
+import { CustomInputComponent } from "./FormField";
 
 export const CheckboxField = ({
   field,
@@ -29,12 +29,12 @@ export const CheckboxField = ({
   validationExpression: any;
   valueExpression: any;
 }) => {
-  return (
-    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
+  return field.name ? (
+    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
       <Field
         name={field.name}
         type="checkbox"
-        checked={form.values[field.name!]}
+        checked={getIn(form.values, field.name)}
         component={CustomInputComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
@@ -44,24 +44,24 @@ export const CheckboxField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : form.values[field.name!]
+            : getIn(form.values, field.name)
         }
       />
       <Label
-        fieldName={field.name!}
+        fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
         onClick={() => {
           form.setFieldValue(
             field.name!,
-            isEmptyField(form.values[field.name!]) ? field.name : ""
+            isEmptyField(getIn(form.values, field.name!)) ? field.name : ""
           );
         }}
       />
-      <ErrorMessage name={field.name!} />
+      <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />
       )}
     </FormGroup>
-  );
+  ) : null;
 };

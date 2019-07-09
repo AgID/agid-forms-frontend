@@ -6,102 +6,131 @@ version: 0.1.0
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: "'Dichiarazione accessibilita ' + formatDate(Date(), 'MM/YYYY') + ' ' + title"
 sections:
-  - title: section 1
+  - name: section-1
+    title: section 1
     description: description of section 1
-    fields:
-      # - name: quinto-item-x
-      #   title: potenze di 3
-      #   widget: text
-      #   description: computa la potenza di 3
-      # - name: terzo-item-x
-      #   title: valore computato
-      #   widget: text
-      #   description: potenza di 3
-      #   default: questo campo ha un valore di default
-      #   computed_value: "Math.pow(3, this[\"quinto-item-x\"] / 1)"
-      #   show_if: this["quinto-item-x"] > 4
-      - name: quinto-item
-        title: potenze di 2
-        widget: text
-        description: computa la potenza di 2
-        valid_if: Yup.number().positive().min(0).max(10).validate(value)
-      - name: terzo-item
-        title: valore computato
-        widget: text
-        description: potenza di 2
-        default: questo campo ha un valore di default
-        computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
-      - name: quarto-item
-        title: quarto item
-        widget: text
-        description: richiesto se il primo valore è maggiore di 4
-        required_if: this["quinto-item"] > 4
-      - name: select-item
-        title: select item
-        widget: select
-        description: la mia descrizione della select
-        multiple: false
-        required_if: "true"
-        default: "secondo valore"
-        options:
-          - label: prima opzione
-            value: primo valore
-          - label: seconda opzione
-            value: secondo valore
-  - title: section 2
+    groups:
+      - name: fieldgroup-1
+        title: fieldgroup 1
+        description: description of fieldgroup 1
+        fields:
+          # - name: quinto-item-x
+          #   title: potenze di 3
+          #   widget: text
+          #   description: computa la potenza di 3
+          # - name: terzo-item-x
+          #   title: valore computato
+          #   widget: text
+          #   description: potenza di 3
+          #   default: questo campo ha un valore di default
+          #   computed_value: "Math.pow(3, this[\"quinto-item-x\"] / 1)"
+          #   show_if: this["quinto-item-x"] > 4
+          - name: quinto-item
+            title: potenze di 2
+            widget: text
+            description: computa la potenza di 2
+            valid_if: Yup.number().positive().min(0).max(10).validate(value)
+          - name: terzo-item
+            title: valore computato
+            widget: text
+            description: potenza di 2
+            default: questo campo ha un valore di default
+            computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
+          - name: quarto-item
+            title: quarto item
+            widget: text
+            description: richiesto se il primo valore è maggiore di 4
+            required_if: this["quinto-item"] > 4
+          - name: select-item
+            title: select item
+            widget: select
+            description: la mia descrizione della select
+            multiple: false
+            required_if: "true"
+            default: "secondo valore"
+            options:
+              - label: prima opzione
+                value: primo valore
+              - label: seconda opzione
+                value: secondo valore
+          - name: checkbox-multiple
+            title: checkbox multiple
+            widget: checkbox
+            description: la mia descrizione delle checkbox multiple
+            required_if: "true"
+            options:
+              - label: prima opzione
+                value: primo valore
+              - label: seconda opzione
+                value: secondo valore
+              - label: terza opzione
+                value: terzo valore
+              - label: quarta opzione
+                value: quarto valore
+            default_multiple_selection:
+              - secondo valore
+              - terzo valore
+  - name: section-2
+    title: section 2
     description: description of section 2
-    fields:
-      - name: sesto-item
-        title: sesto item
-        widget: checkbox
-        description: la mia descrizione del sesto item
-      - name: 125-note
-        title: email
-        widget: text
-        description: deve essere un indirizzo email
-        show_if: this["sesto-item"]
-        error_msg: il campo deve avere un formato corretto per l'email
-      - name: ottavo-item
-        title: email
-        widget: text
-        description: anche questo deve essere un indirizzo email
-        show_if: this["sesto-item"]
-        valid_if: Yup.string().email('formato email non valido').validate(value)
-      - name: text-field
-        widget: html
-        default: "<p>this is some <strong>html</strong> content"
-      - name: text-field-uppercase
-        widget: html
-        computed_value: "\"uppercase: \" + this[\"quarto-item\"].toUpperCase()"
-      - name: radio-item
-        title: radio-item
-        widget: radio
-        description: la mia descrizione del radio-item-1
-        default: "secondo valore"
-        options:
-          - label: prima opzione
-            value: primo valore
-          - label: seconda opzione
-            value: secondo valore
-          - label: terza opzione
-            value: terzo valore
-          - label: quarta opzione
-            value: quarto valore
-        required_if: "true"
-      - name: checkbox-multiple
-        title: checkbox multiple
-        widget: checkbox
-        description: la mia descrizione delle checkbox multiple
-        required_if: "true"
-        options:
-          - label: prima opzione
-            value: primo valore
-          - label: seconda opzione
-            value: secondo valore
-          - label: terza opzione
-            value: terzo valore
-          - label: quarta opzione
-            value: quarto valore
-        default_multiple_selection:
-          - secondo valore
-          - terzo valore
+    groups:
+      - name: fieldgroup-2
+        title: fieldgroup 2
+        description: description of fieldgroup 2
+        fields:
+          - name: sesto-item
+            title: sesto item
+            widget: checkbox
+            description: la mia descrizione del sesto item
+          - name: 125-note
+            title: email
+            widget: text
+            description: deve essere un indirizzo email
+            show_if: this["sesto-item"]
+            error_msg: il campo deve avere un formato corretto per l'email
+          - name: ottavo-item
+            title: email
+            widget: text
+            description: anche questo deve essere un indirizzo email
+            show_if: this["sesto-item"]
+            valid_if: Yup.string().email('formato email non valido').validate(value)
+          - name: text-field
+            widget: html
+            default: "<p>this is some <strong>html</strong> content"
+          - name: text-field-uppercase
+            widget: html
+            computed_value: "\"uppercase: \" + this[\"quarto-item\"].toUpperCase()"
+          - name: radio-item
+            title: radio-item
+            widget: radio
+            description: la mia descrizione del radio-item-1
+            default: "secondo valore"
+            options:
+              - label: prima opzione
+                value: primo valore
+              - label: seconda opzione
+                value: secondo valore
+              - label: terza opzione
+                value: terzo valore
+              - label: quarta opzione
+                value: quarto valore
+            required_if: "true"
+  - name: section-3
+    title: section 3
+    description: description of section 3
+    groups:
+      - name: fieldgroup-3
+        title: fieldgroup 3
+        repeatable: true
+        description: description of fieldgroup 3
+        fields:
+          - name: repeatable-items-1
+            title: repeatable items 1
+            widget: text
+            default: "10"
+            valid_if: Yup.number().positive().validate(value)
+          - name: repeatable-items-2
+            title: repeatable items 2
+            widget: text
+            default: "20"
+            valid_if: Yup.number().positive().validate(value)

@@ -1,7 +1,7 @@
 import * as parser from "expression-eval";
 import * as React from "react";
 
-import { Link, navigate } from "gatsby";
+import { Link } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import { FormErrors } from "../../components/FormErrors";
@@ -17,15 +17,14 @@ import {
 
 import { Button } from "reactstrap";
 
-import { FieldT, FormT, FormValuesT } from "../../components/FormField";
+import { FieldT, FormGroupT, FormT, FormValuesT } from "../../utils/forms";
 
-import { Form, Formik, FormikActions, FormikProps } from "formik";
+import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import BodyStyles from "../../components/BodyColor";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
-  getFormFields,
   getMenu,
   getSiteConfig
 } from "../../graphql/gatsby_fragments";
@@ -34,22 +33,52 @@ import {
   UPSERT_NODE
 } from "../../graphql/hasura_queries";
 
+import {
+  flattenFormFields,
+  getFieldNameParts,
+  isGroupField
+} from "../../utils/forms";
+
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
-    (prev, cur) =>
-      cur
-        ? {
-            ...prev,
-            [cur.name!]: cur.default_multiple_selection
-              ? (cur.default_multiple_selection as ReadonlyArray<string>)
-              : cur.default_checked
-              ? cur.name!
-              : cur.default !== undefined && cur.default !== null
-              ? cur.default
-              : ""
-          }
-        : prev,
-    {} as Record<string, string | ReadonlyArray<string>>
+    (prev, cur) => {
+      if (!cur || !cur.name) {
+        return prev;
+      }
+      if (cur.default_multiple_selection) {
+        return {
+          ...prev,
+          [cur.name]: cur.default_multiple_selection as ReadonlyArray<string>
+        };
+      }
+      if (isGroupField(cur.name)) {
+        // set up nested object structure for default values of FieldArrays
+        // (alias: repeatable fields)
+        const [groupName, indexStr, fieldName] = getFieldNameParts(cur.name);
+        const index = parseInt(indexStr, 10);
+        return {
+          ...prev,
+          [groupName]: [
+            {
+              ...(prev[groupName] &&
+              prev[groupName][index] !== null &&
+              typeof prev[groupName][index] === "object"
+                ? (prev[groupName][index] as object)
+                : {}),
+              [fieldName]: cur.default || ""
+            }
+          ]
+        };
+      }
+      if (cur.default_checked) {
+        return { ...prev, [cur.name]: cur.name };
+      }
+      if (cur.default !== undefined && cur.default !== null) {
+        return { ...prev, [cur.name]: cur.default };
+      }
+      return { ...prev, [cur.name]: "" };
+    },
+    {} as Record<string, string | ReadonlyArray<string> | ReadonlyArray<object>>
   );
 
 /**
@@ -78,6 +107,74 @@ const toNode = (
   }
 });
 
+const FormFieldArray = ({
+  group,
+  formik
+}: {
+  group: FormGroupT;
+  formik: FormikProps<FormValuesT>;
+}) => {
+  if (!group.name || !group.fields) {
+    return null;
+  }
+  const groupFields = group.fields;
+  return (
+    <FieldArray
+      key={group.name}
+      name={group.name}
+      render={arrayHelpers => {
+        const existingValues = formik.values[group.name!];
+        if (!existingValues) {
+          return null;
+        }
+        const defaultValues = groupFields.reduce(
+          (prev, cur) => ({
+            ...prev,
+            [cur!.name!]: ""
+          }),
+          {} as Record<string, string>
+        );
+        const fieldTemplates = groupFields.reduce(
+          (prev, curField) =>
+            curField ? { ...prev, [curField.name!]: curField } : prev,
+          {} as Record<string, FieldT>
+        );
+        const existingFields = existingValues.map(
+          (o: Record<string, string>, index: number) =>
+            Object.keys(o).map(fieldName => {
+              return (
+                <Formfield
+                  key={`${group.name}.${index}.${fieldName}`}
+                  field={{
+                    ...fieldTemplates[fieldName],
+                    name: `${group.name}.${index}.${fieldName}`
+                  }}
+                  form={formik}
+                />
+              );
+            })
+        );
+        const button = (
+          <Button
+            type="button"
+            onClick={() => {
+              arrayHelpers.push(defaultValues);
+            }}
+          >
+            Add
+          </Button>
+        );
+        return (
+          <>
+            {existingFields}
+            {button}
+          </>
+        );
+      }}
+    />
+  );
+};
+
 /**
  * Form page component
  */
@@ -99,7 +196,7 @@ const FormTemplate = ({
     return <p>Form not found or empty.</p>;
   }
 
-  const formFields = getFormFields(form);
+  const formFields = flattenFormFields(form);
 
   // get the expression to generate title
   const titleExpression = form.title_pattern
@@ -177,9 +274,9 @@ const FormTemplate = ({
                     );
                   }
                   if (upsertNodeResult && upsertNodeResult.insert_node) {
-                    navigate(
-                      `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`
-                    );
+                    // force page reload to avoid redirect loop
+                    // tslint:disable-next-line: no-object-mutation
+                    window.location.href = `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`;
                   }
                   return (
                     <Formik
@@ -219,17 +316,37 @@ const FormTemplate = ({
                                 {section.description && (
                                   <p>{section.description}</p>
                                 )}
-                                {section.fields!.map(field =>
-                                  field && field.name ? (
-                                    <Formfield
-                                      key={field.name}
-                                      field={field}
-                                      form={formik}
-                                    />
-                                  ) : (
-                                    <></>
-                                  )
-                                )}
+                                {section.groups!.map(group => {
+                                  return (
+                                    group && (
+                                      <div
+                                        className="fieldset"
+                                        key={group.name!}
+                                      >
+                                        {group.title && <h3>{group.title}</h3>}
+                                        {group.description && (
+                                          <p>{group.description}</p>
+                                        )}
+                                        {group.repeatable
+                                          ? FormFieldArray({
+                                              group,
+                                              formik
+                                            })
+                                          : group.fields!.map(field =>
+                                              field && field.name ? (
+                                                <Formfield
+                                                  key={field.name}
+                                                  field={field}
+                                                  form={formik}
+                                                />
+                                              ) : (
+                                                <></>
+                                              )
+                                            )}
+                                      </div>
+                                    )
+                                  );
+                                })}
                               </div>
                             );
                           })}
@@ -239,10 +356,11 @@ const FormTemplate = ({
                               formik.isSubmitting ||
                               Object.keys(formik.errors).length > 0
                             }
+                            className="mt-4"
                           >
                             Salva bozza
                           </Button>
-                          <FormErrors formik={formik} form={form} />
+                          <FormErrors formik={formik} />
                         </Form>
                       )}
                     />

@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import { Field, FieldAttributes, FormikProps } from "formik";
+import { Field, FieldAttributes, FormikProps, getIn } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import { Input } from "reactstrap";
-import { FieldT, FormValuesT, validateField } from "./FormField";
+import { FieldT, FormValuesT, validateField } from "../utils/forms";
 
 export const CustomCheckboxComponent = ({
   field,
@@ -22,8 +22,8 @@ export const CustomCheckboxComponent = ({
   isRequired: boolean;
 }) => {
   return options.map(option => {
-    const isChecked =
-      (form.values[field.name] || []).indexOf(option.value) !== -1;
+    const fieldValue = getIn(form.values, field.name);
+    const isChecked = (fieldValue || []).indexOf(option.value) !== -1;
     return (
       <div key={option.value}>
         <Input {...field} {...props} value={option.value} checked={isChecked} />
@@ -35,13 +35,11 @@ export const CustomCheckboxComponent = ({
             isChecked
               ? form.setFieldValue(
                   field.name,
-                  (form.values[field.name] || []).filter(
-                    (v: any) => v !== option.value
-                  )
+                  (fieldValue || []).filter((v: any) => v !== option.value)
                 )
               : form.setFieldValue(
                   field.name,
-                  (form.values[field.name] || []).concat(option.value)
+                  (fieldValue || []).concat(option.value)
                 );
           }}
         />
@@ -65,6 +63,7 @@ export const CheckboxMultipleField = ({
   validationExpression: any;
   valueExpression: any;
 }) => {
+  const fieldValue = getIn(form.values, field.name!);
   return (
     <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
       <Label
@@ -75,7 +74,7 @@ export const CheckboxMultipleField = ({
       <Field
         name={field.name}
         type="checkbox"
-        checked={form.values[field.name!]}
+        checked={fieldValue}
         component={CustomCheckboxComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
@@ -85,7 +84,7 @@ export const CheckboxMultipleField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : form.values[field.name!]
+            : fieldValue
         }
         isRequired={false}
         options={field.options}
