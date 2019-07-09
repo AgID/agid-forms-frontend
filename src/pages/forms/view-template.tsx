@@ -4,10 +4,7 @@ import SEO from "../../components/Seo";
 
 import { Link } from "gatsby";
 
-import {
-  ViewConfig,
-  ViewConfig_allFormYaml_edges_node_sections_groups_fields
-} from "../../generated/graphql/ViewConfig";
+import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
 import BodyStyles from "../../components/BodyColor";
@@ -24,11 +21,9 @@ import {
 } from "../../graphql/gatsby_fragments";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
+import { FieldT } from "../../utils/forms";
 
-const getViewfield = (
-  cur: ViewConfig_allFormYaml_edges_node_sections_groups_fields,
-  value: string
-) => {
+const getViewfield = (cur: FieldT, value: string) => {
   return (
     <tr key={cur.name!} className="mb-4">
       <th scope="row">{cur.title}</th>
@@ -38,7 +33,7 @@ const getViewfield = (
 };
 
 export const renderViewFields = (
-  customPageFields: ReadonlyArray<ViewConfig_allFormYaml_edges_node_sections_groups_fields | null> | null,
+  customPageFields: ReadonlyArray<FieldT | null> | null,
   node: GetNode_latest_published
 ): readonly JSX.Element[] =>
   customPageFields

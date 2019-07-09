@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { FormikProps } from "formik";
 import { getFormFields } from "../graphql/gatsby_fragments";
-import { FieldT, FormT, FormValuesT } from "./FormField";
+import { FieldT, FormT, FormValuesT } from "../utils/forms";
 
 export const FormErrors = ({
   formik,

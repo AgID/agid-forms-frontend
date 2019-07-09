@@ -6,9 +6,11 @@ import { FormikProps } from "formik";
 
 import { PatternString } from "italia-ts-commons/lib/strings";
 import {
-  FormConfig_allFormYaml_edges_node,
-  FormConfig_allFormYaml_edges_node_sections_groups_fields
-} from "../generated/graphql/FormConfig";
+  FormSchemaFragment_edges_node,
+  FormSchemaFragment_edges_node_sections,
+  FormSchemaFragment_edges_node_sections_groups,
+  FormSchemaFragment_edges_node_sections_groups_fields
+} from "../generated/graphql/FormSchemaFragment";
 
 Yup.setLocale(ItLocale);
 
@@ -41,8 +43,10 @@ export interface FormValuesT {
   [k: string]: any;
 }
 
-export type FieldT = FormConfig_allFormYaml_edges_node_sections_groups_fields;
-export type FormT = FormConfig_allFormYaml_edges_node;
+export type FormT = FormSchemaFragment_edges_node;
+export type FormsectionT = FormSchemaFragment_edges_node_sections;
+export type FormGroupT = FormSchemaFragment_edges_node_sections_groups;
+export type FieldT = FormSchemaFragment_edges_node_sections_groups_fields;
 
 export type FormFieldPropsT = {
   field: FieldT;

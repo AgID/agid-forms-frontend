@@ -80,23 +80,43 @@ export interface ViewConfig_siteConfig {
   readonly edges: ReadonlyArray<ViewConfig_siteConfig_edges>;
 }
 
+export interface ViewConfig_allFormYaml_edges_node_sections_groups_fields_options {
+  readonly __typename: "FormYamlSectionsGroupsFieldsOptions";
+  readonly value: string | null;
+  readonly label: string | null;
+}
+
 export interface ViewConfig_allFormYaml_edges_node_sections_groups_fields {
   readonly __typename: "FormYamlSectionsGroupsFields";
+  readonly default: string | null;
+  readonly default_checked: boolean | null;
+  readonly default_multiple_selection: ReadonlyArray<(string | null)> | null;
   readonly description: string | null;
   readonly name: string | null;
+  readonly multiple: boolean | null;
   readonly title: string | null;
   readonly widget: string | null;
+  readonly show_if: string | null;
+  readonly valid_if: string | null;
+  readonly required_if: string | null;
+  readonly error_msg: string | null;
+  readonly computed_value: string | null;
+  readonly options: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_sections_groups_fields_options | null)> | null;
 }
 
 export interface ViewConfig_allFormYaml_edges_node_sections_groups {
   readonly __typename: "FormYamlSectionsGroups";
   readonly name: string | null;
+  readonly title: string | null;
+  readonly description: string | null;
   readonly repeatable: boolean | null;
   readonly fields: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_sections_groups_fields | null)> | null;
 }
 
 export interface ViewConfig_allFormYaml_edges_node_sections {
   readonly __typename: "FormYamlSections";
+  readonly title: string | null;
+  readonly description: string | null;
   readonly groups: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_sections_groups | null)> | null;
 }
 
@@ -104,6 +124,10 @@ export interface ViewConfig_allFormYaml_edges_node {
   readonly __typename: "FormYaml";
   readonly id: string;
   readonly version: string | null;
+  readonly language: string | null;
+  readonly enabled: boolean | null;
+  readonly slug_pattern: string | null;
+  readonly title_pattern: string | null;
   readonly sections: ReadonlyArray<(ViewConfig_allFormYaml_edges_node_sections | null)> | null;
 }
 

@@ -1,16 +1,52 @@
 import { graphql } from "gatsby";
-import {
-  FormConfig,
-  FormConfig_allFormYaml_edges_node,
-  FormConfig_allFormYaml_edges_node_sections,
-  FormConfig_allFormYaml_edges_node_sections_groups,
-  FormConfig_allFormYaml_edges_node_sections_groups_fields
-} from "../generated/graphql/FormConfig";
+import { FormConfig } from "../generated/graphql/FormConfig";
 import { PageConfig } from "../generated/graphql/PageConfig";
-import {
-  ViewConfig,
-  ViewConfig_allFormYaml_edges_node
-} from "../generated/graphql/ViewConfig";
+import { ViewConfig } from "../generated/graphql/ViewConfig";
+import { FieldT, FormGroupT, FormsectionT, FormT } from "../utils/forms";
+
+export const FormSchemaFragment = graphql`
+  fragment FormSchemaFragment on FormYamlConnection {
+    edges {
+      node {
+        id
+        version
+        language
+        enabled
+        slug_pattern
+        title_pattern
+        sections {
+          title
+          description
+          groups {
+            name
+            title
+            description
+            repeatable
+            fields {
+              default
+              default_checked
+              default_multiple_selection
+              description
+              name
+              multiple
+              title
+              widget
+              show_if
+              valid_if
+              required_if
+              error_msg
+              computed_value
+              options {
+                value
+                label
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 export const PageConfigFragment = graphql`
   fragment PageConfigFragment on ConfigYamlConnection {
@@ -31,25 +67,10 @@ export const getMenu = (data: PageConfig) => data.menu!.edges[0].node.menu;
 export const getSiteConfig = (data: PageConfig) =>
   data.siteConfig!.edges[0].node;
 
-// overload
-export function getForm(
-  data: FormConfig,
-  formId?: string
-): FormConfig_allFormYaml_edges_node | null;
-
-// overload
-export function getForm(
-  data: ViewConfig,
-  formId?: string
-): ViewConfig_allFormYaml_edges_node | null;
-
 export function getForm(
   data: FormConfig | ViewConfig,
   formId?: string
-):
-  | ViewConfig_allFormYaml_edges_node
-  | FormConfig_allFormYaml_edges_node
-  | null {
+): FormT | null {
   if (!formId) {
     return null;
   }
@@ -62,13 +83,9 @@ export function getForm(
   return forms[0].node;
 }
 
-export function getGroupFields(
-  group: FormConfig_allFormYaml_edges_node_sections_groups
-) {
+export function getGroupFields(group: FormGroupT) {
   return group.fields && group.repeatable
-    ? (group.fields as ReadonlyArray<
-        FormConfig_allFormYaml_edges_node_sections_groups_fields
-      >).map(field =>
+    ? (group.fields as ReadonlyArray<FieldT>).map(field =>
         field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
       )
     : group.fields || [];
@@ -77,19 +94,12 @@ export function getGroupFields(
 /**
  * Flatten form fields into array
  */
-export function getFormFields(form: FormConfig_allFormYaml_edges_node) {
+export function getFormFields(form: FormT) {
   if (!form.sections || !form.sections[0]) {
     return [];
   }
-  return (form.sections as ReadonlyArray<
-    FormConfig_allFormYaml_edges_node_sections
-  >).reduce(
-    (
-      prevSection: ReadonlyArray<
-        FormConfig_allFormYaml_edges_node_sections_groups_fields
-      >,
-      curSection: FormConfig_allFormYaml_edges_node_sections
-    ) => {
+  return (form.sections as ReadonlyArray<FormsectionT>).reduce(
+    (prevSection: ReadonlyArray<FieldT>, curSection: FormsectionT) => {
       return curSection && curSection.groups
         ? [
             ...prevSection,
@@ -99,20 +109,14 @@ export function getFormFields(form: FormConfig_allFormYaml_edges_node) {
                   ? ([
                       ...prevGroup,
                       ...getGroupFields(curGroup)
-                    ] as ReadonlyArray<
-                      FormConfig_allFormYaml_edges_node_sections_groups_fields
-                    >)
+                    ] as ReadonlyArray<FieldT>)
                   : prevGroup,
-              [] as ReadonlyArray<
-                FormConfig_allFormYaml_edges_node_sections_groups_fields
-              >
+              [] as ReadonlyArray<FieldT>
             )
           ]
         : prevSection;
     },
-    [] as ReadonlyArray<
-      FormConfig_allFormYaml_edges_node_sections_groups_fields
-    >
+    [] as ReadonlyArray<FieldT>
   );
 }
 

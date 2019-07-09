@@ -2,10 +2,7 @@ import * as parser from "expression-eval";
 import * as React from "react";
 
 import { Link, navigate } from "gatsby";
-import {
-  FormConfig,
-  FormConfig_allFormYaml_edges_node_sections_groups
-} from "../../generated/graphql/FormConfig";
+import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import { FormErrors } from "../../components/FormErrors";
 import { Formfield, getExpressionMemoized } from "../../components/FormField";
@@ -20,7 +17,7 @@ import {
 
 import { Button } from "reactstrap";
 
-import { FieldT, FormT, FormValuesT } from "../../utils/forms";
+import { FieldT, FormGroupT, FormT, FormValuesT } from "../../utils/forms";
 
 import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
@@ -111,7 +108,7 @@ const FormFieldArray = ({
   group,
   formik
 }: {
-  group: FormConfig_allFormYaml_edges_node_sections_groups;
+  group: FormGroupT;
   formik: FormikProps<FormValuesT>;
 }) => {
   if (!group.name || !group.fields) {
