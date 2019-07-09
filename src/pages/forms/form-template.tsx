@@ -121,11 +121,13 @@ const FormFieldArray = ({
           return null;
         }
         const defaultValues = groupFields.reduce(
-          (prev, cur) => ({
+          (prev, groupField) => ({
             ...prev,
-            [cur!.name!]: ""
+            ...(groupField && groupField.name
+              ? { [groupField.name]: getDefaultValue(groupField) }
+              : {})
           }),
-          {} as Record<string, string>
+          {} as Record<string, string | ReadonlyArray<string>>
         );
         const fieldTemplates = groupFields.reduce(
           (prev, curField) =>
