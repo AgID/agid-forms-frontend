@@ -184,7 +184,7 @@ const FormTemplate = ({
   formId?: string;
   nodeId?: string;
 }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
 
   // clear memoization cache on unmount
   React.useEffect(() => getExpressionMemoized.clear);

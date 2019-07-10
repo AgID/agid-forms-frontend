@@ -75,7 +75,7 @@ const SecretSelectionComponent = ({
 );
 
 const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
@@ -291,7 +291,7 @@ const LoginButtonComponent = ({
   selectedPa: string;
   getTokens: MutationFn<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>;
 }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   return (
     <div>
       <label htmlFor="secret">

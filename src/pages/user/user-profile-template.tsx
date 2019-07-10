@@ -19,7 +19,7 @@ const UserProfileTemplate = ({
   data: UserProfileConfig;
   userId: string;
 }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   return (
     <Layout
       menu={getMenu(data)}

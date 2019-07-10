@@ -68,7 +68,7 @@ const ViewTemplate = ({
   formId?: string;
   uuid: string;
 }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>

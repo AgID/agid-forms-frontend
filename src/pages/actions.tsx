@@ -17,7 +17,7 @@ import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   return (
     <Layout
       menu={getMenu(data)}

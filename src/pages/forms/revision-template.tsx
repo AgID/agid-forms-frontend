@@ -37,7 +37,7 @@ const RevisionTemplate = ({
   uuid: string;
   version: number;
 }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>

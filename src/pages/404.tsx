@@ -7,7 +7,7 @@ import { NotFoundConfig } from "../generated/graphql/NotFoundConfig";
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 
 const NotFoundPage = ({ data }: { data: NotFoundConfig }) => {
-  const [t] = useTranslation();
+  const { t } = useTranslation();
   return (
     <Layout
       menu={getMenu(data)}
