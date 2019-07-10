@@ -74,7 +74,9 @@ const onErrorLink = onError(res => {
 export const GraphqlClient = new ApolloClient({
   cache: new InMemoryCache({
     dataIdFromObject: object => {
+      // tslint:disable-next-line:no-useless-cast
       if ((object as any).version) {
+        // tslint:disable-next-line:no-useless-cast
         return `${object.id}:${(object as any).version}`;
       }
       return object.id;
