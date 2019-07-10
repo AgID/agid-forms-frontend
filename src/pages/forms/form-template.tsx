@@ -39,6 +39,9 @@ import {
   UPSERT_NODE
 } from "../../graphql/hasura_queries";
 
+import { Trans, useTranslation } from "react-i18next";
+import ApolloErrors from "../../components/ApolloErrors";
+import Icon from "../../components/Icon";
 import {
   flattenFormFields,
   getFieldNameParts,
@@ -156,7 +159,7 @@ const FormFieldArray = ({
               arrayHelpers.push(defaultValues);
             }}
           >
-            Add
+            <Trans i18nKey="add_more" />
           </Button>
         );
         return (
@@ -182,13 +185,17 @@ const FormTemplate = ({
   formId?: string;
   nodeId?: string;
 }) => {
+  const [t] = useTranslation();
+
   // clear memoization cache on unmount
   React.useEffect(() => getExpressionMemoized.clear);
 
   // get form schema
   const form = getForm(data, formId);
   if (!form) {
-    return <p>Form not found or empty.</p>;
+    return (
+      <p className="alert alert-warning">{t("errors.content_not_found")}</p>
+    );
   }
 
   const formFields = flattenFormFields(form);
@@ -223,15 +230,22 @@ const FormTemplate = ({
           data: existingNode
         }) => {
           if (getNodeLoading) {
-            return <p>Ottengo i dati...</p>;
+            return <p>{t("loading_data")}</p>;
           }
+
           if (getNodeError) {
-            return <p>Errore nella query: {JSON.stringify(getNodeError)}</p>;
+            return (
+              <p className="alert alert-warning">
+                {t("errors.error_getting_data")}: {JSON.stringify(getNodeError)}
+              </p>
+            );
           }
+
           const latestNode =
             existingNode && existingNode.latest && existingNode.latest[0]
               ? existingNode.latest[0]
               : null;
+
           return (
             <>
               {latestNode ? (
@@ -240,7 +254,7 @@ const FormTemplate = ({
                     <Link
                       to={`/revision/${latestNode.id}/${latestNode.version}`}
                     >
-                      visualizza
+                      {t("view")}
                     </Link>
                   </small>
                 </div>
@@ -257,14 +271,18 @@ const FormTemplate = ({
                   }
                 ) => {
                   if (upsertLoading) {
-                    return <p>Invio i dati...</p>;
+                    return (
+                      <p>
+                        <Trans i18nKey="sending_data" />
+                      </p>
+                    );
                   }
                   if (upsertError) {
                     return (
-                      <p>
-                        Errore nell'invio dei dati:{" "}
-                        {JSON.stringify(upsertError)}
-                        ...
+                      <p className="text-danger">
+                        <Trans i18nKey="errors.error_sending_data" />
+                        <br />
+                        <ApolloErrors errors={upsertError} />
                       </p>
                     );
                   }
@@ -353,7 +371,7 @@ const FormTemplate = ({
                             }
                             className="mt-4"
                           >
-                            Salva bozza
+                            <Trans i18nKey="save_draft" />
                           </Button>
                           <FormErrors formik={formik} />
                         </Form>

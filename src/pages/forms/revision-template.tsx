@@ -56,7 +56,7 @@ const RevisionTemplate = ({
           }
           if (error) {
             return (
-              <p>
+              <p className="alert alert-warning">
                 {t("errors.error_getting_data")}: {JSON.stringify(error)}
               </p>
             );
