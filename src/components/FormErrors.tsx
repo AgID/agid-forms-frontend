@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { Field, FormikProps, getIn } from "formik";
+import { Trans } from "react-i18next";
 import { flattenFormErrors, FormValuesT } from "../utils/forms";
 
 const ErrorMessage = ({ name }: { name: string }) => (
@@ -25,8 +26,7 @@ export const FormErrors = ({
   return hasErrors ? (
     <div className="mt-3 alert alert-warning">
       <small className="text-warning text-sans-serif">
-        assicurati di aver corretto tutti gli errori ed aver compilato tutti i
-        campi obbligatori prima di salvare il modulo
+        <Trans i18nKey="form_errors_warning" />
       </small>
       <div className="mt-3">
         {Object.keys(flattenFormErrors(formik.errors)).map(fieldName => {

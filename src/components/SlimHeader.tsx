@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Trans, useTranslation } from "react-i18next";
 import {
   Dropdown,
   DropdownItem,
@@ -37,17 +38,17 @@ const dropdownModifiers = {
 type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
-  "owners" | "slimHeaderLinks" | "defaultLanguage" | "languages"
+  "owners" | "slimHeaderLinks" | "languages"
 > & { user: ReturnType<typeof getUser> } & { onLogout: (args: any) => any };
 
 export const SlimHeader = ({
   owners,
   slimHeaderLinks,
-  defaultLanguage,
   languages,
   user,
   onLogout
 }: SlimHeaderProps) => {
+  const { i18n } = useTranslation();
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = React.useState(
     false
   );
@@ -138,7 +139,7 @@ export const SlimHeader = ({
                         cursor: "pointer"
                       }}
                     >
-                      {defaultLanguage}
+                      {i18n.language}
                       <Icon className="icon d-block" icon="expand" />
                     </DropdownToggle>
                     <DropdownMenu
@@ -150,7 +151,12 @@ export const SlimHeader = ({
                           lang &&
                           lang.name && (
                             <DropdownItem key={lang.name} tag="span">
-                              <a className="list-item text-primary" href="#">
+                              <a
+                                role="button"
+                                href="#"
+                                className="list-item text-primary"
+                                onClick={() => i18n.changeLanguage(lang.name!)}
+                              >
                                 <span>{lang.name}</span>
                               </a>
                             </DropdownItem>
@@ -213,14 +219,16 @@ export const SlimHeader = ({
                             href="#"
                             onClick={onLogout}
                           >
-                            <span className="text-danger">logout</span>
+                            <span className="text-danger">
+                              <Trans i18nKey="logout" />
+                            </span>
                           </a>
                         </DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
                     <a href="/" className="btn btn-primary btn-sm">
-                      Accedi
+                      <Trans i18nKey="login" />
                     </a>
                   )}
                 </div>

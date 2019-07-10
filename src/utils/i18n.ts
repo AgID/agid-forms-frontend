@@ -9,12 +9,12 @@ const i18n = i18next
   .use(initReactI18next)
   .use(LanguageDetector)
   .init({
-    fallbackLng: "it",
+    fallbackLng: "ita",
     resources: {
-      de: {
+      deu: {
         translation: DE
       },
-      it: {
+      ita: {
         translation: IT
       }
     },

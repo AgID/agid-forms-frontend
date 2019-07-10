@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import * as React from "react";
 
+import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
 import {
   Dropdown,
@@ -53,6 +54,8 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
     boolean
   >);
 
+  const { t } = useTranslation();
+
   return (
     <nav className="navbar navbar-expand-lg has-megamenu">
       <button
@@ -60,7 +63,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
         type="button"
         aria-controls="navbarNavC"
         aria-expanded={isOffcanvasOpen}
-        aria-label="Toggle navigation"
+        aria-label={t("toggle_navigation")}
         onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
       >
         <Icon className="icon icon-sm icon-light" icon="burger" />
@@ -91,7 +94,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
               onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
             >
               <Icon className="icon icon-sm icon-light" icon="close" />
-              close
+              {t("close")}
             </button>
           </div>
           <div className="menu-wrapper">
@@ -100,7 +103,8 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                 return (
                   menuItem &&
                   menuItem.name &&
-                  (menuItem.subtree ? (
+                  // TODO: remove cast
+                  ((menuItem as any).subtree ? (
                     <Dropdown
                       key={menuItem.slug!}
                       className="nav-item megamenu"
@@ -124,7 +128,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                           cursor: "pointer"
                         }}
                       >
-                        {menuItem.name}
+                        {t(menuItem.name)}
                         <Icon
                           className="icon d-inline-block"
                           icon="expand"
@@ -140,8 +144,9 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                       >
                         <div className="link-list-wrapper">
                           <ul className="mt-2">
-                            {menuItem.subtree.map(
-                              item =>
+                            {/* TODO: remove cast */}
+                            {(menuItem as any).subtree.map(
+                              (item: any) =>
                                 item &&
                                 item.slug && (
                                   <DropdownItem
@@ -150,7 +155,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                                     className="p-0"
                                   >
                                     <Link to={item.slug} className="p-0">
-                                      {item.name}
+                                      {t(item.name)}
                                     </Link>
                                   </DropdownItem>
                                 )
@@ -165,7 +170,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                         to={menuItem.slug!}
                         className="nav-link megamenu-top-link font-weight-600"
                       >
-                        {menuItem.name}
+                        {t(menuItem.name)}
                       </Link>
                     </li>
                   ))
