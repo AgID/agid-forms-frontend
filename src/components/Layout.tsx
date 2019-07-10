@@ -61,6 +61,9 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => (
     </Container>
     <Footer
       id="footer"
+      author={siteConfig.author}
+      authorLogo={siteConfig.authorLogo}
+      authorUrl={siteConfig.authorUrl}
       footerLinks={siteConfig.footerLinks}
       socialLinks={siteConfig.socialLinks}
     />

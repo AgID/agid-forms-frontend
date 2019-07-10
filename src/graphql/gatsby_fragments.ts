@@ -90,6 +90,9 @@ export const SiteConfigFragment = graphql`
         title
         description
         defaultLanguage
+        author
+        authorLogo
+        authorUrl
         owners {
           name
           url

@@ -1,6 +1,8 @@
 title: Modulistica AGID
 description: Modulistica AGID
 author: Agenzia per l'Italia Digitale
+authorLogo: "../images/logo-agid.svg"
+authorUrl: https://www.agid.gov.it
 owners:
   - name: AGID
     url: https://www.agid.gov.it
