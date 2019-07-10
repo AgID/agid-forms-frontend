@@ -25,6 +25,7 @@ import { useDebounce } from "use-debounce";
 
 import { GetIpa, GetIpaVariables } from "../generated/graphql/GetIpa";
 
+import { Trans, useTranslation } from "react-i18next";
 import { ValueType } from "react-select/lib/types";
 import ApolloErrors from "../components/ApolloErrors";
 import { DUMB_IPA_VALUE_FOR_NULL } from "../config";
@@ -47,116 +48,119 @@ const SecretSelectionComponent = ({
 }: {
   setHasSecret: Dispatcher<boolean | undefined>;
 }) => (
-  <>
-    <Form className="m-3">
-      <FormGroup check={true}>
-        <Input
-          name="gruppo1"
-          type="radio"
-          id="radio1"
-          onChange={() => setHasSecret(true)}
-        />
-        <Label check={true} for="radio1">
-          Ho già la password
-        </Label>
-      </FormGroup>
-      <FormGroup check={true}>
-        <Input
-          name="gruppo1"
-          type="radio"
-          id="radio2"
-          onChange={() => setHasSecret(false)}
-        />
-        <Label check={true} for="radio2">
-          Devo ancora ottenere la password
-        </Label>
-      </FormGroup>
-    </Form>
-  </>
+  <Form className="m-3">
+    <FormGroup check={true}>
+      <Input
+        name="secret-selection"
+        type="radio"
+        id="secret-selection-1"
+        onChange={() => setHasSecret(true)}
+      />
+      <Label check={true} for="secret-selection-1">
+        <Trans i18nKey="auth.has_password" />
+      </Label>
+    </FormGroup>
+    <FormGroup check={true}>
+      <Input
+        name="secret-selection"
+        type="radio"
+        id="secret-selection-2"
+        onChange={() => setHasSecret(false)}
+      />
+      <Label check={true} for="secret-selection-2">
+        <Trans i18nKey="auth.not_has_password" />
+      </Label>
+    </FormGroup>
+  </Form>
 );
 
-const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => (
-  <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
-    mutation={GET_SECRET}
-  >
-    {(
-      getSecret,
-      { loading: mutationLoading, error: mutationError, data: getSecretData }
-    ) => {
-      if (mutationLoading) {
-        return <p>Invio in corso...</p>;
-      } else if (mutationError) {
-        return (
-          <p className="text-danger">
-            Si è verificato un errore durante l'operazione:
-            <br />
-            <ApolloErrors errors={mutationError} />
-          </p>
-        );
-      }
+const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
+  const { t } = useTranslation();
 
-      const hasRtd =
-        ipaData &&
-        ipaData.ipa_ou &&
-        ipaData.ipa_ou[0] &&
-        ipaData.ipa_ou[0].mail_resp &&
-        ipaData.ipa_ou[0].mail_resp !== "null" &&
-        ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
-
-      return getSecretData ? (
-        <p>
-          Un'email contenente la password di accesso è stata inviata
-          all'indirizzo{" "}
-          {getSecretData.post_auth_email_ipa_code.ipa_ou.mail_resp}
-        </p>
-      ) : (
-        <>
-          {hasRtd && (
-            <Button
-              className="mb-3"
-              color="primary"
-              onClick={async () =>
-                ipaData && ipaData.ipa_pa[0]
-                  ? await getSecret({
-                      variables: {
-                        ipa_code: ipaData.ipa_pa[0].cod_amm,
-                        body: "{}"
-                      }
-                    })
-                  : () => ({})
-              }
-            >
-              Invia l'email
-            </Button>
-          )}
-          {!hasRtd && (
-            <p className="text-warning">
-              L'indirizzo email del responsabile per la transizione digitale non
-              è stato ancora inserito nell'indice delle pubbliche
-              amministrazioni, pertanto non è possibile proseguire con
-              l'autenticazione. Puoi verificarlo visitando la pagina relativa:
-              <br />
-              <a
-                href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
-                  ipaData!.ipa_pa[0].cod_amm
-                }`}
-              >
-                {ipaData!.ipa_pa[0].des_amm}
-              </a>
-            </p>
-          )}
-          {hasRtd && (
+  return (
+    <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
+      mutation={GET_SECRET}
+    >
+      {(
+        getSecret,
+        { loading: mutationLoading, error: mutationError, data: getSecretData }
+      ) => {
+        if (mutationLoading) {
+          return (
             <p>
-              proseguendo verrà inviata un'email all'indirizzo del responsabile
-              per la transizione digitale dell'ente {ipaData!.ipa_pa[0].des_amm}
-              : {ipaData!.ipa_ou[0].mail_resp}
+              <Trans i18nKey="sending_data" />
             </p>
-          )}
-        </>
-      );
-    }}
-  </Mutation>
-);
+          );
+        } else if (mutationError) {
+          return (
+            <p className="text-danger">
+              <Trans i18nKey="errors.error_sending_data" />
+              <br />
+              <ApolloErrors errors={mutationError} />
+            </p>
+          );
+        }
+
+        const hasRtd =
+          ipaData &&
+          ipaData.ipa_ou &&
+          ipaData.ipa_ou[0] &&
+          ipaData.ipa_ou[0].mail_resp &&
+          ipaData.ipa_ou[0].mail_resp !== "null" &&
+          ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
+
+        return getSecretData ? (
+          <p>
+            <Trans i18nKey="auth.email_sent" />{" "}
+            {getSecretData.post_auth_email_ipa_code.ipa_ou.mail_resp}
+          </p>
+        ) : (
+          <>
+            {hasRtd && (
+              <Button
+                className="mb-3"
+                color="primary"
+                onClick={async () =>
+                  ipaData && ipaData.ipa_pa[0]
+                    ? await getSecret({
+                        variables: {
+                          ipa_code: ipaData.ipa_pa[0].cod_amm,
+                          body: "{}"
+                        }
+                      })
+                    : () => ({})
+                }
+              >
+                Invia l'email
+              </Button>
+            )}
+            {!hasRtd && (
+              <p className="text-warning">
+                <Trans i18nKey="auth.rtd_not_found" />
+                <br />
+                <a
+                  href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
+                    ipaData!.ipa_pa[0].cod_amm
+                  }`}
+                >
+                  {ipaData!.ipa_pa[0].des_amm}
+                </a>
+              </p>
+            )}
+            {hasRtd && (
+              <p>
+                {t("auth.email_to_be_sent", {
+                  paName: ipaData!.ipa_pa[0].des_amm,
+                  email: ipaData!.ipa_ou[0].mail_resp
+                })}
+              </p>
+            )}
+          </>
+        );
+      }}
+    </Mutation>
+  );
+};
 
 const GetSecretConnectedComponent = ({
   selectedPa
@@ -169,9 +173,18 @@ const GetSecretConnectedComponent = ({
   >
     {({ loading, error, data: ipaData }) => {
       if (loading) {
-        return <p>carico i dati</p>;
+        return (
+          <p>
+            <Trans i18nKey="loading_data" />
+          </p>
+        );
       } else if (error) {
-        return <p>errore: {JSON.stringify(error)}</p>;
+        return (
+          <p>
+            <Trans i18nKey="errors.error_getting_data" />:{" "}
+            {JSON.stringify(error)}
+          </p>
+        );
       } else {
         return <GetSecretComponent ipaData={ipaData} />;
       }
@@ -199,11 +212,12 @@ const PaSelectionComponent = ({
   setSearch: Dispatcher<string>;
 }) => (
   <>
-    <label htmlFor="pa">Seleziona un'amministrazione:</label>
+    <label htmlFor="pa">
+      <Trans i18nKey="auth.select_pa" />
+    </label>
 
     <p className="f-1">
-      Puoi cercare l'amministrazione per nome o inserendo direttamente il codice
-      ipa
+      <Trans i18nKey="auth.select_pa_hint" />
     </p>
 
     <SelectBase<{ value: string; label: string }>
@@ -241,7 +255,12 @@ const SelectOrganizationConnectedComponent = ({
     >
       {({ loading, error, data: ipaData }) => {
         if (error) {
-          return <div>Errore nella query: {JSON.stringify(error)}</div>;
+          return (
+            <p className="text-warning">
+              <Trans i18nKey="errors.error_getting_data" />:{" "}
+              {JSON.stringify(error)}
+            </p>
+          );
         }
         return (
           <>
@@ -271,35 +290,38 @@ const LoginButtonComponent = ({
   setSecret: Dispatcher<string | undefined>;
   selectedPa: string;
   getTokens: MutationFn<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>;
-}) => (
-  <div>
-    <label htmlFor="secret">
-      Inserisci la password che hai ricevuto per email:
-    </label>
-    <Input
-      type="text"
-      name="secret"
-      value={secret || ""}
-      onChange={evt => setSecret(evt.target.value)}
-    />
-    <br />
-    <Button
-      color="primary"
-      onClick={() =>
-        getTokens({
-          variables: {
-            ipa_code: selectedPa,
-            body: {
-              secret: secret || ""
+}) => {
+  const { t } = useTranslation();
+  return (
+    <div>
+      <label htmlFor="secret">
+        <Trans i18nKey="auth.insert_secret" />
+      </label>
+      <Input
+        type="text"
+        name="secret"
+        value={secret || ""}
+        onChange={evt => setSecret(evt.target.value)}
+      />
+      <br />
+      <Button
+        color="primary"
+        onClick={() =>
+          getTokens({
+            variables: {
+              ipa_code: selectedPa,
+              body: {
+                secret: secret || ""
+              }
             }
-          }
-        })
-      }
-    >
-      Accedi come {selectedPa}
-    </Button>
-  </div>
-);
+          })
+        }
+      >
+        {t("auth.login_as", { selectedPa })}
+      </Button>
+    </div>
+  );
+};
 
 const LoginButtonConnectedComponent = ({
   secret,
@@ -320,7 +342,11 @@ const LoginButtonConnectedComponent = ({
       { loading: mutationLoading, error: mutationError, data: getTokensData }
     ) => {
       if (mutationLoading) {
-        return "loading...";
+        return (
+          <p>
+            <Trans i18nKey="sending_data" />
+          </p>
+        );
       } else if (getTokensData) {
         onStoreTokens(getTokensData);
       }
@@ -331,7 +357,9 @@ const LoginButtonConnectedComponent = ({
               {isTooManyRequestError(mutationError) ? (
                 <ApolloErrors errors={mutationError} />
               ) : (
-                <span>password errata</span>
+                <span>
+                  <Trans i18nKey="auth.wrong_password" />
+                </span>
               )}
             </p>
           )}
@@ -369,7 +397,7 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
       <SEO title="Home" meta={[]} keywords={[]} />
       {isSessionExpired && (
         <p className="alert alert-warning w-100">
-          La tua sessione è scaduta, è necessario effettuare un nuovo login
+          <Trans i18nKey="auth.expired_session" />
         </p>
       )}
       <SelectOrganizationConnectedComponent

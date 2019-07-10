@@ -15,9 +15,7 @@ export interface RevisionConfig_menu_edges_node_menu {
 
 export interface RevisionConfig_menu_edges_node {
   readonly __typename: "ConfigYaml";
-  readonly menu: ReadonlyArray<
-    RevisionConfig_menu_edges_node_menu | null
-  > | null;
+  readonly menu: ReadonlyArray<(RevisionConfig_menu_edges_node_menu | null)> | null;
 }
 
 export interface RevisionConfig_menu_edges {
@@ -65,21 +63,14 @@ export interface RevisionConfig_siteConfig_edges_node {
   readonly title: string | null;
   readonly description: string | null;
   readonly defaultLanguage: string | null;
-  readonly owners: ReadonlyArray<
-    RevisionConfig_siteConfig_edges_node_owners | null
-  > | null;
-  readonly languages: ReadonlyArray<
-    RevisionConfig_siteConfig_edges_node_languages | null
-  > | null;
-  readonly slimHeaderLinks: ReadonlyArray<
-    RevisionConfig_siteConfig_edges_node_slimHeaderLinks | null
-  > | null;
-  readonly socialLinks: ReadonlyArray<
-    RevisionConfig_siteConfig_edges_node_socialLinks | null
-  > | null;
-  readonly footerLinks: ReadonlyArray<
-    RevisionConfig_siteConfig_edges_node_footerLinks | null
-  > | null;
+  readonly author: string | null;
+  readonly authorLogo: string | null;
+  readonly authorUrl: string | null;
+  readonly owners: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_owners | null)> | null;
+  readonly languages: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_languages | null)> | null;
+  readonly slimHeaderLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_slimHeaderLinks | null)> | null;
+  readonly socialLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_socialLinks | null)> | null;
+  readonly footerLinks: ReadonlyArray<(RevisionConfig_siteConfig_edges_node_footerLinks | null)> | null;
 }
 
 export interface RevisionConfig_siteConfig_edges {
@@ -102,7 +93,7 @@ export interface RevisionConfig_allFormYaml_edges_node_sections_groups_fields {
   readonly __typename: "FormYamlSectionsGroupsFields";
   readonly default: string | null;
   readonly default_checked: boolean | null;
-  readonly default_multiple_selection: ReadonlyArray<string | null> | null;
+  readonly default_multiple_selection: ReadonlyArray<(string | null)> | null;
   readonly description: string | null;
   readonly name: string | null;
   readonly multiple: boolean | null;
@@ -113,9 +104,7 @@ export interface RevisionConfig_allFormYaml_edges_node_sections_groups_fields {
   readonly required_if: string | null;
   readonly error_msg: string | null;
   readonly computed_value: string | null;
-  readonly options: ReadonlyArray<
-    RevisionConfig_allFormYaml_edges_node_sections_groups_fields_options | null
-  > | null;
+  readonly options: ReadonlyArray<(RevisionConfig_allFormYaml_edges_node_sections_groups_fields_options | null)> | null;
 }
 
 export interface RevisionConfig_allFormYaml_edges_node_sections_groups {
@@ -124,18 +113,14 @@ export interface RevisionConfig_allFormYaml_edges_node_sections_groups {
   readonly title: string | null;
   readonly description: string | null;
   readonly repeatable: boolean | null;
-  readonly fields: ReadonlyArray<
-    RevisionConfig_allFormYaml_edges_node_sections_groups_fields | null
-  > | null;
+  readonly fields: ReadonlyArray<(RevisionConfig_allFormYaml_edges_node_sections_groups_fields | null)> | null;
 }
 
 export interface RevisionConfig_allFormYaml_edges_node_sections {
   readonly __typename: "FormYamlSections";
   readonly title: string | null;
   readonly description: string | null;
-  readonly groups: ReadonlyArray<
-    RevisionConfig_allFormYaml_edges_node_sections_groups | null
-  > | null;
+  readonly groups: ReadonlyArray<(RevisionConfig_allFormYaml_edges_node_sections_groups | null)> | null;
 }
 
 export interface RevisionConfig_allFormYaml_edges_node {
@@ -146,9 +131,7 @@ export interface RevisionConfig_allFormYaml_edges_node {
   readonly enabled: boolean | null;
   readonly slug_pattern: string | null;
   readonly title_pattern: string | null;
-  readonly sections: ReadonlyArray<
-    RevisionConfig_allFormYaml_edges_node_sections | null
-  > | null;
+  readonly sections: ReadonlyArray<(RevisionConfig_allFormYaml_edges_node_sections | null)> | null;
 }
 
 export interface RevisionConfig_allFormYaml_edges {

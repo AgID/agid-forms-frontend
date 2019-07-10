@@ -16,7 +16,7 @@ export interface FormSchemaFragment_edges_node_sections_groups_fields {
   readonly __typename: "FormYamlSectionsGroupsFields";
   readonly default: string | null;
   readonly default_checked: boolean | null;
-  readonly default_multiple_selection: ReadonlyArray<string | null> | null;
+  readonly default_multiple_selection: ReadonlyArray<(string | null)> | null;
   readonly description: string | null;
   readonly name: string | null;
   readonly multiple: boolean | null;
@@ -27,9 +27,7 @@ export interface FormSchemaFragment_edges_node_sections_groups_fields {
   readonly required_if: string | null;
   readonly error_msg: string | null;
   readonly computed_value: string | null;
-  readonly options: ReadonlyArray<
-    FormSchemaFragment_edges_node_sections_groups_fields_options | null
-  > | null;
+  readonly options: ReadonlyArray<(FormSchemaFragment_edges_node_sections_groups_fields_options | null)> | null;
 }
 
 export interface FormSchemaFragment_edges_node_sections_groups {
@@ -38,18 +36,14 @@ export interface FormSchemaFragment_edges_node_sections_groups {
   readonly title: string | null;
   readonly description: string | null;
   readonly repeatable: boolean | null;
-  readonly fields: ReadonlyArray<
-    FormSchemaFragment_edges_node_sections_groups_fields | null
-  > | null;
+  readonly fields: ReadonlyArray<(FormSchemaFragment_edges_node_sections_groups_fields | null)> | null;
 }
 
 export interface FormSchemaFragment_edges_node_sections {
   readonly __typename: "FormYamlSections";
   readonly title: string | null;
   readonly description: string | null;
-  readonly groups: ReadonlyArray<
-    FormSchemaFragment_edges_node_sections_groups | null
-  > | null;
+  readonly groups: ReadonlyArray<(FormSchemaFragment_edges_node_sections_groups | null)> | null;
 }
 
 export interface FormSchemaFragment_edges_node {
@@ -60,9 +54,7 @@ export interface FormSchemaFragment_edges_node {
   readonly enabled: boolean | null;
   readonly slug_pattern: string | null;
   readonly title_pattern: string | null;
-  readonly sections: ReadonlyArray<
-    FormSchemaFragment_edges_node_sections | null
-  > | null;
+  readonly sections: ReadonlyArray<(FormSchemaFragment_edges_node_sections | null)> | null;
 }
 
 export interface FormSchemaFragment_edges {

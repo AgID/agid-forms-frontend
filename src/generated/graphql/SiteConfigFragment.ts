@@ -41,21 +41,14 @@ export interface SiteConfigFragment_edges_node {
   readonly title: string | null;
   readonly description: string | null;
   readonly defaultLanguage: string | null;
-  readonly owners: ReadonlyArray<
-    SiteConfigFragment_edges_node_owners | null
-  > | null;
-  readonly languages: ReadonlyArray<
-    SiteConfigFragment_edges_node_languages | null
-  > | null;
-  readonly slimHeaderLinks: ReadonlyArray<
-    SiteConfigFragment_edges_node_slimHeaderLinks | null
-  > | null;
-  readonly socialLinks: ReadonlyArray<
-    SiteConfigFragment_edges_node_socialLinks | null
-  > | null;
-  readonly footerLinks: ReadonlyArray<
-    SiteConfigFragment_edges_node_footerLinks | null
-  > | null;
+  readonly author: string | null;
+  readonly authorLogo: string | null;
+  readonly authorUrl: string | null;
+  readonly owners: ReadonlyArray<(SiteConfigFragment_edges_node_owners | null)> | null;
+  readonly languages: ReadonlyArray<(SiteConfigFragment_edges_node_languages | null)> | null;
+  readonly slimHeaderLinks: ReadonlyArray<(SiteConfigFragment_edges_node_slimHeaderLinks | null)> | null;
+  readonly socialLinks: ReadonlyArray<(SiteConfigFragment_edges_node_socialLinks | null)> | null;
+  readonly footerLinks: ReadonlyArray<(SiteConfigFragment_edges_node_footerLinks | null)> | null;
 }
 
 export interface SiteConfigFragment_edges {

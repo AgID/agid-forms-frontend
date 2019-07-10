@@ -71,4 +71,7 @@ yarn-error.log
 local
 
 .vscode
+
+# Generated at build time
 generated/**/*.ts
+gatsby-schema.json

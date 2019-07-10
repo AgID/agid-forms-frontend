@@ -7,7 +7,7 @@ import { Link } from "gatsby";
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
-import BodyStyles from "../../components/BodyColor";
+import BodyStyles from "../../components/BodyStyles";
 import {
   GetNodeRevision,
   GetNodeRevisionVariables
@@ -20,6 +20,7 @@ import {
 import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
+import { useTranslation } from "react-i18next";
 import {
   flattenFormFieldsWithKeys,
   flattenFormValues
@@ -36,11 +37,12 @@ const RevisionTemplate = ({
   uuid: string;
   version: number;
 }) => {
-  const [title, setTitle] = React.useState("");
+  const { t } = useTranslation();
+  const [title, setTitle] = React.useState(t("pages.revision_title"));
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title="Home" meta={[]} keywords={[]} />
+      <SEO title={t("pages.revision_title")} meta={[]} keywords={[]} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
         variables={{
@@ -50,26 +52,36 @@ const RevisionTemplate = ({
       >
         {({ loading, error, data: getNodeResult }) => {
           if (loading) {
-            return <p>Ottengo i dati...</p>;
+            return <p>{t("loading_data")}</p>;
           }
           if (error) {
             return (
-              <p>Errore nel ricevere i dati: {JSON.stringify(error)}...</p>
+              <p className="alert alert-warning">
+                {t("errors.error_getting_data")}: {JSON.stringify(error)}
+              </p>
             );
           }
+
           const nodeRevision =
             getNodeResult && getNodeResult.revision && getNodeResult.revision[0]
               ? getNodeResult.revision[0]
               : null;
+
           if (!nodeRevision) {
-            return <p>La pagina non esiste.</p>;
+            return (
+              <p className="alert alert-warning">
+                {t("errors.content_not_found")}
+              </p>
+            );
           }
+
           const publishedNode =
             getNodeResult &&
             getNodeResult.published &&
             getNodeResult.published[0]
               ? getNodeResult.published[0]
               : null;
+
           const isLatestPublishedVersion =
             publishedNode && publishedNode.version === nodeRevision.version;
           {
@@ -78,7 +90,11 @@ const RevisionTemplate = ({
           const formId = nodeRevision.content.schema.id;
           const form = getForm(data, formId);
           if (!form) {
-            return <p>Form vuoto.</p>;
+            return (
+              <p className="alert alert-warning">
+                {t("errors.content_not_found")}
+              </p>
+            );
           }
           setTitle(nodeRevision.title);
           return (
@@ -89,16 +105,15 @@ const RevisionTemplate = ({
                     <Link
                       to={`/form/${nodeRevision.content.schema.id}/${nodeRevision.id}`}
                     >
-                      modifica
+                      {t("edit")}
                     </Link>
                   </small>
                   {publishedNode && !isLatestPublishedVersion && (
                     <p className="alert alert-warning">
-                      Il nodo pubblicato non corrisponde alla sua ultima
-                      revisione.
+                      {t("not_published_version")}
                       <br />
                       <Link to={`/view/${publishedNode.id}`}>
-                        visualizza il nodo pubblicato
+                        {t("view_published_version")}
                       </Link>
                     </p>
                   )}

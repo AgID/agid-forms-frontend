@@ -1,20 +1,24 @@
 import { graphql } from "gatsby";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { NotFoundConfig } from "../generated/graphql/NotFoundConfig";
 import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 
-const NotFoundPage = ({ data }: { data: NotFoundConfig }) => (
-  <Layout
-    menu={getMenu(data)}
-    siteConfig={getSiteConfig(data)}
-    title="Pagina non trovata"
-  >
-    <SEO title="404: Not found" meta={[]} keywords={[]} />
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
-  </Layout>
-);
+const NotFoundPage = ({ data }: { data: NotFoundConfig }) => {
+  const { t } = useTranslation();
+  return (
+    <Layout
+      menu={getMenu(data)}
+      siteConfig={getSiteConfig(data)}
+      title={t("pages.notfound_page_title")}
+    >
+      <SEO title={t("pages.notfound_page_title")} meta={[]} keywords={[]} />
+      <p>{t("pages.notfound_page_text")}</p>
+    </Layout>
+  );
+};
 
 export const query = graphql`
   query NotFoundConfig {

@@ -43,7 +43,7 @@ function SEO({
             htmlAttributes={{
               lang
             }}
-            title={title || "Guida dinamica Piano Triennale 2019-2021"}
+            title={title || ""}
             titleTemplate={`%s | ${data.site.siteMetadata.title}`}
             meta={[
               {
