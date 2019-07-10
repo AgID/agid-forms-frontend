@@ -6,6 +6,7 @@ import SEO from "../../components/Seo";
 import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
+import { useTranslation } from "react-i18next";
 import { GetUserNodes } from "../../generated/graphql/GetUserNodes";
 import { UserProfileConfig } from "../../generated/graphql/UserProfileConfig";
 import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
@@ -18,13 +19,14 @@ const UserProfileTemplate = ({
   data: UserProfileConfig;
   userId: string;
 }) => {
+  const [t] = useTranslation();
   return (
     <Layout
       menu={getMenu(data)}
       siteConfig={getSiteConfig(data)}
-      title="Dashboard"
+      title={t("pages.dashboard_title")}
     >
-      <SEO title="Home" meta={[]} keywords={[]} />
+      <SEO title={t("pages.dashboard_title")} meta={[]} keywords={[]} />
       <Query<GetUserNodes> query={GET_USER_NODES}>
         {({
           loading: userNodesLoading,
@@ -32,12 +34,12 @@ const UserProfileTemplate = ({
           data: userNodes
         }) => {
           if (userNodesLoading) {
-            return <p>Carico i dati...</p>;
+            return <p>{t("loading_data")}</p>;
           }
           if (userNodesError) {
             return (
               <p>
-                Errore nel caricamento dei dati:{" "}
+                {t("errors.error_getting_data")}{" "}
                 {JSON.stringify(userNodesError)}
               </p>
             );

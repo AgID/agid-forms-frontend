@@ -1,7 +1,9 @@
 const IT = {
+  edit: "modifica",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   errors: {
+    content_not_found: "Contenuto non tovato",
     error_getting_data:
       "Si è verificato un errore durante il recupero dei dati, puoi comunque riprovare a effettuare l'operazione.",
     error_sending_data:
@@ -34,10 +36,19 @@ const IT = {
   login: "Accedi",
   logout: "logout",
   loading_data: "Caricamento dei dati in corso...",
+  not_lastest_version:
+    "Il nodo pubblicato non corrisponde alla sua ultima revisione.",
+  not_published_version:
+    "Il nodo pubblicato non corrisponde alla sua ultima revisione.",
+  view_latest_version: "Visualizza l'ultima versione del contenuto",
+  view_published_version: "Visualizza la versione pubblicata del contenuto",
   pages: {
     action_page_title: "Moduli",
+    dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
-    notfound_page_text: "Pagina non trovata"
+    notfound_page_text: "Pagina non trovata",
+    revision_title: "Visualizza la revisione del contenuto",
+    view_title: "Visualizza il contenuto"
   },
   sending_data: "Invio dei dati in corso...",
   skiplinks: {

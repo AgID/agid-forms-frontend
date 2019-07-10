@@ -7,6 +7,7 @@ import { Link } from "gatsby";
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
+import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
@@ -67,11 +68,12 @@ const ViewTemplate = ({
   formId?: string;
   uuid: string;
 }) => {
-  const [title, setTitle] = React.useState("");
+  const [t] = useTranslation();
+  const [title, setTitle] = React.useState(t("pages.view_title"));
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title="Home" meta={[]} keywords={[]} />
+      <SEO title={t("pages.view_title")} meta={[]} keywords={[]} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{
@@ -80,32 +82,41 @@ const ViewTemplate = ({
       >
         {({ loading, error, data: getNodeResult }) => {
           if (loading) {
-            return <p>Ottengo i dati...</p>;
+            return <p>{t("loading_data")}</p>;
           }
           if (error) {
             return (
-              <p>Errore nel ricevere i dati: {JSON.stringify(error)}...</p>
+              <p>
+                {t("errors.error_getting_data")}: {JSON.stringify(error)}
+              </p>
             );
           }
           const latestNode =
             getNodeResult && getNodeResult.latest && getNodeResult.latest[0]
               ? getNodeResult.latest[0]
               : null;
+
           if (!latestNode) {
-            return <p>La pagina non esiste.</p>;
+            return (
+              <p className="alert alert-warning">
+                {t("errors.content_not_found")}
+              </p>
+            );
           }
+
           const publishedNode =
             latestNode && latestNode.published && latestNode.published[0]
               ? latestNode.published[0]
               : null;
+
           if (!publishedNode) {
             return (
-              <p>
-                Non è stato trovato un contenuto pubblicato corrispondente alla
-                url.
+              <p className="alert alert-warning">
+                {t("errors.content_not_found")}
               </p>
             );
           }
+
           const isLatestPublishedVersion =
             publishedNode && publishedNode.version === latestNode.version;
           {
@@ -114,7 +125,11 @@ const ViewTemplate = ({
           const formId = latestNode.content.schema.id;
           const form = getForm(data, formId);
           if (!form) {
-            return <p>Form vuoto.</p>;
+            return (
+              <p className="alert alert-warning">
+                {t("errors.content_not_found")}
+              </p>
+            );
           }
           setTitle(publishedNode.title);
           return (
@@ -125,18 +140,17 @@ const ViewTemplate = ({
                     <Link
                       to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
                     >
-                      modifica
+                      {t("edit")}
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
                     <p className="alert alert-warning">
-                      Il nodo pubblicato non corrisponde alla sua ultima
-                      revisione.
+                      {t("not_latest_version")}
                       <br />
                       <Link
                         to={`/revision/${latestNode.id}/${latestNode.version}`}
                       >
-                        visualizza l'ultima versione
+                        {t("view_latest_version")}
                       </Link>
                     </p>
                   )}
