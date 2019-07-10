@@ -8,7 +8,7 @@ import {
   PageConfigFragment
 } from "../graphql/gatsby_fragments";
 
-import BodyStyles from "../components/BodyColor";
+import BodyStyles from "../components/BodyStyles";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";

@@ -7,7 +7,7 @@ import { Link } from "gatsby";
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
-import BodyStyles from "../../components/BodyColor";
+import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
