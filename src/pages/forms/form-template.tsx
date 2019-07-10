@@ -41,7 +41,6 @@ import {
 
 import { Trans, useTranslation } from "react-i18next";
 import ApolloErrors from "../../components/ApolloErrors";
-import Icon from "../../components/Icon";
 import {
   flattenFormFields,
   getFieldNameParts,
