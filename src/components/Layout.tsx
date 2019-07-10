@@ -38,7 +38,6 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => (
         owners={siteConfig.owners}
         slimHeaderLinks={siteConfig.slimHeaderLinks}
         languages={siteConfig.languages}
-        defaultLanguage={siteConfig.defaultLanguage}
         user={getUser()}
         onLogout={async () => {
           await logout(GraphqlClient);
