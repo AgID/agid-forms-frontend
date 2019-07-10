@@ -54,7 +54,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
     boolean
   >);
 
-  const [t] = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <nav className="navbar navbar-expand-lg has-megamenu">
@@ -94,7 +94,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
               onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
             >
               <Icon className="icon icon-sm icon-light" icon="close" />
-              close
+              {t("close")}
             </button>
           </div>
           <div className="menu-wrapper">
@@ -128,7 +128,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                           cursor: "pointer"
                         }}
                       >
-                        {menuItem.name}
+                        {t(menuItem.name)}
                         <Icon
                           className="icon d-inline-block"
                           icon="expand"
@@ -155,7 +155,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                                     className="p-0"
                                   >
                                     <Link to={item.slug} className="p-0">
-                                      {item.name}
+                                      {t(item.name)}
                                     </Link>
                                   </DropdownItem>
                                 )
@@ -170,7 +170,7 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                         to={menuItem.slug!}
                         className="nav-link megamenu-top-link font-weight-600"
                       >
-                        {menuItem.name}
+                        {t(menuItem.name)}
                       </Link>
                     </li>
                   ))

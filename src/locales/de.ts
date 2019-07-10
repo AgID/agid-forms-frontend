@@ -1,4 +1,6 @@
 const DE = {
+  Utenti: "Utenten",
+  Moduli: "Modulen",
   edit: "modifichen",
   view: "visualizzen",
   save_draft: "salva bozzen",
