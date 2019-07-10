@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Trans } from "react-i18next";
 import {
   Dropdown,
   DropdownItem,
@@ -213,14 +214,16 @@ export const SlimHeader = ({
                             href="#"
                             onClick={onLogout}
                           >
-                            <span className="text-danger">logout</span>
+                            <span className="text-danger">
+                              <Trans i18nKey="logout" />
+                            </span>
                           </a>
                         </DropdownItem>
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
                     <a href="/" className="btn btn-primary btn-sm">
-                      Accedi
+                      <Trans i18nKey="login" />
                     </a>
                   )}
                 </div>
