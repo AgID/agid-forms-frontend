@@ -7,7 +7,10 @@ import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
-import { GetUserNodes } from "../../generated/graphql/GetUserNodes";
+import {
+  GetUserNodes,
+  GetUserNodesVariables
+} from "../../generated/graphql/GetUserNodes";
 import { UserProfileConfig } from "../../generated/graphql/UserProfileConfig";
 import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
 import { GET_USER_NODES } from "../../graphql/hasura_queries";
@@ -27,7 +30,12 @@ const UserProfileTemplate = ({
       title={t("pages.dashboard_title")}
     >
       <SEO title={t("pages.dashboard_title")} meta={[]} keywords={[]} />
-      <Query<GetUserNodes> query={GET_USER_NODES}>
+      <Query<GetUserNodes, GetUserNodesVariables>
+        query={GET_USER_NODES}
+        variables={{
+          userId
+        }}
+      >
         {({
           loading: userNodesLoading,
           error: userNodesError,

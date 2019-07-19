@@ -4,6 +4,19 @@ schema {
   subscription: subscription_root
 }
 
+# expression to compare columns of type boolean. All fields are combined with logical 'AND'.
+input boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
 # conflict action
 enum conflict_action {
   # ignore the insert on this row
@@ -13,17 +26,130 @@ enum conflict_action {
   update
 }
 
+# columns and relationships of "group"
+type group {
+  group: String!
+}
+
+# aggregated selection of "group"
+type group_aggregate {
+  aggregate: group_aggregate_fields
+  nodes: [group!]!
+}
+
+# aggregate fields of "group"
+type group_aggregate_fields {
+  count(columns: [group_select_column!], distinct: Boolean): Int
+  max: group_max_fields
+  min: group_min_fields
+}
+
+# order by aggregate values of table "group"
+input group_aggregate_order_by {
+  count: order_by
+  max: group_max_order_by
+  min: group_min_order_by
+}
+
+# input type for inserting array relation for remote table "group"
+input group_arr_rel_insert_input {
+  data: [group_insert_input!]!
+  on_conflict: group_on_conflict
+}
+
+# Boolean expression to filter rows from the table "group". All fields are combined with a logical 'AND'.
+input group_bool_exp {
+  _and: [group_bool_exp]
+  _not: group_bool_exp
+  _or: [group_bool_exp]
+  group: text_comparison_exp
+}
+
+# unique or primary key constraints on table "group"
+enum group_constraint {
+  # unique or primary key constraint
+  groups_pkey
+}
+
+# input type for inserting data into table "group"
+input group_insert_input {
+  group: String
+}
+
+# aggregate max on columns
+type group_max_fields {
+  group: String
+}
+
+# order by max() on columns of table "group"
+input group_max_order_by {
+  group: order_by
+}
+
+# aggregate min on columns
+type group_min_fields {
+  group: String
+}
+
+# order by min() on columns of table "group"
+input group_min_order_by {
+  group: order_by
+}
+
+# response of any mutation on the table "group"
+type group_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [group!]!
+}
+
+# input type for inserting object relation for remote table "group"
+input group_obj_rel_insert_input {
+  data: group_insert_input!
+  on_conflict: group_on_conflict
+}
+
+# on conflict condition type for table "group"
+input group_on_conflict {
+  constraint: group_constraint!
+  update_columns: [group_update_column!]!
+}
+
+# ordering options when selecting data from "group"
+input group_order_by {
+  group: order_by
+}
+
+# select columns of table "group"
+enum group_select_column {
+  # column name
+  group
+}
+
+# input type for updating data in table "group"
+input group_set_input {
+  group: String
+}
+
+# update columns of table "group"
+enum group_update_column {
+  # column name
+  group
+}
+
 # expression to compare columns of type integer. All fields are combined with logical 'AND'.
 input integer_comparison_exp {
   _eq: Int
   _gt: Int
   _gte: Int
-  _in: [Int]
+  _in: [Int!]
   _is_null: Boolean
   _lt: Int
   _lte: Int
   _neq: Int
-  _nin: [Int]
+  _nin: [Int!]
 }
 
 # columns and relationships of "ipa_ou"
@@ -1068,12 +1194,12 @@ input jsonb_comparison_exp {
 
   # do any of these strings exist as top-level keys in the column
   _has_keys_any: [String!]
-  _in: [jsonb]
+  _in: [jsonb!]
   _is_null: Boolean
   _lt: jsonb
   _lte: jsonb
   _neq: jsonb
-  _nin: [jsonb]
+  _nin: [jsonb!]
 }
 
 # columns and relationships of "language"
@@ -1191,6 +1317,12 @@ enum language_update_column {
 
 # mutation root
 type mutation_root {
+  # delete data from the table: "group"
+  delete_group(
+    # filter the rows which have to be deleted
+    where: group_bool_exp!
+  ): group_mutation_response
+
   # delete data from the table: "ipa_ou"
   delete_ipa_ou(
     # filter the rows which have to be deleted
@@ -1227,6 +1359,12 @@ type mutation_root {
     where: node_type_bool_exp!
   ): node_type_mutation_response
 
+  # delete data from the table: "node_type_perm"
+  delete_node_type_perm(
+    # filter the rows which have to be deleted
+    where: node_type_perm_bool_exp!
+  ): node_type_perm_mutation_response
+
   # delete data from the table: "role"
   delete_role(
     # filter the rows which have to be deleted
@@ -1245,11 +1383,20 @@ type mutation_root {
     where: user_bool_exp!
   ): user_mutation_response
 
-  # delete data from the table: "user_role"
-  delete_user_role(
+  # delete data from the table: "user_group"
+  delete_user_group(
     # filter the rows which have to be deleted
-    where: user_role_bool_exp!
-  ): user_role_mutation_response
+    where: user_group_bool_exp!
+  ): user_group_mutation_response
+
+  # insert data into the table: "group"
+  insert_group(
+    # the rows to be inserted
+    objects: [group_insert_input!]!
+
+    # on conflict condition
+    on_conflict: group_on_conflict
+  ): group_mutation_response
 
   # insert data into the table: "ipa_ou"
   insert_ipa_ou(
@@ -1305,6 +1452,15 @@ type mutation_root {
     on_conflict: node_type_on_conflict
   ): node_type_mutation_response
 
+  # insert data into the table: "node_type_perm"
+  insert_node_type_perm(
+    # the rows to be inserted
+    objects: [node_type_perm_insert_input!]!
+
+    # on conflict condition
+    on_conflict: node_type_perm_on_conflict
+  ): node_type_perm_mutation_response
+
   # insert data into the table: "role"
   insert_role(
     # the rows to be inserted
@@ -1332,14 +1488,23 @@ type mutation_root {
     on_conflict: user_on_conflict
   ): user_mutation_response
 
-  # insert data into the table: "user_role"
-  insert_user_role(
+  # insert data into the table: "user_group"
+  insert_user_group(
     # the rows to be inserted
-    objects: [user_role_insert_input!]!
+    objects: [user_group_insert_input!]!
 
     # on conflict condition
-    on_conflict: user_role_on_conflict
-  ): user_role_mutation_response
+    on_conflict: user_group_on_conflict
+  ): user_group_mutation_response
+
+  # update data of the table: "group"
+  update_group(
+    # sets the columns of the filtered rows to the given values
+    _set: group_set_input
+
+    # filter the rows which have to be updated
+    where: group_bool_exp!
+  ): group_mutation_response
 
   # update data of the table: "ipa_ou"
   update_ipa_ou(
@@ -1433,6 +1598,15 @@ type mutation_root {
     where: node_type_bool_exp!
   ): node_type_mutation_response
 
+  # update data of the table: "node_type_perm"
+  update_node_type_perm(
+    # sets the columns of the filtered rows to the given values
+    _set: node_type_perm_set_input
+
+    # filter the rows which have to be updated
+    where: node_type_perm_bool_exp!
+  ): node_type_perm_mutation_response
+
   # update data of the table: "role"
   update_role(
     # sets the columns of the filtered rows to the given values
@@ -1476,14 +1650,14 @@ type mutation_root {
     where: user_bool_exp!
   ): user_mutation_response
 
-  # update data of the table: "user_role"
-  update_user_role(
+  # update data of the table: "user_group"
+  update_user_group(
     # sets the columns of the filtered rows to the given values
-    _set: user_role_set_input
+    _set: user_group_set_input
 
     # filter the rows which have to be updated
-    where: user_role_bool_exp!
-  ): user_role_mutation_response
+    where: user_group_bool_exp!
+  ): user_group_mutation_response
 }
 
 # columns and relationships of "node"
@@ -1493,8 +1667,15 @@ type node {
     path: String
   ): jsonb!
   created_at: timestamptz!
+  group: String!
   id: uuid!
   language: String!
+
+  # An object relationship
+  node_group: group!
+
+  # An object relationship
+  node_type: node_type!
 
   # An array relationship
   revisions(
@@ -1606,8 +1787,11 @@ input node_bool_exp {
   _or: [node_bool_exp]
   content: jsonb_comparison_exp
   created_at: timestamptz_comparison_exp
+  group: text_comparison_exp
   id: uuid_comparison_exp
   language: text_comparison_exp
+  node_group: group_bool_exp
+  node_type: node_type_bool_exp
   revisions: node_revision_bool_exp
   status: text_comparison_exp
   title: text_comparison_exp
@@ -1649,8 +1833,11 @@ input node_inc_input {
 input node_insert_input {
   content: jsonb
   created_at: timestamptz
+  group: String
   id: uuid
   language: String
+  node_group: group_obj_rel_insert_input
+  node_type: node_type_obj_rel_insert_input
   revisions: node_revision_arr_rel_insert_input
   status: String
   title: String
@@ -1664,6 +1851,7 @@ input node_insert_input {
 # aggregate max on columns
 type node_max_fields {
   created_at: timestamptz
+  group: String
   language: String
   status: String
   title: String
@@ -1675,6 +1863,7 @@ type node_max_fields {
 # order by max() on columns of table "node"
 input node_max_order_by {
   created_at: order_by
+  group: order_by
   language: order_by
   status: order_by
   title: order_by
@@ -1686,6 +1875,7 @@ input node_max_order_by {
 # aggregate min on columns
 type node_min_fields {
   created_at: timestamptz
+  group: String
   language: String
   status: String
   title: String
@@ -1697,6 +1887,7 @@ type node_min_fields {
 # order by min() on columns of table "node"
 input node_min_order_by {
   created_at: order_by
+  group: order_by
   language: order_by
   status: order_by
   title: order_by
@@ -1730,8 +1921,11 @@ input node_on_conflict {
 input node_order_by {
   content: order_by
   created_at: order_by
+  group: order_by
   id: order_by
   language: order_by
+  node_group: group_order_by
+  node_type: node_type_order_by
   revisions_aggregate: node_revision_aggregate_order_by
   status: order_by
   title: order_by
@@ -1754,6 +1948,7 @@ type node_revision {
     path: String
   ): jsonb!
   created_at: timestamptz!
+  group: String
   id: uuid!
   language: String!
   status: String!
@@ -1828,6 +2023,7 @@ input node_revision_bool_exp {
   _or: [node_revision_bool_exp]
   content: jsonb_comparison_exp
   created_at: timestamptz_comparison_exp
+  group: text_comparison_exp
   id: uuid_comparison_exp
   language: text_comparison_exp
   status: text_comparison_exp
@@ -1869,6 +2065,7 @@ input node_revision_inc_input {
 input node_revision_insert_input {
   content: jsonb
   created_at: timestamptz
+  group: String
   id: uuid
   language: String
   status: String
@@ -1882,6 +2079,7 @@ input node_revision_insert_input {
 # aggregate max on columns
 type node_revision_max_fields {
   created_at: timestamptz
+  group: String
   language: String
   status: String
   title: String
@@ -1893,6 +2091,7 @@ type node_revision_max_fields {
 # order by max() on columns of table "node_revision"
 input node_revision_max_order_by {
   created_at: order_by
+  group: order_by
   language: order_by
   status: order_by
   title: order_by
@@ -1904,6 +2103,7 @@ input node_revision_max_order_by {
 # aggregate min on columns
 type node_revision_min_fields {
   created_at: timestamptz
+  group: String
   language: String
   status: String
   title: String
@@ -1915,6 +2115,7 @@ type node_revision_min_fields {
 # order by min() on columns of table "node_revision"
 input node_revision_min_order_by {
   created_at: order_by
+  group: order_by
   language: order_by
   status: order_by
   title: order_by
@@ -1948,6 +2149,7 @@ input node_revision_on_conflict {
 input node_revision_order_by {
   content: order_by
   created_at: order_by
+  group: order_by
   id: order_by
   language: order_by
   status: order_by
@@ -1970,6 +2172,9 @@ enum node_revision_select_column {
 
   # column name
   created_at
+
+  # column name
+  group
 
   # column name
   id
@@ -2000,6 +2205,7 @@ enum node_revision_select_column {
 input node_revision_set_input {
   content: jsonb
   created_at: timestamptz
+  group: String
   id: uuid
   language: String
   status: String
@@ -2057,6 +2263,9 @@ enum node_revision_update_column {
 
   # column name
   created_at
+
+  # column name
+  group
 
   # column name
   id
@@ -2122,6 +2331,9 @@ enum node_select_column {
   created_at
 
   # column name
+  group
+
+  # column name
   id
 
   # column name
@@ -2150,6 +2362,7 @@ enum node_select_column {
 input node_set_input {
   content: jsonb
   created_at: timestamptz
+  group: String
   id: uuid
   language: String
   status: String
@@ -2203,6 +2416,42 @@ input node_sum_order_by {
 # columns and relationships of "node_type"
 type node_type {
   node_type: String!
+
+  # An array relationship
+  node_type_perms(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): [node_type_perm!]!
+
+  # An aggregated array relationship
+  node_type_perms_aggregate(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): node_type_perm_aggregate!
 }
 
 # aggregated selection of "node_type"
@@ -2237,6 +2486,7 @@ input node_type_bool_exp {
   _not: node_type_bool_exp
   _or: [node_type_bool_exp]
   node_type: text_comparison_exp
+  node_type_perms: node_type_perm_bool_exp
 }
 
 # unique or primary key constraints on table "node_type"
@@ -2248,6 +2498,7 @@ enum node_type_constraint {
 # input type for inserting data into table "node_type"
 input node_type_insert_input {
   node_type: String
+  node_type_perms: node_type_perm_arr_rel_insert_input
 }
 
 # aggregate max on columns
@@ -2294,6 +2545,152 @@ input node_type_on_conflict {
 # ordering options when selecting data from "node_type"
 input node_type_order_by {
   node_type: order_by
+  node_type_perms_aggregate: node_type_perm_aggregate_order_by
+}
+
+# columns and relationships of "node_type_perm"
+type node_type_perm {
+  insert: Boolean!
+  node_type: String!
+
+  # An object relationship
+  node_type_perm_role: role!
+  role: String!
+}
+
+# aggregated selection of "node_type_perm"
+type node_type_perm_aggregate {
+  aggregate: node_type_perm_aggregate_fields
+  nodes: [node_type_perm!]!
+}
+
+# aggregate fields of "node_type_perm"
+type node_type_perm_aggregate_fields {
+  count(columns: [node_type_perm_select_column!], distinct: Boolean): Int
+  max: node_type_perm_max_fields
+  min: node_type_perm_min_fields
+}
+
+# order by aggregate values of table "node_type_perm"
+input node_type_perm_aggregate_order_by {
+  count: order_by
+  max: node_type_perm_max_order_by
+  min: node_type_perm_min_order_by
+}
+
+# input type for inserting array relation for remote table "node_type_perm"
+input node_type_perm_arr_rel_insert_input {
+  data: [node_type_perm_insert_input!]!
+  on_conflict: node_type_perm_on_conflict
+}
+
+# Boolean expression to filter rows from the table "node_type_perm". All fields are combined with a logical 'AND'.
+input node_type_perm_bool_exp {
+  _and: [node_type_perm_bool_exp]
+  _not: node_type_perm_bool_exp
+  _or: [node_type_perm_bool_exp]
+  insert: boolean_comparison_exp
+  node_type: text_comparison_exp
+  node_type_perm_role: role_bool_exp
+  role: text_comparison_exp
+}
+
+# unique or primary key constraints on table "node_type_perm"
+enum node_type_perm_constraint {
+  # unique or primary key constraint
+  node_type_perm_pkey
+}
+
+# input type for inserting data into table "node_type_perm"
+input node_type_perm_insert_input {
+  insert: Boolean
+  node_type: String
+  node_type_perm_role: role_obj_rel_insert_input
+  role: String
+}
+
+# aggregate max on columns
+type node_type_perm_max_fields {
+  node_type: String
+  role: String
+}
+
+# order by max() on columns of table "node_type_perm"
+input node_type_perm_max_order_by {
+  node_type: order_by
+  role: order_by
+}
+
+# aggregate min on columns
+type node_type_perm_min_fields {
+  node_type: String
+  role: String
+}
+
+# order by min() on columns of table "node_type_perm"
+input node_type_perm_min_order_by {
+  node_type: order_by
+  role: order_by
+}
+
+# response of any mutation on the table "node_type_perm"
+type node_type_perm_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [node_type_perm!]!
+}
+
+# input type for inserting object relation for remote table "node_type_perm"
+input node_type_perm_obj_rel_insert_input {
+  data: node_type_perm_insert_input!
+  on_conflict: node_type_perm_on_conflict
+}
+
+# on conflict condition type for table "node_type_perm"
+input node_type_perm_on_conflict {
+  constraint: node_type_perm_constraint!
+  update_columns: [node_type_perm_update_column!]!
+}
+
+# ordering options when selecting data from "node_type_perm"
+input node_type_perm_order_by {
+  insert: order_by
+  node_type: order_by
+  node_type_perm_role: role_order_by
+  role: order_by
+}
+
+# select columns of table "node_type_perm"
+enum node_type_perm_select_column {
+  # column name
+  insert
+
+  # column name
+  node_type
+
+  # column name
+  role
+}
+
+# input type for updating data in table "node_type_perm"
+input node_type_perm_set_input {
+  insert: Boolean
+  node_type: String
+  role: String
+}
+
+# update columns of table "node_type_perm"
+enum node_type_perm_update_column {
+  # column name
+  insert
+
+  # column name
+  node_type
+
+  # column name
+  role
 }
 
 # select columns of table "node_type"
@@ -2320,6 +2717,9 @@ enum node_update_column {
 
   # column name
   created_at
+
+  # column name
+  group
 
   # column name
   id
@@ -2399,6 +2799,45 @@ enum order_by {
 
 # query root
 type query_root {
+  # fetch data from the table: "group"
+  group(
+    # distinct select on columns
+    distinct_on: [group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [group_order_by!]
+
+    # filter the rows returned
+    where: group_bool_exp
+  ): [group!]!
+
+  # fetch aggregated fields from the table: "group"
+  group_aggregate(
+    # distinct select on columns
+    distinct_on: [group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [group_order_by!]
+
+    # filter the rows returned
+    where: group_bool_exp
+  ): group_aggregate!
+
+  # fetch data from the table: "group" using primary key columns
+  group_by_pk(group: String!): group
+
   # fetch data from the table: "ipa_ou"
   ipa_ou(
     # distinct select on columns
@@ -2633,6 +3072,45 @@ type query_root {
   # fetch data from the table: "node_type" using primary key columns
   node_type_by_pk(node_type: String!): node_type
 
+  # fetch data from the table: "node_type_perm"
+  node_type_perm(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): [node_type_perm!]!
+
+  # fetch aggregated fields from the table: "node_type_perm"
+  node_type_perm_aggregate(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): node_type_perm_aggregate!
+
+  # fetch data from the table: "node_type_perm" using primary key columns
+  node_type_perm_by_pk(node_type: String!, role: String!): node_type_perm
+
   # fetch data from the table: "role"
   role(
     # distinct select on columns
@@ -2792,10 +3270,10 @@ type query_root {
   # fetch data from the table: "user" using primary key columns
   user_by_pk(id: uuid!): user
 
-  # fetch data from the table: "user_role"
-  user_role(
+  # fetch data from the table: "user_group"
+  user_group(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [user_group_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -2804,16 +3282,16 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [user_group_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): [user_role!]!
+    where: user_group_bool_exp
+  ): [user_group!]!
 
-  # fetch aggregated fields from the table: "user_role"
-  user_role_aggregate(
+  # fetch aggregated fields from the table: "user_group"
+  user_group_aggregate(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [user_group_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -2822,19 +3300,90 @@ type query_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [user_group_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): user_role_aggregate!
+    where: user_group_bool_exp
+  ): user_group_aggregate!
 
-  # fetch data from the table: "user_role" using primary key columns
-  user_role_by_pk(role_id: String!, user_id: uuid!): user_role
+  # fetch data from the table: "user_group" using primary key columns
+  user_group_by_pk(group: String!, role: String!, user_id: uuid!): user_group
 }
 
 # columns and relationships of "role"
 type role {
+  # An array relationship
+  node_type_perms(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): [node_type_perm!]!
+
+  # An aggregated array relationship
+  node_type_perms_aggregate(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): node_type_perm_aggregate!
   role: String!
+
+  # An array relationship
+  user_groups(
+    # distinct select on columns
+    distinct_on: [user_group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_group_order_by!]
+
+    # filter the rows returned
+    where: user_group_bool_exp
+  ): [user_group!]!
+
+  # An aggregated array relationship
+  user_groups_aggregate(
+    # distinct select on columns
+    distinct_on: [user_group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_group_order_by!]
+
+    # filter the rows returned
+    where: user_group_bool_exp
+  ): user_group_aggregate!
 }
 
 # aggregated selection of "role"
@@ -2868,7 +3417,9 @@ input role_bool_exp {
   _and: [role_bool_exp]
   _not: role_bool_exp
   _or: [role_bool_exp]
+  node_type_perms: node_type_perm_bool_exp
   role: text_comparison_exp
+  user_groups: user_group_bool_exp
 }
 
 # unique or primary key constraints on table "role"
@@ -2879,7 +3430,9 @@ enum role_constraint {
 
 # input type for inserting data into table "role"
 input role_insert_input {
+  node_type_perms: node_type_perm_arr_rel_insert_input
   role: String
+  user_groups: user_group_arr_rel_insert_input
 }
 
 # aggregate max on columns
@@ -2925,7 +3478,9 @@ input role_on_conflict {
 
 # ordering options when selecting data from "role"
 input role_order_by {
+  node_type_perms_aggregate: node_type_perm_aggregate_order_by
   role: order_by
+  user_groups_aggregate: user_group_aggregate_order_by
 }
 
 # select columns of table "role"
@@ -2946,7 +3501,7 @@ enum role_update_column {
 }
 
 input search_ipa_args {
-  search: String!
+  search: String
 }
 
 # columns and relationships of "status"
@@ -3064,6 +3619,45 @@ enum status_update_column {
 
 # subscription root
 type subscription_root {
+  # fetch data from the table: "group"
+  group(
+    # distinct select on columns
+    distinct_on: [group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [group_order_by!]
+
+    # filter the rows returned
+    where: group_bool_exp
+  ): [group!]!
+
+  # fetch aggregated fields from the table: "group"
+  group_aggregate(
+    # distinct select on columns
+    distinct_on: [group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [group_order_by!]
+
+    # filter the rows returned
+    where: group_bool_exp
+  ): group_aggregate!
+
+  # fetch data from the table: "group" using primary key columns
+  group_by_pk(group: String!): group
+
   # fetch data from the table: "ipa_ou"
   ipa_ou(
     # distinct select on columns
@@ -3298,6 +3892,45 @@ type subscription_root {
   # fetch data from the table: "node_type" using primary key columns
   node_type_by_pk(node_type: String!): node_type
 
+  # fetch data from the table: "node_type_perm"
+  node_type_perm(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): [node_type_perm!]!
+
+  # fetch aggregated fields from the table: "node_type_perm"
+  node_type_perm_aggregate(
+    # distinct select on columns
+    distinct_on: [node_type_perm_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [node_type_perm_order_by!]
+
+    # filter the rows returned
+    where: node_type_perm_bool_exp
+  ): node_type_perm_aggregate!
+
+  # fetch data from the table: "node_type_perm" using primary key columns
+  node_type_perm_by_pk(node_type: String!, role: String!): node_type_perm
+
   # fetch data from the table: "role"
   role(
     # distinct select on columns
@@ -3457,10 +4090,10 @@ type subscription_root {
   # fetch data from the table: "user" using primary key columns
   user_by_pk(id: uuid!): user
 
-  # fetch data from the table: "user_role"
-  user_role(
+  # fetch data from the table: "user_group"
+  user_group(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [user_group_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3469,16 +4102,16 @@ type subscription_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [user_group_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): [user_role!]!
+    where: user_group_bool_exp
+  ): [user_group!]!
 
-  # fetch aggregated fields from the table: "user_role"
-  user_role_aggregate(
+  # fetch aggregated fields from the table: "user_group"
+  user_group_aggregate(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [user_group_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3487,14 +4120,14 @@ type subscription_root {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [user_group_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): user_role_aggregate!
+    where: user_group_bool_exp
+  ): user_group_aggregate!
 
-  # fetch data from the table: "user_role" using primary key columns
-  user_role_by_pk(role_id: String!, user_id: uuid!): user_role
+  # fetch data from the table: "user_group" using primary key columns
+  user_group_by_pk(group: String!, role: String!, user_id: uuid!): user_group
 }
 
 # expression to compare columns of type text. All fields are combined with logical 'AND'.
@@ -3503,14 +4136,14 @@ input text_comparison_exp {
   _gt: String
   _gte: String
   _ilike: String
-  _in: [String]
+  _in: [String!]
   _is_null: Boolean
   _like: String
   _lt: String
   _lte: String
   _neq: String
   _nilike: String
-  _nin: [String]
+  _nin: [String!]
   _nlike: String
   _nsimilar: String
   _similar: String
@@ -3523,12 +4156,12 @@ input timestamptz_comparison_exp {
   _eq: timestamptz
   _gt: timestamptz
   _gte: timestamptz
-  _in: [timestamptz]
+  _in: [timestamptz!]
   _is_null: Boolean
   _lt: timestamptz
   _lte: timestamptz
   _neq: timestamptz
-  _nin: [timestamptz]
+  _nin: [timestamptz!]
 }
 
 # columns and relationships of "user"
@@ -3541,9 +4174,9 @@ type user {
   ): jsonb!
 
   # An array relationship
-  user_roles(
+  nodes(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [node_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3552,16 +4185,16 @@ type user {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [node_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): [user_role!]!
+    where: node_bool_exp
+  ): [node!]!
 
   # An aggregated array relationship
-  user_roles_aggregate(
+  nodes_aggregate(
     # distinct select on columns
-    distinct_on: [user_role_select_column!]
+    distinct_on: [node_select_column!]
 
     # limit the nuber of rows returned
     limit: Int
@@ -3570,11 +4203,50 @@ type user {
     offset: Int
 
     # sort the rows by one or more columns
-    order_by: [user_role_order_by!]
+    order_by: [node_order_by!]
 
     # filter the rows returned
-    where: user_role_bool_exp
-  ): user_role_aggregate!
+    where: node_bool_exp
+  ): node_aggregate!
+
+  # An array relationship
+  user_groups(
+    # distinct select on columns
+    distinct_on: [user_group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_group_order_by!]
+
+    # filter the rows returned
+    where: user_group_bool_exp
+  ): [user_group!]!
+
+  # An aggregated array relationship
+  user_groups_aggregate(
+    # distinct select on columns
+    distinct_on: [user_group_select_column!]
+
+    # limit the nuber of rows returned
+    limit: Int
+
+    # skip the first n rows. Use only with order_by
+    offset: Int
+
+    # sort the rows by one or more columns
+    order_by: [user_group_order_by!]
+
+    # filter the rows returned
+    where: user_group_bool_exp
+  ): user_group_aggregate!
+
+  # An object relationship
+  user_ipa_ou: ipa_ou
 }
 
 # aggregated selection of "user"
@@ -3616,7 +4288,9 @@ input user_bool_exp {
   email: text_comparison_exp
   id: uuid_comparison_exp
   metadata: jsonb_comparison_exp
-  user_roles: user_role_bool_exp
+  nodes: node_bool_exp
+  user_groups: user_group_bool_exp
+  user_ipa_ou: ipa_ou_bool_exp
 }
 
 # unique or primary key constraints on table "user"
@@ -3644,12 +4318,171 @@ input user_delete_key_input {
   metadata: String
 }
 
+# columns and relationships of "user_group"
+type user_group {
+  group: String!
+  role: String!
+
+  # An object relationship
+  user_group_group: group!
+
+  # An object relationship
+  user_group_role: role!
+
+  # An object relationship
+  user_group_user: user!
+  user_id: uuid!
+}
+
+# aggregated selection of "user_group"
+type user_group_aggregate {
+  aggregate: user_group_aggregate_fields
+  nodes: [user_group!]!
+}
+
+# aggregate fields of "user_group"
+type user_group_aggregate_fields {
+  count(columns: [user_group_select_column!], distinct: Boolean): Int
+  max: user_group_max_fields
+  min: user_group_min_fields
+}
+
+# order by aggregate values of table "user_group"
+input user_group_aggregate_order_by {
+  count: order_by
+  max: user_group_max_order_by
+  min: user_group_min_order_by
+}
+
+# input type for inserting array relation for remote table "user_group"
+input user_group_arr_rel_insert_input {
+  data: [user_group_insert_input!]!
+  on_conflict: user_group_on_conflict
+}
+
+# Boolean expression to filter rows from the table "user_group". All fields are combined with a logical 'AND'.
+input user_group_bool_exp {
+  _and: [user_group_bool_exp]
+  _not: user_group_bool_exp
+  _or: [user_group_bool_exp]
+  group: text_comparison_exp
+  role: text_comparison_exp
+  user_group_group: group_bool_exp
+  user_group_role: role_bool_exp
+  user_group_user: user_bool_exp
+  user_id: uuid_comparison_exp
+}
+
+# unique or primary key constraints on table "user_group"
+enum user_group_constraint {
+  # unique or primary key constraint
+  user_group_pkey
+}
+
+# input type for inserting data into table "user_group"
+input user_group_insert_input {
+  group: String
+  role: String
+  user_group_group: group_obj_rel_insert_input
+  user_group_role: role_obj_rel_insert_input
+  user_group_user: user_obj_rel_insert_input
+  user_id: uuid
+}
+
+# aggregate max on columns
+type user_group_max_fields {
+  group: String
+  role: String
+}
+
+# order by max() on columns of table "user_group"
+input user_group_max_order_by {
+  group: order_by
+  role: order_by
+}
+
+# aggregate min on columns
+type user_group_min_fields {
+  group: String
+  role: String
+}
+
+# order by min() on columns of table "user_group"
+input user_group_min_order_by {
+  group: order_by
+  role: order_by
+}
+
+# response of any mutation on the table "user_group"
+type user_group_mutation_response {
+  # number of affected rows by the mutation
+  affected_rows: Int!
+
+  # data of the affected rows by the mutation
+  returning: [user_group!]!
+}
+
+# input type for inserting object relation for remote table "user_group"
+input user_group_obj_rel_insert_input {
+  data: user_group_insert_input!
+  on_conflict: user_group_on_conflict
+}
+
+# on conflict condition type for table "user_group"
+input user_group_on_conflict {
+  constraint: user_group_constraint!
+  update_columns: [user_group_update_column!]!
+}
+
+# ordering options when selecting data from "user_group"
+input user_group_order_by {
+  group: order_by
+  role: order_by
+  user_group_group: group_order_by
+  user_group_role: role_order_by
+  user_group_user: user_order_by
+  user_id: order_by
+}
+
+# select columns of table "user_group"
+enum user_group_select_column {
+  # column name
+  group
+
+  # column name
+  role
+
+  # column name
+  user_id
+}
+
+# input type for updating data in table "user_group"
+input user_group_set_input {
+  group: String
+  role: String
+  user_id: uuid
+}
+
+# update columns of table "user_group"
+enum user_group_update_column {
+  # column name
+  group
+
+  # column name
+  role
+
+  # column name
+  user_id
+}
+
 # input type for inserting data into table "user"
 input user_insert_input {
   email: String
   id: uuid
   metadata: jsonb
-  user_roles: user_role_arr_rel_insert_input
+  nodes: node_arr_rel_insert_input
+  user_groups: user_group_arr_rel_insert_input
+  user_ipa_ou: ipa_ou_obj_rel_insert_input
 }
 
 # aggregate max on columns
@@ -3698,136 +4531,14 @@ input user_order_by {
   email: order_by
   id: order_by
   metadata: order_by
-  user_roles_aggregate: user_role_aggregate_order_by
+  nodes_aggregate: node_aggregate_order_by
+  user_groups_aggregate: user_group_aggregate_order_by
+  user_ipa_ou: ipa_ou_order_by
 }
 
 # prepend existing jsonb value of filtered columns with new jsonb value
 input user_prepend_input {
   metadata: jsonb
-}
-
-# columns and relationships of "user_role"
-type user_role {
-  role_id: String!
-  user_id: uuid!
-}
-
-# aggregated selection of "user_role"
-type user_role_aggregate {
-  aggregate: user_role_aggregate_fields
-  nodes: [user_role!]!
-}
-
-# aggregate fields of "user_role"
-type user_role_aggregate_fields {
-  count(columns: [user_role_select_column!], distinct: Boolean): Int
-  max: user_role_max_fields
-  min: user_role_min_fields
-}
-
-# order by aggregate values of table "user_role"
-input user_role_aggregate_order_by {
-  count: order_by
-  max: user_role_max_order_by
-  min: user_role_min_order_by
-}
-
-# input type for inserting array relation for remote table "user_role"
-input user_role_arr_rel_insert_input {
-  data: [user_role_insert_input!]!
-  on_conflict: user_role_on_conflict
-}
-
-# Boolean expression to filter rows from the table "user_role". All fields are combined with a logical 'AND'.
-input user_role_bool_exp {
-  _and: [user_role_bool_exp]
-  _not: user_role_bool_exp
-  _or: [user_role_bool_exp]
-  role_id: text_comparison_exp
-  user_id: uuid_comparison_exp
-}
-
-# unique or primary key constraints on table "user_role"
-enum user_role_constraint {
-  # unique or primary key constraint
-  user_role_pkey
-}
-
-# input type for inserting data into table "user_role"
-input user_role_insert_input {
-  role_id: String
-  user_id: uuid
-}
-
-# aggregate max on columns
-type user_role_max_fields {
-  role_id: String
-}
-
-# order by max() on columns of table "user_role"
-input user_role_max_order_by {
-  role_id: order_by
-}
-
-# aggregate min on columns
-type user_role_min_fields {
-  role_id: String
-}
-
-# order by min() on columns of table "user_role"
-input user_role_min_order_by {
-  role_id: order_by
-}
-
-# response of any mutation on the table "user_role"
-type user_role_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [user_role!]!
-}
-
-# input type for inserting object relation for remote table "user_role"
-input user_role_obj_rel_insert_input {
-  data: user_role_insert_input!
-  on_conflict: user_role_on_conflict
-}
-
-# on conflict condition type for table "user_role"
-input user_role_on_conflict {
-  constraint: user_role_constraint!
-  update_columns: [user_role_update_column!]!
-}
-
-# ordering options when selecting data from "user_role"
-input user_role_order_by {
-  role_id: order_by
-  user_id: order_by
-}
-
-# select columns of table "user_role"
-enum user_role_select_column {
-  # column name
-  role_id
-
-  # column name
-  user_id
-}
-
-# input type for updating data in table "user_role"
-input user_role_set_input {
-  role_id: String
-  user_id: uuid
-}
-
-# update columns of table "user_role"
-enum user_role_update_column {
-  # column name
-  role_id
-
-  # column name
-  user_id
 }
 
 # select columns of table "user"
@@ -3868,11 +4579,11 @@ input uuid_comparison_exp {
   _eq: uuid
   _gt: uuid
   _gte: uuid
-  _in: [uuid]
+  _in: [uuid!]
   _is_null: Boolean
   _lt: uuid
   _lte: uuid
   _neq: uuid
-  _nin: [uuid]
+  _nin: [uuid!]
 }
 

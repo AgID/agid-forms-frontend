@@ -44,7 +44,7 @@ export const UPSERT_NODE = gql`
       objects: [$node]
       on_conflict: {
         constraint: node_pkey
-        update_columns: [language, status, title, content, version]
+        update_columns: [status, title, content, version]
       }
     ) {
       returning {
@@ -125,10 +125,9 @@ export const GET_NODE_REVISION_WITH_PUBLISHED = gql`
   }
 `;
 
-// (where: { user_id: { _eq: $userId } })
 export const GET_USER_NODES = gql`
-  query GetUserNodes {
-    node {
+  query GetUserNodes($userId: uuid) {
+    node(where: { user_id: { _eq: $userId } }) {
       id
       created_at
       updated_at
