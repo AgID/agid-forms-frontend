@@ -9,13 +9,14 @@ import Icon from "./Icon";
 type MainHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   "title" | "description" | "socialLinks"
-> & { menu: ReturnType<typeof getMenu> };
+> & { menu: ReturnType<typeof getMenu>; organization: string };
 
 const MainHeader = ({
   title,
   description,
   menu,
-  socialLinks
+  socialLinks,
+  organization
 }: MainHeaderProps) => (
   <>
     <div className="it-nav-wrapper">
@@ -36,6 +37,7 @@ const MainHeader = ({
                   </Link>
                 </div>
                 <div className="it-right-zone">
+                  <div className="d-none d-lg-block">{organization}</div>
                   <div className="it-socials d-none d-md-flex">
                     <ul>
                       {(socialLinks || []).map(

@@ -7,7 +7,7 @@ import {
   DropdownToggle
 } from "reactstrap";
 import { getSiteConfig } from "../graphql/gatsby_fragments";
-import { getUser, isLoggedIn } from "../utils/auth";
+import { getSessionInfo, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
 const dropdownModifiers = {
@@ -39,7 +39,9 @@ type SlimHeaderProps = Pick<
   ReturnType<typeof getSiteConfig>,
   // tslint:disable-next-line: max-union-size
   "owners" | "slimHeaderLinks" | "languages"
-> & { user: ReturnType<typeof getUser> } & { onLogout: (args: any) => any };
+> & { user: ReturnType<typeof getSessionInfo> } & {
+  onLogout: (args: any) => any;
+};
 
 export const SlimHeader = ({
   owners,
@@ -188,7 +190,7 @@ export const SlimHeader = ({
                           icon="user"
                         />
                         <span className="d-none d-md-inline-block text-lowercase text-decoration-none">
-                          {user.email}
+                          {user.userEmail}
                         </span>
                         <Icon
                           className="icon d-none d-md-inline-block text-primary"
@@ -203,12 +205,12 @@ export const SlimHeader = ({
                         modifiers={dropdownModifiers}
                       >
                         <span className="d-inline-block d-md-none p-4 text-decoration-none">
-                          {user.email}
+                          {user.userEmail}
                         </span>
                         <DropdownItem tag="span">
                           <a
                             className="list-item text-primary"
-                            href={`/user/${user.id}`}
+                            href={`/user/${user.userId}`}
                           >
                             <span>profile</span>
                           </a>

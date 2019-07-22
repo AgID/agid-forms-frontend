@@ -38,10 +38,12 @@ import {
   PostAuthLoginIpaCode,
   PostAuthLoginIpaCodeVariables
 } from "../generated/graphql/PostAuthLoginIpaCode";
-import { isLoggedIn, storeTokens, storeUser } from "../utils/auth";
+import { isLoggedIn, storeSessionInfo, storeTokens } from "../utils/auth";
 import { isTooManyRequestError } from "../utils/errors";
 
 type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
+
+type SelectedValueT = { value: string; label: string };
 
 const SecretSelectionComponent = ({
   setHasSecret
@@ -165,11 +167,11 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
 const GetSecretConnectedComponent = ({
   selectedPa
 }: {
-  selectedPa?: string;
+  selectedPa?: SelectedValueT;
 }) => (
   <Query<GetIpa, GetIpaVariables>
     query={GET_IPA}
-    variables={{ ipa_code: selectedPa ? selectedPa : "" }}
+    variables={{ ipa_code: selectedPa ? selectedPa.value : "" }}
   >
     {({ loading, error, data: ipaData }) => {
       if (loading) {
@@ -208,7 +210,7 @@ const PaSelectionComponent = ({
 }: {
   loading: boolean;
   ipaData?: SearchIpa;
-  setSelectedPa: Dispatcher<string | undefined>;
+  setSelectedPa: Dispatcher<SelectedValueT | undefined>;
   setSearch: Dispatcher<string>;
 }) => (
   <>
@@ -220,15 +222,19 @@ const PaSelectionComponent = ({
       <Trans i18nKey="auth.select_pa_hint" />
     </p>
 
-    <SelectBase<{ value: string; label: string }>
+    <SelectBase<SelectedValueT>
       name="pa"
       cacheOptions={true}
       defaultOptions={[]}
       isLoading={loading}
       options={loading ? [] : getIpaOptions(ipaData)}
-      onChange={(value: ValueType<{ value: string; label: string }>) => {
+      onChange={(value: ValueType<SelectedValueT>) => {
         if (value) {
-          setSelectedPa((value as any).value);
+          // this cast is needed because a wrong array type is inferred
+          setSelectedPa({
+            label: (value as SelectedValueT).label.split(",")[0],
+            value: (value as SelectedValueT).value
+          });
         }
       }}
       onInputChange={(value: string) => setSearch(value)}
@@ -241,9 +247,9 @@ const SelectOrganizationConnectedComponent = ({
   setHasSecret,
   selectedPa
 }: {
-  setSelectedPa: Dispatcher<string | undefined>;
+  setSelectedPa: Dispatcher<SelectedValueT | undefined>;
   setHasSecret: Dispatcher<boolean | undefined>;
-  selectedPa?: string;
+  selectedPa?: SelectedValueT;
 }) => {
   const [search, setSearch] = useState<string>("");
   const [searchDebounced] = useDebounce(search, 400);
@@ -288,7 +294,7 @@ const LoginButtonComponent = ({
 }: {
   secret?: string;
   setSecret: Dispatcher<string | undefined>;
-  selectedPa: string;
+  selectedPa: SelectedValueT;
   getTokens: MutationFn<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>;
 }) => {
   const { t } = useTranslation();
@@ -309,7 +315,7 @@ const LoginButtonComponent = ({
         onClick={() =>
           getTokens({
             variables: {
-              ipa_code: selectedPa,
+              ipa_code: selectedPa.value,
               body: {
                 secret: secret || ""
               }
@@ -317,7 +323,7 @@ const LoginButtonComponent = ({
           })
         }
       >
-        {t("auth.login_as", { selectedPa })}
+        {t("auth.login_as", { selectedPa: selectedPa.label })}
       </Button>
     </div>
   );
@@ -331,7 +337,7 @@ const LoginButtonConnectedComponent = ({
 }: {
   secret?: string;
   setSecret: Dispatcher<string | undefined>;
-  selectedPa: string;
+  selectedPa: SelectedValueT;
   onStoreTokens: (data: PostAuthLoginIpaCode) => void;
 }) => (
   <Mutation<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>
@@ -376,7 +382,7 @@ const LoginButtonConnectedComponent = ({
 );
 
 const IndexPage = ({ data }: { data: PageConfig }) => {
-  const [selectedPa, setSelectedPa] = useState<string>();
+  const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
 
@@ -418,7 +424,12 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
               tokens.post_auth_login_ipa_code.backend_token,
               tokens.post_auth_login_ipa_code.graphql_token
             );
-            storeUser(tokens.post_auth_login_ipa_code.user);
+            storeSessionInfo({
+              userId: tokens.post_auth_login_ipa_code.user.id,
+              userEmail: tokens.post_auth_login_ipa_code.user.email,
+              organizationName: selectedPa.label,
+              organizationCode: selectedPa.value
+            });
             navigate("/actions");
           }}
         />

@@ -1,9 +1,14 @@
 import { LOGOUT } from "../graphql/backend_queries";
 import { GraphqlClient } from "../graphql/client";
 
-export type UserProfile = {
-  id: string;
-  email: string;
+export type SessionInfo = {
+  userId: string;
+  userEmail: string;
+  // organization here is a session variable:
+  // any user may belong to multiple organizations
+  // but she'll be authenticated for a specific one
+  organizationName: string;
+  organizationCode: string;
 };
 
 export const BACKEND_TOKEN = "backend_token";
@@ -25,11 +30,11 @@ export const getGraphqlToken = () => {
   return localStorage.getItem(GRAPHQL_TOKEN);
 };
 
-export const storeUser = (user: UserProfile) => {
+export const storeSessionInfo = (user: SessionInfo) => {
   localStorage.setItem("user", JSON.stringify(user));
 };
 
-export const getUser = (): UserProfile | null => {
+export const getSessionInfo = (): SessionInfo | null => {
   const userStr = localStorage.getItem("user");
   return userStr ? JSON.parse(userStr) : null;
 };
