@@ -78,6 +78,10 @@ sections:
         title: fieldgroup 2
         description: description of fieldgroup 2
         fields:
+          - name: area-item
+            title: TextArea
+            widget: textarea
+            description: una textarea
           - name: sesto-item
             title: sesto item
             widget: checkbox

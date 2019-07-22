@@ -9,10 +9,10 @@ import { Input } from "reactstrap";
 import { FieldT, FormValuesT } from "../utils/forms";
 import { CheckboxField } from "./CheckboxField";
 import { CheckboxMultipleField } from "./CheckboxMultipleField";
-import { DefaultFormField } from "./DefaultFormField";
 import { HtmlField } from "./HtmlField";
 import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
+import { TextFormField } from "./TextFormField";
 
 /**
  * Wrap inputs in bootstrap input
@@ -71,7 +71,8 @@ export const Formfield = ({
 
   switch (field.widget) {
     case "text":
-      return DefaultFormField(widgetOpts);
+    case "textarea":
+      return TextFormField(widgetOpts);
     case "checkbox":
       return widgetOpts.field.options
         ? CheckboxMultipleField(widgetOpts)

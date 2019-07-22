@@ -10,7 +10,7 @@ import { CustomInputComponent } from "./FormField";
 
 import { FormFieldPropsT, validateField } from "../utils/forms";
 
-export const DefaultFormField = ({
+export const TextFormField = ({
   field,
   form,
   isHidden,
@@ -27,7 +27,7 @@ export const DefaultFormField = ({
       />
       <Field
         name={field.name}
-        type="text"
+        type={field.widget}
         required={isRequired}
         component={CustomInputComponent}
         className="pl-0"
