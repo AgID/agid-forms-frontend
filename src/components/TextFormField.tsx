@@ -10,7 +10,7 @@ import { CustomInputComponent } from "./FormField";
 
 import { FormFieldPropsT, validateField } from "../utils/forms";
 
-export const DefaultFormField = ({
+export const TextFormField = ({
   field,
   form,
   isHidden,
