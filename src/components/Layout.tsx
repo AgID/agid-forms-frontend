@@ -51,7 +51,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           description={siteConfig.description}
           socialLinks={siteConfig.socialLinks}
           menu={menu}
-          organization={sessionInfo ? sessionInfo.organization : ""}
+          organization={sessionInfo ? sessionInfo.organizationName : ""}
         />
       </div>
       <Container className="py-5 justify-content-md-center main" id="main">

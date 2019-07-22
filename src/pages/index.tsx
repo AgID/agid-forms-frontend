@@ -427,7 +427,8 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
             storeSessionInfo({
               userId: tokens.post_auth_login_ipa_code.user.id,
               userEmail: tokens.post_auth_login_ipa_code.user.email,
-              organization: selectedPa.label
+              organizationName: selectedPa.label,
+              organizationCode: selectedPa.value
             });
             navigate("/actions");
           }}

@@ -7,7 +7,8 @@ export type SessionInfo = {
   // organization here is a session variable:
   // any user may belong to multiple organizations
   // but she'll be authenticated for a specific one
-  organization: string;
+  organizationName: string;
+  organizationCode: string;
 };
 
 export const BACKEND_TOKEN = "backend_token";
