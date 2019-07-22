@@ -71,6 +71,7 @@ export const Formfield = ({
 
   switch (field.widget) {
     case "text":
+    case "textarea":
       return TextFormField(widgetOpts);
     case "checkbox":
       return widgetOpts.field.options

@@ -27,7 +27,7 @@ export const TextFormField = ({
       />
       <Field
         name={field.name}
-        type="text"
+        type={field.widget}
         required={isRequired}
         component={CustomInputComponent}
         className="pl-0"
