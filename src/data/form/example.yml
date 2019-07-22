@@ -85,6 +85,7 @@ sections:
           - name: sesto-item
             title: sesto item
             widget: checkbox
+            default_checked: false
             description: la mia descrizione del sesto item
           - name: 125-note
             title: email

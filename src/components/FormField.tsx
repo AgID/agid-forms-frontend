@@ -71,6 +71,7 @@ export const Formfield = ({
 
   switch (field.widget) {
     case "text":
+    case "date":
     case "email":
     case "number":
     case "textarea":

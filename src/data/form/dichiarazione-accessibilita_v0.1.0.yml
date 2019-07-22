@@ -3,100 +3,186 @@ name: dichiarazione di accessibilità
 language: it
 enabled: true
 version: 0.1.0
-slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Dichiarazione accessibilita ' + title"
+# slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
+title_pattern: "'Dichiarazione accessibilita ' + id"
 sections:
-  - title: sezione 1
-    description: descrizione della sezione 1
+
+  - name: section-0
+    title: Oggetto della dichiarazione
+    description: |-
+      Seleziona il sito o dispositivo oggetto della dichiarazione di accessibilità.
+      I campi predisposti verranno automaticamente popolati per agevolare la compilazione del modulo.
     groups:
-      - name: group-1
+
+      - name: information
+        title: informazioni generali
         fields:
-          - name: "title"
-            widget: text
-            title: Sito web
-            description: indirizzo del sito web, es. http://www.example.com
-            valid_if: Yup.string().url().required().validate(value)
+          - name: "device-type"
+            widget: radio
+            title: Tipologia dispositivo
+            options:
+              - label: sito web
+                value: website
+              - label: applicazione mobile
+                value: mobile-app
             required_if: "true"
-          - name: "111"
-            widget: checkbox
-            title: 1.1.1 Contenuti non testuali (livello A)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.1.1 Contenuti non testuali (livello AA)
-            default_checked: true
-          - name: 111-note
-            title: Nota
+          - name: "website-name"
             widget: text
-            show_if: "!this[111]"
-            required_if: "!this[111]"
-          - name: "121"
-            widget: checkbox
-            title: 1.2.1 Solo audio e solo video (preregistrati) (Level A)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.2.1 Solo audio e solo video (preregistrati)
-            default_checked: true
-          - name: 121-note
-            title: Nota
+            title: Nome
+            description: inserisci il nome del sito
+            show_if: this["device-type"] == "website"
+            required_if: this["device-type"] == "website"
+          - name: "website-url"
             widget: text
-            show_if: "!this[121]"
-            required_if: "!this[121]"
-          - name: "122"
-            widget: checkbox
-            title: 1.2.2 Sottotitoli (preregistrati) (livello A)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.2.2 Sottotitoli (preregistrati)
-            default_checked: true
-          - name: 122-note
-            title: Nota
-            widget: text
-            show_if: "!this[122]"
-            required_if: "!this[122]"
-          - name: "123"
-            widget: checkbox
-            title: 1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato) (livello A)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.2.3 Audiodescrizione o tipo di media alternativo (preregistrato)
-            default_checked: true
-          - name: 123-note
-            title: Nota
-            widget: text
-            show_if: "!this[123]"
-            required_if: "!this[123]"
-          - name: "124"
-            widget: checkbox
-            title: 1.2.4 Sottotitoli (in tempo reale) (Level AA)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.2.4 Sottotitoli (in tempo reale)
-            default_checked: true
-          - name: 124-note
-            title: Nota
-            widget: text
-            show_if: "!this[124]"
-            required_if: "!this[124]"
-          - name: "125"
-            widget: checkbox
-            title: 1.2.5 Audiodescrizione (preregistrata) (Level AA)
-            description: >
-              Norma EN 301 549, criterio:
-              9.1.2.5 Audiodescrizione (preregistrata)
-            default_checked: true
-          - name: 125-note
-            title: Nota
-            widget: text
-            show_if: "!this[125]"
-            required_if: "!this[125]"
-      - name: group-2
-        repeatable: true
+            title: URL del sito
+            description: inserisci l'indirizzo
+            show_if: this["device-type"] == "website"
+            required_if: this["device-type"] == "website"
+            valid_if: Yup.string().url().validate(value)
+
+  - name: section-1
+    title: Sezione 1
+    description: |-
+      Contenuti in ottemperanza alla decisione di esecuzione UE 2018/1523.
+
+    groups:
+      - name: content-generic
+        title: informazioni generali
         fields:
-          - name: repeatable-1
-            title: Nota ripetibile 1
+          - name: "compliance-status"
+            widget: radio
+            title: Stato di conformità
+            options:
+              - label: conforme
+                value: compliant
+              - label: parzialmente conforme
+                value: partially-compliant
+              - label: non conforme
+                value: non-compliant
+            required_if: "true"
+
+      - name: content-not-accessible
+        title: Contenuti non accessibili
+        fields:
+          - name: "reason-42004"
+            widget: checkbox
+            title: Inosservanza della legge 4/2004
+          - name: "reason-422004-text"
+            widget: textarea
+            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
+            description: utilizzare un linguaggio descrittivo
+            show_if: this["reason-42004"]
+            required_if: this["reason-42004"]
+          - name: "reason-disproportionate-burden"
+            widget: checkbox
+            title: onere sproporzionato
+          - name: "reason-disproportionate-burden-text"
+            widget: textarea
+            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
+            description: utilizzare un linguaggio descrittivo
+            show_if: this["reason-disproportionate-burden"]
+            required_if: this["reason-disproportionate-burden"]
+          - name: "reason-no-law"
+            widget: checkbox
+            title: il contenuto non rientra nell'ambito della legislazione applicabile
+          - name: "reason-no-law-text"
+            widget: textarea
+            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
+            description: utilizzare un linguaggio descrittivo
+            show_if: this["reason-no-law"]
+            required_if: this["reason-no-law"]
+
+      - name: content-alt
+        title: Alternative accessibili
+        fields:
+          - name: "accessible-alternatives"
+            widget: textarea
+            title: Indicare le alternative accessibili
+            description: utilizzare un linguaggio descrittivo
+
+      - name: content-other
+        title: informazioni generali
+        fields:
+          - name: "methodology"
+            widget: radio
+            title: Metodologia utilizzata per la stesura della dichiarazione
+            options:
+              - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
+                value: ue
+              - label: altre misure considerate appropriate dagli stati membri
+                value: other
+            required_if: "true"
+
+      - name: Feedback e recapiti
+        title: informazioni generali
+        fields:
+          - name: "feedback"
+            widget: textarea
+            title: Feedback
+            description: descrivi il meccanismo di feedback
+            required_if: "true"
+          - name: "feedback-url"
             widget: text
-            default: ""
-          - name: repeatable-2
-            title: Nota ripetibile 2
-            widget: text
-            default: ""
+            title: URL del servizio
+            description: inserisci il puntamento al feedback (se presente)
+          - name: "manager-email"
+            title: Email responsabile
+            widget: email
+            valid_if: Yup.string().email().validate(value)
+            required_if: "true"
+
+  - name: section-2
+    title: Sezione 2
+    description: |-
+      Informazioni richieste dall'Agenzia per l'Italia digitale
+    groups:
+
+      - name: application-information
+        title: informazioni sul sito
+        fields:
+          - name: application-published-date
+            title: Data di pubblicazione del sito
+            widget: date
+            required_if: "true"
+          - name: application-type
+            title: CMS Utilizzato
+            widget: select
+            multiple: false
+            options:
+              - label: Drupal
+                value: drupal
+              - label: Wordpress
+                value: wordpress
+            required_if: "true"
+
+      - name: application-org
+        title: informazioni sull'organico e la struttura
+        fields:
+          - name: people-disabled
+            title: dipendenti disabili
+            description: in cifre
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().positive().validate(value)
+          - name: people-desk-disabled
+            title: postazioni per disabili
+            description: in cifre
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().positive().validate(value)
+          - name: people-disabled
+            title: spesa prevista nel bilancio
+            description: in percentuale
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().positive().validate(value)
+
+      - name: application-manager
+        title: Il responsabile dei processi di integrazione
+        fields:
+          - name: manager-present
+            title: è previsto nella struttura
+            widget: checkbox
+          - name: manager-appointed
+            title: è stato nominato dal soggetto erogatore
+            widget: checkbox
