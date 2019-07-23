@@ -60,7 +60,7 @@ sections:
 
     groups:
       - name: content-compliance
-        title: Stato di conformità
+        title: stato di conformità
         fields:
           - name: "compliance-status"
             widget: radio
@@ -74,7 +74,7 @@ sections:
             required_if: "true"
 
       - name: content-not-accessible
-        title: Contenuti non accessibili
+        title: contenuti non accessibili
         fields:
           - name: "reason-42004"
             widget: checkbox
@@ -105,7 +105,7 @@ sections:
             required_if: this["reason-no-law"]
 
       - name: content-alt
-        title: Alternative accessibili
+        title: alternative accessibili
         fields:
           - name: "accessible-alternatives"
             widget: textarea
@@ -113,11 +113,10 @@ sections:
             description: utilizzare un linguaggio descrittivo
 
       - name: content-other
-        title: informazioni generali
+        title: metodologia utilizzata per la stesura della dichiarazione
         fields:
           - name: "methodology"
             widget: radio
-            title: Metodologia utilizzata per la stesura della dichiarazione
             options:
               - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
                 value: ue
@@ -125,8 +124,8 @@ sections:
                 value: other
             required_if: "true"
 
-      - name: Feedback e recapiti
-        title: informazioni generali
+      - name: feedback-and-contacts
+        title: feedback e contatti
         fields:
           - name: "feedback"
             widget: textarea
