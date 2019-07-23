@@ -20,7 +20,7 @@
     "formik": "^1.5.7",
     "fp-ts": "^1.18.2",
     "gatsby": "^2.8.5",
-    "graphql": "14.2.1",
+    "graphql": "14.4.2",
     "graphql-anywhere": "^4.2.4",
     "graphql-tag": "^2.10.1",
     "i18next": "^17.0.3",
@@ -126,6 +126,7 @@
     "url": "https://github.com/AGID/agid-forms-frontend/issues"
   },
   "resolutions": {
-    "@types/react": "^16.8.19"
+    "@types/react": "^16.8.19",
+    "graphql": "^14.4.2"
   }
 }
