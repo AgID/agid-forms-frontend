@@ -1,23 +1,22 @@
 menu:
-  - name: Moduli
-    authenticated: true
+  - name: Home
     slug: "/"
   - name: Dashboard
     authenticated: true
-    slug: "/user"
-  - name: Utenti
-    authenticated: true
-    slug: "/dashboard"
-    #
-    # See src/graphql/gatsby_fragments.ts
-    #
-    # subtree:
-    #   - name: Moduli
-    #     authenticated: true
-    #     slug: "/"
-    #   - name: Dashboard
-    #     authenticated: true
-    #     slug: "/user"
-    #   - name: Utenti
-    #     authenticated: true
-    #     slug: "/user"
+    slug: "/list/dichiarazione-accessibilita"
+  # - name: Utenti
+  #   authenticated: true
+  #   slug: "/dashboard"
+  #
+  # See src/graphql/gatsby_fragments.ts
+  #
+  # subtree:
+  #   - name: Moduli
+  #     authenticated: true
+  #     slug: "/"
+  #   - name: Dashboard
+  #     authenticated: true
+  #     slug: "/user"
+  #   - name: Utenti
+  #     authenticated: true
+  #     slug: "/user"

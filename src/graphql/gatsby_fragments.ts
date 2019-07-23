@@ -9,6 +9,7 @@ export const FormSchemaFragment = graphql`
     edges {
       node {
         id
+        name
         version
         language
         enabled

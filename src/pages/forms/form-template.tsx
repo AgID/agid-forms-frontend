@@ -207,7 +207,7 @@ const FormTemplate = ({
   // extract default values form form schema
   const initialValues = getInitialValues(formFields);
 
-  const [title, setTitle] = React.useState(formId);
+  const [title, setTitle] = React.useState(form.name || formId);
 
   return (
     <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
