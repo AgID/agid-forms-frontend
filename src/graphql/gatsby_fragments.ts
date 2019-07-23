@@ -17,6 +17,7 @@ export const FormSchemaFragment = graphql`
         title_pattern
         sections {
           title
+          name
           description
           groups {
             name
