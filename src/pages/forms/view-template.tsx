@@ -30,10 +30,11 @@ const ViewTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
+  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.view_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.view_title")} siteConfig={siteConfig} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{

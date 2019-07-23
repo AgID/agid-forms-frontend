@@ -36,10 +36,11 @@ const RevisionTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
+  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.revision_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.revision_title")} siteConfig={siteConfig} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
         variables={{
