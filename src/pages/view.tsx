@@ -6,7 +6,7 @@ import * as React from "react";
 import RouterPage from "../components/RouterPage";
 
 import { ViewConfig } from "../generated/graphql/ViewConfig";
-import ViewTemplate from "./forms/view-template";
+import ViewTemplate from "../templates/node/view-template";
 
 const View = ({ data }: { data: ViewConfig }) => (
   <Router>

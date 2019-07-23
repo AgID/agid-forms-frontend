@@ -5,7 +5,7 @@ import * as React from "react";
 
 import PrivateRoute from "../components/PrivateRoute";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
-import RevisionTemplate from "./forms/revision-template";
+import RevisionTemplate from "../templates/node/revision-template";
 
 const View = ({ data }: { data: ViewConfig }) => (
   <Router>

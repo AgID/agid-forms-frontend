@@ -9,7 +9,7 @@ import RouterPage from "../components/RouterPage";
 import { PageConfigFragment } from "../graphql/gatsby_fragments";
 
 import { UserProfileConfig } from "../generated/graphql/UserProfileConfig";
-import UserProfileTemplate from "./user/user-profile-template";
+import UserProfileTemplate from "../templates/user/user-profile-template";
 
 const UserProfile = ({ data }: { data: UserProfileConfig }) => (
   <Router>
