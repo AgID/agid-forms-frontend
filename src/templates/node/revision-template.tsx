@@ -119,6 +119,7 @@ const RevisionTemplate = ({
               )}
               {nodeRevision && (
                 <LoadableView
+                  node={nodeRevision}
                   form={form}
                   values={nodeRevision.content.values}
                 />

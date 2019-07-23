@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import * as Loadable from "react-loadable";
+import { GetNode_latest_published } from "../generated/graphql/GetNode";
 import {
   FieldT,
   flattenFormFieldsWithKeys,
@@ -13,7 +14,7 @@ import {
 const getViewfield = (fieldName: string, field: FieldT, value: string) => {
   return fieldName ? (
     <tr key={fieldName} className="mb-4">
-      <th scope="row">{field.title}</th>
+      <th scope="row">{field.title || field.name}</th>
       <td>{value.toString()}</td>
     </tr>
   ) : (
@@ -46,9 +47,11 @@ const renderViewFields = (
 };
 
 const LoadableView = ({
+  node,
   form,
   values
 }: {
+  node: GetNode_latest_published;
   form: FormT;
   values: Record<string, string>;
 }) => {
@@ -61,7 +64,14 @@ const LoadableView = ({
     loader: () => import(`../templates/${form.id}`),
     render: (loaded, _) => {
       const Template = loaded.default;
-      return <Template fields={flattenedFields} values={flattenedValues} />;
+      return (
+        <Template
+          form={form}
+          node={node}
+          fields={flattenedFields}
+          values={flattenedValues}
+        />
+      );
     },
     loading: ({ error: templateError }) => {
       return templateError ? (

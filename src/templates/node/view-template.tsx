@@ -119,6 +119,7 @@ const ViewTemplate = ({
               )}
               {publishedNode && (
                 <LoadableView
+                  node={publishedNode}
                   form={form}
                   values={publishedNode.content.values}
                 />
