@@ -23,13 +23,14 @@ const UserProfileTemplate = ({
   userId: string;
 }) => {
   const { t } = useTranslation();
+  const siteConfig = getSiteConfig(data);
   return (
     <Layout
       menu={getMenu(data)}
-      siteConfig={getSiteConfig(data)}
+      siteConfig={siteConfig}
       title={t("pages.dashboard_title")}
     >
-      <SEO title={t("pages.dashboard_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.dashboard_title")} siteConfig={siteConfig} />
       <Query<GetUserNodes, GetUserNodesVariables>
         query={GET_USER_NODES}
         variables={{

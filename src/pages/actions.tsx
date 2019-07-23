@@ -18,14 +18,15 @@ const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
   const { t } = useTranslation();
+  const siteConfig = getSiteConfig(data);
   return (
     <Layout
       menu={getMenu(data)}
-      siteConfig={getSiteConfig(data)}
+      siteConfig={siteConfig}
       title={t("pages.action_page_title")}
     >
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.action_page_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.action_page_title")} siteConfig={siteConfig} />
       <ul>
         {getForms(data).map(({ node }) => {
           return (

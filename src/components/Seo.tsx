@@ -1,94 +1,73 @@
-import { graphql, StaticQuery } from "gatsby";
 import * as React from "react";
 import Helmet from "react-helmet";
 
 type SeoProps = {
+  siteConfig: any;
   description?: string;
   lang?: string;
-  meta: ReadonlyArray<{
+  meta?: ReadonlyArray<{
     name: string;
     content: string;
   }>;
-  keywords: ReadonlyArray<string>;
+  keywords?: ReadonlyArray<string>;
   title: string;
 };
 
-const detailsQuery = graphql`
-  query DefaultSEOQuery {
-    site {
-      siteMetadata {
-        title
-        description
-        author
-      }
-    }
-  }
-`;
-
 function SEO({
+  siteConfig,
   description,
   lang = "en",
   meta = [],
   title,
-  keywords = []
+  keywords
 }: SeoProps) {
   return (
-    <StaticQuery
-      query={detailsQuery}
-      render={data => {
-        const metaDescription =
-          description || data.site.siteMetadata.description;
-        return (
-          <Helmet
-            htmlAttributes={{
-              lang
-            }}
-            title={title || ""}
-            titleTemplate={`%s | ${data.site.siteMetadata.title}`}
-            meta={[
-              {
-                name: `description`,
-                content: metaDescription
-              },
-              {
-                property: `og:title`,
-                content: title
-              },
-              {
-                property: `og:description`,
-                content: metaDescription
-              },
-              {
-                property: `og:type`,
-                content: `website`
-              },
-              {
-                name: `twitter:card`,
-                content: `summary`
-              },
-              {
-                name: `twitter:creator`,
-                content: data.site.siteMetadata.author
-              },
-              {
-                name: `twitter:title`,
-                content: title
-              },
-              {
-                name: `twitter:description`,
-                content: metaDescription
-              },
-              {
-                name: `keywords`,
-                content: keywords || data.site.siteMetadata.keywords.join(`, `)
-              }
-            ].concat(meta)}
-          >
-            <html lang={lang} />
-          </Helmet>
-        );
+    <Helmet
+      htmlAttributes={{
+        lang
       }}
-    />
+      title={title || siteConfig.title}
+      meta={[
+        {
+          name: `description`,
+          content: description || siteConfig.description
+        },
+        {
+          property: `og:title`,
+          content: title
+        },
+        {
+          property: `og:description`,
+          content: description || siteConfig.description
+        },
+        {
+          property: `og:type`,
+          content: `website`
+        },
+        {
+          name: `twitter:card`,
+          content: `summary`
+        },
+        {
+          name: `twitter:creator`,
+          content: siteConfig.author
+        },
+        {
+          name: `twitter:title`,
+          content: title
+        },
+        {
+          name: `twitter:description`,
+          content: description || siteConfig.description
+        },
+        {
+          name: `keywords`,
+          content: keywords || siteConfig.keywords
+        }
+      ].concat(meta)}
+    >
+      <html lang={lang} />
+    </Helmet>
   );
 }
 

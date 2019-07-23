@@ -46,6 +46,7 @@ const IT = {
   view_latest_version: "visualizza l'ultima versione del contenuto",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
+    index_page_title: "moduli",
     action_page_title: "moduli",
     dashboard_title: "dashboard",
     notfound_page_title: "pagina non trovata",

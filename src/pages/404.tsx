@@ -8,13 +8,14 @@ import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
 
 const NotFoundPage = ({ data }: { data: NotFoundConfig }) => {
   const { t } = useTranslation();
+  const siteConfig = getSiteConfig(data);
   return (
     <Layout
       menu={getMenu(data)}
-      siteConfig={getSiteConfig(data)}
+      siteConfig={siteConfig}
       title={t("pages.notfound_page_title")}
     >
-      <SEO title={t("pages.notfound_page_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.notfound_page_title")} siteConfig={siteConfig} />
       <p>{t("pages.notfound_page_text")}</p>
     </Layout>
   );

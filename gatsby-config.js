@@ -3,11 +3,6 @@ require("dotenv").config({
 });
 
 module.exports = {
-  siteMetadata: {
-    title: `AGID Forms`,
-    description: ``,
-    author: `@gunzip`
-  },
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-transformer-sharp`,
