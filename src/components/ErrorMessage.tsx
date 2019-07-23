@@ -9,7 +9,7 @@ interface ErrorMessageProps extends FormikErrorMessageProps {}
 export const ErrorMessage = ({ ...props }: ErrorMessageProps) => (
   <FormikErrorMessage
     component="div"
-    className="alert alert-warning text-warning"
+    className="alert alert-warning text-warning mb-0"
     {...props}
   />
 );

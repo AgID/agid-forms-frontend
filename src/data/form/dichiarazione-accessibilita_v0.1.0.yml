@@ -47,11 +47,10 @@ sections:
 
     groups:
       - name: content-generic
-        title: informazioni generali
+        title: Stato di conformità
         fields:
           - name: "compliance-status"
             widget: radio
-            title: Stato di conformità
             options:
               - label: conforme
                 value: compliant
@@ -163,19 +162,19 @@ sections:
             description: in cifre
             widget: number
             required_if: "true"
-            valid_if: Yup.number().positive().validate(value)
+            valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
             title: postazioni per disabili
             description: in cifre
             widget: number
             required_if: "true"
-            valid_if: Yup.number().positive().validate(value)
-          - name: people-disabled
+            valid_if: Yup.number().min(0).validate(value)
+          - name: people-expenditure
             title: spesa prevista nel bilancio
             description: in percentuale
             widget: number
             required_if: "true"
-            valid_if: Yup.number().positive().validate(value)
+            valid_if: Yup.number().min(0).validate(value)
 
       - name: application-manager
         title: Il responsabile dei processi di integrazione

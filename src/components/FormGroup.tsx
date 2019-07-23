@@ -15,7 +15,7 @@ export const FormGroup = ({
   isHidden,
   children
 }: FormGroupProps) => (
-  <RSFormGroup check={true} key={fieldName} className="mb-3" hidden={isHidden}>
+  <RSFormGroup check={true} key={fieldName} className="mb-4" hidden={isHidden}>
     {children}
   </RSFormGroup>
 );

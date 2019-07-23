@@ -26,6 +26,7 @@ export const CustomSelectComponent = ({
     <SelectBase
       {...field}
       {...props}
+      className="react-select"
       value={value}
       options={options}
       onChange={(option: any) => form.setFieldValue(field.name, option.value)}
