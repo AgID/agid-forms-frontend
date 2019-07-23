@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
@@ -8,6 +9,7 @@ import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
 import BodyStyles from "../../components/BodyStyles";
+import LoadableView from "../../components/LoadableView";
 import {
   GetNodeRevision,
   GetNodeRevisionVariables
@@ -21,11 +23,6 @@ import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
 import { useTranslation } from "react-i18next";
-import {
-  flattenFormFieldsWithKeys,
-  flattenFormValues
-} from "../../utils/forms";
-import { renderViewFields } from "./view-template";
 
 const RevisionTemplate = ({
   data,
@@ -119,15 +116,12 @@ const RevisionTemplate = ({
                   )}
                 </div>
               )}
-              <table className="table table-hover table-bordered table-striped">
-                <tbody>
-                  {nodeRevision &&
-                    renderViewFields(
-                      flattenFormFieldsWithKeys(form),
-                      flattenFormValues(nodeRevision.content.values)
-                    )}
-                </tbody>
-              </table>
+              {nodeRevision && (
+                <LoadableView
+                  form={form}
+                  values={nodeRevision.content.values}
+                />
+              )}
             </>
           );
         }}
