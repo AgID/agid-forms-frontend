@@ -854,6 +854,10 @@
     omggif "^1.0.5"
     pngjs "^2.0.0"
 
+"@datorama/ts-safe-access@https://github.com/salesforce/ts-safe-access":
+  version "1.1.1"
+  resolved "https://github.com/salesforce/ts-safe-access#874133eb12901e936aee7c4e40683d400b6270d3"
+
 "@emotion/cache@^10.0.14", "@emotion/cache@^10.0.9":
   version "10.0.14"
   resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-10.0.14.tgz#56093cff025c04b0330bdd92afe8335ed326dd18"

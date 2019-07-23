@@ -39,6 +39,19 @@ sections:
             show_if: this["device-type"] == "website"
             required_if: this["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
+          - name: "app-name"
+            widget: text
+            title: Nome
+            description: inserisci il nome dell'applicazione
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
+          - name: "app-url"
+            widget: text
+            title: URL dell'applicazione
+            description: inserisci l'indirizzo
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
+            valid_if: Yup.string().url().validate(value)
 
   - name: section-1
     title: Sezione 1
@@ -46,7 +59,7 @@ sections:
       Contenuti in ottemperanza alla decisione di esecuzione UE 2018/1523.
 
     groups:
-      - name: content-generic
+      - name: content-compliance
         title: Stato di conformità
         fields:
           - name: "compliance-status"
@@ -66,7 +79,7 @@ sections:
           - name: "reason-42004"
             widget: checkbox
             title: Inosservanza della legge 4/2004
-          - name: "reason-422004-text"
+          - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: utilizzare un linguaggio descrittivo
@@ -74,7 +87,7 @@ sections:
             required_if: this["reason-42004"]
           - name: "reason-disproportionate-burden"
             widget: checkbox
-            title: onere sproporzionato
+            title: Onere sproporzionato
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
@@ -83,7 +96,7 @@ sections:
             required_if: this["reason-disproportionate-burden"]
           - name: "reason-no-law"
             widget: checkbox
-            title: il contenuto non rientra nell'ambito della legislazione applicabile
+            title: Il contenuto non rientra nell'ambito della legislazione applicabile
           - name: "reason-no-law-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili

@@ -44,7 +44,12 @@ export const NodeFragment = gql`
     created_at
     updated_at
     title
-    group
+    node_group {
+      group
+      group_ipa_pa {
+        des_amm
+      }
+    }
     content
     language
     status
@@ -59,7 +64,12 @@ export const NodeRevisionFragment = gql`
     created_at
     updated_at
     title
-    group
+    node_revision_group {
+      group
+      group_ipa_pa {
+        des_amm
+      }
+    }
     content
     language
     status

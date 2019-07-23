@@ -2229,6 +2229,9 @@ type node_revision {
   group: String
   id: uuid!
   language: String!
+
+  """An object relationship"""
+  node_revision_group: group
   status: String!
   title: String!
   type: String!
@@ -2316,6 +2319,7 @@ input node_revision_bool_exp {
   group: text_comparison_exp
   id: uuid_comparison_exp
   language: text_comparison_exp
+  node_revision_group: group_bool_exp
   status: text_comparison_exp
   title: text_comparison_exp
   type: text_comparison_exp
@@ -2370,6 +2374,7 @@ input node_revision_insert_input {
   group: String
   id: uuid
   language: String
+  node_revision_group: group_obj_rel_insert_input
   status: String
   title: String
   type: String
@@ -2466,6 +2471,7 @@ input node_revision_order_by {
   group: order_by
   id: order_by
   language: order_by
+  node_revision_group: group_order_by
   status: order_by
   title: order_by
   type: order_by
