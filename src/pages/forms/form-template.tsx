@@ -317,7 +317,7 @@ const FormTemplate = ({
                         return actions.setSubmitting(false);
                       }}
                       render={(formik: FormikProps<FormValuesT>) => (
-                        <Form>
+                        <Form className="px-lg-5 py-lg-4">
                           {form.sections!.map(section => {
                             if (!section) {
                               return null;

@@ -58,8 +58,8 @@
   }
 }
 
-main {
-  min-height: 50vh;
+.page-container {
+  min-height: 40vh;
 }
 
 .u-layout-releaseFull {
@@ -219,8 +219,18 @@ a.bg-white:hover {
   border-bottom: 1px solid #5c6f82;
 }
 
+.react-select:focus,
+.react-select [class*="control"]:focus,
+.react-select [class*="control"] > div:focus {
+  outline: none !important;
+}
+
+.react-select [class*="control"] {
+  border-radius: 0%;
+}
+
 .react-select [class*="indicatorSeparator"] {
-  background-color: none !important;
+  background-color: transparent !important;
 }
 
 /* form */
@@ -230,4 +240,26 @@ textarea.form-control {
   min-height: 6em;
   padding: 0.5em !important;
   font-size: 16px;
+}
+
+/* customization */
+
+.it-header-navbar-wrapper {
+  min-height: 450px;
+  margin-bottom: -380px;
+}
+
+.main {
+  position: relative;
+  z-index: 1;
+}
+
+.it-header-wrapper {
+  background: linear-gradient(58.17deg, #3025FA 0.03%, rgba(36,29,174,0.9) 15.19%, #0D00FF 100%);
+}
+
+.it-header-navbar-wrapper,
+.it-header-slim-wrapper,
+.it-header-center-wrapper {
+  background-color: transparent;
 }
