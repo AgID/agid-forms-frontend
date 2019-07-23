@@ -95,7 +95,7 @@ const toNode = (
       },
       language: form.language,
       title: titleExpression
-        ? titleExpression({ ...values, formatDate: format, Date })
+        ? titleExpression({ ...values, formatDate: format, Date, id: form.id })
         : form.id,
       type: form.id.replace("-", "_")
     }
@@ -324,18 +324,28 @@ const FormTemplate = ({
                             }
                             return (
                               <div key={`${section.title}`}>
-                                {section.title && <h2>{section.title}</h2>}
+                                {section.title && (
+                                  <h2 className="h3 mb-2 mb-lg-4">
+                                    {section.title}
+                                  </h2>
+                                )}
                                 {section.description && (
-                                  <p>{section.description}</p>
+                                  <p className="w-paragraph neutral-1-color-b6">
+                                    {section.description}
+                                  </p>
                                 )}
                                 {section.groups!.map(group => {
                                   return (
                                     group && (
                                       <div
-                                        className="fieldset"
+                                        className="fieldset mb-3 mb-lg-5"
                                         key={group.name!}
                                       >
-                                        {group.title && <h3>{group.title}</h3>}
+                                        {group.title && (
+                                          <h3 className="display-3 font-variant-small-caps primary-color-a9 my-2 mt-lg-5 mb-lg-4 text-spaced-xs">
+                                            {group.title}
+                                          </h3>
+                                        )}
                                         {group.description && (
                                           <p>{group.description}</p>
                                         )}

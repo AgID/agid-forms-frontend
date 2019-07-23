@@ -32,6 +32,7 @@ export const CustomRadioComponent = ({
       />
       <Label
         fieldName={field.name}
+        className="d-block my-2 my-lg-3 font-weight-semibold"
         title={option.label}
         isRequired={isRequired}
         onClick={() => {
@@ -63,6 +64,7 @@ export const RadioField = ({
         fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
+        className="d-block font-weight-semibold my-2 my-lg-3 neutral-2-color-a4 font-size-xs"
       />
       <Field
         name={field.name}

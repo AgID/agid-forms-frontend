@@ -28,6 +28,7 @@ export const CustomCheckboxComponent = ({
       <div key={option.value}>
         <Input {...field} {...props} value={option.value} checked={isChecked} />
         <Label
+          className="d-block my-2 my-lg-3 font-weight-semibold"
           fieldName={field.name}
           title={option.label}
           isRequired={isRequired}
@@ -67,6 +68,7 @@ export const CheckboxMultipleField = ({
   return (
     <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
       <Label
+        className="d-block font-weight-semibold my-2 my-lg-3 neutral-1-color-a6 font-size-xs"
         fieldName={field.name!}
         title={field.title!}
         isRequired={isRequired}
