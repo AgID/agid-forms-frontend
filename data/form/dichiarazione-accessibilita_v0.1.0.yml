@@ -4,7 +4,7 @@ language: it
 enabled: true
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Dichiarazione accessibilita ' + id"
+title_pattern: "'Dichiarazione accessibilita ' + this[\"website-name\"] + this[\"app-name\"]"
 sections:
 
   - name: section-0
@@ -112,7 +112,7 @@ sections:
             title: Indicare le alternative accessibili
             description: utilizzare un linguaggio descrittivo
 
-      - name: content-other
+      - name: content-methodology
         title: metodologia utilizzata per la stesura della dichiarazione
         fields:
           - name: "methodology"
@@ -170,19 +170,19 @@ sections:
         title: informazioni sull'organico e la struttura
         fields:
           - name: people-disabled
-            title: dipendenti disabili
+            title: Dipendenti disabili
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
-            title: postazioni per disabili
+            title: Postazioni per disabili
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-expenditure
-            title: spesa prevista nel bilancio
+            title: Spesa prevista nel bilancio
             description: in percentuale
             widget: number
             required_if: "true"

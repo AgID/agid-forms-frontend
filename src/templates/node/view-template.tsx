@@ -96,7 +96,7 @@ const ViewTemplate = ({
           return (
             <>
               {isLoggedIn() && (
-                <div className="mb-4">
+                <div className="pl-lg-5">
                   <small>
                     <Link
                       to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
@@ -105,7 +105,7 @@ const ViewTemplate = ({
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
-                    <p className="alert alert-warning">
+                    <p className="alert alert-warning ml-lg-5">
                       {t("not_latest_version")}
                       <br />
                       <Link

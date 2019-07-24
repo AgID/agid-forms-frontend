@@ -98,7 +98,7 @@ const RevisionTemplate = ({
           return (
             <>
               {isLoggedIn() && (
-                <div className="mb-4">
+                <div className="pl-lg-5">
                   <small>
                     <Link
                       to={`/form/${nodeRevision.content.schema.id}/${nodeRevision.id}`}
@@ -107,7 +107,7 @@ const RevisionTemplate = ({
                     </Link>
                   </small>
                   {publishedNode && !isLatestPublishedVersion && (
-                    <p className="alert alert-warning">
+                    <p className="alert alert-warning ml-lg-5">
                       {t("not_published_version")}
                       <br />
                       <Link to={`/view/${publishedNode.id}`}>

@@ -1,7 +1,7 @@
 import * as parser from "expression-eval";
 import * as React from "react";
 
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import { FormErrors } from "../../components/FormErrors";
@@ -248,7 +248,7 @@ const FormTemplate = ({
           return (
             <>
               {latestNode ? (
-                <div className="mb-4">
+                <div className="pl-lg-5">
                   <small>
                     <Link
                       to={`/revision/${latestNode.id}/${latestNode.version}`}
@@ -260,14 +260,25 @@ const FormTemplate = ({
               ) : (
                 <></>
               )}
-              <Mutation<UpsertNode, UpsertNodeVariables> mutation={UPSERT_NODE}>
+              <Mutation<UpsertNode, UpsertNodeVariables>
+                mutation={UPSERT_NODE}
+                refetchQueries={[
+                  {
+                    query: GET_LATEST_NODE_WITH_PUBLISHED,
+                    variables: { id: nodeId }
+                  }
+                ]}
+                onCompleted={upsertNodeResult =>
+                  navigate(
+                    `/revision/${
+                      upsertNodeResult.insert_node!.returning[0].id
+                    }/${upsertNodeResult.insert_node!.returning[0].version}`
+                  )
+                }
+              >
                 {(
                   upsertNode,
-                  {
-                    loading: upsertLoading,
-                    error: upsertError,
-                    data: upsertNodeResult
-                  }
+                  { loading: upsertLoading, error: upsertError }
                 ) => {
                   if (upsertLoading) {
                     return (
@@ -284,11 +295,6 @@ const FormTemplate = ({
                         <ApolloErrors errors={upsertError} />
                       </p>
                     );
-                  }
-                  if (upsertNodeResult && upsertNodeResult.insert_node) {
-                    // force page reload to avoid redirect loop
-                    // tslint:disable-next-line: no-object-mutation
-                    window.location.href = `/form/${formId}/${upsertNodeResult.insert_node.returning[0].id}`;
                   }
                   return (
                     <Formik

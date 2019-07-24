@@ -7,15 +7,21 @@ import { format } from "date-fns";
 import * as React from "react";
 
 import { GetNode_latest_published } from "../../generated/graphql/GetNode";
-import { FieldT, FormGroupT, FormT, getGroupFields } from "../../utils/forms";
+import { FieldT, FormGroupT, FormT } from "../../utils/forms";
 
 import { get } from "../../utils/safe_access";
 
 const ViewField = ({ field, value }: { field: FieldT; value: string }) => {
   return (
-    <p>
-      {field.title}: {value}
-    </p>
+    <div className="mb-4">
+      <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+        {field.title}
+      </p>
+      {field.widget !== "checkbox" && <p className="w-paragraph">{value}</p>}
+      {field.widget === "checkbox" && (
+        <p className="w-paragraph">{value ? "si" : "no"}</p>
+      )}
+    </div>
   );
 };
 
@@ -50,15 +56,11 @@ const RenderGroup = ({
   values: Record<string, string>;
 }) => (
   <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
-    {group.title && (
-      <h3 className="display-3 font-variant-small-caps primary-color-a9 my-2 mt-lg-5 mb-lg-4 text-spaced-xs">
-        {group.title}
-      </h3>
-    )}
+    {group.title && <GroupTitle title={group.title} />}
     {group.description && <p>{group.description}</p>}
     {/* {group.repeatable ? (
-<ViewFieldArray group={group} values={values} />
-) : ( */}
+      <ViewFieldArray group={group} values={values} />
+    ) : ( */}
     {group.fields!.map(field =>
       field && field.name ? (
         <ViewField key={field.name} field={field} value={values[field.name]} />
@@ -120,50 +122,53 @@ const Groups: Record<
     );
   },
   "content-not-accessible": ({ group, values, fields }) => {
-    const hasInaccessibleContent =
-      values["reason-42004"] ||
-      values["reason-disproportionate-burden"] ||
-      values["reason-no-law"];
+    const accessibilityFields: ReadonlyArray<any> = [
+      "reason-42004",
+      "reason-disproportionate-burden",
+      "reason-no-law"
+    ];
+    const hasInaccessibleContent = accessibilityFields
+      .map(fieldName => values[fieldName])
+      .some(_ => _);
     return (
       <div className="mb-lg-5" key="content-not-accessible">
         <GroupTitle title={group.title} />
         {hasInaccessibleContent && (
-          <p className="w-paragraph" key="reason">
+          <p className="w-paragraph">
             I contenuti di seguito elencati non sono accessibili per i seguenti
             motivi:
           </p>
         )}
-        {values["reason-42004"] && (
-          <div>
-            <p className="w-paragraph font-weight-bold">
-              {fields["reason-42004"].title}
-            </p>
-            <p className="w-paragraph pl-lg-4">{values["reason-42004-text"]}</p>
-          </div>
-        )}
-        {values["reason-disproportionate-burden"] && (
-          <div>
-            <p className="w-paragraph font-weight-bold">
-              {fields["reason-disproportionate-burden"].title}
-            </p>
-            <p className="w-paragraph pl-lg-4">
-              {values["reason-disproportionate-burden-text"]}
-            </p>
-          </div>
-        )}
-        {values["reason-no-law"] && (
-          <div>
-            <p className="w-paragraph font-weight-bold">
-              {fields["reason-no-law"].title}
-            </p>
-            <p className="w-paragraph pl-lg-4">
-              {values["reason-no-law-text"]}
-            </p>
-          </div>
+        {accessibilityFields.map(
+          fieldName =>
+            values[fieldName] && (
+              <div key={fieldName} className="mb-4">
+                <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                  {fields[fieldName].title}
+                </p>
+                <p className="w-paragraph pl-lg-4">
+                  {values[`${fieldName}-text`]}
+                </p>
+              </div>
+            )
         )}
       </div>
     );
-  }
+  },
+  "content-alt": ({ group, values }) =>
+    values["accessible-alternatives"] ? (
+      <div className="mb-lg-5" key="content-alt">
+        <GroupTitle title={group.title} />
+        <p className="w-paragraph">{values["accessible-alternatives"]}</p>
+      </div>
+    ) : (
+      <></>
+    ),
+  "content-methodology": RenderGroup, // TODO
+  "feedback-and-contacts": RenderGroup,
+  "application-information": RenderGroup,
+  "application-org": RenderGroup,
+  "application-manager": RenderGroup
 };
 
 const Template = ({
@@ -178,8 +183,8 @@ const Template = ({
   values: Record<string, string>;
 }) => {
   return (
-    <div>
-      <p className="w-paragraph neutral-1-color-b6">
+    <div className="px-lg-5 py-lg-4">
+      <p className="w-paragraph neutral-2-color-b5">
         redatta il {format(node.updated_at, "DD.MM.YYYY")}
       </p>
       {form.sections!.map(section => {
@@ -187,13 +192,13 @@ const Template = ({
           return null;
         }
         return (
-          <div key={`${section.title}`}>
+          <div key={section.name || ""}>
             {section.title && (
               <h2 className="h3 mb-2 mb-lg-4">{section.title}</h2>
             )}
 
             {section.name === "section-0" && (
-              <p className="w-paragraph neutral-1-color-b6">
+              <p className="w-paragraph neutral-2-color-b5">
                 <strong>
                   {get(
                     node,
