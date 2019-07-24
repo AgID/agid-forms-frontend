@@ -48,7 +48,7 @@ sections:
           - name: "app-url"
             widget: text
             title: URL dell'applicazione
-            description: inserisci l'indirizzo
+            description: inserisci l'indirizzo nello store
             show_if: this["device-type"] == "mobile-app"
             required_if: this["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
@@ -115,14 +115,24 @@ sections:
       - name: content-methodology
         title: metodologia utilizzata per la stesura della dichiarazione
         fields:
-          - name: "methodology"
+          - name: methodology
             widget: radio
             options:
               - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
-                value: ue
+                value: methodology-ue
               - label: altre misure considerate appropriate dagli stati membri
-                value: other
+                value: methodology-other
             required_if: "true"
+          - name: "methodology-details"
+            widget: radio
+            title: modalità della valutazione
+            options:
+              - label: un'autovalutazione effettuata dall'ente pubblico
+                value: methodology-auto
+              - label: una valutazione effettuata da terzi, ad esempio una certificazione
+                value: methodology-third-party
+            show_if: this["methodology"] == "methodology-ue"
+            required_if: this["methodology"] == "methodology-ue"
 
       - name: feedback-and-contacts
         title: feedback e contatti
@@ -142,6 +152,19 @@ sections:
             valid_if: Yup.string().email().validate(value)
             required_if: "true"
 
+      - name: implementation-procedure
+        title: procedura di attuazione
+        description: Secondo la procedura di attuazione... (TODO)
+        fields:
+          - name: implementation-procedure-url
+            title: URL servizio
+            widget: html
+            default: https://agid.gov.it
+          - name: implementation-procedure-email
+            title: Email
+            widget: html
+            default: example@agid.gov.it
+
   - name: section-2
     title: Sezione 2
     description: |-
@@ -155,8 +178,8 @@ sections:
             title: Data di pubblicazione del sito
             widget: date
             required_if: "true"
-          - name: application-type
-            title: CMS Utilizzato
+          - name: website-cms
+            title: CMS utilizzato
             widget: select
             multiple: false
             options:
@@ -164,7 +187,32 @@ sections:
                 value: drupal
               - label: Wordpress
                 value: wordpress
-            required_if: "true"
+            show_if: this["device-type"] == "website"
+            required_if: this["device-type"] == "website"
+          - name: application-framework
+            title: Framework utilizzato
+            widget: select
+            multiple: false
+            options:
+              - label: Nessuno
+                value: none
+              - label: React Native
+                value: react-native
+              - label: Xamarin
+                value: xamarin
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
+          - name: application-os
+            title: Sistema operativo
+            widget: select
+            multiple: false
+            options:
+              - label: Android
+                value: android
+              - label: iOS
+                value: ios
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
 
       - name: application-org
         title: informazioni sull'organico e la struttura
