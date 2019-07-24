@@ -388,8 +388,8 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
   const [hasSecret, setHasSecret] = useState<boolean>();
 
   if (isLoggedIn()) {
-    navigate("/actions");
-    return <></>;
+    navigate("/dashboard");
+    return null;
   }
 
   const isSessionExpired =

@@ -7,23 +7,22 @@ import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
+import { DashboardConfig } from "../../generated/graphql/DashboardConfig";
 import {
   GetUserNodes,
   GetUserNodesVariables
 } from "../../generated/graphql/GetUserNodes";
-import { UserProfileConfig } from "../../generated/graphql/UserProfileConfig";
 import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
 import { GET_USER_NODES } from "../../graphql/hasura_queries";
+import { getSessionInfo } from "../../utils/auth";
 
-const UserProfileTemplate = ({
-  data,
-  userId
-}: {
-  data: UserProfileConfig;
-  userId: string;
-}) => {
+const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
   const { t } = useTranslation();
   const siteConfig = getSiteConfig(data);
+  const sessionInfo = getSessionInfo();
+  if (!sessionInfo || !sessionInfo.userId) {
+    return null;
+  }
   return (
     <Layout
       menu={getMenu(data)}
@@ -34,7 +33,7 @@ const UserProfileTemplate = ({
       <Query<GetUserNodes, GetUserNodesVariables>
         query={GET_USER_NODES}
         variables={{
-          userId
+          userId: sessionInfo.userId
         }}
       >
         {({
@@ -57,7 +56,7 @@ const UserProfileTemplate = ({
             return (
               <p>
                 {data}
-                {userId}
+                {sessionInfo.userId}
               </p>
             );
           }
@@ -108,4 +107,4 @@ const UserProfileTemplate = ({
   );
 };
 
-export default UserProfileTemplate;
+export default DashboardTemplate;
