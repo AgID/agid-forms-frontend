@@ -263,3 +263,10 @@ textarea.form-control {
 .it-header-center-wrapper {
   background-color: transparent;
 }
+
+/* view template */
+
+.view-section:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 2em;
+}

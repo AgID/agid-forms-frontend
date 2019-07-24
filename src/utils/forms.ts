@@ -4,6 +4,7 @@ import { ItLocale } from "../utils/yup_locale_it";
 
 import { FormikProps } from "formik";
 
+import { format } from "date-fns";
 import { PatternString } from "italia-ts-commons/lib/strings";
 import {
   FormSchemaFragment_edges_node,
@@ -36,6 +37,9 @@ export const getFieldNameParts = (name: typeof GROUP_FIELD_PATTERN) => {
   return matches.slice(1);
 };
 
+/*
+ *  Used to get field templates for repeatable fields groups.
+ */
 export const toFirstGroupFieldName = (name: typeof GROUP_FIELD_PATTERN) => {
   const [groupName, , fieldName] = getFieldNameParts(name);
   return [groupName, "0", fieldName].join(".");
@@ -262,4 +266,43 @@ export function getDefaultValue(field: FieldT) {
     return field.default;
   }
   return "";
+}
+
+export function getFieldValue({
+  field,
+  value
+}: {
+  field: FieldT;
+  value: string;
+}): string | null {
+  switch (field.widget) {
+    case "date":
+      return format(new Date(value), "DD.MM.YYYY");
+    case "checkbox":
+      if (!Array.isArray(value) ? "si" : "no") {
+        return value ? "si" : "no";
+      }
+      break;
+    case "select":
+      if (Array.isArray(field.options)) {
+        const selectedItem = field.options.find(o => o.value === value);
+        if (selectedItem) {
+          return selectedItem.label;
+        }
+      }
+      break;
+    case "html":
+      return field.default;
+  }
+  return value;
+}
+
+/*
+ *  Works for radio buttons.
+ */
+export function getSelectedLabel(field: FieldT, value: string) {
+  const selectedItem = field.options
+    ? field.options.find(o => o && o.value === value)
+    : null;
+  return selectedItem ? selectedItem.label : null;
 }

@@ -6,70 +6,20 @@
 import { format } from "date-fns";
 import * as React from "react";
 
+import FormGroupTitle from "../../components/FormGroupTitle";
+import ViewGroup from "../../components/ViewGroup";
 import { GetNode_latest_published } from "../../generated/graphql/GetNode";
-import { FieldT, FormGroupT, FormT } from "../../utils/forms";
-
+import { FieldT, FormGroupT, FormT, getSelectedLabel } from "../../utils/forms";
 import { get } from "../../utils/safe_access";
 
-const ViewField = ({ field, value }: { field: FieldT; value: string }) => {
-  return (
-    <div className="mb-4">
-      <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
-        {field.title}
-      </p>
-      {field.widget !== "checkbox" && <p className="w-paragraph">{value}</p>}
-      {field.widget === "checkbox" && (
-        <p className="w-paragraph">{value ? "si" : "no"}</p>
-      )}
-    </div>
-  );
-};
-
-// const ViewFieldArray = ({
-//   group,
-//   values
-// }: {
-//   group: FormGroupT;
-//   values: any;
-// }) => {
-//   if (!group.name || !group.fields) {
-//     return null;
-//   }
-//   const existingValues = values[group.name];
-//   if (!existingValues) {
-//     return null;
-//   }
-//   const existingFields = existingValues.map(
-//     (o: Record<string, string>, index: number) =>
-//       Object.keys(o).map(fieldName => {
-//         return `${group.name}.${index}.${fieldName}`;
-//       })
-//   );
-//   return <>{existingFields}</>;
-// };
-
-const RenderGroup = ({
+const InlineViewGroup = ({
   group,
   values
 }: {
   group: FormGroupT;
   values: Record<string, string>;
-}) => (
-  <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
-    {group.title && <GroupTitle title={group.title} />}
-    {group.description && <p>{group.description}</p>}
-    {/* {group.repeatable ? (
-      <ViewFieldArray group={group} values={values} />
-    ) : ( */}
-    {group.fields!.map(field =>
-      field && field.name ? (
-        <ViewField key={field.name} field={field} value={values[field.name]} />
-      ) : (
-        <></>
-      )
-    )}
-  </div>
-);
+  inline?: boolean;
+}) => ViewGroup({ group, values, inline: true });
 
 const getComplianceString = (complianceStatus: string, isWebSite: boolean) => {
   switch (complianceStatus) {
@@ -90,28 +40,24 @@ const getComplianceString = (complianceStatus: string, isWebSite: boolean) => {
   }
 };
 
-const GroupTitle = ({ title }: { title: string | null }) => (
-  <h3 className="display-3 font-variant-small-caps primary-color-a9 my-2 mt-lg-5 mb-lg-4 text-spaced-xs">
-    {title || ""}
-  </h3>
-);
-
 const Groups: Record<
   string,
   ({
     group,
     values,
-    fields
+    fields,
+    node
   }: {
     group: FormGroupT;
     values: Record<string, string>;
     fields: Record<string, FieldT>;
+    node: GetNode_latest_published;
   }) => JSX.Element
 > = {
   "content-compliance": ({ group, values }) => {
     return (
-      <div className="mb-lg-5" key="content-compliance">
-        <GroupTitle title={group.title} />
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
         <p className="w-paragraph">
           {getComplianceString(
             values["compliance-status"],
@@ -131,8 +77,8 @@ const Groups: Record<
       .map(fieldName => values[fieldName])
       .some(_ => _);
     return (
-      <div className="mb-lg-5" key="content-not-accessible">
-        <GroupTitle title={group.title} />
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
         {hasInaccessibleContent && (
           <p className="w-paragraph">
             I contenuti di seguito elencati non sono accessibili per i seguenti
@@ -157,18 +103,62 @@ const Groups: Record<
   },
   "content-alt": ({ group, values }) =>
     values["accessible-alternatives"] ? (
-      <div className="mb-lg-5" key="content-alt">
-        <GroupTitle title={group.title} />
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
         <p className="w-paragraph">{values["accessible-alternatives"]}</p>
       </div>
     ) : (
       <></>
     ),
-  "content-methodology": RenderGroup, // TODO
-  "feedback-and-contacts": RenderGroup,
-  "application-information": RenderGroup,
-  "application-org": RenderGroup,
-  "application-manager": RenderGroup
+  "content-methodology": ({ group, values, fields, node }) => {
+    return (
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
+        <p className="w-paragraph">
+          La dichiarazione è stata effettuata utilizzando{" "}
+          <strong>
+            {getSelectedLabel(fields.methodology, values.methodology)}
+          </strong>{" "}
+          mediante{" "}
+          <strong>
+            {getSelectedLabel(
+              fields["methodology-details"],
+              values["methodology-details"]
+            )}
+          </strong>{" "}
+          e aggiornata il {format(node.updated_at, "DD.MM.YYYY")} a seguito di
+          una revisione sostanziale{" "}
+          {values["device-type"] === "website"
+            ? "del sito web"
+            : "dell'applicazione mobile"}
+          .
+        </p>
+      </div>
+    );
+  },
+  "feedback-and-contacts": ViewGroup,
+  "implementation-procedure": ViewGroup,
+  "application-information": InlineViewGroup,
+  "application-org": InlineViewGroup,
+  "application-manager": ({ group, values, fields }) => {
+    return (
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
+        <p className="w-paragraph">
+          {group.title}{" "}
+          <strong>
+            {values["manager-present"] ? "" : "non"}{" "}
+            {fields["manager-present"].title}
+          </strong>{" "}
+          e{values["manager-appointed"] ? "d" : ""}
+          <strong>
+            {values["manager-appointed"] ? "" : " non"}{" "}
+            {fields["manager-appointed"].title}
+          </strong>
+        </p>
+      </div>
+    );
+  }
 };
 
 const Template = ({
@@ -192,13 +182,13 @@ const Template = ({
           return null;
         }
         return (
-          <div key={section.name || ""}>
+          <div key={section.name || ""} className="view-section">
             {section.title && (
               <h2 className="h3 mb-2 mb-lg-4">{section.title}</h2>
             )}
 
             {section.name === "section-0" && (
-              <p className="w-paragraph neutral-2-color-b5">
+              <p className="w-paragraph neutral-2-color-b5 pb-5">
                 <strong>
                   {get(
                     node,
@@ -239,11 +229,19 @@ const Template = ({
               </p>
             )}
 
-            {section.groups!.map(group =>
-              group && group.name && Groups[group.name]
-                ? Groups[group.name]({ group, values, fields })
-                : null
-            )}
+            {section.groups!.map(group => {
+              const GroupEl =
+                group && group.name ? Groups[group.name] : undefined;
+              return group && group.name && GroupEl ? (
+                <GroupEl
+                  group={group}
+                  values={values}
+                  fields={fields}
+                  node={node}
+                  key={group.name}
+                />
+              ) : null;
+            })}
           </div>
         );
       })}

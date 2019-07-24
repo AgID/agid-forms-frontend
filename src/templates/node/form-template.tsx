@@ -41,6 +41,7 @@ import {
 
 import { Trans, useTranslation } from "react-i18next";
 import ApolloErrors from "../../components/ApolloErrors";
+import FormGroupTitle from "../../components/FormGroupTitle";
 import {
   flattenFormFields,
   getFieldNameParts,
@@ -183,6 +184,8 @@ const FormTemplate = ({
   data: FormConfig;
   formId?: string;
   nodeId?: string;
+  // TODO: refactor
+  // tslint:disable-next-line: no-big-function
 }) => {
   const { t } = useTranslation();
 
@@ -336,7 +339,7 @@ const FormTemplate = ({
                                   </h2>
                                 )}
                                 {section.description && (
-                                  <p className="w-paragraph neutral-1-color-b6">
+                                  <p className="w-paragraph neutral-2-color-b5">
                                     {section.description}
                                   </p>
                                 )}
@@ -348,12 +351,12 @@ const FormTemplate = ({
                                         key={group.name!}
                                       >
                                         {group.title && (
-                                          <h3 className="display-3 font-variant-small-caps primary-color-a9 my-2 mt-lg-5 mb-lg-4 text-spaced-xs">
-                                            {group.title}
-                                          </h3>
+                                          <FormGroupTitle title={group.title} />
                                         )}
                                         {group.description && (
-                                          <p>{group.description}</p>
+                                          <p className="w-paragraph neutral-2-color-b5">
+                                            {group.description}
+                                          </p>
                                         )}
                                         {group.repeatable
                                           ? FormFieldArray({
