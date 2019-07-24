@@ -1,6 +1,10 @@
 import * as React from "react";
 import { FormGroupT } from "../utils/forms";
 
+/**
+ * Do not use tihs component, it is a placeholder.
+ * TODO: implement.
+ */
 const ViewFieldArray = ({
   group,
   values
