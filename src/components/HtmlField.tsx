@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { FormFieldPropsT } from "../utils/forms";
+import { Label } from "./Label";
 
 export const HtmlField = ({
   field,
@@ -19,7 +20,16 @@ export const HtmlField = ({
       valueExpression({ Math, ...form.values }).toString()
     : field.default;
   return !isHidden ? (
-    <div key={field.name!} dangerouslySetInnerHTML={{ __html: content }} />
+    <div className="mb-4">
+      {field.name && field.title && (
+        <Label fieldName={field.name} title={field.title} isRequired={false} />
+      )}
+      <p
+        className="w-paragraph"
+        key={field.name!}
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    </div>
   ) : (
     <></>
   );

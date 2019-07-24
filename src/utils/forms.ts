@@ -4,6 +4,7 @@ import { ItLocale } from "../utils/yup_locale_it";
 
 import { FormikProps } from "formik";
 
+import { format } from "date-fns";
 import { PatternString } from "italia-ts-commons/lib/strings";
 import {
   FormSchemaFragment_edges_node,
@@ -262,4 +263,33 @@ export function getDefaultValue(field: FieldT) {
     return field.default;
   }
   return "";
+}
+
+export function getFieldValue({
+  field,
+  value
+}: {
+  field: FieldT;
+  value: string;
+}): string | null {
+  switch (field.widget) {
+    case "date":
+      return format(new Date(value), "DD.MM.YYYY");
+    case "checkbox":
+      if (!Array.isArray(value) ? "si" : "no") {
+        return value ? "si" : "no";
+      }
+      break;
+    case "select":
+      if (Array.isArray(field.options)) {
+        const selectedItem = field.options.find(o => o.value === value);
+        if (selectedItem) {
+          return selectedItem.label;
+        }
+      }
+      break;
+    case "html":
+      return field.default;
+  }
+  return value;
 }
