@@ -382,6 +382,7 @@ const LoginButtonConnectedComponent = ({
 );
 
 const IndexPage = ({ data }: { data: PageConfig }) => {
+  const { t } = useTranslation();
   const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
@@ -394,13 +395,15 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
   const isSessionExpired =
     window.location.search.indexOf("session-expired") !== -1;
 
+  const siteConfig = getSiteConfig(data);
+
   return (
     <Layout
       menu={getMenu(data)}
-      siteConfig={getSiteConfig(data)}
-      title="Moduli"
+      siteConfig={siteConfig}
+      title={t("pages.index_page_title")}
     >
-      <SEO title="Home" meta={[]} keywords={[]} />
+      <SEO title={t("pages.index_page_title")} siteConfig={siteConfig} />
       {isSessionExpired && (
         <p className="alert alert-warning w-100">
           <Trans i18nKey="auth.expired_session" />

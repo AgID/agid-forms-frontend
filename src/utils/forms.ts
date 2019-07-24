@@ -236,7 +236,10 @@ export function flattenFormValues(
           )
         };
       }
-      if (typeof values[fieldName] === "string") {
+      if (
+        typeof values[fieldName] === "string" ||
+        typeof values[fieldName] === "number"
+      ) {
         return {
           ...prevValues,
           [fieldName]: values[fieldName].toString()

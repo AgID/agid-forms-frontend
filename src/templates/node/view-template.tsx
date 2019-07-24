@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
@@ -9,6 +10,7 @@ import { ViewConfig } from "../../generated/graphql/ViewConfig";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
+import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import {
   getForm,
@@ -17,48 +19,6 @@ import {
 } from "../../graphql/gatsby_fragments";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
-import {
-  FieldT,
-  flattenFormFieldsWithKeys,
-  flattenFormValues,
-  isGroupField,
-  toFirstGroupFieldName
-} from "../../utils/forms";
-
-const getViewfield = (fieldName: string, field: FieldT, value: string) => {
-  return fieldName ? (
-    <tr key={fieldName} className="mb-4">
-      <th scope="row">{field.title}</th>
-      <td>{value.toString()}</td>
-    </tr>
-  ) : (
-    <></>
-  );
-};
-
-export const renderViewFields = (
-  fields: Record<string, FieldT>,
-  values: Record<string, string>
-): readonly JSX.Element[] => {
-  return fields && values
-    ? Object.keys(values).reduce(
-        (prev, valueKey) =>
-          valueKey
-            ? [
-                ...prev,
-                getViewfield(
-                  valueKey,
-                  isGroupField(valueKey)
-                    ? fields[toFirstGroupFieldName(valueKey)]
-                    : fields[valueKey],
-                  values[valueKey]
-                )
-              ]
-            : prev,
-        [] as readonly JSX.Element[]
-      )
-    : [];
-};
 
 const ViewTemplate = ({
   data,
@@ -70,10 +30,11 @@ const ViewTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
+  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.view_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.view_title")} siteConfig={siteConfig} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{
@@ -135,7 +96,7 @@ const ViewTemplate = ({
           return (
             <>
               {isLoggedIn() && (
-                <div className="mb-4">
+                <div className="pl-lg-5">
                   <small>
                     <Link
                       to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
@@ -144,7 +105,7 @@ const ViewTemplate = ({
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
-                    <p className="alert alert-warning">
+                    <p className="alert alert-warning ml-lg-5">
                       {t("not_latest_version")}
                       <br />
                       <Link
@@ -156,15 +117,13 @@ const ViewTemplate = ({
                   )}
                 </div>
               )}
-              <table className="table table-hover table-bordered table-striped">
-                <tbody>
-                  {publishedNode &&
-                    renderViewFields(
-                      flattenFormFieldsWithKeys(form),
-                      flattenFormValues(publishedNode.content.values)
-                    )}
-                </tbody>
-              </table>
+              {publishedNode && (
+                <LoadableView
+                  node={publishedNode}
+                  form={form}
+                  values={publishedNode.content.values}
+                />
+              )}
             </>
           );
         }}

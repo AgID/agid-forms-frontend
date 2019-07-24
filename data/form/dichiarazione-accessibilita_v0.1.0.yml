@@ -4,7 +4,7 @@ language: it
 enabled: true
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Dichiarazione accessibilita ' + id"
+title_pattern: "'Dichiarazione accessibilita ' + this[\"website-name\"] + this[\"app-name\"]"
 sections:
 
   - name: section-0
@@ -39,6 +39,19 @@ sections:
             show_if: this["device-type"] == "website"
             required_if: this["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
+          - name: "app-name"
+            widget: text
+            title: Nome
+            description: inserisci il nome dell'applicazione
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
+          - name: "app-url"
+            widget: text
+            title: URL dell'applicazione
+            description: inserisci l'indirizzo
+            show_if: this["device-type"] == "mobile-app"
+            required_if: this["device-type"] == "mobile-app"
+            valid_if: Yup.string().url().validate(value)
 
   - name: section-1
     title: Sezione 1
@@ -46,8 +59,8 @@ sections:
       Contenuti in ottemperanza alla decisione di esecuzione UE 2018/1523.
 
     groups:
-      - name: content-generic
-        title: Stato di conformità
+      - name: content-compliance
+        title: stato di conformità
         fields:
           - name: "compliance-status"
             widget: radio
@@ -61,12 +74,12 @@ sections:
             required_if: "true"
 
       - name: content-not-accessible
-        title: Contenuti non accessibili
+        title: contenuti non accessibili
         fields:
           - name: "reason-42004"
             widget: checkbox
             title: Inosservanza della legge 4/2004
-          - name: "reason-422004-text"
+          - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: utilizzare un linguaggio descrittivo
@@ -74,7 +87,7 @@ sections:
             required_if: this["reason-42004"]
           - name: "reason-disproportionate-burden"
             widget: checkbox
-            title: onere sproporzionato
+            title: Onere sproporzionato
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
@@ -83,7 +96,7 @@ sections:
             required_if: this["reason-disproportionate-burden"]
           - name: "reason-no-law"
             widget: checkbox
-            title: il contenuto non rientra nell'ambito della legislazione applicabile
+            title: Il contenuto non rientra nell'ambito della legislazione applicabile
           - name: "reason-no-law-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
@@ -92,19 +105,18 @@ sections:
             required_if: this["reason-no-law"]
 
       - name: content-alt
-        title: Alternative accessibili
+        title: alternative accessibili
         fields:
           - name: "accessible-alternatives"
             widget: textarea
             title: Indicare le alternative accessibili
             description: utilizzare un linguaggio descrittivo
 
-      - name: content-other
-        title: informazioni generali
+      - name: content-methodology
+        title: metodologia utilizzata per la stesura della dichiarazione
         fields:
           - name: "methodology"
             widget: radio
-            title: Metodologia utilizzata per la stesura della dichiarazione
             options:
               - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
                 value: ue
@@ -112,8 +124,8 @@ sections:
                 value: other
             required_if: "true"
 
-      - name: Feedback e recapiti
-        title: informazioni generali
+      - name: feedback-and-contacts
+        title: feedback e contatti
         fields:
           - name: "feedback"
             widget: textarea
@@ -158,19 +170,19 @@ sections:
         title: informazioni sull'organico e la struttura
         fields:
           - name: people-disabled
-            title: dipendenti disabili
+            title: Dipendenti disabili
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
-            title: postazioni per disabili
+            title: Postazioni per disabili
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-expenditure
-            title: spesa prevista nel bilancio
+            title: Spesa prevista nel bilancio
             description: in percentuale
             widget: number
             required_if: "true"

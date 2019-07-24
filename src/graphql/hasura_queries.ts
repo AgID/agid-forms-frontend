@@ -38,6 +38,46 @@ export const GET_IPA = gql`
   }
 `;
 
+export const NodeFragment = gql`
+  fragment NodeFragment on node {
+    id
+    created_at
+    updated_at
+    title
+    node_group {
+      group
+      group_ipa_pa {
+        des_amm
+      }
+    }
+    content
+    language
+    status
+    version
+    type
+  }
+`;
+
+export const NodeRevisionFragment = gql`
+  fragment NodeRevisionFragment on node_revision {
+    id
+    created_at
+    updated_at
+    title
+    node_revision_group {
+      group
+      group_ipa_pa {
+        des_amm
+      }
+    }
+    content
+    language
+    status
+    version
+    type
+  }
+`;
+
 export const UPSERT_NODE = gql`
   mutation UpsertNode($node: node_insert_input!) {
     insert_node(
@@ -48,48 +88,30 @@ export const UPSERT_NODE = gql`
       }
     ) {
       returning {
-        id
-        type
-        created_at
-        updated_at
-        language
-        status
-        title
-        content
-        version
+        ...NodeFragment
       }
     }
   }
+
+  ${NodeFragment}
 `;
 
 export const GET_LATEST_NODE_WITH_PUBLISHED = gql`
   query GetNode($id: uuid!) {
     latest: node(where: { id: { _eq: $id } }, limit: 1) {
-      id
-      created_at
-      updated_at
-      title
-      content
-      language
-      status
-      version
-      type
+      ...NodeFragment
       published: revisions(
         where: { status: { _eq: "published" } }
         order_by: { version: desc }
         limit: 1
       ) {
-        id
-        created_at
-        updated_at
-        title
-        content
-        language
-        status
-        version
+        ...NodeRevisionFragment
       }
     }
   }
+
+  ${NodeFragment}
+  ${NodeRevisionFragment}
 `;
 
 export const GET_NODE_REVISION_WITH_PUBLISHED = gql`
@@ -98,31 +120,18 @@ export const GET_NODE_REVISION_WITH_PUBLISHED = gql`
       where: { _and: { id: { _eq: $id }, version: { _eq: $version } } }
       limit: 1
     ) {
-      id
-      created_at
-      updated_at
-      title
-      content
-      language
-      status
-      version
-      type
+      ...NodeRevisionFragment
     }
     published: node_revision(
       where: { _and: { id: { _eq: $id }, status: { _eq: "published" } } }
       order_by: { version: desc }
       limit: 1
     ) {
-      id
-      created_at
-      updated_at
-      title
-      content
-      language
-      status
-      version
+      ...NodeRevisionFragment
     }
   }
+
+  ${NodeRevisionFragment}
 `;
 
 export const GET_USER_NODES = gql`
@@ -132,6 +141,7 @@ export const GET_USER_NODES = gql`
       created_at
       updated_at
       title
+      group
       language
       status
       version

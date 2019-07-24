@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
@@ -8,6 +9,7 @@ import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
 import BodyStyles from "../../components/BodyStyles";
+import LoadableView from "../../components/LoadableView";
 import {
   GetNodeRevision,
   GetNodeRevisionVariables
@@ -21,11 +23,6 @@ import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura_queries";
 import { isLoggedIn } from "../../utils/auth";
 
 import { useTranslation } from "react-i18next";
-import {
-  flattenFormFieldsWithKeys,
-  flattenFormValues
-} from "../../utils/forms";
-import { renderViewFields } from "./view-template";
 
 const RevisionTemplate = ({
   data,
@@ -39,10 +36,11 @@ const RevisionTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
+  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.revision_title")} meta={[]} keywords={[]} />
+      <SEO title={t("pages.revision_title")} siteConfig={siteConfig} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
         variables={{
@@ -100,7 +98,7 @@ const RevisionTemplate = ({
           return (
             <>
               {isLoggedIn() && (
-                <div className="mb-4">
+                <div className="pl-lg-5">
                   <small>
                     <Link
                       to={`/form/${nodeRevision.content.schema.id}/${nodeRevision.id}`}
@@ -109,7 +107,7 @@ const RevisionTemplate = ({
                     </Link>
                   </small>
                   {publishedNode && !isLatestPublishedVersion && (
-                    <p className="alert alert-warning">
+                    <p className="alert alert-warning ml-lg-5">
                       {t("not_published_version")}
                       <br />
                       <Link to={`/view/${publishedNode.id}`}>
@@ -119,15 +117,13 @@ const RevisionTemplate = ({
                   )}
                 </div>
               )}
-              <table className="table table-hover table-bordered table-striped">
-                <tbody>
-                  {nodeRevision &&
-                    renderViewFields(
-                      flattenFormFieldsWithKeys(form),
-                      flattenFormValues(nodeRevision.content.values)
-                    )}
-                </tbody>
-              </table>
+              {nodeRevision && (
+                <LoadableView
+                  node={nodeRevision}
+                  form={form}
+                  values={nodeRevision.content.values}
+                />
+              )}
             </>
           );
         }}

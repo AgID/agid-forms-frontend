@@ -9,7 +9,7 @@ import { FormConfig } from "../generated/graphql/FormConfig";
 // @ts-ignore
 import { PageConfigFragment } from "../graphql/gatsby_fragments";
 
-import FormTemplate from "./forms/form-template";
+import FormTemplate from "../templates/node/form-template";
 
 const Form = ({ data }: { data: FormConfig }) => (
   <Router>
