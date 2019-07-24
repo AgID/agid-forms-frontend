@@ -37,6 +37,9 @@ export const getFieldNameParts = (name: typeof GROUP_FIELD_PATTERN) => {
   return matches.slice(1);
 };
 
+/*
+ *  Used to get field templates for repeatable fields groups.
+ */
 export const toFirstGroupFieldName = (name: typeof GROUP_FIELD_PATTERN) => {
   const [groupName, , fieldName] = getFieldNameParts(name);
   return [groupName, "0", fieldName].join(".");
@@ -292,4 +295,14 @@ export function getFieldValue({
       return field.default;
   }
   return value;
+}
+
+/*
+ *  Works for radio buttons.
+ */
+export function getSelectedLabel(field: FieldT, value: string) {
+  const selectedItem = field.options
+    ? field.options.find(o => o && o.value === value)
+    : null;
+  return selectedItem ? selectedItem.label : null;
 }

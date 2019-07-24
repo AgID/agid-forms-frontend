@@ -115,14 +115,24 @@ sections:
       - name: content-methodology
         title: metodologia utilizzata per la stesura della dichiarazione
         fields:
-          - name: "methodology"
+          - name: methodology
             widget: radio
             options:
               - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
-                value: ue
+                value: methodology-ue
               - label: altre misure considerate appropriate dagli stati membri
-                value: other
+                value: methodology-other
             required_if: "true"
+          - name: "methodology-details"
+            widget: radio
+            title: modalità della valutazione
+            options:
+              - label: un'autovalutazione effettuata dall'ente pubblico
+                value: methodology-auto
+              - label: una valutazione effettuata da terzi, ad esempio una certificazione
+                value: methodology-third-party
+            show_if: this["methodology"] == "methodology-ue"
+            required_if: this["methodology"] == "methodology-ue"
 
       - name: feedback-and-contacts
         title: feedback e contatti

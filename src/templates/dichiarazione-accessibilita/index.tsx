@@ -9,7 +9,7 @@ import * as React from "react";
 import FormGroupTitle from "../../components/FormGroupTitle";
 import ViewGroup from "../../components/ViewGroup";
 import { GetNode_latest_published } from "../../generated/graphql/GetNode";
-import { FieldT, FormGroupT, FormT } from "../../utils/forms";
+import { FieldT, FormGroupT, FormT, getSelectedLabel } from "../../utils/forms";
 import { get } from "../../utils/safe_access";
 
 const InlineViewGroup = ({
@@ -45,11 +45,13 @@ const Groups: Record<
   ({
     group,
     values,
-    fields
+    fields,
+    node
   }: {
     group: FormGroupT;
     values: Record<string, string>;
     fields: Record<string, FieldT>;
+    node: GetNode_latest_published;
   }) => JSX.Element
 > = {
   "content-compliance": ({ group, values }) => {
@@ -108,7 +110,32 @@ const Groups: Record<
     ) : (
       <></>
     ),
-  "content-methodology": ViewGroup, // TODO
+  "content-methodology": ({ group, values, fields, node }) => {
+    return (
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
+        <p className="w-paragraph">
+          La dichiarazione è stata effettuata utilizzando{" "}
+          <strong>
+            {getSelectedLabel(fields.methodology, values.methodology)}
+          </strong>{" "}
+          mediante{" "}
+          <strong>
+            {getSelectedLabel(
+              fields["methodology-details"],
+              values["methodology-details"]
+            )}
+          </strong>{" "}
+          e aggiornata il {format(node.updated_at, "DD.MM.YYYY")} a seguito di
+          una revisione sostanziale{" "}
+          {values["device-type"] === "website"
+            ? "del sito web"
+            : "dell'applicazione mobile"}
+          .
+        </p>
+      </div>
+    );
+  },
   "feedback-and-contacts": ViewGroup,
   "implementation-procedure": ViewGroup,
   "application-information": InlineViewGroup,
@@ -210,6 +237,7 @@ const Template = ({
                   group={group}
                   values={values}
                   fields={fields}
+                  node={node}
                   key={group.name}
                 />
               ) : null;
