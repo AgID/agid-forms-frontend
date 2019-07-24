@@ -113,7 +113,25 @@ const Groups: Record<
   "implementation-procedure": ViewGroup,
   "application-information": InlineViewGroup,
   "application-org": InlineViewGroup,
-  "application-manager": ViewGroup
+  "application-manager": ({ group, values, fields }) => {
+    return (
+      <div className="mb-lg-5">
+        <FormGroupTitle title={group.title} />
+        <p className="w-paragraph">
+          {group.title}{" "}
+          <strong>
+            {values["manager-present"] ? "" : "non"}{" "}
+            {fields["manager-present"].title}
+          </strong>{" "}
+          e{values["manager-appointed"] ? "d" : ""}
+          <strong>
+            {values["manager-appointed"] ? "" : " non"}{" "}
+            {fields["manager-appointed"].title}
+          </strong>
+        </p>
+      </div>
+    );
+  }
 };
 
 const Template = ({
