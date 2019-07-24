@@ -24,7 +24,7 @@ export const HtmlField = ({
       {field.name && field.title && (
         <Label fieldName={field.name} title={field.title} isRequired={false} />
       )}
-      <p
+      <div
         className="w-paragraph"
         key={field.name!}
         dangerouslySetInnerHTML={{ __html: content }}
