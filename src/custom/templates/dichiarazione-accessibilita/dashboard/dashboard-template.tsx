@@ -12,8 +12,8 @@ import {
   GetUserNodes,
   GetUserNodesVariables
 } from "../../../../generated/graphql/GetUserNodes";
-import { getMenu, getSiteConfig } from "../../../../graphql/gatsby_fragments";
-import { GET_USER_NODES } from "../../../../graphql/hasura_queries";
+import { getMenu, getSiteConfig } from "../../../../graphql/gatsby";
+import { GET_USER_NODES } from "../../../../graphql/hasura";
 import { getSessionInfo } from "../../../../utils/auth";
 
 const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {

@@ -5,25 +5,15 @@
  * Adds: correct typings
  */
 
-const RNN_ORIG = Symbol();
 type RecursiveNonNullable1<T> = { [K in keyof T]: RecursiveNonNullable<T[K]> };
-type RecursiveNonNullable<T> = RecursiveNonNullable1<NonNullable<T>> & {
-  [RNN_ORIG]: T;
-};
+type RecursiveNonNullable<T> = RecursiveNonNullable1<NonNullable<T>>;
 
-// tslint:disable-next-line: no-commented-code
-// type StrictlyRequired<T> = {
-//   [P in keyof T]-?: T[P] extends object
-//     ? NonNullable<StrictlyRequired<T[P]>>
-//     : NonNullable<T[P]>;
-// };
-
-export function get<T, R extends { [RNN_ORIG]: unknown }>(
+export function get<T, R>(
   obj: T,
   fn: (obj: RecursiveNonNullable<T>) => R,
-  defaultValue?: Omit<R, typeof RNN_ORIG>,
+  defaultValue: NonNullable<R>,
   excludeNull = false
-) {
+): R {
   try {
     const result = fn(obj as any);
     const ret = excludeNull

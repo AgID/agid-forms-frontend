@@ -6,7 +6,7 @@ import {
   getSiteConfig,
   // @ts-ignore
   PageConfigFragment
-} from "../graphql/gatsby_fragments";
+} from "../graphql/gatsby";
 
 import { useTranslation } from "react-i18next";
 import BodyStyles from "../components/BodyStyles";

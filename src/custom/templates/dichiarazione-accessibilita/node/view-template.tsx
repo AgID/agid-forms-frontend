@@ -124,7 +124,7 @@ const Groups: Record<
           <strong>
             {getSelectedLabel(fields.methodology, values.methodology)}
           </strong>{" "}
-          mediante{" "}
+          {values["methodology-details"] && "mediante"}{" "}
           <strong>
             {getSelectedLabel(
               fields["methodology-details"],

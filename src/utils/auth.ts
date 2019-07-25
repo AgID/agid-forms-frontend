@@ -1,4 +1,4 @@
-import { LOGOUT } from "../graphql/backend_queries";
+import { LOGOUT } from "../graphql/backend";
 import { GraphqlClient } from "../graphql/client";
 
 export type SessionInfo = {

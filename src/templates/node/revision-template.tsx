@@ -14,12 +14,8 @@ import {
   GetNodeRevision,
   GetNodeRevisionVariables
 } from "../../generated/graphql/GetNodeRevision";
-import {
-  getForm,
-  getMenu,
-  getSiteConfig
-} from "../../graphql/gatsby_fragments";
-import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura_queries";
+import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
 import { useTranslation } from "react-i18next";

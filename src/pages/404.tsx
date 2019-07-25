@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import Layout from "../components/Layout";
 import SEO from "../components/Seo";
 import { NotFoundConfig } from "../generated/graphql/NotFoundConfig";
-import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import { getMenu, getSiteConfig } from "../graphql/gatsby";
 
 const NotFoundPage = ({ data }: { data: NotFoundConfig }) => {
   const { t } = useTranslation();

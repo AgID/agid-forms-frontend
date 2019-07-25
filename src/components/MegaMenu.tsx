@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownToggle
 } from "reactstrap";
-import { getMenu } from "../graphql/gatsby_fragments";
+import { getMenu } from "../graphql/gatsby";
 import Icon from "./Icon";
 
 type MegaMenuProps = {

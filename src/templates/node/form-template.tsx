@@ -29,15 +29,11 @@ import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import {
-  getForm,
-  getMenu,
-  getSiteConfig
-} from "../../graphql/gatsby_fragments";
+import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
 import {
   GET_LATEST_NODE_WITH_PUBLISHED,
   UPSERT_NODE
-} from "../../graphql/hasura_queries";
+} from "../../graphql/hasura";
 
 import { Trans, useTranslation } from "react-i18next";
 import ApolloErrors from "../../components/ApolloErrors";

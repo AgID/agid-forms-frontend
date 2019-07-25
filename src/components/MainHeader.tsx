@@ -3,11 +3,11 @@ import * as React from "react";
 
 import MegaMenu from "./MegaMenu";
 
-import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import { getMenu, getSiteConfig } from "../graphql/gatsby";
 import Icon from "./Icon";
 
 type MainHeaderProps = Pick<
-  ReturnType<typeof getSiteConfig>,
+  NonNullable<ReturnType<typeof getSiteConfig>>,
   "title" | "description" | "socialLinks"
 > & { menu: ReturnType<typeof getMenu>; organization: string };
 

@@ -10,13 +10,13 @@ import {
   getSiteConfig,
   // @ts-ignore
   PageConfigFragment
-} from "../graphql/gatsby_fragments";
+} from "../graphql/gatsby";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
 
 import { SearchIpa, SearchIpaVariables } from "../generated/graphql/SearchIpa";
-import { GET_SECRET, GET_TOKENS } from "../graphql/backend_queries";
-import { GET_IPA, SEARCH_IPA } from "../graphql/hasura_queries";
+import { GET_SECRET, GET_TOKENS } from "../graphql/backend";
+import { GET_IPA, SEARCH_IPA } from "../graphql/hasura";
 
 import { Mutation, MutationFn, Query } from "react-apollo";
 

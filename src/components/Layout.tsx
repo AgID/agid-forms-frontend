@@ -13,8 +13,9 @@ import SlimHeader from "./SlimHeader";
 import { navigate } from "gatsby";
 import { Trans } from "react-i18next";
 import { GraphqlClient } from "../graphql/client";
-import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import { getMenu, getSiteConfig } from "../graphql/gatsby";
 import { getSessionInfo, logout } from "../utils/auth";
+import { get } from "../utils/safe_access";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -24,6 +25,9 @@ type LayoutProps = {
 };
 
 const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
+  if (!siteConfig) {
+    return <p>missing site configuration.</p>;
+  }
   const sessionInfo = getSessionInfo();
   return (
     <>
@@ -43,7 +47,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           user={sessionInfo}
           onLogout={async () => {
             await logout(GraphqlClient);
-            navigate("/");
+            navigate(get(siteConfig, sc => sc.homepage, "/"));
           }}
         />
         <MainHeader
