@@ -27,9 +27,9 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
 
   const NewDeclCta = () => (
     <p>
-      <a href="/form/dichiarazione-accessibilita" className="btn btn-primary">
+      <Link to="/form/dichiarazione-accessibilita" className="btn btn-primary">
         {t("acc_decl.create_new_decl_cta")}
-      </a>
+      </Link>
     </p>
   );
 
@@ -42,6 +42,7 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
       <SEO title={t("pages.dashboard_title")} siteConfig={siteConfig} />
       <Query<GetUserAccessibilityDecl, GetUserAccessibilityDeclVariables>
         query={GET_USER_ACCESSIBILITY_DECLS}
+        fetchPolicy="network-only"
         variables={{
           userId: sessionInfo.userId
         }}

@@ -8,6 +8,7 @@ const IT = {
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
+  publish_node: "pubblica",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   errors: {
@@ -45,10 +46,10 @@ const IT = {
   logout: "logout",
   loading_data: "caricamento dei dati in corso...",
   not_latest_version:
-    "il nodo pubblicato non corrisponde alla sua ultima revisione.",
+    "alcune modifiche al contenuto non sono ancora state pubblicate.",
   not_published_version:
-    "il nodo visualizzato non corrisponde alla sua ultima revisione pubblicata.",
-  view_latest_version: "visualizza l'ultima versione (bozza) del contenuto",
+    "il contenuto visualizzato presenta alcune modifiche rispetto alla versione pubblicata.",
+  view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
     index_page_title: "Moduli",
