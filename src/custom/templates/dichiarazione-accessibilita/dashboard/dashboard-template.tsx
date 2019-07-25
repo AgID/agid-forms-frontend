@@ -5,16 +5,17 @@ import SEO from "../../../../components/Seo";
 
 import { Link } from "gatsby";
 
+import { format } from "date-fns";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import { DashboardConfig } from "../../../../generated/graphql/DashboardConfig";
 import {
-  GetUserNodes,
-  GetUserNodesVariables
-} from "../../../../generated/graphql/GetUserNodes";
+  GetUserAccessibilityDecl,
+  GetUserAccessibilityDeclVariables
+} from "../../../../generated/graphql/GetUserAccessibilityDecl";
 import { getMenu, getSiteConfig } from "../../../../graphql/gatsby";
-import { GET_USER_NODES } from "../../../../graphql/hasura";
 import { getSessionInfo } from "../../../../utils/auth";
+import { GET_USER_ACCESSIBILITY_DECLS } from "../../../graphql/hasura";
 
 const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
   const { t } = useTranslation();
@@ -23,6 +24,15 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
   if (!sessionInfo || !sessionInfo.userId) {
     return null;
   }
+
+  const NewDeclCta = () => (
+    <p>
+      <a href="/form/dichiarazione-accessibilita" className="btn btn-primary">
+        {t("acc_decl.create_new_decl_cta")}
+      </a>
+    </p>
+  );
+
   return (
     <Layout
       menu={getMenu(data)}
@@ -30,8 +40,8 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
       title={t("pages.dashboard_title")}
     >
       <SEO title={t("pages.dashboard_title")} siteConfig={siteConfig} />
-      <Query<GetUserNodes, GetUserNodesVariables>
-        query={GET_USER_NODES}
+      <Query<GetUserAccessibilityDecl, GetUserAccessibilityDeclVariables>
+        query={GET_USER_ACCESSIBILITY_DECLS}
         variables={{
           userId: sessionInfo.userId
         }}
@@ -52,54 +62,86 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
               </p>
             );
           }
-          if (!userNodes) {
+          if (userNodes && !userNodes.node[0]) {
             return (
-              <p>
-                {data}
-                {sessionInfo.userId}
-              </p>
+              <div className="p-lg-4">
+                <h2>{t("acc_decl.create_new_decl_title")}</h2>
+                <p className="w-paragraph mb-5">
+                  {t("acc_decl.create_new_decl_desc")}
+                </p>
+                <NewDeclCta />
+              </div>
             );
           }
           return (
-            <table className="table table-hover">
-              <thead className="lightgrey-bg-a3">
-                <tr>
-                  <th className="font-variant-small-caps">decl</th>
-                  <th className="font-variant-small-caps">type</th>
-                  <th className="font-variant-small-caps">created</th>
-                  <th className="font-variant-small-caps">updated</th>
-                  <th className="font-variant-small-caps">status</th>
-                  <th className="font-variant-small-caps">actions</th>
-                </tr>
-              </thead>
-              <tbody className="font-size-xs color-black font-weight-600">
-                {userNodes.node.map(node => {
-                  return (
-                    <tr key={node.id}>
-                      <td>
-                        {node.title}
-                        <br />
-                        <small>{node.id}</small>
-                      </td>
-                      <td>{node.type}</td>
-                      <td>{new Date(node.created_at).toLocaleDateString()}</td>
-                      <td>{new Date(node.updated_at).toLocaleDateString()}</td>
-                      <td>{node.status}</td>
-                      <td>
-                        <Link
-                          to={`/form/${node.type.replace("_", "-")}/${node.id}`}
-                        >
-                          edit
-                        </Link>{" "}
-                        <Link to={`/revision/${node.id}/${node.version}`}>
-                          view
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+            <div>
+              <NewDeclCta />
+              <table className="table table-hover">
+                <thead className="lightgrey-bg-a3">
+                  <tr>
+                    <th className="font-variant-small-caps">
+                      {t("acc_decl.device_type")}
+                    </th>
+                    <th className="font-variant-small-caps">{t("name")}</th>
+                    <th className="font-variant-small-caps">{t("outcome")}</th>
+                    <th className="font-variant-small-caps">
+                      {t("updated_at")}
+                    </th>
+                    <th className="font-variant-small-caps">{t("edit")}</th>
+                    <th className="font-variant-small-caps">{t("status")}</th>
+                  </tr>
+                </thead>
+                <tbody className="font-size-xs color-black font-weight-600">
+                  {userNodes &&
+                    userNodes.node.map(node => {
+                      return (
+                        <tr key={node.id}>
+                          <td>
+                            {node.content.values["device-type"] === "website"
+                              ? "sito"
+                              : "app"}
+                          </td>
+                          <td>
+                            {node.content.values["device-type"] === "website"
+                              ? node.content.values["website-name"]
+                              : node.content.values["app-name"]}
+                            <br />
+                            <small className="font-size-xxs">
+                              {node.content.values["device-type"] === "website"
+                                ? node.content.values["website-url"]
+                                : node.content.values["app-url"]}
+                            </small>
+                          </td>
+                          <td>
+                            {t(
+                              `acc_decl.${node.content.values["compliance-status"]}`
+                            )}
+                          </td>
+                          <td>{format(node.updated_at, "DD/MM/YYYY")}</td>
+                          <td>
+                            <Link
+                              to={`/form/${node.type!.replace("_", "-")}/${
+                                node.id
+                              }`}
+                            >
+                              {t("edit")}
+                            </Link>
+                          </td>
+                          <td>
+                            {node.status === "published" ? (
+                              <Link to={`/view/${node.id}`}>
+                                {t(`status_name.${node.status}`)}
+                              </Link>
+                            ) : (
+                              t(`status_name.${node.status}`)
+                            )}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+            </div>
           );
         }}
       </Query>

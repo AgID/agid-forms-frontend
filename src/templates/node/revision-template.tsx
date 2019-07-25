@@ -103,7 +103,7 @@ const RevisionTemplate = ({
                     </Link>
                   </small>
                   {publishedNode && !isLatestPublishedVersion && (
-                    <p className="alert alert-warning ml-lg-5">
+                    <p className="alert alert-warning mt-3">
                       {t("not_published_version")}
                       <br />
                       <Link to={`/view/${publishedNode.id}`}>

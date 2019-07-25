@@ -101,7 +101,7 @@ const ViewTemplate = ({
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
-                    <p className="alert alert-warning ml-lg-5">
+                    <p className="alert alert-warning mt-3">
                       {t("not_latest_version")}
                       <br />
                       <Link

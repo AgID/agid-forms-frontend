@@ -1,5 +1,10 @@
 const IT = {
+  name: "nome",
+  outcome: "esito",
+  revision: "revisione",
+  status: "stato",
   edit: "modifica",
+  updated_at: "aggiornato il",
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
@@ -39,11 +44,11 @@ const IT = {
   login: "accedi",
   logout: "logout",
   loading_data: "caricamento dei dati in corso...",
-  not_lastest_version:
+  not_latest_version:
     "il nodo pubblicato non corrisponde alla sua ultima revisione.",
   not_published_version:
-    "il nodo pubblicato non corrisponde alla sua ultima revisione.",
-  view_latest_version: "visualizza l'ultima versione del contenuto",
+    "il nodo visualizzato non corrisponde alla sua ultima revisione pubblicata.",
+  view_latest_version: "visualizza l'ultima versione (bozza) del contenuto",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
     index_page_title: "Moduli",
@@ -59,7 +64,13 @@ const IT = {
     goto_footer: "vai al footer",
     goto_main: "vai al contenuto principale"
   },
-  toggle_navigation: "link di navigazione"
+  toggle_navigation: "link di navigazione",
+  status_name: {
+    draft: "bozza",
+    in_review: "in revisione",
+    published: "pubblicato",
+    archived: "archiviato"
+  }
 };
 
 export default IT;
