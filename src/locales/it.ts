@@ -34,7 +34,7 @@ const IT = {
     login_as: "accedi come {{selectedPa}}",
     // tslint:disable-next-line: no-hardcoded-credentials
     not_has_password: "devo ancora ottenere la password",
-    select_pa: "seleziona un'amministrazione:",
+    select_pa: "Seleziona un'amministrazione",
     select_pa_hint:
       "puoi cercare l'amministrazione per nome o inserendo direttamente il codice ipa",
     rtd_not_found:

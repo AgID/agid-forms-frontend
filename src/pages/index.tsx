@@ -13,10 +13,10 @@ import {
 } from "../graphql/gatsby";
 
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-
 import { SearchIpa, SearchIpaVariables } from "../generated/graphql/SearchIpa";
 import { GET_SECRET, GET_TOKENS } from "../graphql/backend";
 import { GET_IPA, SEARCH_IPA } from "../graphql/hasura";
+import { capitalizeFirst } from "../utils/strings";
 
 import { Mutation, MutationFn, Query } from "react-apollo";
 
@@ -224,6 +224,7 @@ const PaSelectionComponent = ({
 
     <SelectBase<SelectedValueT>
       name="pa"
+      className="react-select"
       cacheOptions={true}
       defaultOptions={[]}
       isLoading={loading}
@@ -409,34 +410,37 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
           <Trans i18nKey="auth.expired_session" />
         </p>
       )}
-      <SelectOrganizationConnectedComponent
-        selectedPa={selectedPa}
-        setHasSecret={setHasSecret}
-        setSelectedPa={setSelectedPa}
-      />
-      {false === hasSecret && (
-        <GetSecretConnectedComponent selectedPa={selectedPa} />
-      )}
-      {selectedPa && hasSecret && (
-        <LoginButtonConnectedComponent
-          secret={secret}
+      <div>
+        <h2>{capitalizeFirst(t("login"))}</h2>
+        <SelectOrganizationConnectedComponent
           selectedPa={selectedPa}
-          setSecret={setSecret}
-          onStoreTokens={tokens => {
-            storeTokens(
-              tokens.post_auth_login_ipa_code.backend_token,
-              tokens.post_auth_login_ipa_code.graphql_token
-            );
-            storeSessionInfo({
-              userId: tokens.post_auth_login_ipa_code.user.id,
-              userEmail: tokens.post_auth_login_ipa_code.user.email,
-              organizationName: selectedPa.label,
-              organizationCode: selectedPa.value
-            });
-            navigate("/actions");
-          }}
+          setHasSecret={setHasSecret}
+          setSelectedPa={setSelectedPa}
         />
-      )}
+        {false === hasSecret && (
+          <GetSecretConnectedComponent selectedPa={selectedPa} />
+        )}
+        {selectedPa && hasSecret && (
+          <LoginButtonConnectedComponent
+            secret={secret}
+            selectedPa={selectedPa}
+            setSecret={setSecret}
+            onStoreTokens={tokens => {
+              storeTokens(
+                tokens.post_auth_login_ipa_code.backend_token,
+                tokens.post_auth_login_ipa_code.graphql_token
+              );
+              storeSessionInfo({
+                userId: tokens.post_auth_login_ipa_code.user.id,
+                userEmail: tokens.post_auth_login_ipa_code.user.email,
+                organizationName: selectedPa.label,
+                organizationCode: selectedPa.value
+              });
+              navigate("/actions");
+            }}
+          />
+        )}
+      </div>
     </Layout>
   );
 };
