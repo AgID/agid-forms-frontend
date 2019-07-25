@@ -61,7 +61,7 @@ const LoadableView = ({
   const flattenedValues = flattenFormValues(values);
 
   const LoadableTemplate = Loadable({
-    loader: () => import(`../templates/${form.id}`),
+    loader: () => import(`../custom/templates/${form.id}/node/view-template`),
     render: (loaded, _) => {
       const Template = loaded.default;
       return (

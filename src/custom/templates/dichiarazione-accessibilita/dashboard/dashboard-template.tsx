@@ -1,22 +1,22 @@
 import * as React from "react";
 
-import Layout from "../../components/Layout";
-import SEO from "../../components/Seo";
+import Layout from "../../../../components/Layout";
+import SEO from "../../../../components/Seo";
 
 import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
-import { DashboardConfig } from "../../generated/graphql/DashboardConfig";
+import { DashboardConfig } from "../../../../generated/graphql/DashboardConfig";
 import {
   GetUserNodes,
   GetUserNodesVariables
-} from "../../generated/graphql/GetUserNodes";
-import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
-import { GET_USER_NODES } from "../../graphql/hasura_queries";
-import { getSessionInfo } from "../../utils/auth";
+} from "../../../../generated/graphql/GetUserNodes";
+import { getMenu, getSiteConfig } from "../../../../graphql/gatsby_fragments";
+import { GET_USER_NODES } from "../../../../graphql/hasura_queries";
+import { getSessionInfo } from "../../../../utils/auth";
 
-const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
+const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
   const { t } = useTranslation();
   const siteConfig = getSiteConfig(data);
   const sessionInfo = getSessionInfo();
@@ -64,7 +64,7 @@ const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
             <table className="table table-hover">
               <thead className="lightgrey-bg-a3">
                 <tr>
-                  <th className="font-variant-small-caps">title</th>
+                  <th className="font-variant-small-caps">decl</th>
                   <th className="font-variant-small-caps">type</th>
                   <th className="font-variant-small-caps">created</th>
                   <th className="font-variant-small-caps">updated</th>
@@ -107,4 +107,4 @@ const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
   );
 };
 
-export default DashboardTemplate;
+export default DashboardDeclTemplate;

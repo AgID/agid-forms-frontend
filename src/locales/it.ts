@@ -46,13 +46,13 @@ const IT = {
   view_latest_version: "visualizza l'ultima versione del contenuto",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "moduli",
-    action_page_title: "moduli",
-    dashboard_title: "dashboard",
-    notfound_page_title: "pagina non trovata",
-    notfound_page_text: "pagina non trovata",
-    revision_title: "visualizza la revisione del contenuto",
-    view_title: "visualizza il contenuto"
+    index_page_title: "Moduli",
+    action_page_title: "Moduli",
+    dashboard_title: "Dashboard",
+    notfound_page_title: "Pagina non trovata",
+    notfound_page_text: "Pagina non trovata",
+    revision_title: "Visualizza la revisione del contenuto",
+    view_title: "Visualizza il contenuto"
   },
   sending_data: "invio dei dati in corso...",
   skiplinks: {

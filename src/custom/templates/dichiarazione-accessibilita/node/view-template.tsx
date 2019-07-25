@@ -6,11 +6,16 @@
 import { format } from "date-fns";
 import * as React from "react";
 
-import FormGroupTitle from "../../components/FormGroupTitle";
-import ViewGroup from "../../components/ViewGroup";
-import { GetNode_latest_published } from "../../generated/graphql/GetNode";
-import { FieldT, FormGroupT, FormT, getSelectedLabel } from "../../utils/forms";
-import { get } from "../../utils/safe_access";
+import FormGroupTitle from "../../../../components/FormGroupTitle";
+import ViewGroup from "../../../../components/ViewGroup";
+import { GetNode_latest_published } from "../../../../generated/graphql/GetNode";
+import {
+  FieldT,
+  FormGroupT,
+  FormT,
+  getSelectedLabel
+} from "../../../../utils/forms";
+import { get } from "../../../../utils/safe_access";
 
 const InlineViewGroup = ({
   group,

@@ -387,15 +387,15 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
 
+  const siteConfig = getSiteConfig(data);
+
   if (isLoggedIn()) {
-    navigate("/dashboard");
+    navigate(siteConfig && siteConfig.homepage ? siteConfig.homepage : "/");
     return null;
   }
 
   const isSessionExpired =
     window.location.search.indexOf("session-expired") !== -1;
-
-  const siteConfig = getSiteConfig(data);
 
   return (
     <Layout

@@ -47,16 +47,22 @@ module.exports = {
         destination: "/images"
       }
     },
+    // {
+    //   resolve: `gatsby-source-filesystem`,
+    //   options: {
+    //     path: `${__dirname}/content`,
+    //     name: `markdown-pages`
+    //   }
+    // },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: `gatsby-plugin-page-creator`,
       options: {
-        path: `${__dirname}/src/pages`,
-        name: `markdown-pages`
+        path: `${__dirname}/src/custom/pages`
       }
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/form/*`, `/view/*`, `/revision/*`, `/user/*`] }
+      options: { prefixes: [`/form/*`, `/view/*`, `/revision/*`] }
     },
     {
       resolve: "gatsby-plugin-extract-schema",

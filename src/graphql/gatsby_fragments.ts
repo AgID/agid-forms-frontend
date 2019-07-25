@@ -1,6 +1,10 @@
 import { graphql } from "gatsby";
 import { FormConfig } from "../generated/graphql/FormConfig";
-import { PageConfig } from "../generated/graphql/PageConfig";
+import {
+  PageConfig,
+  PageConfig_menu_edges_node_menu,
+  PageConfig_siteConfig_edges_node
+} from "../generated/graphql/PageConfig";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
 import { FormT } from "../utils/forms";
 
@@ -64,10 +68,21 @@ export const PageConfigFragment = graphql`
   }
 `;
 
-export const getMenu = (data: PageConfig) => data.menu!.edges[0].node.menu;
+export const getMenu = (
+  data: PageConfig
+): ReadonlyArray<PageConfig_menu_edges_node_menu | null> | null =>
+  data.menu && Array.isArray(data.menu.edges) && data.menu.edges[0]
+    ? data.menu.edges[0].node.menu
+    : null;
 
-export const getSiteConfig = (data: PageConfig) =>
-  data.siteConfig!.edges[0].node;
+export const getSiteConfig = (
+  data: PageConfig
+): PageConfig_siteConfig_edges_node | null =>
+  data.siteConfig &&
+  Array.isArray(data.siteConfig.edges) &&
+  data.siteConfig.edges[0]
+    ? data.siteConfig.edges[0].node
+    : null;
 
 export function getForm(
   data: FormConfig | ViewConfig,
@@ -95,6 +110,7 @@ export const SiteConfigFragment = graphql`
         author
         authorLogo
         authorUrl
+        homepage
         owners {
           name
           url
