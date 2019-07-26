@@ -10,10 +10,12 @@ import {
   DropdownToggle
 } from "reactstrap";
 import { getMenu } from "../graphql/gatsby";
+import { getSessionInfo, userHasAnyRole } from "../utils/auth";
 import Icon from "./Icon";
 
 type MegaMenuProps = {
   menu: ReturnType<typeof getMenu>;
+  user: ReturnType<typeof getSessionInfo>;
 };
 
 const BACKGROUND_COLOR = "#ffffff";
@@ -44,9 +46,9 @@ const dropdownModifiers = (isOffcanvasOpen: boolean) => ({
   }
 });
 
-export const MegaMenu = ({ menu }: MegaMenuProps) => {
+export const MegaMenu = ({ menu, user }: MegaMenuProps) => {
   if (!menu) {
-    return <></>;
+    return null;
   }
   const [isOffcanvasOpen, setIsOffcanvasOpen] = React.useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = React.useState({} as Record<
@@ -103,6 +105,10 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                 return (
                   menuItem &&
                   menuItem.name &&
+                  userHasAnyRole(
+                    user,
+                    (menuItem.roles as ReadonlyArray<string>) || []
+                  ) &&
                   // TODO: remove cast
                   ((menuItem as any).subtree ? (
                     <Dropdown
@@ -165,14 +171,19 @@ export const MegaMenu = ({ menu }: MegaMenuProps) => {
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
-                    <li className="nav-item megamenu" key={menuItem.slug!}>
-                      <Link
-                        to={menuItem.slug!}
-                        className="nav-link megamenu-top-link font-weight-600"
-                      >
-                        {t(menuItem.name)}
-                      </Link>
-                    </li>
+                    userHasAnyRole(
+                      user,
+                      (menuItem.roles as ReadonlyArray<string>) || []
+                    ) && (
+                      <li className="nav-item megamenu" key={menuItem.slug!}>
+                        <Link
+                          to={menuItem.slug!}
+                          className="nav-link megamenu-top-link font-weight-600"
+                        >
+                          {t(menuItem.name)}
+                        </Link>
+                      </li>
+                    )
                   ))
                 );
               })}

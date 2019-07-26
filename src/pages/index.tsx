@@ -40,6 +40,7 @@ import {
 } from "../generated/graphql/PostAuthLoginIpaCode";
 import { isLoggedIn, storeSessionInfo, storeTokens } from "../utils/auth";
 import { isTooManyRequestError } from "../utils/errors";
+import { get } from "../utils/safe_access";
 
 type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 
@@ -436,7 +437,7 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
                 organizationName: selectedPa.label,
                 organizationCode: selectedPa.value
               });
-              navigate("/actions");
+              navigate(get(siteConfig, s => s.homepage, ""));
             }}
           />
         )}

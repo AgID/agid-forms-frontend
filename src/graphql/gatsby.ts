@@ -61,7 +61,7 @@ export const PageConfigFragment = graphql`
         menu {
           name
           slug
-          authenticated
+          roles
         }
       }
     }
