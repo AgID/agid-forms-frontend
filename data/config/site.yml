@@ -25,9 +25,9 @@ footerLinks:
   - name: Note legali
     url: /note-legali
 socialLinks:
-  # - name: Facebook
-  #   url: https://www.facebook.com/AgIDGovIT
-  #   icon: facebook
+  - name: Facebook
+    url: https://www.facebook.com/AgIDGovIT
+    icon: facebook
   # - name: Twitter
   #   url: https://twitter.com/AgidGov
   #   icon: twitter
