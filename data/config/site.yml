@@ -4,6 +4,7 @@ author: Agenzia per l'Italia Digitale
 authorLogo: "/images/logo-agid.svg"
 keywords: Agenzia per l'Italia Digitale, Dichiarazione Accessibilità
 authorUrl: https://www.agid.gov.it
+homepage: /dashboard/dichiarazione-accessibilita
 owners:
   - name: AGID
     url: https://www.agid.gov.it
@@ -24,18 +25,18 @@ footerLinks:
   - name: Note legali
     url: /note-legali
 socialLinks:
-  - name: Facebook
-    url: https://www.facebook.com/AgIDGovIT
-    icon: facebook
-  - name: Twitter
-    url: https://twitter.com/AgidGov
-    icon: twitter
-  - name: Youtube
-    url: https://www.youtube.com/channel/UCxJmOWf__YcLgB19gy5dGQQ
-    icon: youtube
-  - name: Medium
-    url: https://medium.com/@AgidGov
-    icon: medium
+  # - name: Facebook
+  #   url: https://www.facebook.com/AgIDGovIT
+  #   icon: facebook
+  # - name: Twitter
+  #   url: https://twitter.com/AgidGov
+  #   icon: twitter
+  # - name: Youtube
+  #   url: https://www.youtube.com/channel/UCxJmOWf__YcLgB19gy5dGQQ
+  #   icon: youtube
+  # - name: Medium
+  #   url: https://medium.com/@AgidGov
+  #   icon: medium
 defaultLanguage: ita
 languages:
   - name: ita

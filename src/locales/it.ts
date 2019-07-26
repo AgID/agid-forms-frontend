@@ -1,8 +1,14 @@
 const IT = {
+  name: "nome",
+  outcome: "esito",
+  revision: "revisione",
+  status: "stato",
   edit: "modifica",
+  updated_at: "aggiornato il",
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
+  publish_node: "pubblica",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   errors: {
@@ -28,7 +34,7 @@ const IT = {
     login_as: "accedi come {{selectedPa}}",
     // tslint:disable-next-line: no-hardcoded-credentials
     not_has_password: "devo ancora ottenere la password",
-    select_pa: "seleziona un'amministrazione:",
+    select_pa: "Seleziona un'amministrazione",
     select_pa_hint:
       "puoi cercare l'amministrazione per nome o inserendo direttamente il codice ipa",
     rtd_not_found:
@@ -39,27 +45,33 @@ const IT = {
   login: "accedi",
   logout: "logout",
   loading_data: "caricamento dei dati in corso...",
-  not_lastest_version:
-    "il nodo pubblicato non corrisponde alla sua ultima revisione.",
+  not_latest_version:
+    "alcune modifiche al contenuto non sono ancora state pubblicate.",
   not_published_version:
-    "il nodo pubblicato non corrisponde alla sua ultima revisione.",
-  view_latest_version: "visualizza l'ultima versione del contenuto",
+    "il contenuto visualizzato presenta alcune modifiche rispetto alla versione pubblicata.",
+  view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "moduli",
-    action_page_title: "moduli",
-    dashboard_title: "dashboard",
-    notfound_page_title: "pagina non trovata",
-    notfound_page_text: "pagina non trovata",
-    revision_title: "visualizza la revisione del contenuto",
-    view_title: "visualizza il contenuto"
+    index_page_title: "Moduli",
+    action_page_title: "Moduli",
+    dashboard_title: "Dashboard",
+    notfound_page_title: "Pagina non trovata",
+    notfound_page_text: "Pagina non trovata",
+    revision_title: "Visualizza la revisione del contenuto",
+    view_title: "Visualizza il contenuto"
   },
   sending_data: "invio dei dati in corso...",
   skiplinks: {
     goto_footer: "vai al footer",
     goto_main: "vai al contenuto principale"
   },
-  toggle_navigation: "link di navigazione"
+  toggle_navigation: "link di navigazione",
+  status_name: {
+    draft: "bozza",
+    in_review: "in revisione",
+    published: "pubblicato",
+    archived: "archiviato"
+  }
 };
 
 export default IT;

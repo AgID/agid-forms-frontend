@@ -1463,6 +1463,323 @@ enum language_update_column {
   language
 }
 
+"""
+columns and relationships of "last_published_or_draft"
+"""
+type last_published_or_draft {
+  content(
+    """JSON select path"""
+    path: String
+  ): jsonb
+  created_at: timestamptz
+  group: String
+  id: uuid
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+  version: Int
+}
+
+"""
+aggregated selection of "last_published_or_draft"
+"""
+type last_published_or_draft_aggregate {
+  aggregate: last_published_or_draft_aggregate_fields
+  nodes: [last_published_or_draft!]!
+}
+
+"""
+aggregate fields of "last_published_or_draft"
+"""
+type last_published_or_draft_aggregate_fields {
+  avg: last_published_or_draft_avg_fields
+  count(columns: [last_published_or_draft_select_column!], distinct: Boolean): Int
+  max: last_published_or_draft_max_fields
+  min: last_published_or_draft_min_fields
+  stddev: last_published_or_draft_stddev_fields
+  stddev_pop: last_published_or_draft_stddev_pop_fields
+  stddev_samp: last_published_or_draft_stddev_samp_fields
+  sum: last_published_or_draft_sum_fields
+  var_pop: last_published_or_draft_var_pop_fields
+  var_samp: last_published_or_draft_var_samp_fields
+  variance: last_published_or_draft_variance_fields
+}
+
+"""
+order by aggregate values of table "last_published_or_draft"
+"""
+input last_published_or_draft_aggregate_order_by {
+  avg: last_published_or_draft_avg_order_by
+  count: order_by
+  max: last_published_or_draft_max_order_by
+  min: last_published_or_draft_min_order_by
+  stddev: last_published_or_draft_stddev_order_by
+  stddev_pop: last_published_or_draft_stddev_pop_order_by
+  stddev_samp: last_published_or_draft_stddev_samp_order_by
+  sum: last_published_or_draft_sum_order_by
+  var_pop: last_published_or_draft_var_pop_order_by
+  var_samp: last_published_or_draft_var_samp_order_by
+  variance: last_published_or_draft_variance_order_by
+}
+
+"""append existing jsonb value of filtered columns with new jsonb value"""
+input last_published_or_draft_append_input {
+  content: jsonb
+}
+
+"""aggregate avg on columns"""
+type last_published_or_draft_avg_fields {
+  version: Float
+}
+
+"""
+order by avg() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_avg_order_by {
+  version: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "last_published_or_draft". All fields are combined with a logical 'AND'.
+"""
+input last_published_or_draft_bool_exp {
+  _and: [last_published_or_draft_bool_exp]
+  _not: last_published_or_draft_bool_exp
+  _or: [last_published_or_draft_bool_exp]
+  content: jsonb_comparison_exp
+  created_at: timestamptz_comparison_exp
+  group: text_comparison_exp
+  id: uuid_comparison_exp
+  language: text_comparison_exp
+  status: text_comparison_exp
+  title: text_comparison_exp
+  type: text_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user_id: uuid_comparison_exp
+  version: integer_comparison_exp
+}
+
+"""
+delete the field or element with specified path (for JSON arrays, negative integers count from the end)
+"""
+input last_published_or_draft_delete_at_path_input {
+  content: [String]
+}
+
+"""
+delete the array element with specified index (negative integers count from the
+end). throws an error if top level container is not an array
+"""
+input last_published_or_draft_delete_elem_input {
+  content: Int
+}
+
+"""
+delete key/value pair or string element. key/value pairs are matched based on their key value
+"""
+input last_published_or_draft_delete_key_input {
+  content: String
+}
+
+"""aggregate max on columns"""
+type last_published_or_draft_max_fields {
+  created_at: timestamptz
+  group: String
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+"""
+order by max() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_max_order_by {
+  created_at: order_by
+  group: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+"""aggregate min on columns"""
+type last_published_or_draft_min_fields {
+  created_at: timestamptz
+  group: String
+  language: String
+  status: String
+  title: String
+  type: String
+  updated_at: timestamptz
+  version: Int
+}
+
+"""
+order by min() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_min_order_by {
+  created_at: order_by
+  group: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  version: order_by
+}
+
+"""
+ordering options when selecting data from "last_published_or_draft"
+"""
+input last_published_or_draft_order_by {
+  content: order_by
+  created_at: order_by
+  group: order_by
+  id: order_by
+  language: order_by
+  status: order_by
+  title: order_by
+  type: order_by
+  updated_at: order_by
+  user_id: order_by
+  version: order_by
+}
+
+"""prepend existing jsonb value of filtered columns with new jsonb value"""
+input last_published_or_draft_prepend_input {
+  content: jsonb
+}
+
+"""
+select columns of table "last_published_or_draft"
+"""
+enum last_published_or_draft_select_column {
+  """column name"""
+  content
+
+  """column name"""
+  created_at
+
+  """column name"""
+  group
+
+  """column name"""
+  id
+
+  """column name"""
+  language
+
+  """column name"""
+  status
+
+  """column name"""
+  title
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
+
+  """column name"""
+  version
+}
+
+"""aggregate stddev on columns"""
+type last_published_or_draft_stddev_fields {
+  version: Float
+}
+
+"""
+order by stddev() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_stddev_order_by {
+  version: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type last_published_or_draft_stddev_pop_fields {
+  version: Float
+}
+
+"""
+order by stddev_pop() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_stddev_pop_order_by {
+  version: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type last_published_or_draft_stddev_samp_fields {
+  version: Float
+}
+
+"""
+order by stddev_samp() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_stddev_samp_order_by {
+  version: order_by
+}
+
+"""aggregate sum on columns"""
+type last_published_or_draft_sum_fields {
+  version: Int
+}
+
+"""
+order by sum() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_sum_order_by {
+  version: order_by
+}
+
+"""aggregate var_pop on columns"""
+type last_published_or_draft_var_pop_fields {
+  version: Float
+}
+
+"""
+order by var_pop() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_var_pop_order_by {
+  version: order_by
+}
+
+"""aggregate var_samp on columns"""
+type last_published_or_draft_var_samp_fields {
+  version: Float
+}
+
+"""
+order by var_samp() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_var_samp_order_by {
+  version: order_by
+}
+
+"""aggregate variance on columns"""
+type last_published_or_draft_variance_fields {
+  version: Float
+}
+
+"""
+order by variance() on columns of table "last_published_or_draft"
+"""
+input last_published_or_draft_variance_order_by {
+  version: order_by
+}
+
 """mutation root"""
 type mutation_root {
   """
@@ -3400,6 +3717,46 @@ type query_root {
   language_by_pk(language: String!): language
 
   """
+  fetch data from the table: "last_published_or_draft"
+  """
+  last_published_or_draft(
+    """distinct select on columns"""
+    distinct_on: [last_published_or_draft_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [last_published_or_draft_order_by!]
+
+    """filter the rows returned"""
+    where: last_published_or_draft_bool_exp
+  ): [last_published_or_draft!]!
+
+  """
+  fetch aggregated fields from the table: "last_published_or_draft"
+  """
+  last_published_or_draft_aggregate(
+    """distinct select on columns"""
+    distinct_on: [last_published_or_draft_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [last_published_or_draft_order_by!]
+
+    """filter the rows returned"""
+    where: last_published_or_draft_bool_exp
+  ): last_published_or_draft_aggregate!
+
+  """
   fetch data from the table: "node"
   """
   node(
@@ -4342,6 +4699,46 @@ type subscription_root {
 
   """fetch data from the table: "language" using primary key columns"""
   language_by_pk(language: String!): language
+
+  """
+  fetch data from the table: "last_published_or_draft"
+  """
+  last_published_or_draft(
+    """distinct select on columns"""
+    distinct_on: [last_published_or_draft_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [last_published_or_draft_order_by!]
+
+    """filter the rows returned"""
+    where: last_published_or_draft_bool_exp
+  ): [last_published_or_draft!]!
+
+  """
+  fetch aggregated fields from the table: "last_published_or_draft"
+  """
+  last_published_or_draft_aggregate(
+    """distinct select on columns"""
+    distinct_on: [last_published_or_draft_select_column!]
+
+    """limit the nuber of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [last_published_or_draft_order_by!]
+
+    """filter the rows returned"""
+    where: last_published_or_draft_bool_exp
+  ): last_published_or_draft_aggregate!
 
   """
   fetch data from the table: "node"

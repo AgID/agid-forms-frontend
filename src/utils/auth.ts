@@ -1,5 +1,9 @@
-import { LOGOUT } from "../graphql/backend_queries";
+import { LOGOUT } from "../graphql/backend";
 import { GraphqlClient } from "../graphql/client";
+import { intersection } from "../utils/arrays";
+
+const ANONYMOUS_ROLE = "anonymous";
+const AUTHENTICATED_ROLE = "authenticated";
 
 export type SessionInfo = {
   userId: string;
@@ -37,6 +41,19 @@ export const storeSessionInfo = (user: SessionInfo) => {
 export const getSessionInfo = (): SessionInfo | null => {
   const userStr = localStorage.getItem("user");
   return userStr ? JSON.parse(userStr) : null;
+};
+
+// TODO: get user roles from session variable (local storage)
+// https://www.pivotaltracker.com/story/show/167533057
+export const getUserRoles = (_: SessionInfo | null): ReadonlyArray<string> => {
+  return isLoggedIn() ? [AUTHENTICATED_ROLE] : [ANONYMOUS_ROLE];
+};
+
+export const userHasAnyRole = (
+  user: SessionInfo | null,
+  roles: ReadonlyArray<string>
+) => {
+  return intersection(getUserRoles(user), roles)[0];
 };
 
 export const logout = async (client: typeof GraphqlClient) => {

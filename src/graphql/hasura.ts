@@ -96,6 +96,20 @@ export const UPSERT_NODE = gql`
   ${NodeFragment}
 `;
 
+export const PUBLISH_NODE = gql`
+  mutation PublishNode($id: uuid!, $version: Int!) {
+    update_node(
+      where: { id: { _eq: $id } }
+      _set: { status: "published", version: $version }
+    ) {
+      returning {
+        ...NodeFragment
+      }
+    }
+  }
+  ${NodeFragment}
+`;
+
 export const GET_LATEST_NODE_WITH_PUBLISHED = gql`
   query GetNode($id: uuid!) {
     latest: node(where: { id: { _eq: $id } }, limit: 1) {

@@ -6,11 +6,29 @@
 import { format } from "date-fns";
 import * as React from "react";
 
-import FormGroupTitle from "../../components/FormGroupTitle";
-import ViewGroup from "../../components/ViewGroup";
-import { GetNode_latest_published } from "../../generated/graphql/GetNode";
-import { FieldT, FormGroupT, FormT, getSelectedLabel } from "../../utils/forms";
-import { get } from "../../utils/safe_access";
+import { useState } from "react";
+import { Mutation } from "react-apollo";
+import { Trans, useTranslation } from "react-i18next";
+import { Button } from "reactstrap";
+import ApolloErrors from "../../../../components/ApolloErrors";
+import FormGroupTitle from "../../../../components/FormGroupTitle";
+import ViewGroup from "../../../../components/ViewGroup";
+import { GetNode_latest_published } from "../../../../generated/graphql/GetNode";
+import {
+  PublishNode,
+  PublishNodeVariables
+} from "../../../../generated/graphql/PublishNode";
+import {
+  GET_LATEST_NODE_WITH_PUBLISHED,
+  PUBLISH_NODE
+} from "../../../../graphql/hasura";
+import {
+  FieldT,
+  FormGroupT,
+  FormT,
+  getSelectedLabel
+} from "../../../../utils/forms";
+import { get } from "../../../../utils/safe_access";
 
 const InlineViewGroup = ({
   group,
@@ -119,7 +137,7 @@ const Groups: Record<
           <strong>
             {getSelectedLabel(fields.methodology, values.methodology)}
           </strong>{" "}
-          mediante{" "}
+          {values["methodology-details"] && "mediante"}{" "}
           <strong>
             {getSelectedLabel(
               fields["methodology-details"],
@@ -159,6 +177,67 @@ const Groups: Record<
       </div>
     );
   }
+};
+
+const PublishCta = ({
+  nodeId,
+  nodeVersion
+}: {
+  nodeId: number;
+  nodeVersion: number;
+}) => {
+  const { t } = useTranslation();
+  const [nodeStatus, setNodeStatus] = useState();
+  return (
+    <Mutation<PublishNode, PublishNodeVariables>
+      mutation={PUBLISH_NODE}
+      refetchQueries={[
+        {
+          query: GET_LATEST_NODE_WITH_PUBLISHED,
+          variables: { id: nodeId }
+        }
+      ]}
+      onCompleted={publishedNode =>
+        setNodeStatus(publishedNode.update_node!.returning[0].status)
+      }
+    >
+      {(publishNode, { loading: publishLoading, error: publishError }) => {
+        if (publishLoading) {
+          return (
+            <p>
+              <Trans i18nKey="sending_data" />
+            </p>
+          );
+        }
+        if (publishError) {
+          return (
+            <p className="text-danger">
+              <Trans i18nKey="errors.error_sending_data" />
+              <br />
+              <ApolloErrors errors={publishError} />
+            </p>
+          );
+        }
+        return nodeStatus ? (
+          <p>{t(`status_name.${nodeStatus}`)}</p>
+        ) : (
+          <Button
+            color="primary"
+            onClick={() =>
+              publishNode({
+                variables: {
+                  id: nodeId,
+                  version: nodeVersion + 1
+                }
+              })
+            }
+          >
+            <Trans i18nKey="publish_node" />
+          </Button>
+        );
+      }}
+    </Mutation>
+  );
 };
 
 const Template = ({
@@ -245,6 +324,9 @@ const Template = ({
           </div>
         );
       })}
+      {node.status !== "published" && (
+        <PublishCta nodeId={node.id} nodeVersion={node.version} />
+      )}
     </div>
   );
 };

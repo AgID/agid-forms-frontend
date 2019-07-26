@@ -5,6 +5,9 @@ import { initReactI18next } from "react-i18next";
 import DE from "../locales/de";
 import IT from "../locales/it";
 
+import CUSTOM_DE from "../custom/locales/de";
+import CUSTOM_IT from "../custom/locales/it";
+
 const i18n = i18next
   .use(initReactI18next)
   .use(LanguageDetector)
@@ -12,10 +15,10 @@ const i18n = i18next
     fallbackLng: "ita",
     resources: {
       deu: {
-        translation: DE
+        translation: { ...DE, ...CUSTOM_DE }
       },
       ita: {
-        translation: IT
+        translation: { ...IT, ...CUSTOM_IT }
       }
     },
     interpolation: {

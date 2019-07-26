@@ -1,9 +1,10 @@
 menu:
   - name: Home
     slug: "/"
-  - name: Dashboard
-    authenticated: true
-    slug: "/list/dichiarazione-accessibilita"
+    roles: [anonymous]
+  - name: Dashboard dichiarazioni accessibilità
+    slug: "/dashboard/dichiarazione-accessibilita"
+    roles: [authenticated]
   # - name: Utenti
   #   authenticated: true
   #   slug: "/dashboard"

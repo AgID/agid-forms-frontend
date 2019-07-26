@@ -7,23 +7,22 @@ import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
+import { DashboardConfig } from "../../generated/graphql/DashboardConfig";
 import {
   GetUserNodes,
   GetUserNodesVariables
 } from "../../generated/graphql/GetUserNodes";
-import { UserProfileConfig } from "../../generated/graphql/UserProfileConfig";
-import { getMenu, getSiteConfig } from "../../graphql/gatsby_fragments";
-import { GET_USER_NODES } from "../../graphql/hasura_queries";
+import { getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { GET_USER_NODES } from "../../graphql/hasura";
+import { getSessionInfo } from "../../utils/auth";
 
-const UserProfileTemplate = ({
-  data,
-  userId
-}: {
-  data: UserProfileConfig;
-  userId: string;
-}) => {
+const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
   const { t } = useTranslation();
   const siteConfig = getSiteConfig(data);
+  const sessionInfo = getSessionInfo();
+  if (!sessionInfo || !sessionInfo.userId) {
+    return null;
+  }
   return (
     <Layout
       menu={getMenu(data)}
@@ -34,7 +33,7 @@ const UserProfileTemplate = ({
       <Query<GetUserNodes, GetUserNodesVariables>
         query={GET_USER_NODES}
         variables={{
-          userId
+          userId: sessionInfo.userId
         }}
       >
         {({
@@ -57,23 +56,23 @@ const UserProfileTemplate = ({
             return (
               <p>
                 {data}
-                {userId}
+                {sessionInfo.userId}
               </p>
             );
           }
           return (
-            <table className="table table-hover table-bordered table-striped">
-              <thead>
+            <table className="table table-hover">
+              <thead className="lightgrey-bg-a3">
                 <tr>
-                  <th>title</th>
-                  <th>type</th>
-                  <th>created</th>
-                  <th>updated</th>
-                  <th>status</th>
-                  <th>actions</th>
+                  <th className="font-variant-small-caps">title</th>
+                  <th className="font-variant-small-caps">type</th>
+                  <th className="font-variant-small-caps">created</th>
+                  <th className="font-variant-small-caps">updated</th>
+                  <th className="font-variant-small-caps">status</th>
+                  <th className="font-variant-small-caps">actions</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="font-size-xs color-black font-weight-600">
                 {userNodes.node.map(node => {
                   return (
                     <tr key={node.id}>
@@ -108,4 +107,4 @@ const UserProfileTemplate = ({
   );
 };
 
-export default UserProfileTemplate;
+export default DashboardTemplate;

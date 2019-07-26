@@ -7,7 +7,7 @@ import RouterPage from "../components/RouterPage";
 import { FormConfig } from "../generated/graphql/FormConfig";
 
 // @ts-ignore
-import { PageConfigFragment } from "../graphql/gatsby_fragments";
+import { PageConfigFragment } from "../graphql/gatsby";
 
 import FormTemplate from "../templates/node/form-template";
 

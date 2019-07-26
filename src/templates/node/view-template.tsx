@@ -12,12 +12,8 @@ import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
 import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import {
-  getForm,
-  getMenu,
-  getSiteConfig
-} from "../../graphql/gatsby_fragments";
-import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura_queries";
+import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
 const ViewTemplate = ({
@@ -105,7 +101,7 @@ const ViewTemplate = ({
                     </Link>
                   </small>
                   {!isLatestPublishedVersion && (
-                    <p className="alert alert-warning ml-lg-5">
+                    <p className="alert alert-warning mt-3">
                       {t("not_latest_version")}
                       <br />
                       <Link

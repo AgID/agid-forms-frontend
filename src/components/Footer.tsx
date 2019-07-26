@@ -3,11 +3,11 @@ import * as React from "react";
 import { Col, Container, Row } from "reactstrap";
 
 import { Trans } from "react-i18next";
-import { getSiteConfig } from "../graphql/gatsby_fragments";
+import { getSiteConfig } from "../graphql/gatsby";
 import Icon from "./Icon";
 
 type FooterProps = Pick<
-  ReturnType<typeof getSiteConfig>,
+  NonNullable<ReturnType<typeof getSiteConfig>>,
   // tslint:disable-next-line: max-union-size
   "footerLinks" | "socialLinks" | "author" | "authorLogo" | "authorUrl"
 > & { id: string };

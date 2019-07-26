@@ -3,20 +3,26 @@ import * as React from "react";
 
 import MegaMenu from "./MegaMenu";
 
-import { getMenu, getSiteConfig } from "../graphql/gatsby_fragments";
+import { getMenu, getSiteConfig } from "../graphql/gatsby";
+import { getSessionInfo } from "../utils/auth";
 import Icon from "./Icon";
 
 type MainHeaderProps = Pick<
-  ReturnType<typeof getSiteConfig>,
+  NonNullable<ReturnType<typeof getSiteConfig>>,
   "title" | "description" | "socialLinks"
-> & { menu: ReturnType<typeof getMenu>; organization: string };
+> & {
+  menu: ReturnType<typeof getMenu>;
+  organization: string;
+  user: ReturnType<typeof getSessionInfo>;
+};
 
 const MainHeader = ({
   title,
   description,
   menu,
   socialLinks,
-  organization
+  organization,
+  user
 }: MainHeaderProps) => (
   <>
     <div className="it-nav-wrapper">
@@ -69,7 +75,7 @@ const MainHeader = ({
         <div className="container">
           <div className="row">
             <div className="col-12">
-              <MegaMenu menu={menu} />
+              <MegaMenu menu={menu} user={user} />
             </div>
           </div>
         </div>

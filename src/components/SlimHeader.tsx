@@ -6,7 +6,7 @@ import {
   DropdownMenu,
   DropdownToggle
 } from "reactstrap";
-import { getSiteConfig } from "../graphql/gatsby_fragments";
+import { getSiteConfig } from "../graphql/gatsby";
 import { getSessionInfo, isLoggedIn } from "../utils/auth";
 import Icon from "./Icon";
 
@@ -36,7 +36,7 @@ const dropdownModifiers = {
 };
 
 type SlimHeaderProps = Pick<
-  ReturnType<typeof getSiteConfig>,
+  NonNullable<ReturnType<typeof getSiteConfig>>,
   // tslint:disable-next-line: max-union-size
   "owners" | "slimHeaderLinks" | "languages"
 > & { user: ReturnType<typeof getSessionInfo> } & {
