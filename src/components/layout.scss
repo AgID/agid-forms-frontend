@@ -209,24 +209,43 @@ a.bg-white:hover {
 /* select */
 
 .react-select input {
-  width: auto !important;
+  font-weight: 600 !important;
+}
+
+.react-select [class*="singleValue"] {
+  font-weight: 600 !important;
+}
+
+.react-select [class*="Input"],
+.react-select [class*="Input"] > div,
+.react-select [class*="Input"] > div > input {
+  width: 100% !important;
 }
 
 .react-select > div {
   border-top: none !important;
   border-left: none !important;
   border-right: none !important;
-  border-bottom: 1px solid #5c6f82;
+  border-bottom: 1px solid #5c6f82 !important;
 }
 
 .react-select:focus,
 .react-select [class*="control"]:focus,
-.react-select [class*="control"] > div:focus {
-  outline: none !important;
+.react-select [class*="control"] > div:focus,
+.react-select [class*="control"]:hover,
+.react-select [class*="control"] > div:hover {
+    outline: none !important;
+    border-color: transparent !important;
+    border-bottom-color: #5c6f82 !important;
+    box-shadow: none !important;
 }
 
 .react-select [class*="control"] {
   border-radius: 0%;
+}
+
+.react-select [class*="control"] > div {
+  padding: 0 0.5rem;
 }
 
 .react-select [class*="indicatorSeparator"] {

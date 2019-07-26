@@ -25,7 +25,7 @@ const IT = {
     email_sent:
       "un'email contenente la password di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
-      "proseguendo verrà inviata un'email all'indirizzo del responsabile per la transizione digitale dell'ente {{paName}}: {{email}}",
+      "prosegui e invia il codice alla casella email del responsabile per la transizione digitale dell'ente: {{email}}",
     expired_session:
       "la tua sessione è scaduta, è necessario effettuare un nuovo login",
     // tslint:disable-next-line: no-hardcoded-credentials
@@ -35,8 +35,7 @@ const IT = {
     // tslint:disable-next-line: no-hardcoded-credentials
     not_has_password: "devo ancora ottenere la password",
     select_pa: "Seleziona un'amministrazione",
-    select_pa_hint:
-      "puoi cercare l'amministrazione per nome o inserendo direttamente il codice ipa",
+    select_pa_hint: "cerca per nome o inserisci il codice ipa",
     rtd_not_found:
       "l'indirizzo email del responsabile per la transizione digitale non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
     // tslint:disable-next-line: no-hardcoded-credentials
