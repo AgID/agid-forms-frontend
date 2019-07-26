@@ -14,6 +14,7 @@ export const Label = ({
   ...props
 }: LabelProps) => (
   <RSLabel
+    for={fieldName}
     htmlFor={fieldName}
     check={true}
     className="d-block font-weight-semibold neutral-2-color-a4 font-size-xs"
