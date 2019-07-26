@@ -218,12 +218,14 @@ const PublishCta = ({
         }
       ]}
       onCompleted={publishedNode => {
-        // TODO: set from siteConfig.hostName
-        setNodeLink(
-          `https://${window.location.hostname}/view/${
-            publishedNode.update_node!.returning[0].id
-          }`
-        );
+        if (typeof window !== `undefined`) {
+          // TODO: set from siteConfig.hostName
+          setNodeLink(
+            `https://${window.location.hostname}/view/${
+              publishedNode.update_node!.returning[0].id
+            }`
+          );
+        }
       }}
     >
       {(publishNode, { loading: publishLoading, error: publishError }) => {

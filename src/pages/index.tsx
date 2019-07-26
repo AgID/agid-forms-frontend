@@ -414,6 +414,7 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
   }
 
   const isSessionExpired =
+    typeof window !== "undefined" &&
     window.location.search.indexOf("session-expired") !== -1;
 
   return (

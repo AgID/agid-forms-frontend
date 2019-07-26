@@ -18,28 +18,36 @@ export type SessionInfo = {
 export const BACKEND_TOKEN = "backend_token";
 export const GRAPHQL_TOKEN = "graphql_token";
 
+const HAS_LOCAL_STORAGE =
+  typeof window !== "undefined" && typeof localStorage !== "undefined";
+
 export const isLoggedIn = () =>
-  localStorage.getItem(BACKEND_TOKEN) && localStorage.getItem(GRAPHQL_TOKEN);
+  HAS_LOCAL_STORAGE &&
+  localStorage.getItem(BACKEND_TOKEN) &&
+  localStorage.getItem(GRAPHQL_TOKEN);
 
 export const storeTokens = (backendToken: string, graphqlToken: string) => {
+  if (!HAS_LOCAL_STORAGE) {
+    return;
+  }
   localStorage.setItem(BACKEND_TOKEN, backendToken);
   localStorage.setItem(GRAPHQL_TOKEN, graphqlToken);
 };
 
 export const getBackendToken = () => {
-  return localStorage.getItem(BACKEND_TOKEN);
+  return HAS_LOCAL_STORAGE ? localStorage.getItem(BACKEND_TOKEN) : null;
 };
 
 export const getGraphqlToken = () => {
-  return localStorage.getItem(GRAPHQL_TOKEN);
+  return HAS_LOCAL_STORAGE ? localStorage.getItem(GRAPHQL_TOKEN) : null;
 };
 
 export const storeSessionInfo = (user: SessionInfo) => {
-  localStorage.setItem("user", JSON.stringify(user));
+  HAS_LOCAL_STORAGE ? localStorage.setItem("user", JSON.stringify(user)) : null;
 };
 
 export const getSessionInfo = (): SessionInfo | null => {
-  const userStr = localStorage.getItem("user");
+  const userStr = HAS_LOCAL_STORAGE ? localStorage.getItem("user") : null;
   return userStr ? JSON.parse(userStr) : null;
 };
 
@@ -64,5 +72,7 @@ export const logout = async (client: typeof GraphqlClient) => {
       body: "{}"
     }
   });
-  localStorage.clear();
+  if (HAS_LOCAL_STORAGE) {
+    localStorage.clear();
+  }
 };

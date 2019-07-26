@@ -11,7 +11,9 @@ import { GraphqlClient } from "./src/graphql/client";
 // import { ThemeProvider } from "styled-components";
 // import theme from "./theme";
 
-import i18n from "./src/utils/i18n";
+import { setupI18Next } from "./src/utils/i18n";
+const i18n = setupI18Next();
+
 import { I18nextProvider } from "react-i18next";
 
 export const wrapRootElement = ({ element }) => (
