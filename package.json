@@ -18,7 +18,6 @@
     "dotenv": "^8.0.0",
     "expression-eval": "^2.0.0",
     "formik": "^1.5.7",
-    "fp-ts": "^1.18.2",
     "gatsby": "^2.8.5",
     "graphql": "14.4.2",
     "graphql-anywhere": "^4.2.4",
@@ -42,7 +41,6 @@
     "typeface-lora": "^0.0.72",
     "typeface-titillium-web": "^0.0.72",
     "use-debounce": "^2.1.0",
-    "use-throttle": "^0.0.3",
     "yup": "^0.27.0"
   },
   "devDependencies": {
@@ -63,6 +61,7 @@
     "apollo": "^2.13.0",
     "apollo-tools": "^0.0.20",
     "cross-var": "^1.1.0",
+    "depcheck": "^0.8.3",
     "dotenv-cli": "^2.0.0",
     "eslint-plugin-graphql": "^3.0.3",
     "gatsby-image": "^2.1.2",

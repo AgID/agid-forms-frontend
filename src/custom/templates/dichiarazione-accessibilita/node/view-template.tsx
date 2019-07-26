@@ -9,7 +9,7 @@ import * as React from "react";
 import { useState } from "react";
 import { Mutation } from "react-apollo";
 import { Trans, useTranslation } from "react-i18next";
-import { Button } from "reactstrap";
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
 import ViewGroup from "../../../../components/ViewGroup";
@@ -179,6 +179,27 @@ const Groups: Record<
   }
 };
 
+const PublishModal = ({ nodeLink }: { nodeLink: string }) => {
+  const [isOpen, setIsOpen] = useState(true);
+  return (
+    <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
+      <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
+        Copia e incolla il link
+      </ModalHeader>
+      <ModalBody className="px-5 pb-5">
+        <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
+          Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
+          <br /> A seguito di questa operazione verrà effettuata una verifica
+          automatica.
+        </p>
+        <p className="font-weight-bold pt-4">
+          <a href={nodeLink}>{nodeLink}</a>
+        </p>
+      </ModalBody>
+    </Modal>
+  );
+};
+
 const PublishCta = ({
   nodeId,
   nodeVersion
@@ -186,8 +207,7 @@ const PublishCta = ({
   nodeId: number;
   nodeVersion: number;
 }) => {
-  const { t } = useTranslation();
-  const [nodeStatus, setNodeStatus] = useState();
+  const [nodeLink, setNodeLink] = useState();
   return (
     <Mutation<PublishNode, PublishNodeVariables>
       mutation={PUBLISH_NODE}
@@ -197,9 +217,14 @@ const PublishCta = ({
           variables: { id: nodeId }
         }
       ]}
-      onCompleted={publishedNode =>
-        setNodeStatus(publishedNode.update_node!.returning[0].status)
-      }
+      onCompleted={publishedNode => {
+        // TODO: set from siteConfig.hostName
+        setNodeLink(
+          `https://${window.location.hostname}/view/${
+            publishedNode.update_node!.returning[0].id
+          }`
+        );
+      }}
     >
       {(publishNode, { loading: publishLoading, error: publishError }) => {
         if (publishLoading) {
@@ -218,8 +243,8 @@ const PublishCta = ({
             </p>
           );
         }
-        return nodeStatus ? (
-          <p>{t(`status_name.${nodeStatus}`)}</p>
+        return nodeLink ? (
+          <PublishModal nodeLink={nodeLink} />
         ) : (
           <Button
             color="primary"
