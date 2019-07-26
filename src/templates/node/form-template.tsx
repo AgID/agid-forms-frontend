@@ -305,6 +305,7 @@ const FormTemplate = ({
                         values: FormValuesT,
                         actions: FormikActions<FormValuesT>
                       ) => {
+                        actions.setSubmitting(true);
                         const node = toNode(values, form, titleExpression);
                         // store form values into database
                         await upsertNode({
@@ -378,6 +379,7 @@ const FormTemplate = ({
                             );
                           })}
                           <Button
+                            color="primary"
                             type="submit"
                             disabled={
                               formik.isSubmitting ||
