@@ -117,6 +117,7 @@
     "generate:graphql:gatsby-api": "dotenv -- apollo client:codegen --tag gatsby-api --target=typescript --tagName=graphql --useReadOnlyTypes --localSchemaFile=./gatsby-schema.json --includes='./{src,.cache}/**/*.{ts,tsx,js,jsx}' --globalTypesFile=./src/generated/graphql/gatsby_globals.ts --outputFlat ./src/generated/graphql",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "clean": "gatsby clean",
     "deploy": "gh-pages -d public -m 'Manual deploy [ci skip]'"
   },
   "repository": {

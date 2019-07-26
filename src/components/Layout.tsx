@@ -1,7 +1,7 @@
 require("typeface-lora");
 require("typeface-titillium-web");
 
-import "./layout.scss";
+import "../styles/global.scss";
 
 import * as React from "react";
 import { Container } from "reactstrap";

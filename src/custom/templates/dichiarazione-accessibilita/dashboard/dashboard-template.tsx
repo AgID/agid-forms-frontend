@@ -3,7 +3,7 @@ import * as React from "react";
 import Layout from "../../../../components/Layout";
 import SEO from "../../../../components/Seo";
 
-import { Link } from "gatsby";
+import { Link } from "@reach/router";
 
 import { format } from "date-fns";
 import { Query } from "react-apollo";
