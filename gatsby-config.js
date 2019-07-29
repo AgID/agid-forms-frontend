@@ -62,7 +62,9 @@ module.exports = {
     },
     {
       resolve: `gatsby-plugin-create-client-paths`,
-      options: { prefixes: [`/form/*`, `/view/*`, `/revision/*`] }
+      options: {
+        prefixes: [`/form/*`, `/view/*`, `/revision/*`, `/dashboard/*`]
+      }
     },
     {
       resolve: "gatsby-plugin-extract-schema",

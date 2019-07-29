@@ -29,7 +29,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
   }
   const sessionInfo = getSessionInfo();
   return (
-    <>
+    <div className="layout-container">
       <div className="skiplinks">
         <a className="sr-only sr-only-focusable" href="#main">
           <Trans i18nKey="skiplinks.goto_main" />
@@ -74,7 +74,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
         footerLinks={siteConfig.footerLinks}
         socialLinks={siteConfig.socialLinks}
       />
-    </>
+    </div>
   );
 };
 

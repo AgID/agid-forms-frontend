@@ -4,6 +4,7 @@ import Layout from "../../../../components/Layout";
 import SEO from "../../../../components/Seo";
 
 import { Link } from "@reach/router";
+import { Link as GatsbyLink } from "gatsby";
 
 import { format } from "date-fns";
 import { Query } from "react-apollo";
@@ -27,9 +28,12 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
 
   const NewDeclCta = () => (
     <p>
-      <Link to="/form/dichiarazione-accessibilita" className="btn btn-primary">
+      <GatsbyLink
+        to="/form/dichiarazione-accessibilita"
+        className="btn btn-primary"
+      >
         {t("acc_decl.create_new_decl_cta")}
-      </Link>
+      </GatsbyLink>
     </p>
   );
 
