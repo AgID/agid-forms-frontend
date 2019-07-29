@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+
+  agid-forms-frontend:
+    image: docker.io/agid/agid-forms-frontend:${FRONTEND_VERSION}
+    environment:
+      - NODE_ENV=production

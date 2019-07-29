@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+
+  agid-forms-frontend:
+    image: bitnami/nginx:1.16
+    volumes:
+      - public:/app
