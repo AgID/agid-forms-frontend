@@ -7,4 +7,5 @@ services:
     volumes:
       - public:/app
     command: gatsby develop -H 0.0.0.0
-
+    ports:
+      - "80:${HTTP_PORT}"

@@ -6,3 +6,5 @@ services:
     image: docker.io/agid/agid-forms-frontend:${FRONTEND_VERSION}
     environment:
       - NODE_ENV=production
+    ports:
+      - "${HTTP_PORT}"
