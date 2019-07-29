@@ -10,30 +10,29 @@ RUN sudo apt-get -y install --no-install-recommends libunwind8=1.1-3.2
 
 WORKDIR /usr/src/app
 
+RUN sudo chown circleci -R /usr/src/app
+
+COPY yarn.lock package.json /usr/src/app/
+RUN yarn install
+
 COPY /src /usr/src/app/src
 COPY /data /usr/src/app/data
 COPY /static /usr/src/app/static
 
 # COPY /patches /usr/src/app/patches
 
-COPY /package.json /usr/src/app/package.json
-COPY /tsconfig.json /usr/src/app/tsconfig.json
-COPY /yarn.lock /usr/src/app/yarn.lock
+COPY tsconfig.json \
+  apollo.config.js \
+  api_backend.graphql \
+  gatsby-browser.js \
+  gatsby-config.js \
+  gatsby-node.js \
+  gatsby-ssr.js \
+  /usr/src/app/
 
-COPY /apollo.config.js /usr/src/app/apollo.config.js
-COPY /api_backend.graphql /usr/src/app/api_backend.graphql
+RUN sudo chmod 777 -R /usr/src/app
 
-COPY /gatsby-browser.js /usr/src/app/gatsby-browser.js
-COPY /gatsby-config.js /usr/src/app/gatsby-config.js
-COPY /gatsby-node.js /usr/src/app/gatsby-node.js
-COPY /gatsby-ssr.js /usr/src/app/gatsby-ssr.js
-
-# generated running "gatsby develop"
-COPY /gatsby-schema.json /usr/src/app/gatsby-schema.json
-
-RUN sudo chmod -R 777 /usr/src/app \
-  && yarn install \
-  && yarn generate \
+RUN  yarn generate \
   && yarn clean \
   && yarn build
 
