@@ -15,10 +15,11 @@ services:
         - GATSBY_BACKEND_ENDPOINT
     labels:
       - traefik.enable=true
+      - traefik.port=${HTTP_PORT}
       - traefik.frontend.rule=Host:${FRONTEND_HOST}
       - traefik.docker.network=app-tier
     ports:
-      - "80:${HTTP_PORT}"
+      - "${HTTP_PORT}"
     networks:
       - app-tier
     restart: unless-stopped

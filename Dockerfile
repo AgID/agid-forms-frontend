@@ -30,7 +30,7 @@ COPY tsconfig.json \
   gatsby-ssr.js \
   /usr/src/app/
 
-RUN sudo chmod 777 -R /usr/src/app
+RUN sudo chmod 777 -R /usr/src/app/src
 
 RUN  yarn generate \
   && yarn clean \
