@@ -7,8 +7,8 @@ import { FormikProps, getIn } from "formik";
 import { Input } from "reactstrap";
 
 import { FieldT, FormValuesT } from "../utils/forms";
-import { CheckboxField } from "./CheckboxField";
 import { CheckboxMultipleField } from "./CheckboxMultipleField";
+import { CheckboxField } from "./CheckoxField";
 import { HtmlField } from "./HtmlField";
 import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
