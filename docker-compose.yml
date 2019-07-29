@@ -11,8 +11,10 @@ services:
       args:
         - HASURA_GRAPHQL_ENDPOINT
         - HASURA_GRAPHQL_ADMIN_SECRET
+        - GATSBY_HASURA_GRAPHQL_ENDPOINT
+        - GATSBY_BACKEND_ENDPOINT
     ports:
-      - "80"
+      - "80:${HTTP_PORT}"
     networks:
       - app-tier
     restart: unless-stopped

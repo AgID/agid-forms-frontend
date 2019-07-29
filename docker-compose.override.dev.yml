@@ -3,6 +3,8 @@ version: "3"
 services:
 
   agid-forms-frontend:
-    image: bitnami/nginx:1.16
+    image: gatsbyjs/gatsby:latest
     volumes:
       - public:/app
+    command: gatsby develop -H 0.0.0.0
+
