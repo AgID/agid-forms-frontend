@@ -61,6 +61,7 @@ export type FormFieldPropsT = {
   field: FieldT;
   form: FormikProps<FormValuesT>;
   isHidden: boolean;
+  isDisabled: boolean;
   isRequired: boolean;
   validationExpression: any;
   valueExpression: any;
