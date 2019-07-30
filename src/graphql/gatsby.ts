@@ -111,6 +111,11 @@ export const SiteConfigFragment = graphql`
         authorLogo
         authorUrl
         homepage
+        hotjar {
+          hjid
+          hjsv
+          surveyUrl
+        }
         owners {
           name
           url

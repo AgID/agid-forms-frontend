@@ -7,6 +7,7 @@ import * as React from "react";
 import { Container } from "reactstrap";
 
 import Footer from "./Footer";
+import Hotjar from "./Hotjar";
 import MainHeader from "./MainHeader";
 import SlimHeader from "./SlimHeader";
 
@@ -30,6 +31,11 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
   const sessionInfo = getSessionInfo();
   return (
     <div className="layout-container">
+      {siteConfig.hotjar &&
+        siteConfig.hotjar.hjsv &&
+        siteConfig.hotjar.hjid && (
+          <Hotjar hjsv={siteConfig.hotjar.hjsv} hjid={siteConfig.hotjar.hjid} />
+        )}
       <div className="skiplinks">
         <a className="sr-only sr-only-focusable" href="#main">
           <Trans i18nKey="skiplinks.goto_main" />
@@ -66,14 +72,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           </div>
         </main>
       </Container>
-      <Footer
-        id="footer"
-        author={siteConfig.author}
-        authorLogo={siteConfig.authorLogo}
-        authorUrl={siteConfig.authorUrl}
-        footerLinks={siteConfig.footerLinks}
-        socialLinks={siteConfig.socialLinks}
-      />
+      <Footer id="footer" {...siteConfig} />
     </div>
   );
 };

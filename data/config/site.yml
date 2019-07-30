@@ -41,3 +41,7 @@ defaultLanguage: ita
 languages:
   - name: ita
   - name: deu
+hotjar:
+  hjid: 1422614
+  hjsv: 6
+  surveyUrl: https://surveys.hotjar.com/s?siteId=1422614&surveyId=139132
