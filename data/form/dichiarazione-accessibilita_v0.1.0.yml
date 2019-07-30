@@ -20,6 +20,7 @@ sections:
           - name: "device-type"
             widget: radio
             title: Tipologia dispositivo
+            default: website
             options:
               - label: sito web
                 value: website
@@ -56,7 +57,7 @@ sections:
   - name: section-1
     title: Sezione 1
     description: |-
-      Contenuti in ottemperanza alla decisione di esecuzione UE 2018/1523.
+      Contenuti previsti dalla direttiva UE 2018/1523.
 
     groups:
       - name: content-compliance
@@ -121,7 +122,7 @@ sections:
             enabled_if: this["compliance-status"] != "compliant"
 
       - name: content-methodology
-        title: metodologia utilizzata per la stesura della dichiarazione
+        title: modalità utilizzata per la stesura della dichiarazione
         fields:
           - name: methodology
             widget: radio
@@ -135,12 +136,14 @@ sections:
             widget: radio
             title: modalità della valutazione
             options:
-              - label: un'autovalutazione effettuata dall'ente pubblico
+              - label: un’autovalutazione effettuata direttamente dal soggetto erogatore
                 value: methodology-auto
-              - label: una valutazione effettuata da terzi, ad esempio una certificazione
+              - label: una valutazione effettuata con allegato 2 delle linee guida di accessibilità
+                value: methodology-attachment
+              - label: una valutazione effettuata da terzi
                 value: methodology-third-party
-            show_if: this["methodology"] == "methodology-ue"
-            required_if: this["methodology"] == "methodology-ue"
+            show_if: this["methodology"] == "methodology-other"
+            required_if: this["methodology"] == "methodology-other"
 
       - name: feedback-and-contacts
         title: feedback e contatti
@@ -180,10 +183,10 @@ sections:
     groups:
 
       - name: application-information
-        title: informazioni sul sito
+        title: informazioni sul sito / app
         fields:
           - name: application-published-date
-            title: Data di pubblicazione del sito
+            title: Data di pubblicazione del sito / app
             widget: date
             required_if: "true"
           - name: website-cms
@@ -226,19 +229,19 @@ sections:
         title: informazioni sull'organico e la struttura
         fields:
           - name: people-disabled
-            title: Dipendenti disabili
+            title: Dipendenti con disabilità
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
-            title: Postazioni per disabili
+            title: Postazioni per persone con disabilità
             description: in cifre
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-expenditure
-            title: Spesa prevista nel bilancio
+            title: Percentuale spesa prevista nel bilancio
             description: in percentuale
             widget: number
             required_if: "true"
