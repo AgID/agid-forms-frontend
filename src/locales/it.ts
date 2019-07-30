@@ -14,9 +14,9 @@ const IT = {
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   cookiebar: {
     alert:
-      "Questo sito utilizza cookie tecnici, analytics e di terze parti. <1 />Proseguendo nella navigazione accetti l’utilizzo dei cookie.",
-    settings: "Preferenze<1>cookies</1>",
-    accept: "Accetto<1> i cookies</1>"
+      "Questo sito utilizza cookie tecnici, analytics e di terze parti. Proseguendo nella navigazione accetti l’utilizzo dei cookie.",
+    settings: "Vai alle preferenze",
+    accept: "Accetto i cookies"
   },
   errors: {
     content_not_found: "contenuto non tovato",

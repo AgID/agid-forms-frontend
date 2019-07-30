@@ -15,7 +15,7 @@ type FooterProps = Pick<
   | "authorLogo"
   | "authorUrl"
   | "hotjar"
-> & { id: string };
+>;
 
 const Footer = ({
   footerLinks,
@@ -23,11 +23,10 @@ const Footer = ({
   author,
   authorLogo,
   authorUrl,
-  hotjar,
-  ...props
+  hotjar
 }: FooterProps) => {
   return (
-    <footer className="neutral-1-bg-a9" {...props}>
+    <footer id="footer" className="neutral-1-bg-a9">
       <Container>
         <Row className="py-4">
           <Col xs="12" sm="6" md="4">

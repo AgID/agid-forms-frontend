@@ -6,6 +6,7 @@ import "../styles/global.scss";
 import * as React from "react";
 import { Container } from "reactstrap";
 
+import Cookiebar, { hasAcceptedCookies } from "./Cookiebar";
 import Footer from "./Footer";
 import Hotjar from "./Hotjar";
 import MainHeader from "./MainHeader";
@@ -31,7 +32,11 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
   const sessionInfo = getSessionInfo();
   return (
     <div className="layout-container">
-      {siteConfig.hotjar &&
+      {siteConfig.cookiePolicyLink && (
+        <Cookiebar policyLink={siteConfig.cookiePolicyLink} />
+      )}
+      {hasAcceptedCookies() &&
+        siteConfig.hotjar &&
         siteConfig.hotjar.hjsv &&
         siteConfig.hotjar.hjid && (
           <Hotjar hjsv={siteConfig.hotjar.hjsv} hjid={siteConfig.hotjar.hjid} />
@@ -72,7 +77,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           </div>
         </main>
       </Container>
-      <Footer id="footer" {...siteConfig} />
+      <Footer {...siteConfig} />
     </div>
   );
 };

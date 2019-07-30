@@ -1,28 +1,65 @@
 import * as React from "react";
-import { Trans } from "react-i18next";
+import CookieBanner from "react-cookie-banner";
+import { Trans, useTranslation } from "react-i18next";
 
-const Cookiebar = () => {
+import { Cookies } from "react-cookie-banner";
+
+export const COOKIEBAR_COOKIE_NAME = "user-has-accepted-cookies";
+
+export const hasAcceptedCookies = () => {
+  const cookies = new Cookies();
+  return cookies.get(COOKIEBAR_COOKIE_NAME) !== undefined;
+};
+
+const Cookiebar = ({ policyLink }: { policyLink: string }) => {
+  const { t } = useTranslation();
   return (
-    <div className="cookiebar">
-      <p>
-        <Trans i18nKey="cookiebar.alert" />
-      </p>
-      <div className="cookiebar-buttons">
-        <a href="#" className="cookiebar-btn">
+    <CookieBanner
+      buttonMessage={t("cookiebar.accept")}
+      styles={{
+        button: {
+          fontWeight: "600",
+          textTransform: "uppercase",
+          fontSize: ".875rem",
+          display: "inline-block",
+          lineHeight: "1em",
+          background: "#fff",
+          padding: "16px",
+          color: "#555"
+        },
+        banner: {
+          backgroundColor: "#435a70",
+          position: "absolute",
+          maxWidth: "800px",
+          left: "50%",
+          right: "auto",
+          transform: "translateX(-50%)",
+          bottom: "0",
+          height: "auto",
+          padding: "30px",
+          borderRadius: "4px 4px 0 0"
+        },
+        message: {
+          lineHeight: "1.55",
+          fontWeight: 400,
+          textAlign: "left",
+          maxWidth: "60%",
+          float: "left"
+        }
+      }}
+      link={
+        <a href={policyLink}>
           <Trans i18nKey="cookiebar.settings">
-            Preferences <span className="sr-only">cookies</span>
+            settings<span className="sr-only">cookies</span>
           </Trans>
         </a>
-        <button
-          data-accept="cookiebar"
-          className="cookiebar-btn cookiebar-confirm"
-        >
-          <Trans i18nKey="cookiebar.accept">
-            Accept <span className="sr-only">cookies</span>
-          </Trans>
-        </button>
-      </div>
-    </div>
+      }
+      message={t("cookiebar.alert")}
+      // onAccept={() => {}}
+      cookie={COOKIEBAR_COOKIE_NAME}
+      dismissOnScroll={false}
+      disableStyle={false}
+    />
   );
 };
 
