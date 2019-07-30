@@ -64,6 +64,7 @@ sections:
         fields:
           - name: "compliance-status"
             widget: radio
+            default: compliant
             options:
               - label: conforme
                 value: compliant
@@ -79,30 +80,36 @@ sections:
           - name: "reason-42004"
             widget: checkbox
             title: Inosservanza della legge 4/2004
+            enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: utilizzare un linguaggio descrittivo
             show_if: this["reason-42004"]
             required_if: this["reason-42004"]
+            enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden"
             widget: checkbox
             title: Onere sproporzionato
+            enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: utilizzare un linguaggio descrittivo
             show_if: this["reason-disproportionate-burden"]
             required_if: this["reason-disproportionate-burden"]
+            enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-no-law"
             widget: checkbox
             title: Il contenuto non rientra nell'ambito della legislazione applicabile
+            enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-no-law-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: utilizzare un linguaggio descrittivo
             show_if: this["reason-no-law"]
             required_if: this["reason-no-law"]
+            enabled_if: this["compliance-status"] != "compliant"
 
       - name: content-alt
         title: alternative accessibili
@@ -111,6 +118,7 @@ sections:
             widget: textarea
             title: Indicare le alternative accessibili
             description: utilizzare un linguaggio descrittivo
+            enabled_if: this["compliance-status"] != "compliant"
 
       - name: content-methodology
         title: metodologia utilizzata per la stesura della dichiarazione

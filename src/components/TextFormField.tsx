@@ -14,6 +14,7 @@ export const TextFormField = ({
   field,
   form,
   isHidden,
+  isDisabled,
   isRequired,
   validationExpression,
   valueExpression
@@ -29,11 +30,12 @@ export const TextFormField = ({
         name={field.name}
         type={field.widget}
         required={isRequired}
+        disabled={isDisabled}
         component={CustomInputComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)}
         value={
-          isHidden
+          isHidden || isDisabled
             ? ""
             : valueExpression
             ? // compute field value then cast to string

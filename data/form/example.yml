@@ -90,15 +90,17 @@ sections:
           - name: 125-note
             title: email
             widget: text
-            description: deve essere un indirizzo email
+            description: si abilita se sesto item è checked
             show_if: this["sesto-item"]
             error_msg: il campo deve avere un formato corretto per l'email
+            enabled_if: this["sesto-item"]
           - name: ottavo-item
             title: email
             widget: text
             description: anche questo deve essere un indirizzo email
             show_if: this["sesto-item"]
             valid_if: Yup.string().email('formato email non valido').validate(value)
+            enabled_if: this["125-note"].length > 0
           - name: text-field
             widget: html
             default: "<p>this is some <strong>html</strong> content"

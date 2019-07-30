@@ -7,18 +7,22 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import { Input } from "reactstrap";
-import { FieldT, FormValuesT, validateField } from "../utils/forms";
+import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
 
 export const CustomCheckboxComponent = ({
   field,
   form,
   options,
+  isHidden,
+  isDisabled,
   isRequired,
   ...props
 }: {
   field: FieldAttributes<any>;
   form: FormikProps<FormValuesT>;
   options: ReadonlyArray<{ value: string; label: string }>;
+  isHidden: boolean;
+  isDisabled: boolean;
   isRequired: boolean;
 }) => {
   return options.map(option => {
@@ -33,7 +37,10 @@ export const CustomCheckboxComponent = ({
           title={option.label}
           isRequired={isRequired}
           onClick={() => {
-            isChecked
+            isDisabled
+              ? // tslint:disable-next-line: no-unused-expression
+                () => void 0
+              : isChecked
               ? form.setFieldValue(
                   field.name,
                   (fieldValue || []).filter((v: any) => v !== option.value)
@@ -53,48 +60,44 @@ export const CheckboxMultipleField = ({
   field,
   form,
   isHidden,
+  isDisabled,
   isRequired,
   validationExpression,
   valueExpression
-}: {
-  field: FieldT;
-  form: FormikProps<FormValuesT>;
-  isHidden: boolean;
-  isRequired: boolean;
-  validationExpression: any;
-  valueExpression: any;
-}) => {
-  const fieldValue = getIn(form.values, field.name!);
-  return (
-    <FormGroup key={field.name!} isHidden={isHidden} fieldName={field.name!}>
+}: FormFieldPropsT) => {
+  return field.name ? (
+    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
       <Label
         className="d-block font-weight-semibold my-2 my-lg-3 neutral-1-color-a6 font-size-xs"
-        fieldName={field.name!}
+        fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
       />
       <Field
         name={field.name}
         type="checkbox"
-        checked={fieldValue}
+        checked={
+          isHidden || isDisabled ? false : getIn(form.values, field.name)
+        }
         component={CustomCheckboxComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
-          isHidden
+          isHidden || isDisabled
             ? ""
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : fieldValue
+            : getIn(form.values, field.name)
         }
         isRequired={false}
+        disabled={isDisabled}
         options={field.options}
       />
-      <ErrorMessage name={field.name!} />
+      <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />
       )}
     </FormGroup>
-  );
+  ) : null;
 };

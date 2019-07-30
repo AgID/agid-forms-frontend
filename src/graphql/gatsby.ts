@@ -39,6 +39,7 @@ export const FormSchemaFragment = graphql`
               widget
               show_if
               valid_if
+              enabled_if
               required_if
               error_msg
               computed_value

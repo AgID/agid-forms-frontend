@@ -48,17 +48,23 @@ export const Formfield = ({
   const valueExpression = getExpressionMemoized("computed_value", field);
   const validationExpression = getExpressionMemoized("valid_if", field);
   const requiredExpression = getExpressionMemoized("required_if", field);
+  const enabledExpression = getExpressionMemoized("enabled_if", field);
 
   const isHidden = showIfExpression ? !showIfExpression(form.values) : false;
 
-  // clear field value if is hidden but not empty
-  if (isHidden && getIn(form.values, field.name!) !== "") {
-    form.setFieldValue(field.name!, "");
-  }
+  const isDisabled = enabledExpression
+    ? !enabledExpression({ Math, ...form.values })
+    : false;
 
   const isRequired =
     !isHidden &&
+    !isDisabled &&
     (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
+
+  // reset field value in case it's disabled or hidden
+  if ((isHidden || isDisabled) && getIn(form.values, field.name!) !== "") {
+    form.setFieldValue(field.name!, "");
+  }
 
   const widgetOpts = {
     field,
@@ -66,6 +72,7 @@ export const Formfield = ({
     validationExpression,
     valueExpression,
     isHidden,
+    isDisabled,
     isRequired
   };
 

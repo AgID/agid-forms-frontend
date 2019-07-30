@@ -7,7 +7,7 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import SelectBase from "react-select";
-import { FieldT, FormValuesT, validateField } from "../utils/forms";
+import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
 
 export const CustomSelectComponent = ({
   field,
@@ -38,17 +38,11 @@ export const SelectField = ({
   field,
   form,
   isHidden,
+  isDisabled,
   isRequired,
   validationExpression,
   valueExpression
-}: {
-  field: FieldT;
-  form: FormikProps<FormValuesT>;
-  isHidden: boolean;
-  isRequired: boolean;
-  validationExpression: any;
-  valueExpression: any;
-}) => {
+}: FormFieldPropsT) => {
   return field.name ? (
     <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
       <Label
@@ -64,7 +58,7 @@ export const SelectField = ({
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
-          isHidden
+          isHidden || isDisabled
             ? ""
             : valueExpression
             ? // compute field value then cast to string
@@ -72,6 +66,7 @@ export const SelectField = ({
             : getIn(form.values, field.name)
         }
         options={field.options}
+        isDisabled={isDisabled}
       />
       <ErrorMessage name={field.name} />
       {field.description && (
