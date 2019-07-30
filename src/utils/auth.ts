@@ -65,13 +65,18 @@ export const userHasAnyRole = (
 };
 
 export const logout = async (client: typeof GraphqlClient) => {
-  await client.clearStore();
-  await client.mutate({
-    mutation: LOGOUT,
-    variables: {
-      body: "{}"
-    }
-  });
+  try {
+    await client.clearStore();
+    await client.mutate({
+      mutation: LOGOUT,
+      variables: {
+        body: "{}"
+      }
+    });
+  } catch (e) {
+    // tslint:disable-next-line: no-console
+    console.error(e);
+  }
   if (HAS_LOCAL_STORAGE) {
     localStorage.clear();
   }
