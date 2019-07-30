@@ -9,6 +9,7 @@ const IT = {
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
   publish_node: "pubblica",
+  give_feedback: "Supporto",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   errors: {
