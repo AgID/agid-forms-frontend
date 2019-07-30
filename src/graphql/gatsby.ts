@@ -111,6 +111,7 @@ export const SiteConfigFragment = graphql`
         authorLogo
         authorUrl
         homepage
+        cookiePolicyLink
         hotjar {
           hjid
           hjsv
