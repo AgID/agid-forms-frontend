@@ -12,6 +12,12 @@ const IT = {
   give_feedback: "Supporto",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
+  cookiebar: {
+    alert:
+      "Questo sito utilizza cookie tecnici, analytics e di terze parti. <1 />Proseguendo nella navigazione accetti l’utilizzo dei cookie.",
+    settings: "Preferenze<1>cookies</1>",
+    accept: "Accetto<1> i cookies</1>"
+  },
   errors: {
     content_not_found: "contenuto non tovato",
     error_getting_data:
