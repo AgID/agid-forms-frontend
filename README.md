@@ -58,7 +58,7 @@ agli indirizzi email degli RTD.
   salvataggio); è possibile consultare le vecchie revisioni e compararle con
   l'ultima pubblicata
 - il modello di autenticazione è flessibile: la comunicazione con il backend
-  avviene tramite [json web token](https://jwt.io/))
+  avviene tramite [json web token](https://jwt.io/)
 
 ## Tecnologie utilizzate
 
@@ -157,12 +157,13 @@ del layer di persistenza.
 git clone https://github.com/AgID/agid-forms-backend
 cp env.example .env 
 # editare il file di configurazione del backend
-e impostare i valori delle variabili di configurazione.
+# e impostare i valori delle variabili di configurazione.
 cd agid-forms-backend && docker-compose up -d
 cd ..
 git clone https://github.com/AgID/agid-forms-frontend
 cp env.example .env
 # editare il file di configurazione del frontend
+# e impostare i valori delle variabili di configurazione.
 cd agid-forms-frontend && docker-compose up -d
 ```
 
