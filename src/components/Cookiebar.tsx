@@ -7,13 +7,23 @@ import { Cookies } from "react-cookie-banner";
 export const COOKIEBAR_COOKIE_NAME = "user-has-accepted-cookies";
 
 export const hasAcceptedCookies = () => {
+  if (typeof window === "undefined") {
+    return false;
+  }
   const cookies = new Cookies();
   return cookies.get(COOKIEBAR_COOKIE_NAME) !== undefined;
 };
 
 const Cookiebar = ({ policyLink }: { policyLink: string }) => {
   const { t } = useTranslation();
-  return (
+
+  const [hasAcceptedCookiesInt, setHasAcceptedCookies] = React.useState(true);
+
+  React.useEffect(() => {
+    setHasAcceptedCookies(hasAcceptedCookies());
+  });
+
+  return !hasAcceptedCookiesInt ? (
     <CookieBanner
       buttonMessage={t("cookiebar.accept")}
       styles={{
@@ -60,7 +70,7 @@ const Cookiebar = ({ policyLink }: { policyLink: string }) => {
       dismissOnScroll={false}
       disableStyle={false}
     />
-  );
+  ) : null;
 };
 
 export default Cookiebar;

@@ -35,8 +35,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
       {siteConfig.cookiePolicyLink && (
         <Cookiebar policyLink={siteConfig.cookiePolicyLink} />
       )}
-      {hasAcceptedCookies() &&
-        siteConfig.hotjar &&
+      {siteConfig.hotjar &&
         siteConfig.hotjar.hjsv &&
         siteConfig.hotjar.hjid && (
           <Hotjar hjsv={siteConfig.hotjar.hjsv} hjid={siteConfig.hotjar.hjid} />
