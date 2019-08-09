@@ -25,11 +25,19 @@ L'utente che vuole autenticarsi seleziona la propria amministrazione da un menu
 a tendina e conferma di voler ricevere il codice di accesso (*password*)
 all'indirizzo dell'RTD indicato su [IPA](https://indicepa.gov.it).
 
-Viene quindi inviata un'email, a tale indirizzo, contenente il codice che
-l'utente inserirà nel form di login in modo da aprire una sessione autenticata
+Nel caso non viene trovato un indirizzo su IPA corrispondente
+all'RTD dell'amministrazione selezionata, l'utente è invitato
+a completare le informazioni direttamente sul sito
+[indicepa.gov.it](https://indicepa.gov.it).
+
+Nel caso invece l'indirizzo sia presente, viene inviata un'email contenente 
+il codice di accesso. Si tratta di una stringa "segreta" che l'utente deve inserire
+nel form di login in modo da aprire una sessione autenticata
 della durata di 30 giorni; la data in cui la sessione decade è contenuta nel
 campo "expire" di un JSON Web Token che l'utente (browser) riceve se il codice
-inserito corrisponde a una password valida.
+inserito corrisponde a uno di quelli generati e memorizzati nel sistema.
+
+![Autenticazione e interrogazione del database](./docs/workflow.svg)
 
 ### Dati memorizzati nel sistema
 
@@ -40,11 +48,13 @@ Il sistema memorizza:
 - i dati (pubblici) immessi dall'utente durante la compilazione dei form
   (es. dichiarazione di accessibilità)
 
-Non sono memorizzati dati privati, se non i codici di accesso
-(in Redis, con una durata temporanea di 30gg) corrispondenti
-agli indirizzi email degli RTD.
+Non sono memorizzati dati privati, se non i codici di accesso autogenerati
+- memorizzati in Redis, con una durata temporanea di 30gg - corrispondenti
+agli account (indirizzi email) degli RTD.
 
 ## Funzionalità
+
+L'applicazione implementa le seguenti funzionalità:
 
 - generazione di form da file di configurazione
   [YAML](https://it.wikipedia.org/wiki/YAML)
@@ -120,6 +130,10 @@ Le altre componenti consistono in
 - [Traefik](https://traefik.io/) come API gateway e per la generazione
   automatica dei certificati https
 
+Il backend `NodeJS` non dialoga direttamente con il database `PostgreSQL`.
+Esso effettua chiamate `GraphQL` verso la componente `Hasura` che a sua volta
+le traduce in SQL da inoltrare al database.
+
 Le uniche porte aperte esternamente (internet) sono quelle che permettono il
 traffico attraverso il gateway Traefik ovvero 80 (HTTP) e 443 (HTTPS).
 
@@ -127,7 +141,7 @@ Gli host raggiungibili sono:
 
 - https://form.agid.gov.it (il frontend statico)
 - https://backend.form.agid.gov.it (il backend NodeJS)
-- https://database.form.agid.gov.it (hasura GraphQL)
+- https://database.form.agid.gov.it (Hasura GraphQL)
 - https://gateway.form.agid.gov.it (la dashboard Traefik)
 
 La generazione dei certificati HTTPS avviene in automatico tramite [Let's

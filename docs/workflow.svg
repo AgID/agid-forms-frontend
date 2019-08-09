@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="600px" preserveAspectRatio="none" style="width:904px;height:600px;" version="1.1" viewBox="0 0 904 600" width="904px" zoomAndPan="magnify">
+  <defs>
+    <filter height="300%" id="fhnd6s8sgyz49" width="300%" x="-1" y="-1">
+      <feGaussianBlur result="blurOut" stdDeviation="2.0"/>
+      <feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/>
+      <feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/>
+      <feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/>
+    </filter>
+  </defs>
+  <g>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="64" x2="64" y1="86.2969" y2="513.2891"/>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="309" x2="309" y1="86.2969" y2="513.2891"/>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="543" x2="543" y1="86.2969" y2="513.2891"/>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="615" x2="615" y1="86.2969" y2="513.2891"/>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 5.0,5.0;" x1="847.5" x2="847.5" y1="86.2969" y2="513.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="107" x="8" y="82.9951">Frontend (RTD)</text>
+    <ellipse cx="64.5" cy="13" fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/>
+    <path d="M64.5,21 L64.5,48 M51.5,29 L77.5,29 M64.5,48 L51.5,63 M64.5,48 L77.5,63 " fill="none" filter="url(#fhnd6s8sgyz49)" style="stroke: #A80036; stroke-width: 2.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="107" x="8" y="525.2842">Frontend (RTD)</text>
+    <ellipse cx="64.5" cy="538.5859" fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" rx="8" ry="8" style="stroke: #A80036; stroke-width: 2.0;"/>
+    <path d="M64.5,546.5859 L64.5,573.5859 M51.5,554.5859 L77.5,554.5859 M64.5,573.5859 L51.5,588.5859 M64.5,573.5859 L77.5,588.5859 " fill="none" filter="url(#fhnd6s8sgyz49)" style="stroke: #A80036; stroke-width: 2.0;"/>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="107" x="254" y="51"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="93" x="261" y="70.9951">AuthBackend</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="107" x="254" y="512.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="93" x="261" y="532.2842">AuthBackend</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="53" x="515" y="51"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="522" y="70.9951">SMTP</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="53" x="515" y="512.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="39" x="522" y="532.2842">SMTP</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="62" x="582" y="51"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="589" y="70.9951">Hasura</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="62" x="582" y="512.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="48" x="589" y="532.2842">Hasura</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="798.5" y="51"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="805.5" y="70.9951">PostgreSQL</text>
+    <rect fill="#FEFECE" filter="url(#fhnd6s8sgyz49)" height="30.2969" style="stroke: #A80036; stroke-width: 1.5;" width="95" x="798.5" y="512.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacingAndGlyphs" textLength="81" x="805.5" y="532.2842">PostgreSQL</text>
+    <polygon fill="#A80036" points="297.5,128.5625,307.5,132.5625,297.5,136.5625,301.5,132.5625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="64.5" x2="303.5" y1="132.5625" y2="132.5625"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="123" x="71.5" y="112.3638">Richiede il codice di</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="155" x="71.5" y="127.4966">autenticazione per la PA</text>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="309.5" x2="351.5" y1="176.8281" y2="176.8281"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="351.5" x2="351.5" y1="176.8281" y2="189.8281"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="310.5" x2="351.5" y1="189.8281" y2="189.8281"/>
+    <polygon fill="#A80036" points="320.5,185.8281,310.5,189.8281,320.5,193.8281,316.5,189.8281" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="135" x="316.5" y="156.6294">Genera e memorizza</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="112" x="316.5" y="171.7622">il codice per la PA</text>
+    <polygon fill="#A80036" points="531.5,214.9609,541.5,218.9609,531.5,222.9609,535.5,218.9609" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="309.5" x2="537.5" y1="218.9609" y2="218.9609"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="210" x="316.5" y="213.895">Richiede di inviare il codice a RTD</text>
+    <polygon fill="#A80036" points="75.5,244.0938,65.5,248.0938,75.5,252.0938,71.5,248.0938" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0; stroke-dasharray: 2.0,2.0;" x1="69.5" x2="542.5" y1="248.0938" y2="248.0938"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="254" x="81.5" y="243.0278">Invia l'email con il codice autenticazione</text>
+    <polygon fill="#A80036" points="297.5,273.2266,307.5,277.2266,297.5,281.2266,301.5,277.2266" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="64.5" x2="303.5" y1="277.2266" y2="277.2266"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="221" x="71.5" y="272.1606">Fornisce il codice di autenticazione</text>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="309.5" x2="351.5" y1="306.3594" y2="306.3594"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="351.5" x2="351.5" y1="306.3594" y2="319.3594"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="310.5" x2="351.5" y1="319.3594" y2="319.3594"/>
+    <polygon fill="#A80036" points="320.5,315.3594,310.5,319.3594,320.5,323.3594,316.5,319.3594" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="189" x="316.5" y="301.2935">Controlla la validità del codice</text>
+    <polygon fill="#A80036" points="75.5,359.625,65.5,363.625,75.5,367.625,71.5,363.625" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="69.5" x2="308.5" y1="363.625" y2="363.625"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="174" x="81.5" y="343.4263">Invia un JWT corrispondente</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="176" x="81.5" y="358.5591">all'utenza dell'RTD per la PA</text>
+    <polygon fill="#A80036" points="603,403.8906,613,407.8906,603,411.8906,607,407.8906" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="64.5" x2="609" y1="407.8906" y2="407.8906"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="150" x="71.5" y="387.6919">Effettua query GraphQL</text>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="103" x="71.5" y="402.8247">utilizzando il JWT</text>
+    <polygon fill="#A80036" points="836,433.0234,846,437.0234,836,441.0234,840,437.0234" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="615" x2="842" y1="437.0234" y2="437.0234"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="206" x="622" y="431.9575">Inoltra le query "tradotte" in SQL</text>
+    <polygon fill="#A80036" points="626,462.1563,616,466.1563,626,470.1563,622,466.1563" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="620" x2="847" y1="466.1563" y2="466.1563"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="209" x="632" y="461.0903">Restituisce il risultato delle query</text>
+    <polygon fill="#A80036" points="75.5,491.2891,65.5,495.2891,75.5,499.2891,71.5,495.2891" style="stroke: #A80036; stroke-width: 1.0;"/>
+    <line style="stroke: #A80036; stroke-width: 1.0;" x1="69.5" x2="614" y1="495.2891" y2="495.2891"/>
+    <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacingAndGlyphs" textLength="253" x="81.5" y="490.2231">Inoltra il risultato delle query al frontend</text>    <!--
+@startuml
+actor "Frontend (RTD)" as RTD
+participant AuthBackend
+participant SMTP
+RTD -> AuthBackend: Richiede il codice di\nautenticazione per la PA
+AuthBackend->AuthBackend: Genera e memorizza\nil codice per la PA
+AuthBackend -> SMTP: Richiede di inviare il codice a RTD
+SMTP - -> RTD: Invia l'email con il codice autenticazione
+RTD -> AuthBackend: Fornisce il codice di autenticazione
+AuthBackend->AuthBackend: Controlla la validità del codice
+AuthBackend->RTD: Invia un JWT corrispondente\nall'utenza dell'RTD per la PA
+RTD->"Hasura": Effettua query GraphQL\nutilizzando il JWT
+Hasura->PostgreSQL: Inoltra le query "tradotte" in SQL
+PostgreSQL->Hasura: Restituisce il risultato delle query
+Hasura->RTD: Inoltra il risultato delle query al frontend
+@enduml
+
+PlantUML version 1.2019.08(Sat Jul 13 19:25:14 UTC 2019)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Java Version: 1.7.0_25-b15
+Operating System: Linux
+Default Encoding: UTF-8
+Language: en
+Country: US
+-->  </g>
+</svg>
