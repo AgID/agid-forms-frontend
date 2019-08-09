@@ -23,9 +23,9 @@ delle pubbliche amministrazioni](https://indicepa.gov.it).
 
 L'utente che vuole autenticarsi seleziona la propria amministrazione da un menu
 a tendina e conferma di voler ricevere il codice di accesso (*password*)
-all'indirizzo dell'RTD indicato su [IPA](https://indicepa.gov.it).
+all'indirizzo email dell'RTD memorizzato su [IPA](https://indicepa.gov.it).
 
-Nel caso non viene trovato un indirizzo su IPA corrispondente
+Nel caso non esiste un indirizzo su IPA corrispondente
 all'RTD dell'amministrazione selezionata, l'utente è invitato
 a completare le informazioni direttamente sul sito
 [indicepa.gov.it](https://indicepa.gov.it).
