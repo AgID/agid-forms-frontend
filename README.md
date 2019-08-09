@@ -49,7 +49,7 @@ Il sistema memorizza:
   (es. dichiarazione di accessibilità)
 
 Non sono memorizzati dati privati, se non i codici di accesso autogenerati
-- memorizzati in Redis, con una durata temporanea di 30gg - corrispondenti
+e memorizzati in Redis, con una durata temporanea di 30gg, corrispondenti
 agli account (indirizzi email) degli RTD.
 
 ## Funzionalità
