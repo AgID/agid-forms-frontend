@@ -1,12 +1,85 @@
 import { graphql } from "gatsby";
 import { FormConfig } from "../generated/graphql/FormConfig";
 import {
-  PageConfig,
-  PageConfig_menu_edges_node_menu,
-  PageConfig_siteConfig_edges_node
-} from "../generated/graphql/PageConfig";
+  LayoutQuery,
+  LayoutQuery_menu_edges_node_menu,
+  LayoutQuery_siteConfig_edges_node
+} from "../generated/graphql/LayoutQuery";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
 import { FormT } from "../utils/forms";
+
+export const MenuFragment = graphql`
+  fragment MenuFragment on ConfigYamlConnection {
+    edges {
+      node {
+        menu {
+          name
+          slug
+          roles
+        }
+      }
+    }
+  }
+`;
+
+export const getMenu = (
+  data: LayoutQuery
+): ReadonlyArray<LayoutQuery_menu_edges_node_menu | null> | null =>
+  data.menu && Array.isArray(data.menu.edges) && data.menu.edges[0]
+    ? data.menu.edges[0].node.menu
+    : null;
+
+export const SiteConfigFragment = graphql`
+  fragment SiteConfigFragment on ConfigYamlConnection {
+    edges {
+      node {
+        title
+        description
+        defaultLanguage
+        author
+        authorLogo
+        authorUrl
+        homepage
+        keywords
+        cookiePolicyLink
+        hotjar {
+          hjid
+          hjsv
+          surveyUrl
+        }
+        owners {
+          name
+          url
+        }
+        languages {
+          name
+        }
+        slimHeaderLinks {
+          name
+          url
+        }
+        socialLinks {
+          name
+          url
+          icon
+        }
+        footerLinks {
+          name
+          url
+        }
+      }
+    }
+  }
+`;
+
+export const getSiteConfig = (
+  data: LayoutQuery
+): LayoutQuery_siteConfig_edges_node | null =>
+  data.siteConfig &&
+  Array.isArray(data.siteConfig.edges) &&
+  data.siteConfig.edges[0]
+    ? data.siteConfig.edges[0].node
+    : null;
 
 export const FormSchemaFragment = graphql`
   fragment FormSchemaFragment on FormYamlConnection {
@@ -55,36 +128,6 @@ export const FormSchemaFragment = graphql`
   }
 `;
 
-export const PageConfigFragment = graphql`
-  fragment PageConfigFragment on ConfigYamlConnection {
-    edges {
-      node {
-        menu {
-          name
-          slug
-          roles
-        }
-      }
-    }
-  }
-`;
-
-export const getMenu = (
-  data: PageConfig
-): ReadonlyArray<PageConfig_menu_edges_node_menu | null> | null =>
-  data.menu && Array.isArray(data.menu.edges) && data.menu.edges[0]
-    ? data.menu.edges[0].node.menu
-    : null;
-
-export const getSiteConfig = (
-  data: PageConfig
-): PageConfig_siteConfig_edges_node | null =>
-  data.siteConfig &&
-  Array.isArray(data.siteConfig.edges) &&
-  data.siteConfig.edges[0]
-    ? data.siteConfig.edges[0].node
-    : null;
-
 export function getForm(
   data: FormConfig | ViewConfig,
   formId?: string
@@ -100,45 +143,3 @@ export function getForm(
   }
   return forms[0].node;
 }
-
-export const SiteConfigFragment = graphql`
-  fragment SiteConfigFragment on ConfigYamlConnection {
-    edges {
-      node {
-        title
-        description
-        defaultLanguage
-        author
-        authorLogo
-        authorUrl
-        homepage
-        cookiePolicyLink
-        hotjar {
-          hjid
-          hjsv
-          surveyUrl
-        }
-        owners {
-          name
-          url
-        }
-        languages {
-          name
-        }
-        slimHeaderLinks {
-          name
-          url
-        }
-        socialLinks {
-          name
-          url
-          icon
-        }
-        footerLinks {
-          name
-          url
-        }
-      }
-    }
-  }
-`;

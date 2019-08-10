@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
+import StaticLayout from "../../components/StaticLayout";
 
 import { Link } from "gatsby";
 
@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
 import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { getForm } from "../../graphql/gatsby";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
@@ -26,11 +26,10 @@ const ViewTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
-  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
+    <StaticLayout title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.view_title")} siteConfig={siteConfig} />
+      <SEO title={t("pages.view_title")} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{
@@ -124,7 +123,7 @@ const ViewTemplate = ({
           );
         }}
       </Query>
-    </Layout>
+    </StaticLayout>
   );
 };
 

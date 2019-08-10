@@ -6,7 +6,7 @@ import { FormConfig } from "../../generated/graphql/FormConfig";
 
 import { FormErrors } from "../../components/FormErrors";
 import { Formfield, getExpressionMemoized } from "../../components/FormField";
-import Layout from "../../components/Layout";
+import StaticLayout from "../../components/StaticLayout";
 
 import { format } from "date-fns";
 
@@ -29,7 +29,7 @@ import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
 import { Mutation, Query } from "react-apollo";
 import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { getForm } from "../../graphql/gatsby";
 import {
   GET_LATEST_NODE_WITH_PUBLISHED,
   UPSERT_NODE
@@ -209,7 +209,7 @@ const FormTemplate = ({
   const [title, setTitle] = React.useState(form.name || formId);
 
   return (
-    <Layout menu={getMenu(data)} siteConfig={getSiteConfig(data)} title={title}>
+    <StaticLayout title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
@@ -400,7 +400,7 @@ const FormTemplate = ({
           );
         }}
       </Query>
-    </Layout>
+    </StaticLayout>
   );
 };
 

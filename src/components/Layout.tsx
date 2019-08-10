@@ -6,7 +6,7 @@ import "../styles/global.scss";
 import * as React from "react";
 import { Container } from "reactstrap";
 
-import Cookiebar, { hasAcceptedCookies } from "./Cookiebar";
+import Cookiebar from "./Cookiebar";
 import Footer from "./Footer";
 import Hotjar from "./Hotjar";
 import MainHeader from "./MainHeader";

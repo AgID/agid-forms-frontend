@@ -1,35 +1,28 @@
 import * as React from "react";
 
-import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
 
 import { Link } from "gatsby";
 
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
-import { DashboardConfig } from "../../generated/graphql/DashboardConfig";
+import StaticLayout from "../../components/StaticLayout";
 import {
   GetUserNodes,
   GetUserNodesVariables
 } from "../../generated/graphql/GetUserNodes";
-import { getMenu, getSiteConfig } from "../../graphql/gatsby";
 import { GET_USER_NODES } from "../../graphql/hasura";
 import { getSessionInfo } from "../../utils/auth";
 
-const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
+const DashboardTemplate = () => {
   const { t } = useTranslation();
-  const siteConfig = getSiteConfig(data);
   const sessionInfo = getSessionInfo();
   if (!sessionInfo || !sessionInfo.userId) {
     return null;
   }
   return (
-    <Layout
-      menu={getMenu(data)}
-      siteConfig={siteConfig}
-      title={t("pages.dashboard_title")}
-    >
-      <SEO title={t("pages.dashboard_title")} siteConfig={siteConfig} />
+    <StaticLayout title={t("pages.dashboard_title")}>
+      <SEO title={t("pages.dashboard_title")} />
       <Query<GetUserNodes, GetUserNodesVariables>
         query={GET_USER_NODES}
         variables={{
@@ -53,12 +46,7 @@ const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
             );
           }
           if (!userNodes) {
-            return (
-              <p>
-                {data}
-                {sessionInfo.userId}
-              </p>
-            );
+            return <p>{t("no_node_found")}</p>;
           }
           return (
             <table className="table table-hover">
@@ -103,7 +91,7 @@ const DashboardTemplate = ({ data }: { data: DashboardConfig }) => {
           );
         }}
       </Query>
-    </Layout>
+    </StaticLayout>
   );
 };
 

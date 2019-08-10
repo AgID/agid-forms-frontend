@@ -1,16 +1,9 @@
 import * as React from "react";
 import { useState } from "react";
-import Layout from "../components/Layout";
 import SEO from "../components/Seo";
+import StaticLayout from "../components/StaticLayout";
 
-import { graphql, navigate } from "gatsby";
-
-import {
-  getMenu,
-  getSiteConfig,
-  // @ts-ignore
-  PageConfigFragment
-} from "../graphql/gatsby";
+import { graphql, navigate, useStaticQuery } from "gatsby";
 
 import { Button, Form, Input, Label } from "reactstrap";
 import { FormGroup } from "../components/FormGroup";
@@ -31,7 +24,6 @@ import { ValueType } from "react-select/lib/types";
 import ApolloErrors from "../components/ApolloErrors";
 import { FieldDescription } from "../components/FieldDescription";
 import { DUMB_IPA_VALUE_FOR_NULL } from "../config";
-import { PageConfig } from "../generated/graphql/PageConfig";
 import {
   PostAuthEmailIpaCode,
   PostAuthEmailIpaCodeVariables
@@ -400,16 +392,34 @@ const LoginButtonConnectedComponent = ({
   </Mutation>
 );
 
-const IndexPage = ({ data }: { data: PageConfig }) => {
+const IndexPage = () => {
   const { t } = useTranslation();
   const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
   const [secret, setSecret] = useState<string>();
   const [hasSecret, setHasSecret] = useState<boolean>();
 
-  const siteConfig = getSiteConfig(data);
+  const { homepageData } = useStaticQuery(
+    graphql`
+      query HomePage {
+        homepageData: allConfigYaml(filter: { title: { ne: null } }) {
+          edges {
+            node {
+              homepage
+            }
+          }
+        }
+      }
+    `
+  );
+
+  const homepage = get(
+    homepageData,
+    hd => (hd.edges[0].node.homepage as unknown) as string,
+    "/"
+  );
 
   if (isLoggedIn()) {
-    navigate(siteConfig && siteConfig.homepage ? siteConfig.homepage : "/");
+    navigate(homepage);
     return null;
   }
 
@@ -418,12 +428,8 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
     window.location.search.indexOf("session-expired") !== -1;
 
   return (
-    <Layout
-      menu={getMenu(data)}
-      siteConfig={siteConfig}
-      title={t("pages.index_page_title")}
-    >
-      <SEO title={t("pages.index_page_title")} siteConfig={siteConfig} />
+    <StaticLayout title={t("pages.index_page_title")}>
+      <SEO title={t("pages.index_page_title")} />
       {isSessionExpired && (
         <p className="alert alert-warning w-100">
           <Trans i18nKey="auth.expired_session" />
@@ -455,26 +461,13 @@ const IndexPage = ({ data }: { data: PageConfig }) => {
                 organizationName: selectedPa.label,
                 organizationCode: selectedPa.value
               });
-              navigate(get(siteConfig, s => s.homepage, ""));
+              navigate(homepage);
             }}
           />
         )}
       </div>
-    </Layout>
+    </StaticLayout>
   );
 };
-
-export const query = graphql`
-  query PageConfig {
-    menu: allConfigYaml(
-      filter: { menu: { elemMatch: { name: { ne: null } } } }
-    ) {
-      ...PageConfigFragment
-    }
-    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
-      ...SiteConfigFragment
-    }
-  }
-`;
 
 export default IndexPage;

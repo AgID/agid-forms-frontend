@@ -21,14 +21,6 @@ const View = ({ data }: { data: ViewConfig }) => (
 
 export const query = graphql`
   query ViewConfig {
-    menu: allConfigYaml(
-      filter: { menu: { elemMatch: { name: { ne: null } } } }
-    ) {
-      ...PageConfigFragment
-    }
-    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
-      ...SiteConfigFragment
-    }
     allFormYaml {
       ...FormSchemaFragment
     }
