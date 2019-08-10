@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Layout from "../../components/Layout";
 import SEO from "../../components/Seo";
+import StaticLayout from "../../components/StaticLayout";
 
 import { Link } from "gatsby";
 
@@ -14,7 +14,7 @@ import {
   GetNodeRevision,
   GetNodeRevisionVariables
 } from "../../generated/graphql/GetNodeRevision";
-import { getForm, getMenu, getSiteConfig } from "../../graphql/gatsby";
+import { getForm } from "../../graphql/gatsby";
 import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
@@ -32,11 +32,10 @@ const RevisionTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
-  const siteConfig = getSiteConfig(data);
   return (
-    <Layout menu={getMenu(data)} siteConfig={siteConfig} title={title}>
+    <StaticLayout title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.revision_title")} siteConfig={siteConfig} />
+      <SEO title={t("pages.revision_title")} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
         variables={{
@@ -124,7 +123,7 @@ const RevisionTemplate = ({
           );
         }}
       </Query>
-    </Layout>
+    </StaticLayout>
   );
 };
 

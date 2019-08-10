@@ -43,7 +43,9 @@ export const getGraphqlToken = () => {
 };
 
 export const storeSessionInfo = (user: SessionInfo) => {
-  HAS_LOCAL_STORAGE ? localStorage.setItem("user", JSON.stringify(user)) : null;
+  if (HAS_LOCAL_STORAGE) {
+    localStorage.setItem("user", JSON.stringify(user));
+  }
 };
 
 export const getSessionInfo = (): SessionInfo | null => {

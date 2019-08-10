@@ -8,8 +8,8 @@ import * as React from "react";
 
 import { useState } from "react";
 import { Mutation } from "react-apollo";
-import { Trans, useTranslation } from "react-i18next";
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { Trans } from "react-i18next";
+import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
 import ViewGroup from "../../../../components/ViewGroup";

@@ -21,9 +21,9 @@ slimHeaderLinks:
     url: https://docs.italia.it
 footerLinks:
   - name: Privacy policy
-    url: /privacy-policy
+    url: /doc/privacy-policy
   - name: Note legali
-    url: /note-legali
+    url: /doc/note-legali
 socialLinks:
   - name: ""
     url: ""
@@ -44,4 +44,4 @@ hotjar:
   hjid: 1422614
   hjsv: 6
   surveyUrl: https://surveys.hotjar.com/s?siteId=1422614&surveyId=139132
-cookiePolicyLink: "https://cookiepolicy"
+cookiePolicyLink: "/doc/privacy-policy"

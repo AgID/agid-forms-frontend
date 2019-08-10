@@ -28,8 +28,12 @@ module.exports = {
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
     {
+      resolve: `gatsby-plugin-mdx`
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: "data",
         path: `${__dirname}/data`
       }
     },

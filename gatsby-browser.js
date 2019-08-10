@@ -8,6 +8,8 @@ import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { GraphqlClient } from "./src/graphql/client";
 
+import MDXLayout from "./src/components/MDXLayout";
+
 // import { ThemeProvider } from "styled-components";
 // import theme from "./theme";
 
@@ -16,6 +18,8 @@ setupI18Next();
 
 export const wrapRootElement = ({ element }) => (
   // <ThemeProvider theme={theme}>
-  <ApolloProvider client={GraphqlClient}>{element}</ApolloProvider>
+  <MDXLayout>
+    <ApolloProvider client={GraphqlClient}>{element}</ApolloProvider>
+  </MDXLayout>
   // </ThemeProvider>
 );

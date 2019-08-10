@@ -5,10 +5,6 @@ import * as React from "react";
 
 import RouterPage from "../components/RouterPage";
 import { FormConfig } from "../generated/graphql/FormConfig";
-
-// @ts-ignore
-import { PageConfigFragment } from "../graphql/gatsby";
-
 import FormTemplate from "../templates/node/form-template";
 
 const Form = ({ data }: { data: FormConfig }) => (
@@ -32,14 +28,6 @@ const Form = ({ data }: { data: FormConfig }) => (
 
 export const query = graphql`
   query FormConfig {
-    menu: allConfigYaml(
-      filter: { menu: { elemMatch: { name: { ne: null } } } }
-    ) {
-      ...PageConfigFragment
-    }
-    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
-      ...SiteConfigFragment
-    }
     allFormYaml {
       ...FormSchemaFragment
     }

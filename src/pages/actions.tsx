@@ -1,32 +1,19 @@
 import { graphql, Link } from "gatsby";
 import * as React from "react";
-
-import {
-  getMenu,
-  getSiteConfig,
-  // @ts-ignore
-  PageConfigFragment
-} from "../graphql/gatsby";
-
 import { useTranslation } from "react-i18next";
 import BodyStyles from "../components/BodyStyles";
-import Layout from "../components/Layout";
 import SEO from "../components/Seo";
+import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
 
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
   const { t } = useTranslation();
-  const siteConfig = getSiteConfig(data);
   return (
-    <Layout
-      menu={getMenu(data)}
-      siteConfig={siteConfig}
-      title={t("pages.action_page_title")}
-    >
+    <StaticLayout title={t("pages.action_page_title")}>
       <BodyStyles backgroundColor="#e7e6ff" />
-      <SEO title={t("pages.action_page_title")} siteConfig={siteConfig} />
+      <SEO title={t("pages.action_page_title")} />
       <ul>
         {getForms(data).map(({ node }) => {
           return (
@@ -36,20 +23,12 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
           );
         })}
       </ul>
-    </Layout>
+    </StaticLayout>
   );
 };
 
 export const query = graphql`
   query ActionsPageConfig {
-    menu: allConfigYaml(
-      filter: { menu: { elemMatch: { name: { ne: null } } } }
-    ) {
-      ...PageConfigFragment
-    }
-    siteConfig: allConfigYaml(filter: { title: { ne: null } }) {
-      ...SiteConfigFragment
-    }
     forms: allFormYaml(filter: { enabled: { eq: true } }) {
       edges {
         node {

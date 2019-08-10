@@ -8,6 +8,7 @@ const IT = {
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
+  no_node_found: "non è ancora presente nessun contenuto",
   publish_node: "pubblica",
   give_feedback: "Supporto",
   form_errors_warning:

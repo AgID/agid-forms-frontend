@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import Layout from "../../../../components/Layout";
 import SEO from "../../../../components/Seo";
 
 import { Link } from "@reach/router";
@@ -9,18 +8,16 @@ import { Link as GatsbyLink } from "gatsby";
 import { format } from "date-fns";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
-import { DashboardConfig } from "../../../../generated/graphql/DashboardConfig";
+import StaticLayout from "../../../../components/StaticLayout";
 import {
   GetUserAccessibilityDecl,
   GetUserAccessibilityDeclVariables
 } from "../../../../generated/graphql/GetUserAccessibilityDecl";
-import { getMenu, getSiteConfig } from "../../../../graphql/gatsby";
 import { getSessionInfo } from "../../../../utils/auth";
 import { GET_USER_ACCESSIBILITY_DECLS } from "../../../graphql/hasura";
 
-const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
+const DashboardDeclTemplate = () => {
   const { t } = useTranslation();
-  const siteConfig = getSiteConfig(data);
   const sessionInfo = getSessionInfo();
   if (!sessionInfo || !sessionInfo.userId) {
     return null;
@@ -38,12 +35,8 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
   );
 
   return (
-    <Layout
-      menu={getMenu(data)}
-      siteConfig={siteConfig}
-      title={t("pages.dashboard_title")}
-    >
-      <SEO title={t("pages.dashboard_title")} siteConfig={siteConfig} />
+    <StaticLayout title={t("pages.dashboard_title")}>
+      <SEO title={t("pages.dashboard_title")} />
       <Query<GetUserAccessibilityDecl, GetUserAccessibilityDeclVariables>
         query={GET_USER_ACCESSIBILITY_DECLS}
         fetchPolicy="network-only"
@@ -150,7 +143,7 @@ const DashboardDeclTemplate = ({ data }: { data: DashboardConfig }) => {
           );
         }}
       </Query>
-    </Layout>
+    </StaticLayout>
   );
 };
 
