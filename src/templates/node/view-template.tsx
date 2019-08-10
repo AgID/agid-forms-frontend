@@ -61,8 +61,10 @@ const ViewTemplate = ({
           }
 
           const publishedNode =
-            latestNode && latestNode.published && latestNode.published[0]
-              ? latestNode.published[0]
+            getNodeResult &&
+            getNodeResult.published &&
+            getNodeResult.published[0]
+              ? getNodeResult.published[0]
               : null;
 
           if (!publishedNode) {

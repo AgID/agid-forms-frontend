@@ -114,13 +114,13 @@ export const GET_LATEST_NODE_WITH_PUBLISHED = gql`
   query GetNode($id: uuid!) {
     latest: node(where: { id: { _eq: $id } }, limit: 1) {
       ...NodeFragment
-      published: revisions(
-        where: { status: { _eq: "published" } }
-        order_by: { version: desc }
-        limit: 1
-      ) {
-        ...NodeRevisionFragment
-      }
+    }
+    published: node_revision(
+      where: { _and: { id: { _eq: $id }, status: { _eq: "published" } } }
+      order_by: { version: desc }
+      limit: 1
+    ) {
+      ...NodeRevisionFragment
     }
   }
 
