@@ -315,7 +315,7 @@ const LoginButtonComponent = ({
         <Trans i18nKey="auth.insert_secret" />
       </label>
       <Input
-        type="text"
+        type="password"
         name="secret"
         value={secret || ""}
         onChange={evt => setSecret(evt.target.value)}
