@@ -21,9 +21,9 @@ slimHeaderLinks:
     url: https://docs.italia.it
 footerLinks:
   - name: Privacy policy
-    url: /privacy-policy
+    url: /doc/privacy-policy
   - name: Note legali
-    url: /note-legali
+    url: /doc/note-legali
 socialLinks:
   - name: ""
     url: ""
