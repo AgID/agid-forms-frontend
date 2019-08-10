@@ -28,12 +28,7 @@ module.exports = {
     `gatsby-transformer-json`,
     `gatsby-transformer-remark`,
     {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        defaultLayouts: {
-          default: require.resolve("./src/components/StaticLayout.tsx")
-        }
-      }
+      resolve: `gatsby-plugin-mdx`
     },
     {
       resolve: `gatsby-source-filesystem`,
