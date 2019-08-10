@@ -184,18 +184,34 @@ const Groups: Record<
   }
 };
 
-const PublishModal = ({ nodeLink }: { nodeLink: string }) => {
+const PublishModal = ({
+  nodeLink,
+  isWebsite
+}: {
+  nodeLink: string;
+  isWebsite: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
-        Copia e incolla il link
+        Pubblica il link {isWebsite ? " sul sito" : " nello store"}
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
         <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
-          Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
-          <br /> A seguito di questa operazione verrà effettuata una verifica
-          automatica.
+          {isWebsite && (
+            <>
+              Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
+              <br /> A seguito di questa operazione verrà effettuata una
+              verifica automatica.
+            </>
+          )}
+          {!isWebsite && (
+            <>
+              Pubblica nello store della tua app il link in calce, in "Altre
+              informazioni" nella sezione "Sviluppatore".
+            </>
+          )}
         </p>
         <p className="font-weight-bold pt-4">
           <a href={nodeLink}>{nodeLink}</a>
@@ -207,10 +223,12 @@ const PublishModal = ({ nodeLink }: { nodeLink: string }) => {
 
 const PublishCta = ({
   nodeId,
-  nodeVersion
+  nodeVersion,
+  isWebsite
 }: {
   nodeId: number;
   nodeVersion: number;
+  isWebsite: boolean;
 }) => {
   const [nodeLink, setNodeLink] = useState();
 
@@ -269,7 +287,7 @@ const PublishCta = ({
           );
         }
         return nodeLink ? (
-          <PublishModal nodeLink={nodeLink} />
+          <PublishModal nodeLink={nodeLink} isWebsite={isWebsite} />
         ) : (
           <Button
             color="primary"
@@ -374,7 +392,11 @@ const Template = ({
         );
       })}
       {node.status !== "published" && (
-        <PublishCta nodeId={node.id} nodeVersion={node.version} />
+        <PublishCta
+          nodeId={node.id}
+          nodeVersion={node.version}
+          isWebsite={values["device-type"] === "website"}
+        />
       )}
     </div>
   );
