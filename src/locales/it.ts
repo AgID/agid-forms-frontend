@@ -22,7 +22,7 @@ const IT = {
     accept: "Accetto i cookies"
   },
   errors: {
-    content_not_found: "contenuto non tovato",
+    content_not_found: "contenuto non trovato",
     error_getting_data:
       "si è verificato un errore durante il recupero dei dati, puoi comunque riprovare a effettuare l'operazione.",
     error_sending_data:
