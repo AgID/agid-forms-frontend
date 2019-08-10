@@ -47,18 +47,13 @@ const ViewTemplate = ({
               </p>
             );
           }
+
+          // latestNode may be null in case the user is anonymous
+          // and the latest revision is not published
           const latestNode =
             getNodeResult && getNodeResult.latest && getNodeResult.latest[0]
               ? getNodeResult.latest[0]
               : null;
-
-          if (!latestNode) {
-            return (
-              <p className="alert alert-warning">
-                {t("errors.content_not_found")}
-              </p>
-            );
-          }
 
           const publishedNode =
             getNodeResult &&
@@ -76,11 +71,17 @@ const ViewTemplate = ({
           }
 
           const isLatestPublishedVersion =
-            publishedNode && publishedNode.version === latestNode.version;
+            latestNode &&
+            publishedNode &&
+            publishedNode.version === latestNode.version;
           {
-            /* shows the latest published page with an eventual link to latest version (only if the user is logged in) */
+            /*
+             * only if the user is logged in:
+             * shows the latest published page with
+             * an eventual link to the latest version
+             */
           }
-          const formId = latestNode.content.schema.id;
+          const formId = publishedNode.content.schema.id;
           const form = getForm(data, formId);
           if (!form) {
             return (
@@ -92,7 +93,7 @@ const ViewTemplate = ({
           setTitle(publishedNode.title);
           return (
             <>
-              {isLoggedIn() && (
+              {isLoggedIn() && latestNode && (
                 <div className="pl-lg-5">
                   <small>
                     <Link
