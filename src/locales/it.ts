@@ -9,6 +9,8 @@ const IT = {
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
   no_node_found: "non è ancora presente nessun contenuto",
+  no_result_found: "nessun risultato",
+  go_on: "prosegui",
   publish_node: "pubblica",
   give_feedback: "Supporto",
   form_errors_warning:
@@ -30,24 +32,30 @@ const IT = {
   },
   follow_us: "seguici su",
   auth: {
+    pa_placeholder: "Nome o codice IPA...",
+    description:
+      "Per poter procedere alla compilazione della dichiarazione di accessibilità è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni.</0>",
     email_sent:
-      "un'email contenente la password di accesso è stata inviata all'indirizzo",
+      "un'email contenente il codice di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
-      "prosegui e invia il codice alla casella email del responsabile per la transizione digitale dell'ente: {{email}}",
+      "Richiedo l'invio del codice di accesso alla casella email del Responsabile della Transizione Digitale: {{email}}",
     expired_session:
       "la tua sessione è scaduta, è necessario effettuare un nuovo login",
     // tslint:disable-next-line: no-hardcoded-credentials
-    has_password: "ho già la password",
-    insert_secret: "inserisci la password che hai ricevuto per email:",
+    has_password: "ho già il codice di accesso",
+    insert_secret: "inserisci il codice di accesso che hai ricevuto per email:",
     login_as: "accedi come {{selectedPa}}",
     // tslint:disable-next-line: no-hardcoded-credentials
-    not_has_password: "devo ancora ottenere la password",
+    not_has_password: "devo ancora ottenere il codice di accesso",
     select_pa: "Seleziona un'amministrazione",
-    select_pa_hint: "cerca per nome o inserisci il codice ipa",
+    select_pa_hint:
+      "inserisci il nome o il codice ipa della tua amministrazione",
     rtd_not_found:
       "l'indirizzo email del responsabile per la transizione digitale non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
     // tslint:disable-next-line: no-hardcoded-credentials
-    wrong_password: "la password immessa non è corretta"
+    wrong_password:
+      // tslint:disable-next-line: no-hardcoded-credentials
+      "il codice immesso non è corretto o è scaduto, prova a richiedere un nuovo codice"
   },
   login: "accedi",
   logout: "logout",

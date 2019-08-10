@@ -6,6 +6,7 @@
 import { format } from "date-fns";
 import * as React from "react";
 
+import { graphql, useStaticQuery } from "gatsby";
 import { useState } from "react";
 import { Mutation } from "react-apollo";
 import { Trans } from "react-i18next";
@@ -94,14 +95,13 @@ const Groups: Record<
     const hasInaccessibleContent = accessibilityFields
       .map(fieldName => values[fieldName])
       .some(_ => _);
-    return (
+    return hasInaccessibleContent ? (
       <div className="mb-lg-5">
-        <FormGroupTitle title={group.title} />
-        {hasInaccessibleContent && (
-          <p className="w-paragraph">
-            I contenuti di seguito elencati non sono accessibili per i seguenti
-            motivi:
-          </p>
+        <FormGroupTitle title={group.title} />(
+        <p className="w-paragraph">
+          I contenuti di seguito elencati non sono accessibili per i seguenti
+          motivi:
+        </p>
         )}
         {accessibilityFields.map(
           fieldName =>
@@ -117,6 +117,8 @@ const Groups: Record<
             )
         )}
       </div>
+    ) : (
+      <></>
     );
   },
   "content-alt": ({ group, values }) =>
@@ -133,19 +135,22 @@ const Groups: Record<
       <div className="mb-lg-5">
         <FormGroupTitle title={group.title} />
         <p className="w-paragraph">
-          La dichiarazione è stata effettuata utilizzando{" "}
-          <strong>
-            {getSelectedLabel(fields.methodology, values.methodology)}
-          </strong>{" "}
-          {values["methodology-details"] && "mediante"}{" "}
+          La dichiarazione è stata redatta il{" "}
+          {format(node.created_at, "DD.MM.YYYY")}.
+        </p>
+        <p className="w-paragraph">
+          La dichiarazione è stata effettuata utilizzando una valutazione
+          conforme alle prescrizioni della direttiva (UE) 2016/2012 mediante{" "}
           <strong>
             {getSelectedLabel(
               fields["methodology-details"],
               values["methodology-details"]
             )}
-          </strong>{" "}
-          e aggiornata il {format(node.updated_at, "DD.MM.YYYY")} a seguito di
-          una revisione sostanziale{" "}
+          </strong>
+        </p>
+        <p className="w-paragraph">
+          La dichiarazione è stata aggiornata il{" "}
+          {format(node.updated_at, "DD.MM.YYYY")} a seguito di una revisione{" "}
           {values["device-type"] === "website"
             ? "del sito web"
             : "dell'applicazione mobile"}
@@ -179,18 +184,34 @@ const Groups: Record<
   }
 };
 
-const PublishModal = ({ nodeLink }: { nodeLink: string }) => {
+const PublishModal = ({
+  nodeLink,
+  isWebsite
+}: {
+  nodeLink: string;
+  isWebsite: boolean;
+}) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
     <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
-        Copia e incolla il link
+        Pubblica il link {isWebsite ? " sul sito" : " nello store"}
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
         <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
-          Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
-          <br /> A seguito di questa operazione verrà effettuata una verifica
-          automatica.
+          {isWebsite && (
+            <>
+              Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
+              <br /> A seguito di questa operazione verrà effettuata una
+              verifica automatica.
+            </>
+          )}
+          {!isWebsite && (
+            <>
+              Pubblica nello store della tua app il link in calce, in "Altre
+              informazioni" nella sezione "Sviluppatore".
+            </>
+          )}
         </p>
         <p className="font-weight-bold pt-4">
           <a href={nodeLink}>{nodeLink}</a>
@@ -202,12 +223,35 @@ const PublishModal = ({ nodeLink }: { nodeLink: string }) => {
 
 const PublishCta = ({
   nodeId,
-  nodeVersion
+  nodeVersion,
+  isWebsite
 }: {
   nodeId: number;
   nodeVersion: number;
+  isWebsite: boolean;
 }) => {
   const [nodeLink, setNodeLink] = useState();
+
+  const { hostnameData } = useStaticQuery(
+    graphql`
+      query Hostname {
+        hostnameData: allConfigYaml(filter: { title: { ne: null } }) {
+          edges {
+            node {
+              hostname
+            }
+          }
+        }
+      }
+    `
+  );
+
+  const hostname = get(
+    hostnameData,
+    hd => (hd.edges[0].node.hostname as unknown) as string,
+    ""
+  );
+
   return (
     <Mutation<PublishNode, PublishNodeVariables>
       mutation={PUBLISH_NODE}
@@ -218,14 +262,11 @@ const PublishCta = ({
         }
       ]}
       onCompleted={publishedNode => {
-        if (typeof window !== `undefined`) {
-          // TODO: set from siteConfig.hostName
-          setNodeLink(
-            `https://${window.location.hostname}/view/${
-              publishedNode.update_node!.returning[0].id
-            }`
-          );
-        }
+        setNodeLink(
+          `https://${hostname}/view/${
+            publishedNode.update_node!.returning[0].id
+          }`
+        );
       }}
     >
       {(publishNode, { loading: publishLoading, error: publishError }) => {
@@ -246,7 +287,7 @@ const PublishCta = ({
           );
         }
         return nodeLink ? (
-          <PublishModal nodeLink={nodeLink} />
+          <PublishModal nodeLink={nodeLink} isWebsite={isWebsite} />
         ) : (
           <Button
             color="primary"
@@ -305,10 +346,13 @@ const Template = ({
                 si impegna a rendere{" "}
                 <strong>
                   {values["device-type"] === "website"
-                    ? "il sito web"
-                    : "l'applicazione mobile"}{" "}
+                    ? "il proprio sito web"
+                    : "la propria applicazione mobile"}{" "}
                 </strong>
-                “
+                accessibile, conformemente al D.lgs 10 agosto 2018, n. 106 che
+                ha recepito la direttiva UE 2016/2102 del Parlamento europeo e
+                del Consiglio. La presente dichiarazione di accessibilità si
+                applica a “
                 <a
                   href={
                     values["device-type"] === "website"
@@ -321,11 +365,7 @@ const Template = ({
                     ? values["website-name"]
                     : values["app-name"]}
                 </a>
-                ” accessibile, conformemente alla normativa nazionale che ha
-                recepito la direttiva (UE) 2016/2102 del Parlamento europeo e
-                del Consiglio. La presente dichiarazione di accessibilità si
-                applica a siti web e applicazioni mobile omnis voluptas
-                assumenda est, omnis dolor repellendus.
+                ” .
               </p>
             )}
 
@@ -352,7 +392,11 @@ const Template = ({
         );
       })}
       {node.status !== "published" && (
-        <PublishCta nodeId={node.id} nodeVersion={node.version} />
+        <PublishCta
+          nodeId={node.id}
+          nodeVersion={node.version}
+          isWebsite={values["device-type"] === "website"}
+        />
       )}
     </div>
   );

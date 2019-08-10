@@ -4,14 +4,13 @@ language: it
 enabled: true
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Dichiarazione accessibilita ' + this[\"website-name\"] + this[\"app-name\"]"
+title_pattern: "'Dichiarazione accessibilità ' + this[\"website-name\"] + this[\"app-name\"]"
 sections:
 
   - name: section-0
-    title: Oggetto della dichiarazione
+    title: Informazioni di contesto
     description: |-
-      Seleziona il sito o dispositivo oggetto della dichiarazione di accessibilità.
-      I campi predisposti verranno automaticamente popolati per agevolare la compilazione del modulo.
+      La compilazione è obbligatoria per tutti i campi preposti.
     groups:
 
       - name: information
@@ -57,7 +56,7 @@ sections:
   - name: section-1
     title: Sezione 1
     description: |-
-      Contenuti previsti dalla direttiva UE 2018/1523.
+      Contenuti in ottemperanza alla Decisione di esecuzione UE 2018/1523.
 
     groups:
       - name: content-compliance
@@ -80,23 +79,23 @@ sections:
         fields:
           - name: "reason-42004"
             widget: checkbox
-            title: Inosservanza della legge 4/2004
+            title: inosservanza della legge 4/2004
             enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: utilizzare un linguaggio descrittivo
+            description: indicare le alternative accessibili a seconda dei casi
             show_if: this["reason-42004"]
             required_if: this["reason-42004"]
             enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden"
             widget: checkbox
-            title: Onere sproporzionato
+            title: onere sproporzionato
             enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: utilizzare un linguaggio descrittivo
+            description: indicare le alternative accessibili a seconda dei casi
             show_if: this["reason-disproportionate-burden"]
             required_if: this["reason-disproportionate-burden"]
             enabled_if: this["compliance-status"] != "compliant"
@@ -107,46 +106,47 @@ sections:
           - name: "reason-no-law-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: utilizzare un linguaggio descrittivo
+            description: indicare le alternative accessibili a seconda dei casi
             show_if: this["reason-no-law"]
             required_if: this["reason-no-law"]
             enabled_if: this["compliance-status"] != "compliant"
 
-      - name: content-alt
-        title: alternative accessibili
-        fields:
+      # - name: content-alt
+      #   title: alternative accessibili
+      #   fields:
           - name: "accessible-alternatives"
             widget: textarea
-            title: Indicare le alternative accessibili
-            description: utilizzare un linguaggio descrittivo
+            title: alternative accessibili
+            description: indicare le alternative accessibili a seconda dei casi
             enabled_if: this["compliance-status"] != "compliant"
 
       - name: content-methodology
-        title: modalità utilizzata per la stesura della dichiarazione
+        title: redazione della dichiarazione di accessibilità
         fields:
-          - name: methodology
-            widget: radio
-            options:
-              - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
-                value: methodology-ue
-              - label: altre misure considerate appropriate dagli stati membri
-                value: methodology-other
-            required_if: "true"
+          # - name: methodology
+          #   widget: radio
+          #   options:
+          #     - label: una valutazione conforme alle prescrizioni della direttiva (UE) 2016/2012
+          #       value: methodology-ue
+          #     - label: altre misure considerate appropriate dagli stati membri
+          #       value: methodology-other
+          #   required_if: "true"
           - name: "methodology-details"
             widget: radio
             title: modalità della valutazione
             options:
               - label: un’autovalutazione effettuata direttamente dal soggetto erogatore
                 value: methodology-auto
-              - label: una valutazione effettuata con allegato 2 delle linee guida di accessibilità
-                value: methodology-attachment
               - label: una valutazione effettuata da terzi
                 value: methodology-third-party
-            show_if: this["methodology"] == "methodology-other"
-            required_if: this["methodology"] == "methodology-other"
+              - label: allegato 2 - modello di autovalutazione fornito da AGID
+                value: methodology-attachment
+            # show_if: this["methodology"] == "methodology-other"
+            # required_if: this["methodology"] == "methodology-other"
+            required_if: "true"
 
       - name: feedback-and-contacts
-        title: feedback e contatti
+        title: feedback e recapiti
         fields:
           - name: "feedback"
             widget: textarea
@@ -163,23 +163,24 @@ sections:
             valid_if: Yup.string().email().validate(value)
             required_if: "true"
 
-      - name: implementation-procedure
-        title: procedura di attuazione
-        description: Secondo la procedura di attuazione... (TODO)
-        fields:
-          - name: implementation-procedure-url
-            title: URL servizio
-            widget: html
-            default: https://agid.gov.it
-          - name: implementation-procedure-email
-            title: Email
-            widget: html
-            default: example@agid.gov.it
+      # TODO
+      # - name: implementation-procedure
+      #   title: procedura di attuazione
+      #   description: Secondo la procedura di attuazione... (TODO)
+      #   fields:
+      #     - name: implementation-procedure-url
+      #       title: URL servizio
+      #       widget: html
+      #       default: https://agid.gov.it
+      #     - name: implementation-procedure-email
+      #       title: Email
+      #       widget: html
+      #       default: example@agid.gov.it
 
   - name: section-2
     title: Sezione 2
     description: |-
-      Informazioni richieste dall'Agenzia per l'Italia digitale
+      Ulteriori informazioni richieste dall'Agenzia per l'Italia digitale
     groups:
 
       - name: application-information

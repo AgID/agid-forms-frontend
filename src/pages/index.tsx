@@ -122,7 +122,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                     htmlFor="agree"
                     onClick={() => setAgree(!agree)}
                     className="font-size-xs"
-                    style={{ maxWidth: "30em" }}
+                    style={{ maxWidth: "34em" }}
                   >
                     {t("auth.email_to_be_sent", {
                       paName: ipaData!.ipa_pa[0].des_amm,
@@ -145,7 +145,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                       : () => ({})
                   }
                 >
-                  Invia l'email
+                  {t("go_on")}
                 </Button>
               </>
             )}
@@ -232,7 +232,10 @@ const PaSelectionComponent = ({
       <SelectBase<SelectedValueT>
         name="pa"
         className="react-select"
-        placeholder="Amministrazione..."
+        placeholder={t("auth.pa_placeholder")}
+        noOptionsMessage={inpt =>
+          inpt.inputValue ? t("no_result_found") : t("auth.pa_placeholder")
+        }
         cacheOptions={true}
         defaultOptions={[]}
         isLoading={loading}
@@ -435,8 +438,15 @@ const IndexPage = () => {
           <Trans i18nKey="auth.expired_session" />
         </p>
       )}
-      <div>
+      <div className="p-lg-5">
         <h2>{capitalizeFirst(t("login"))}</h2>
+
+        <p className="w-paragraph-sans mb-5">
+          <Trans i18nKey="auth.description">
+            <a href="https://indicepa.gov.it">indicepa</a>
+          </Trans>
+        </p>
+
         <SelectOrganizationConnectedComponent
           selectedPa={selectedPa}
           setHasSecret={setHasSecret}
