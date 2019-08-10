@@ -2,7 +2,7 @@
   "name": "agid-forms-frontend",
   "private": true,
   "description": "Frontend to collect data from AGID forms.",
-  "version": "0.2.0",
+  "version": "0.9.0",
   "author": "AGID <info@agid.gov.it>",
   "dependencies": {
     "apollo-cache-inmemory": "^1.6.2",
