@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import * as Loadable from "react-loadable";
-import { GetNode_latest_published } from "../generated/graphql/GetNode";
+import { GetNode_published } from "../generated/graphql/GetNode";
 import {
   FieldT,
   flattenFormFieldsWithKeys,
@@ -46,15 +46,27 @@ const renderViewFields = (
     : [];
 };
 
+type LoadableViewProps = {
+  node: GetNode_published;
+  form: FormT;
+  values: Record<string, string>;
+  publishedVersion: number;
+  ctaClicked: boolean;
+  setCtaClicked: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type LoadableViewTemplateProps = LoadableViewProps & {
+  fields: Record<string, FieldT>;
+};
+
 const LoadableView = ({
   node,
   form,
-  values
-}: {
-  node: GetNode_latest_published;
-  form: FormT;
-  values: Record<string, string>;
-}) => {
+  values,
+  publishedVersion,
+  ctaClicked,
+  setCtaClicked
+}: LoadableViewProps) => {
   const { t } = useTranslation();
 
   const flattenedFields = flattenFormFieldsWithKeys(form);
@@ -70,6 +82,9 @@ const LoadableView = ({
           node={node}
           fields={flattenedFields}
           values={flattenedValues}
+          publishedVersion={publishedVersion}
+          ctaClicked={ctaClicked}
+          setCtaClicked={setCtaClicked}
         />
       );
     },

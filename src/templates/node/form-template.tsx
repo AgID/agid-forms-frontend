@@ -25,7 +25,14 @@ import {
   getDefaultValue
 } from "../../utils/forms";
 
-import { FieldArray, Form, Formik, FormikActions, FormikProps } from "formik";
+import {
+  FieldArray,
+  Form,
+  Formik,
+  FormikActions,
+  FormikProps,
+  FormikValues
+} from "formik";
 import { Mutation, Query } from "react-apollo";
 import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
@@ -43,6 +50,11 @@ import {
   getFieldNameParts,
   isGroupField
 } from "../../utils/forms";
+
+type InitialValuesT = Record<
+  string,
+  string | ReadonlyArray<string> | ReadonlyArray<object>
+>;
 
 const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
   fields.reduce(
@@ -70,7 +82,7 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
       }
       return { ...prevValues, [field.name]: getDefaultValue(field) };
     },
-    {} as Record<string, string | ReadonlyArray<string> | ReadonlyArray<object>>
+    {} as InitialValuesT
   );
 
 /**
@@ -169,6 +181,89 @@ const FormFieldArray = ({
   );
 };
 
+const FormComponent = ({
+  form,
+  initialValues,
+  onSubmit
+}: {
+  form: FormT;
+  initialValues: InitialValuesT;
+  onSubmit: (
+    values: FormikValues,
+    formikActions: FormikActions<FormikValues>
+  ) => void;
+}) => {
+  return (
+    <Formik
+      initialValues={initialValues}
+      validateOnChange={true}
+      onSubmit={onSubmit}
+      render={(formik: FormikProps<FormValuesT>) => (
+        <Form className="px-lg-5 py-lg-4">
+          {form.sections!.map(section => {
+            if (!section) {
+              return null;
+            }
+            return (
+              <div key={`${section.title}`}>
+                {section.title && (
+                  <h2 className="h3 mb-2 mb-lg-4">{section.title}</h2>
+                )}
+                {section.description && (
+                  <p className="w-paragraph neutral-2-color-b5">
+                    {section.description}
+                  </p>
+                )}
+                {section.groups!.map(group => {
+                  return (
+                    group && (
+                      <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
+                        {group.title && <FormGroupTitle title={group.title} />}
+                        {group.description && (
+                          <p className="w-paragraph neutral-2-color-b5">
+                            {group.description}
+                          </p>
+                        )}
+                        {group.repeatable
+                          ? FormFieldArray({
+                              group,
+                              formik
+                            })
+                          : group.fields!.map(field =>
+                              field && field.name ? (
+                                <Formfield
+                                  key={field.name}
+                                  field={field}
+                                  form={formik}
+                                />
+                              ) : (
+                                <></>
+                              )
+                            )}
+                      </div>
+                    )
+                  );
+                })}
+              </div>
+            );
+          })}
+          <Button
+            color="primary"
+            type="submit"
+            disabled={
+              formik.isSubmitting || Object.keys(formik.errors).length > 0
+            }
+            className="mt-4"
+          >
+            <Trans i18nKey="save_draft" />
+          </Button>
+          <FormErrors formik={formik} />
+        </Form>
+      )}
+    />
+  );
+};
+
 /**
  * Form page component
  */
@@ -180,8 +275,6 @@ const FormTemplate = ({
   data: FormConfig;
   formId?: string;
   nodeId?: string;
-  // TODO: refactor
-  // tslint:disable-next-line: no-big-function
 }) => {
   const { t } = useTranslation();
 
@@ -296,11 +389,11 @@ const FormTemplate = ({
                     );
                   }
                   return (
-                    <Formik
+                    <FormComponent
+                      form={form}
                       initialValues={
                         latestNode ? latestNode.content.values : initialValues
                       }
-                      validateOnChange={true}
                       onSubmit={async (
                         values: FormValuesT,
                         actions: FormikActions<FormValuesT>
@@ -322,76 +415,6 @@ const FormTemplate = ({
                         });
                         return actions.setSubmitting(false);
                       }}
-                      render={(formik: FormikProps<FormValuesT>) => (
-                        <Form className="px-lg-5 py-lg-4">
-                          {form.sections!.map(section => {
-                            if (!section) {
-                              return null;
-                            }
-                            return (
-                              <div key={`${section.title}`}>
-                                {section.title && (
-                                  <h2 className="h3 mb-2 mb-lg-4">
-                                    {section.title}
-                                  </h2>
-                                )}
-                                {section.description && (
-                                  <p className="w-paragraph neutral-2-color-b5">
-                                    {section.description}
-                                  </p>
-                                )}
-                                {section.groups!.map(group => {
-                                  return (
-                                    group && (
-                                      <div
-                                        className="fieldset mb-3 mb-lg-5"
-                                        key={group.name!}
-                                      >
-                                        {group.title && (
-                                          <FormGroupTitle title={group.title} />
-                                        )}
-                                        {group.description && (
-                                          <p className="w-paragraph neutral-2-color-b5">
-                                            {group.description}
-                                          </p>
-                                        )}
-                                        {group.repeatable
-                                          ? FormFieldArray({
-                                              group,
-                                              formik
-                                            })
-                                          : group.fields!.map(field =>
-                                              field && field.name ? (
-                                                <Formfield
-                                                  key={field.name}
-                                                  field={field}
-                                                  form={formik}
-                                                />
-                                              ) : (
-                                                <></>
-                                              )
-                                            )}
-                                      </div>
-                                    )
-                                  );
-                                })}
-                              </div>
-                            );
-                          })}
-                          <Button
-                            color="primary"
-                            type="submit"
-                            disabled={
-                              formik.isSubmitting ||
-                              Object.keys(formik.errors).length > 0
-                            }
-                            className="mt-4"
-                          >
-                            <Trans i18nKey="save_draft" />
-                          </Button>
-                          <FormErrors formik={formik} />
-                        </Form>
-                      )}
                     />
                   );
                 }}

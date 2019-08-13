@@ -19,6 +19,7 @@ import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
 import { useTranslation } from "react-i18next";
+import { get } from "../../utils/safe_access";
 
 const RevisionTemplate = ({
   data,
@@ -32,6 +33,7 @@ const RevisionTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
+  const [ctaClicked, setCtaClicked] = React.useState(false);
   return (
     <StaticLayout title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
@@ -55,10 +57,11 @@ const RevisionTemplate = ({
             );
           }
 
-          const nodeRevision =
-            getNodeResult && getNodeResult.revision && getNodeResult.revision[0]
-              ? getNodeResult.revision[0]
-              : null;
+          const nodeRevision = get(
+            getNodeResult,
+            gnr => gnr.revision[0],
+            null as any
+          );
 
           if (!nodeRevision) {
             return (
@@ -68,15 +71,15 @@ const RevisionTemplate = ({
             );
           }
 
-          const publishedNode =
-            getNodeResult &&
-            getNodeResult.published &&
-            getNodeResult.published[0]
-              ? getNodeResult.published[0]
-              : null;
+          const publishedNode = get(
+            getNodeResult,
+            gnr => gnr.published[0],
+            null as any
+          );
 
           const isLatestPublishedVersion =
-            publishedNode && publishedNode.version === nodeRevision.version;
+            publishedNode !== null &&
+            publishedNode.version === nodeRevision.version;
           {
             /* shows the latest published page with an eventual link to latest version (only if the user is logged in) */
           }
@@ -112,13 +115,14 @@ const RevisionTemplate = ({
                   )}
                 </div>
               )}
-              {nodeRevision && (
-                <LoadableView
-                  node={nodeRevision}
-                  form={form}
-                  values={nodeRevision.content.values}
-                />
-              )}
+              <LoadableView
+                node={nodeRevision}
+                publishedVersion={publishedNode.version}
+                form={form}
+                values={nodeRevision.content.values}
+                ctaClicked={ctaClicked}
+                setCtaClicked={setCtaClicked}
+              />
             </>
           );
         }}
