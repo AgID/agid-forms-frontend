@@ -13,22 +13,19 @@ import { Trans } from "react-i18next";
 import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
+import { LoadableViewTemplateProps } from "../../../../components/LoadableView";
 import ViewGroup from "../../../../components/ViewGroup";
-import { GetNode_latest_published } from "../../../../generated/graphql/GetNode";
+import { GetNode_published } from "../../../../generated/graphql/GetNode";
 import {
   PublishNode,
   PublishNodeVariables
 } from "../../../../generated/graphql/PublishNode";
 import {
   GET_LATEST_NODE_WITH_PUBLISHED,
+  GET_NODE_REVISION_WITH_PUBLISHED,
   PUBLISH_NODE
 } from "../../../../graphql/hasura";
-import {
-  FieldT,
-  FormGroupT,
-  FormT,
-  getSelectedLabel
-} from "../../../../utils/forms";
+import { FieldT, FormGroupT, getSelectedLabel } from "../../../../utils/forms";
 import { get } from "../../../../utils/safe_access";
 
 const InlineViewGroup = ({
@@ -70,7 +67,7 @@ const Groups: Record<
     group: FormGroupT;
     values: Record<string, string>;
     fields: Record<string, FieldT>;
-    node: GetNode_latest_published;
+    node: GetNode_published;
   }) => JSX.Element
 > = {
   "content-compliance": ({ group, values }) => {
@@ -224,14 +221,73 @@ const PublishModal = ({
 const PublishCta = ({
   nodeId,
   nodeVersion,
-  isWebsite
+  onCompleted
 }: {
   nodeId: number;
   nodeVersion: number;
-  isWebsite: boolean;
+  onCompleted: (data: PublishNode) => void;
 }) => {
-  const [nodeLink, setNodeLink] = useState();
+  return (
+    <Mutation<PublishNode, PublishNodeVariables>
+      mutation={PUBLISH_NODE}
+      refetchQueries={[
+        {
+          query: GET_LATEST_NODE_WITH_PUBLISHED,
+          variables: { id: nodeId }
+        },
+        {
+          query: GET_NODE_REVISION_WITH_PUBLISHED,
+          variables: { id: nodeId, version: nodeVersion }
+        }
+      ]}
+      onCompleted={onCompleted}
+    >
+      {(publishNode, { loading: publishLoading, error: publishError }) => {
+        if (publishLoading) {
+          return (
+            <p>
+              <Trans i18nKey="sending_data" />
+            </p>
+          );
+        }
+        if (publishError) {
+          return (
+            <p className="text-danger">
+              <Trans i18nKey="errors.error_sending_data" />
+              <br />
+              <ApolloErrors errors={publishError} />
+            </p>
+          );
+        }
+        return (
+          <Button
+            color="primary"
+            onClick={() =>
+              publishNode({
+                variables: {
+                  id: nodeId,
+                  version: nodeVersion + 1
+                }
+              })
+            }
+          >
+            <Trans i18nKey="publish_node" />
+          </Button>
+        );
+      }}
+    </Mutation>
+  );
+};
 
+const ViewTemplate = ({
+  fields,
+  form,
+  node,
+  values,
+  publishedVersion,
+  ctaClicked,
+  setCtaClicked
+}: LoadableViewTemplateProps) => {
   const { hostnameData } = useStaticQuery(
     graphql`
       query Hostname {
@@ -252,73 +308,6 @@ const PublishCta = ({
     ""
   );
 
-  return (
-    <Mutation<PublishNode, PublishNodeVariables>
-      mutation={PUBLISH_NODE}
-      refetchQueries={[
-        {
-          query: GET_LATEST_NODE_WITH_PUBLISHED,
-          variables: { id: nodeId }
-        }
-      ]}
-      onCompleted={publishedNode => {
-        setNodeLink(
-          `https://${hostname}/view/${
-            publishedNode.update_node!.returning[0].id
-          }`
-        );
-      }}
-    >
-      {(publishNode, { loading: publishLoading, error: publishError }) => {
-        if (publishLoading) {
-          return (
-            <p>
-              <Trans i18nKey="sending_data" />
-            </p>
-          );
-        }
-        if (publishError) {
-          return (
-            <p className="text-danger">
-              <Trans i18nKey="errors.error_sending_data" />
-              <br />
-              <ApolloErrors errors={publishError} />
-            </p>
-          );
-        }
-        return nodeLink ? (
-          <PublishModal nodeLink={nodeLink} isWebsite={isWebsite} />
-        ) : (
-          <Button
-            color="primary"
-            onClick={() =>
-              publishNode({
-                variables: {
-                  id: nodeId,
-                  version: nodeVersion + 1
-                }
-              })
-            }
-          >
-            <Trans i18nKey="publish_node" />
-          </Button>
-        );
-      }}
-    </Mutation>
-  );
-};
-
-const Template = ({
-  fields,
-  form,
-  node,
-  values
-}: {
-  fields: Record<string, FieldT>;
-  form: FormT;
-  node: GetNode_latest_published;
-  values: Record<string, string>;
-}) => {
   return (
     <div className="px-lg-5 py-lg-4">
       <p className="w-paragraph neutral-2-color-b5">
@@ -391,10 +380,18 @@ const Template = ({
           </div>
         );
       })}
-      {node.status !== "published" && (
+      {node.version > publishedVersion && (
         <PublishCta
           nodeId={node.id}
           nodeVersion={node.version}
+          onCompleted={() => {
+            setCtaClicked(true);
+          }}
+        />
+      )}
+      {ctaClicked && node.version === publishedVersion - 1 && (
+        <PublishModal
+          nodeLink={`https://${hostname}/view/${node.id}`}
           isWebsite={values["device-type"] === "website"}
         />
       )}
@@ -402,4 +399,4 @@ const Template = ({
   );
 };
 
-export default Template;
+export default ViewTemplate;

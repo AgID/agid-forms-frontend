@@ -15,6 +15,7 @@ import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { getForm } from "../../graphql/gatsby";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
+import { get } from "../../utils/safe_access";
 
 const ViewTemplate = ({
   data,
@@ -26,6 +27,7 @@ const ViewTemplate = ({
 }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
+  const [ctaClicked, setCtaClicked] = React.useState(false);
   return (
     <StaticLayout title={title}>
       <BodyStyles backgroundColor="#e7e6ff" />
@@ -55,12 +57,11 @@ const ViewTemplate = ({
               ? getNodeResult.latest[0]
               : null;
 
-          const publishedNode =
-            getNodeResult &&
-            getNodeResult.published &&
-            getNodeResult.published[0]
-              ? getNodeResult.published[0]
-              : null;
+          const publishedNode = get(
+            getNodeResult,
+            gnr => gnr.published[0],
+            null as any
+          );
 
           if (!publishedNode) {
             return (
@@ -71,7 +72,7 @@ const ViewTemplate = ({
           }
 
           const isLatestPublishedVersion =
-            latestNode &&
+            latestNode !== null &&
             publishedNode &&
             publishedNode.version === latestNode.version;
           {
@@ -115,13 +116,14 @@ const ViewTemplate = ({
                   )}
                 </div>
               )}
-              {publishedNode && (
-                <LoadableView
-                  node={publishedNode}
-                  form={form}
-                  values={publishedNode.content.values}
-                />
-              )}
+              <LoadableView
+                node={publishedNode}
+                publishedVersion={publishedNode.version}
+                form={form}
+                values={publishedNode.content.values}
+                ctaClicked={ctaClicked}
+                setCtaClicked={setCtaClicked}
+              />
             </>
           );
         }}
