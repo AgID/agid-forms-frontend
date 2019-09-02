@@ -63,10 +63,16 @@ export const RadioField = ({
   isDisabled,
   isRequired,
   validationExpression,
-  valueExpression
+  valueExpression,
+  hasError
 }: FormFieldPropsT) => {
   return field.name ? (
-    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
+    <FormGroup
+      key={field.name}
+      isHidden={isHidden}
+      fieldName={field.name}
+      hasError={hasError}
+    >
       <Label
         fieldName={field.name}
         title={field.title!}

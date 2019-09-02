@@ -63,10 +63,16 @@ export const CheckboxMultipleField = ({
   isDisabled,
   isRequired,
   validationExpression,
-  valueExpression
+  valueExpression,
+  hasError
 }: FormFieldPropsT) => {
   return field.name ? (
-    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
+    <FormGroup
+      key={field.name}
+      isHidden={isHidden}
+      fieldName={field.name}
+      hasError={hasError}
+    >
       <Label
         className="d-block font-weight-semibold my-2 my-lg-3 neutral-1-color-a6 font-size-xs"
         fieldName={field.name}

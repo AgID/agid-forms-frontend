@@ -65,6 +65,7 @@ export type FormFieldPropsT = {
   isRequired: boolean;
   validationExpression: any;
   valueExpression: any;
+  hasError: boolean;
 };
 
 export const validateField = (

@@ -94,12 +94,11 @@ const Groups: Record<
       .some(_ => _);
     return hasInaccessibleContent ? (
       <div className="mb-lg-5">
-        <FormGroupTitle title={group.title} />(
+        <FormGroupTitle title={group.title} />
         <p className="w-paragraph">
           I contenuti di seguito elencati non sono accessibili per i seguenti
           motivi:
         </p>
-        )}
         {accessibilityFields.map(
           fieldName =>
             values[fieldName] && (
@@ -380,21 +379,24 @@ const ViewTemplate = ({
           </div>
         );
       })}
-      {node.version > publishedVersion && (
-        <PublishCta
-          nodeId={node.id}
-          nodeVersion={node.version}
-          onCompleted={() => {
-            setCtaClicked(true);
-          }}
-        />
-      )}
-      {ctaClicked && node.version === publishedVersion - 1 && (
-        <PublishModal
-          nodeLink={`https://${hostname}/view/${node.id}`}
-          isWebsite={values["device-type"] === "website"}
-        />
-      )}
+      {!publishedVersion ||
+        (node.version > publishedVersion && (
+          <PublishCta
+            nodeId={node.id}
+            nodeVersion={node.version}
+            onCompleted={() => {
+              setCtaClicked(true);
+            }}
+          />
+        ))}
+      {publishedVersion &&
+        ctaClicked &&
+        node.version === publishedVersion - 1 && (
+          <PublishModal
+            nodeLink={`https://${hostname}/view/${node.id}`}
+            isWebsite={values["device-type"] === "website"}
+          />
+        )}
     </div>
   );
 };

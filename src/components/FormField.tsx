@@ -66,6 +66,10 @@ export const Formfield = ({
     form.setFieldValue(field.name!, "");
   }
 
+  const hasError =
+    form.touched[field.name!] !== undefined &&
+    form.errors[field.name!] !== undefined;
+
   const widgetOpts = {
     field,
     form,
@@ -73,7 +77,8 @@ export const Formfield = ({
     valueExpression,
     isHidden,
     isDisabled,
-    isRequired
+    isRequired,
+    hasError
   };
 
   switch (field.widget) {
@@ -92,7 +97,7 @@ export const Formfield = ({
     case "select":
       return SelectField(widgetOpts);
     case "html":
-      return HtmlField({ field, form, isHidden, valueExpression });
+      return HtmlField(widgetOpts);
     default:
       return <></>;
   }

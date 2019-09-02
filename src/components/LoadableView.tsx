@@ -50,7 +50,7 @@ type LoadableViewProps = {
   node: GetNode_published;
   form: FormT;
   values: Record<string, string>;
-  publishedVersion: number;
+  publishedVersion?: number;
   ctaClicked: boolean;
   setCtaClicked: React.Dispatch<React.SetStateAction<boolean>>;
 };

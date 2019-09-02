@@ -4,15 +4,13 @@ language: it
 enabled: true
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Dichiarazione accessibilità ' + this[\"website-name\"] + this[\"app-name\"]"
+title_pattern: '''Dichiarazione accessibilità '' + this["website-name"] + this["app-name"]'
 sections:
-
   - name: section-0
     title: Informazioni di contesto
     description: |-
       La compilazione è obbligatoria per tutti i campi preposti.
     groups:
-
       - name: information
         title: informazioni generali
         fields:
@@ -111,9 +109,9 @@ sections:
             required_if: this["reason-no-law"]
             enabled_if: this["compliance-status"] != "compliant"
 
-      # - name: content-alt
-      #   title: alternative accessibili
-      #   fields:
+          # - name: content-alt
+          #   title: alternative accessibili
+          #   fields:
           - name: "accessible-alternatives"
             widget: textarea
             title: alternative accessibili
@@ -157,6 +155,7 @@ sections:
             widget: text
             title: URL del servizio
             description: inserisci il puntamento al feedback (se presente)
+            valid_if: Yup.string().url().validate(value)
           - name: "manager-email"
             title: Email responsabile
             widget: email
@@ -182,7 +181,6 @@ sections:
     description: |-
       Ulteriori informazioni richieste dall'Agenzia per l'Italia digitale
     groups:
-
       - name: application-information
         title: informazioni sul sito / app
         fields:
@@ -190,21 +188,28 @@ sections:
             title: Data di pubblicazione del sito / app
             widget: date
             required_if: "true"
+            valid_if: Yup.date().validate(value)
           - name: website-cms
             title: CMS utilizzato
             widget: select
             multiple: false
+            default: none
             options:
+              - label: Nessuno
+                value: none
               - label: Drupal
                 value: drupal
               - label: Wordpress
                 value: wordpress
+              - label: Altro
+                value: other
             show_if: this["device-type"] == "website"
             required_if: this["device-type"] == "website"
           - name: application-framework
             title: Framework utilizzato
             widget: select
             multiple: false
+            default: none
             options:
               - label: Nessuno
                 value: none

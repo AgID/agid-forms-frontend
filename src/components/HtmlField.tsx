@@ -8,11 +8,7 @@ export const HtmlField = ({
   form,
   isHidden,
   valueExpression
-}: Pick<
-  FormFieldPropsT,
-  // tslint:disable-next-line: max-union-size
-  "field" | "form" | "isHidden" | "valueExpression"
->) => {
+}: FormFieldPropsT) => {
   const content = isHidden
     ? ""
     : valueExpression
