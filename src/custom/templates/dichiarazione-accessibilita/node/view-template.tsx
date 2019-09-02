@@ -379,16 +379,15 @@ const ViewTemplate = ({
           </div>
         );
       })}
-      {!publishedVersion ||
-        (node.version > publishedVersion && (
-          <PublishCta
-            nodeId={node.id}
-            nodeVersion={node.version}
-            onCompleted={() => {
-              setCtaClicked(true);
-            }}
-          />
-        ))}
+      {(!publishedVersion || node.version > publishedVersion) && (
+        <PublishCta
+          nodeId={node.id}
+          nodeVersion={node.version}
+          onCompleted={() => {
+            setCtaClicked(true);
+          }}
+        />
+      )}
       {publishedVersion &&
         ctaClicked &&
         node.version === publishedVersion - 1 && (
