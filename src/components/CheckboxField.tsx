@@ -16,10 +16,16 @@ export const CheckboxField = ({
   isDisabled,
   isRequired,
   validationExpression,
-  valueExpression
+  valueExpression,
+  hasError
 }: FormFieldPropsT) => {
   return field.name ? (
-    <FormGroup key={field.name} isHidden={isHidden} fieldName={field.name}>
+    <FormGroup
+      key={field.name}
+      isHidden={isHidden}
+      fieldName={field.name}
+      hasError={hasError}
+    >
       <Field
         name={field.name}
         type="checkbox"

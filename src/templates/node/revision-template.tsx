@@ -57,11 +57,7 @@ const RevisionTemplate = ({
             );
           }
 
-          const nodeRevision = get(
-            getNodeResult,
-            gnr => gnr.revision[0],
-            null as any
-          );
+          const nodeRevision = get(getNodeResult, gnr => gnr.revision[0], null);
 
           if (!nodeRevision) {
             return (
@@ -74,7 +70,7 @@ const RevisionTemplate = ({
           const publishedNode = get(
             getNodeResult,
             gnr => gnr.published[0],
-            null as any
+            null
           );
 
           const isLatestPublishedVersion =
@@ -84,7 +80,7 @@ const RevisionTemplate = ({
             /* shows the latest published page with an eventual link to latest version (only if the user is logged in) */
           }
           const formId = nodeRevision.content.schema.id;
-          const form = getForm(data, formId);
+          const form = getForm(data, String(formId));
           if (!form) {
             return (
               <p className="alert alert-warning">
@@ -117,9 +113,16 @@ const RevisionTemplate = ({
               )}
               <LoadableView
                 node={nodeRevision}
-                publishedVersion={publishedNode.version}
+                publishedVersion={
+                  publishedNode ? publishedNode.version : undefined
+                }
                 form={form}
-                values={nodeRevision.content.values}
+                values={
+                  (nodeRevision.content.values as unknown) as Record<
+                    string,
+                    string
+                  >
+                }
                 ctaClicked={ctaClicked}
                 setCtaClicked={setCtaClicked}
               />

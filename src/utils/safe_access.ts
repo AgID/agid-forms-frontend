@@ -11,7 +11,7 @@ type RecursiveNonNullable<T> = RecursiveNonNullable1<NonNullable<T>>;
 export function get<T, R>(
   obj: T,
   fn: (obj: RecursiveNonNullable<T>) => R,
-  defaultValue: NonNullable<R>,
+  defaultValue: R,
   excludeNull = false
 ): R {
   try {
