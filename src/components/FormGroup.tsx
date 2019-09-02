@@ -7,7 +7,7 @@ import {
 interface FormGroupProps extends RSFormGroupProps {
   fieldName: string;
   isHidden: boolean;
-  hasError: boolean;
+  hasError?: boolean;
   children: React.ReactNode;
 }
 
