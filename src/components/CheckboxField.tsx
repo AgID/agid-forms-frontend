@@ -48,7 +48,6 @@ export const CheckboxField = ({
       <Label
         fieldName={field.name}
         title={field.title!}
-        isRequired={isRequired}
         onClick={() => {
           !isDisabled
             ? form.setFieldValue(

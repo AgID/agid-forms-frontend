@@ -35,7 +35,6 @@ export const CustomCheckboxComponent = ({
           className="d-block my-2 my-lg-3 font-weight-semibold"
           fieldName={field.name}
           title={option.label}
-          isRequired={isRequired}
           onClick={() => {
             isDisabled
               ? // tslint:disable-next-line: no-unused-expression
@@ -74,6 +73,7 @@ export const CheckboxMultipleField = ({
       hasError={hasError}
     >
       <Label
+        tag="h3"
         className="d-block font-weight-semibold my-2 my-lg-3 neutral-1-color-a6 font-size-xs"
         fieldName={field.name}
         title={field.title!}
