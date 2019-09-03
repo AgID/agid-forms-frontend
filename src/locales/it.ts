@@ -3,6 +3,7 @@ const IT = {
   outcome: "esito",
   revision: "revisione",
   status: "stato",
+  verified: "verificato",
   edit: "modifica",
   updated_at: "aggiornato il",
   view: "visualizza",

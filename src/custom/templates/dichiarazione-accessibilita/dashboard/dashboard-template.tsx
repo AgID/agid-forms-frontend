@@ -133,6 +133,12 @@ const DashboardDeclTemplate = () => {
                             ) : (
                               t(`status_name.${node.status}`)
                             )}
+                            {node.content.metadata &&
+                              node.content.metadata.verified && (
+                                <p className="font-weight-normal">
+                                  [{t(`verified`)}]
+                                </p>
+                              )}
                           </td>
                         </tr>
                       );
