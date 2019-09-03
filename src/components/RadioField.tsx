@@ -25,7 +25,7 @@ export const CustomRadioComponent = ({
   isDisabled: boolean;
   isRequired: boolean;
 }) => {
-  return options.map(option => (
+  return options.map((option, index) => (
     <div key={option.value}>
       <Input
         {...field}
@@ -33,9 +33,10 @@ export const CustomRadioComponent = ({
         value={option.value}
         checked={option.value === field.value}
         onClick={() => form.setFieldValue(field.name, option.value)}
+        id={`${field.name}-${index}`}
       />
       <Label
-        fieldName={field.name}
+        fieldName={`${field.name}-${index}`}
         className="d-block my-2 my-lg-3 font-weight-semibold"
         title={option.label}
         onClick={() => {
@@ -71,13 +72,15 @@ export const RadioField = ({
       isHidden={isHidden}
       fieldName={field.name}
       hasError={hasError}
+      role="radiogroup"
+      label={field.title!}
     >
       <Label
         tag="h3"
         fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
-        className="d-block font-weight-semibold my-2 my-lg-3 neutral-2-color-a4 font-size-xs"
+        className="d-block font-weight-semibold my-2 my-lg-3 neutral-2-color-a5 font-size-xs"
       />
       <Field
         name={field.name}

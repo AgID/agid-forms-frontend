@@ -40,7 +40,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
         siteConfig.hotjar.hjid && (
           <Hotjar hjsv={siteConfig.hotjar.hjsv} hjid={siteConfig.hotjar.hjid} />
         )}
-      <div className="skiplinks">
+      <div className="skiplinks" role="navigation" aria-label="skiplinks">
         <a className="sr-only sr-only-focusable" href="#main">
           <Trans i18nKey="skiplinks.goto_main" />
         </a>

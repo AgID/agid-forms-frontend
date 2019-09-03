@@ -63,6 +63,7 @@ sections:
           - name: "compliance-status"
             widget: radio
             default: compliant
+            title: stato di conformità
             options:
               - label: conforme
                 value: compliant

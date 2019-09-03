@@ -25,15 +25,21 @@ export const CustomCheckboxComponent = ({
   isDisabled: boolean;
   isRequired: boolean;
 }) => {
-  return options.map(option => {
+  return options.map((option, index) => {
     const fieldValue = getIn(form.values, field.name);
     const isChecked = (fieldValue || []).indexOf(option.value) !== -1;
     return (
       <div key={option.value}>
-        <Input {...field} {...props} value={option.value} checked={isChecked} />
+        <Input
+          {...field}
+          {...props}
+          value={option.value}
+          checked={isChecked}
+          id={`${field.name}-${index}`}
+        />
         <Label
           className="d-block my-2 my-lg-3 font-weight-semibold"
-          fieldName={field.name}
+          fieldName={`${field.name}-${index}`}
           title={option.label}
           onClick={() => {
             isDisabled
@@ -71,6 +77,8 @@ export const CheckboxMultipleField = ({
       isHidden={isHidden}
       fieldName={field.name}
       hasError={hasError}
+      role="group"
+      label={field.title!}
     >
       <Label
         tag="h3"

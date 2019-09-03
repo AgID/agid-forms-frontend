@@ -33,6 +33,7 @@ export const TextFormField = ({
         isRequired={isRequired}
       />
       <Field
+        id={field.name}
         name={field.name}
         type={field.widget}
         required={isRequired}
