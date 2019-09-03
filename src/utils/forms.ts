@@ -214,7 +214,11 @@ export function flattenFormValues(
 ): Record<string, string> {
   return Object.keys(values).reduce(
     (prevValues: Record<string, string>, fieldName: string) => {
-      if (!fieldName || !values[fieldName]) {
+      if (
+        !fieldName ||
+        values[fieldName] === null ||
+        values[fieldName] === undefined
+      ) {
         return prevValues;
       }
       if (Array.isArray(values[fieldName])) {
@@ -270,7 +274,7 @@ export function getDefaultValue(field: FieldT) {
   return "";
 }
 
-export function getFieldValue({
+export function getFieldValueForView({
   field,
   value
 }: {

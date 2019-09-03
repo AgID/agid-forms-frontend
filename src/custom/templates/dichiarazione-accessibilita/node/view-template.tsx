@@ -103,9 +103,9 @@ const Groups: Record<
           fieldName =>
             values[fieldName] && (
               <div key={fieldName} className="mb-4">
-                <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                <h4 className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
                   {fields[fieldName].title}
-                </p>
+                </h4>
                 <p className="w-paragraph pl-lg-4">
                   {values[`${fieldName}-text`]}
                 </p>
