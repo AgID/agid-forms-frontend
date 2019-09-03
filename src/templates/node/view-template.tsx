@@ -7,6 +7,7 @@ import { Link } from "gatsby";
 
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
+import { navigate } from "@reach/router";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
@@ -42,12 +43,15 @@ const ViewTemplate = ({
           if (loading) {
             return <p>{t("loading_data")}</p>;
           }
+
           if (error) {
-            return (
-              <p className="alert alert-warning">
-                {t("errors.error_getting_data")}: {JSON.stringify(error)}
-              </p>
-            );
+            navigate("/404");
+            return null;
+            // return (
+            //   <p className="alert alert-warning">
+            //     {t("errors.error_getting_data")}: {JSON.stringify(error)}
+            //   </p>
+            // );
           }
 
           // latestNode may be null in case the user is anonymous
