@@ -45,6 +45,7 @@ import {
 import { Trans, useTranslation } from "react-i18next";
 import ApolloErrors from "../../components/ApolloErrors";
 import FormGroupTitle from "../../components/FormGroupTitle";
+import SEO from "../../components/Seo";
 import {
   flattenFormFields,
   getFieldNameParts,
@@ -314,6 +315,7 @@ const FormTemplate = ({
 
   return (
     <StaticLayout title={title}>
+      <SEO title={title} />
       <BodyStyles backgroundColor="#e7e6ff" />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
