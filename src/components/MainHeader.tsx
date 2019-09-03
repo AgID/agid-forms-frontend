@@ -26,7 +26,7 @@ const MainHeader = ({
 }: MainHeaderProps) => (
   <>
     <div className="it-nav-wrapper">
-      <div className="it-header-center-wrapper it-small-header">
+      <div className="it-header-center-wrapper it-small-header" role="banner">
         <div className="container">
           <div className="row">
             <div className="col-12">

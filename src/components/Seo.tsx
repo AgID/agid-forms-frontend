@@ -11,7 +11,7 @@ type SeoProps = {
     content: string;
   }>;
   keywords?: string;
-  title: string;
+  title?: string;
 };
 
 function SEO({

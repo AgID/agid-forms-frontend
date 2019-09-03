@@ -59,7 +59,10 @@ export const MegaMenu = ({ menu, user }: MegaMenuProps) => {
   const { t } = useTranslation();
 
   return (
-    <nav className="navbar navbar-expand-lg has-megamenu">
+    <nav
+      className="navbar navbar-expand-lg has-megamenu"
+      aria-label="primary-navigation"
+    >
       <button
         className="custom-navbar-toggler"
         type="button"

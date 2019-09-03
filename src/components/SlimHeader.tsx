@@ -61,7 +61,11 @@ export const SlimHeader = ({
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <div className="it-header-slim-wrapper-content">
+            <div
+              className="it-header-slim-wrapper-content"
+              role="navigation"
+              aria-label="secondary-links"
+            >
               {(owners || []).map(
                 owner =>
                   owner &&
@@ -79,7 +83,7 @@ export const SlimHeader = ({
                   )
               )}
               <div className="nav-mobile">
-                <nav>
+                <nav aria-label="secondary-navigation">
                   {(owners || []).map(
                     owner =>
                       owner &&

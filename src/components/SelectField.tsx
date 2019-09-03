@@ -30,6 +30,7 @@ export const CustomSelectComponent = ({
       value={value}
       options={options}
       onChange={(option: any) => form.setFieldValue(field.name, option.value)}
+      inputId={`${field.name}-select`}
     />
   );
 };
@@ -52,11 +53,12 @@ export const SelectField = ({
       hasError={hasError}
     >
       <Label
-        fieldName={field.name}
+        fieldName={`${field.name}-select`}
         title={field.title!}
         isRequired={isRequired}
       />
       <Field
+        id={field.name}
         name={field.name}
         type="select"
         checked={getIn(form.values, field.name)}

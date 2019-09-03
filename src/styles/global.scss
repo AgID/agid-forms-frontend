@@ -166,6 +166,14 @@
   height: auto !important;
 }
 
+.form-check input:focus,
+.form-check label.form-check-label:focus,
+.form-check textarea:focus {
+  border-color: #ff9900;
+  box-shadow: 0 0 6px 2px #ff9900 !important;
+  outline: none;
+}
+
 .dropdown-item:hover, .dropdown-item:focus {
   background-color: transparent !important;
 }

@@ -29,7 +29,7 @@ const StaticLayout = ({
           <Layout
             siteConfig={getSiteConfig(data)}
             menu={getMenu(data)}
-            title={title || ""}
+            title={title}
           >
             {children}
           </Layout>

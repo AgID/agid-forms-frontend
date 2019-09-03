@@ -28,6 +28,7 @@ export const CheckboxField = ({
     >
       <Field
         name={field.name}
+        id={field.name}
         type="checkbox"
         checked={
           isHidden || isDisabled ? false : getIn(form.values, field.name)
