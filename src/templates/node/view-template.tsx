@@ -92,17 +92,21 @@ const ViewTemplate = ({
             );
           }
           setTitle(publishedNode.title);
+
+          const links: ReadonlyArray<any> =
+            isLoggedIn() && latestNode
+              ? [
+                  {
+                    to: `/form/${latestNode.content.schema.id}/${latestNode.id}`,
+                    title: t("edit")
+                  }
+                ]
+              : [];
+
           return (
             <>
               {isLoggedIn() && latestNode && (
                 <div className="pl-lg-5">
-                  <small>
-                    <Link
-                      to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
-                    >
-                      {t("edit")}
-                    </Link>
-                  </small>
                   {!isLatestPublishedVersion && (
                     <p className="alert alert-warning mt-3">
                       {t("not_latest_version")}
@@ -117,6 +121,7 @@ const ViewTemplate = ({
                 </div>
               )}
               <LoadableView
+                links={links}
                 node={publishedNode}
                 publishedVersion={publishedNode.version}
                 form={form}

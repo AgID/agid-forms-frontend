@@ -1,3 +1,4 @@
+import { Link } from "gatsby";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import * as Loadable from "react-loadable";
@@ -53,6 +54,7 @@ type LoadableViewProps = {
   publishedVersion?: number;
   ctaClicked: boolean;
   setCtaClicked: React.Dispatch<React.SetStateAction<boolean>>;
+  links: ReadonlyArray<{ to: string; title: string }>;
 };
 
 export type LoadableViewTemplateProps = LoadableViewProps & {
@@ -65,7 +67,8 @@ const LoadableView = ({
   values,
   publishedVersion,
   ctaClicked,
-  setCtaClicked
+  setCtaClicked,
+  links
 }: LoadableViewProps) => {
   const { t } = useTranslation();
 
@@ -78,6 +81,7 @@ const LoadableView = ({
       const Template = loaded.default;
       return (
         <Template
+          links={links}
           form={form}
           node={node}
           fields={flattenedFields}
@@ -92,6 +96,15 @@ const LoadableView = ({
       return templateError ? (
         <table className="table table-hover table-bordered table-striped">
           <tbody>{renderViewFields(flattenedFields, flattenedValues)}</tbody>
+          <div className="text-center">
+            {links.map(link => (
+              <div className="btn btn-outline-primary mt-4 mx-4" key={link.to}>
+                <Link to={link.to} className="text-decoration-none">
+                  {link.title}
+                </Link>
+              </div>
+            ))}
+          </div>
         </table>
       ) : (
         <p>{t("loading_data")}</p>

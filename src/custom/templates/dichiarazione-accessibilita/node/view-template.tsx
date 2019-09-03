@@ -6,7 +6,7 @@
 import { format } from "date-fns";
 import * as React from "react";
 
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link, useStaticQuery } from "gatsby";
 import { useState } from "react";
 import { Mutation } from "react-apollo";
 import { Trans } from "react-i18next";
@@ -103,7 +103,10 @@ const Groups: Record<
           fieldName =>
             values[fieldName] && (
               <div key={fieldName} className="mb-4">
-                <h4 className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                <h4
+                  className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2"
+                  style={{ fontSize: "18px " }}
+                >
                   {fields[fieldName].title}
                 </h4>
                 <p className="w-paragraph pl-lg-4">
@@ -285,7 +288,8 @@ const ViewTemplate = ({
   values,
   publishedVersion,
   ctaClicked,
-  setCtaClicked
+  setCtaClicked,
+  links
 }: LoadableViewTemplateProps) => {
   const { hostnameData } = useStaticQuery(
     graphql`
@@ -323,38 +327,45 @@ const ViewTemplate = ({
             )}
 
             {section.name === "section-0" && (
-              <p className="w-paragraph neutral-2-color-b5 pb-5">
-                <strong>
-                  {get(
-                    node,
-                    n => n.node_revision_group.group_ipa_pa.des_amm,
-                    ""
-                  )}
-                </strong>{" "}
-                si impegna a rendere{" "}
-                <strong>
-                  {values["device-type"] === "website"
-                    ? "il proprio sito web"
-                    : "la propria applicazione mobile"}{" "}
-                </strong>
-                accessibile, conformemente al D.lgs 10 agosto 2018, n. 106 che
-                ha recepito la direttiva UE 2016/2102 del Parlamento europeo e
-                del Consiglio. La presente dichiarazione di accessibilità si
-                applica a “
-                <a
-                  href={
-                    values["device-type"] === "website"
-                      ? values["website-url"]
-                      : values["app-url"]
-                  }
-                  className="font-weight-bold"
-                >
+              <div className="pb-4">
+                <p className="w-paragraph neutral-2-color-b5">
+                  <strong>
+                    {get(
+                      node,
+                      n => n.node_revision_group.group_ipa_pa.des_amm,
+                      ""
+                    )}
+                  </strong>{" "}
+                  si impegna a rendere{" "}
+                  <strong>
+                    {values["device-type"] === "website"
+                      ? "il proprio sito web"
+                      : "la propria applicazione mobile"}{" "}
+                  </strong>
+                  accessibile, conformemente al D.lgs 10 agosto 2018, n. 106 che
+                  ha recepito la direttiva UE 2016/2102 del Parlamento europeo e
+                  del Consiglio. La presente dichiarazione di accessibilità si
+                  applica a “
                   {values["device-type"] === "website"
                     ? values["website-name"]
                     : values["app-name"]}
-                </a>
-                ” .
-              </p>
+                  ” .
+                </p>
+                <p>
+                  <a
+                    href={
+                      values["device-type"] === "website"
+                        ? values["website-url"]
+                        : values["app-url"]
+                    }
+                    className="font-weight-bold"
+                  >
+                    {values["device-type"] === "website"
+                      ? values["website-url"]
+                      : values["app-url"]}
+                  </a>
+                </p>
+              </div>
             )}
 
             {section.name !== "section-0" && section.description && (
@@ -379,15 +390,24 @@ const ViewTemplate = ({
           </div>
         );
       })}
-      {(!publishedVersion || node.version > publishedVersion) && (
-        <PublishCta
-          nodeId={node.id}
-          nodeVersion={node.version}
-          onCompleted={() => {
-            setCtaClicked(true);
-          }}
-        />
-      )}
+      <div className="text-center">
+        {links.map(link => (
+          <div className="btn btn-outline-primary mx-4" key={link.to}>
+            <Link to={link.to} className="text-decoration-none">
+              {link.title}
+            </Link>
+          </div>
+        ))}
+        {(!publishedVersion || node.version > publishedVersion) && (
+          <PublishCta
+            nodeId={node.id}
+            nodeVersion={node.version}
+            onCompleted={() => {
+              setCtaClicked(true);
+            }}
+          />
+        )}
+      </div>
       {publishedVersion &&
         ctaClicked &&
         node.version === publishedVersion - 1 && (
