@@ -89,17 +89,20 @@ const RevisionTemplate = ({
             );
           }
           setTitle(nodeRevision.title);
+
+          const links: ReadonlyArray<any> = isLoggedIn()
+            ? [
+                {
+                  to: `/form/${nodeRevision.content.schema.id}/${nodeRevision.id}`,
+                  title: t("edit")
+                }
+              ]
+            : [];
+
           return (
             <>
               {isLoggedIn() && (
                 <div className="pl-lg-5">
-                  <small>
-                    <Link
-                      to={`/form/${nodeRevision.content.schema.id}/${nodeRevision.id}`}
-                    >
-                      {t("edit")}
-                    </Link>
-                  </small>
                   {publishedNode && !isLatestPublishedVersion && (
                     <p className="alert alert-warning mt-3">
                       {t("not_published_version")}
@@ -112,6 +115,7 @@ const RevisionTemplate = ({
                 </div>
               )}
               <LoadableView
+                links={links}
                 node={nodeRevision}
                 publishedVersion={
                   publishedNode ? publishedNode.version : undefined

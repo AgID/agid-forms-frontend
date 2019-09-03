@@ -7,6 +7,7 @@ import { Link } from "gatsby";
 
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
+import { navigate } from "@reach/router";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import BodyStyles from "../../components/BodyStyles";
@@ -42,12 +43,15 @@ const ViewTemplate = ({
           if (loading) {
             return <p>{t("loading_data")}</p>;
           }
+
           if (error) {
-            return (
-              <p className="alert alert-warning">
-                {t("errors.error_getting_data")}: {JSON.stringify(error)}
-              </p>
-            );
+            navigate("/404");
+            return null;
+            // return (
+            //   <p className="alert alert-warning">
+            //     {t("errors.error_getting_data")}: {JSON.stringify(error)}
+            //   </p>
+            // );
           }
 
           // latestNode may be null in case the user is anonymous
@@ -92,17 +96,21 @@ const ViewTemplate = ({
             );
           }
           setTitle(publishedNode.title);
+
+          const links: ReadonlyArray<any> =
+            isLoggedIn() && latestNode
+              ? [
+                  {
+                    to: `/form/${latestNode.content.schema.id}/${latestNode.id}`,
+                    title: t("edit")
+                  }
+                ]
+              : [];
+
           return (
             <>
               {isLoggedIn() && latestNode && (
                 <div className="pl-lg-5">
-                  <small>
-                    <Link
-                      to={`/form/${latestNode.content.schema.id}/${latestNode.id}`}
-                    >
-                      {t("edit")}
-                    </Link>
-                  </small>
                   {!isLatestPublishedVersion && (
                     <p className="alert alert-warning mt-3">
                       {t("not_latest_version")}
@@ -117,6 +125,7 @@ const ViewTemplate = ({
                 </div>
               )}
               <LoadableView
+                links={links}
                 node={publishedNode}
                 publishedVersion={publishedNode.version}
                 form={form}

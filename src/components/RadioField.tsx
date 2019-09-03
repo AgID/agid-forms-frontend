@@ -38,7 +38,6 @@ export const CustomRadioComponent = ({
         fieldName={field.name}
         className="d-block my-2 my-lg-3 font-weight-semibold"
         title={option.label}
-        isRequired={isRequired}
         onClick={() => {
           isDisabled
             ? // tslint:disable-next-line: no-unused-expression
@@ -74,6 +73,7 @@ export const RadioField = ({
       hasError={hasError}
     >
       <Label
+        tag="h3"
         fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}

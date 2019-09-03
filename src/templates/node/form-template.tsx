@@ -184,7 +184,8 @@ const FormFieldArray = ({
 const FormComponent = ({
   form,
   initialValues,
-  onSubmit
+  onSubmit,
+  links
 }: {
   form: FormT;
   initialValues: InitialValuesT;
@@ -192,6 +193,7 @@ const FormComponent = ({
     values: FormikValues,
     formikActions: FormikActions<FormikValues>
   ) => void;
+  links: ReadonlyArray<{ to: string; title: string }>;
 }) => {
   return (
     <Formik
@@ -247,16 +249,25 @@ const FormComponent = ({
               </div>
             );
           })}
-          <Button
-            color="primary"
-            type="submit"
-            disabled={
-              formik.isSubmitting || Object.keys(formik.errors).length > 0
-            }
-            className="mt-4"
-          >
-            <Trans i18nKey="save_draft" />
-          </Button>
+          <div className="text-center">
+            {links.map(link => (
+              <div className="btn btn-outline-primary mt-4 mx-4" key={link.to}>
+                <Link to={link.to} className="text-decoration-none">
+                  {link.title}
+                </Link>
+              </div>
+            ))}
+            <Button
+              color="primary"
+              type="submit"
+              disabled={
+                formik.isSubmitting || Object.keys(formik.errors).length > 0
+              }
+              className="mt-4 mx-auto"
+            >
+              <Trans i18nKey="save_draft" />
+            </Button>
+          </div>
           <FormErrors formik={formik} />
         </Form>
       )}
@@ -337,21 +348,17 @@ const FormTemplate = ({
               ? existingNode.latest[0]
               : null;
 
+          const links = latestNode
+            ? [
+                {
+                  to: `/revision/${latestNode.id}/${latestNode.version}`,
+                  title: t("view")
+                }
+              ]
+            : [];
+
           return (
             <>
-              {latestNode ? (
-                <div className="pl-lg-5">
-                  <small>
-                    <Link
-                      to={`/revision/${latestNode.id}/${latestNode.version}`}
-                    >
-                      {t("view")}
-                    </Link>
-                  </small>
-                </div>
-              ) : (
-                <></>
-              )}
               <Mutation<UpsertNode, UpsertNodeVariables>
                 mutation={UPSERT_NODE}
                 refetchQueries={[
@@ -390,6 +397,7 @@ const FormTemplate = ({
                   }
                   return (
                     <FormComponent
+                      links={links}
                       form={form}
                       initialValues={
                         latestNode ? latestNode.content.values : initialValues
