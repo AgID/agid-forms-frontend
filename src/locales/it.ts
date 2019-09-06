@@ -68,8 +68,8 @@ const IT = {
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "Moduli",
-    action_page_title: "Moduli",
+    index_page_title: "Modulistica AGID",
+    action_page_title: "Modulistica AGID",
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
     notfound_page_text: "Pagina non trovata",

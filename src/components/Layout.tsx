@@ -68,10 +68,15 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           organization={sessionInfo ? sessionInfo.organizationName : ""}
         />
       </div>
-      <Container className="py-5 justify-content-md-center main" id="main">
+      <Container
+        className="py-lg-5 px-3 px-lg-0 justify-content-md-center main"
+        id="main"
+      >
         <main>
-          {title && <h1 style={{ color: "white" }}>{title}</h1>}
-          <div className="page-container shadow-md py-4 py-md-5 px-md-5 mt-md-4 rounded bg-white">
+          {title && (
+            <h1 className="px-2 py-3 py-lg-0 px-lg-0 main-title">{title}</h1>
+          )}
+          <div className="page-container shadow-md py-4 py-md-5 px-2 px-md-5 mt-md-4 rounded bg-white">
             {children}
           </div>
         </main>

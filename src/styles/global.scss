@@ -166,6 +166,7 @@
   height: auto !important;
 }
 
+.focusable:focus-within,
 .form-check input:focus,
 .form-check label.form-check-label:focus,
 .form-check textarea:focus {
@@ -178,6 +179,9 @@
   background-color: transparent !important;
 }
 
+.it-header-slim-wrapper {
+  background-color: #3123ca !important;
+}
 .it-header-slim-wrapper .it-header-slim-wrapper-content a:hover {
   color: white;
 }
@@ -289,6 +293,12 @@ textarea.form-control {
   background: linear-gradient(58.17deg, #3025FA 0.03%, rgba(36,29,174,0.9) 15.19%, #0D00FF 100%);
 }
 
+@media (min-width: 768px) {
+  .main-title {
+    color: white;
+  }
+}
+
 .it-header-navbar-wrapper,
 .it-header-slim-wrapper,
 .it-header-center-wrapper {
@@ -310,4 +320,8 @@ textarea.form-control {
 
 .modal .modal-dialog .modal-content .modal-body p {
   font-size: 18px;
+}
+
+.skiplinks a {
+  color: black !important;
 }

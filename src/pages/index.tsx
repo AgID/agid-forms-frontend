@@ -45,8 +45,14 @@ const SecretSelectionComponent = ({
 }: {
   setHasSecret: Dispatcher<boolean | undefined>;
 }) => (
-  <Form className="my-4">
-    <FormGroup fieldName="secret-selection" isHidden={false}>
+  <FormGroup
+    className="my-4"
+    fieldName="secret-selection"
+    isHidden={false}
+    role="radiogroup"
+    label="has secret"
+  >
+    <div className="mb-4 focusable">
       <Input
         name="secret-selection"
         type="radio"
@@ -56,8 +62,8 @@ const SecretSelectionComponent = ({
       <Label check={true} for="secret-selection-1">
         <Trans i18nKey="auth.has_password" />
       </Label>
-    </FormGroup>
-    <FormGroup fieldName="secret-selection" isHidden={false}>
+    </div>
+    <div className="focusable">
       <Input
         name="secret-selection"
         type="radio"
@@ -67,8 +73,8 @@ const SecretSelectionComponent = ({
       <Label check={true} for="secret-selection-2">
         <Trans i18nKey="auth.not_has_password" />
       </Label>
-    </FormGroup>
-  </Form>
+    </div>
+  </FormGroup>
 );
 
 const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
@@ -117,10 +123,15 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
             {hasRtd && (
               <>
                 <FormGroup isHidden={false} fieldName="agree">
-                  <Input type="checkbox" name="agree" checked={agree} />
+                  <Input
+                    type="checkbox"
+                    name="agree"
+                    checked={agree}
+                    onChange={() => setAgree(!agree)}
+                    id="agree"
+                  />
                   <Label
                     htmlFor="agree"
-                    onClick={() => setAgree(!agree)}
                     className="font-size-xs"
                     style={{ maxWidth: "34em" }}
                   >
@@ -222,15 +233,17 @@ const PaSelectionComponent = ({
   return (
     <FormGroup isHidden={false} fieldName="pa">
       <Label
-        for="pa"
+        for="pa-select"
+        htmlFor="pa-select"
         check={true}
-        className="d-block font-weight-semibold neutral-2-color-a4 font-size-xs"
+        className="d-block font-weight-semibold neutral-2-color-a5 font-size-xs"
       >
         <Trans i18nKey="auth.select_pa" />
       </Label>
 
       <SelectBase<SelectedValueT>
         name="pa"
+        inputId="pa-select"
         className="react-select"
         placeholder={t("auth.pa_placeholder")}
         noOptionsMessage={inpt =>
@@ -313,13 +326,14 @@ const LoginButtonComponent = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div>
+    <div className="form-check">
       <label htmlFor="secret">
         <Trans i18nKey="auth.insert_secret" />
       </label>
       <Input
         type="password"
         name="secret"
+        id="secret"
         value={secret || ""}
         onChange={evt => setSecret(evt.target.value)}
       />
@@ -431,7 +445,7 @@ const IndexPage = () => {
     window.location.search.indexOf("session-expired") !== -1;
 
   return (
-    <StaticLayout title={t("pages.index_page_title")}>
+    <StaticLayout title="">
       <SEO title={t("pages.index_page_title")} />
       {isSessionExpired && (
         <p className="alert alert-warning w-100">
