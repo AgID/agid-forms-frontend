@@ -129,7 +129,7 @@ export const SlimHeader = ({
                 </nav>
               </div>
               <div className="header-slim-right-zone">
-                {languages && (
+                {Array.isArray(languages) && languages.length > 1 && (
                   <Dropdown
                     className="nav-item"
                     isOpen={isLanguageDropdownOpen}
@@ -189,7 +189,8 @@ export const SlimHeader = ({
                         <Icon
                           className="icon d-block d-md-none text-primary"
                           style={{
-                            fill: "#0066cc"
+                            fill: "#0066cc",
+                            transform: "none"
                           }}
                           icon="user"
                         />
@@ -211,14 +212,14 @@ export const SlimHeader = ({
                         <span className="d-inline-block d-md-none p-4 text-decoration-none">
                           {user.userEmail}
                         </span>
-                        <DropdownItem tag="span">
+                        {/* <DropdownItem tag="span">
                           <a
                             className="list-item text-primary"
                             href={`/user/${user.userId}`}
                           >
                             <span>profile</span>
                           </a>
-                        </DropdownItem>
+                        </DropdownItem> */}
                         <DropdownItem tag="span">
                           <a
                             className="list-item text-primary"

@@ -5,9 +5,11 @@ const BodyStyles = ({ backgroundColor }: { backgroundColor: string }) => (
   <Helmet>
     <style>
       {`
-    body {
-      background-color: ${backgroundColor} !important
-    }
+      @media (min-width: 768px) {
+        body {
+          background-color: ${backgroundColor} !important
+        }
+      }
   `}
     </style>
   </Helmet>

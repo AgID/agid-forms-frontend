@@ -1,10 +1,10 @@
 menu:
-  - name: Home
-    slug: "/"
-    roles: [anonymous]
-  - name: Dashboard dichiarazioni accessibilità
+  - name: Gestione dichiarazioni
     slug: "/dashboard/dichiarazione-accessibilita"
     roles: [authenticated]
+  - name: Modello di autovalutazione
+    slug: "/doc/modello-autovalutazione"
+    roles: [anonymous]
   # - name: Utenti
   #   authenticated: true
   #   slug: "/dashboard"
