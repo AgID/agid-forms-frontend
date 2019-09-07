@@ -83,10 +83,11 @@ sections:
           - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: indicare le alternative accessibili a seconda dei casi
+            description: indicare le alternative accessibili a seconda dei casi (massimo 1000 caratteri)
             show_if: this["reason-42004"]
             required_if: this["reason-42004"]
             enabled_if: this["compliance-status"] != "compliant"
+            valid_if: Yup.string().max(1000).validate(value)
           - name: "reason-disproportionate-burden"
             widget: checkbox
             title: onere sproporzionato
@@ -94,21 +95,23 @@ sections:
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: indicare le alternative accessibili a seconda dei casi
+            description: indicare le alternative accessibili a seconda dei casi (massimo 1000 caratteri)
             show_if: this["reason-disproportionate-burden"]
             required_if: this["reason-disproportionate-burden"]
             enabled_if: this["compliance-status"] != "compliant"
+            valid_if: Yup.string().max(1000).validate(value)
           - name: "reason-no-law"
             widget: checkbox
             title: Il contenuto non rientra nell'ambito della legislazione applicabile
             enabled_if: this["compliance-status"] != "compliant"
           - name: "reason-no-law-text"
             widget: textarea
-            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
+            title: Indicare le sezioni, i contenuti e le funzioni non accessibili (massimo 1000 caratteri)
             description: indicare le alternative accessibili a seconda dei casi
             show_if: this["reason-no-law"]
             required_if: this["reason-no-law"]
             enabled_if: this["compliance-status"] != "compliant"
+            valid_if: Yup.string().max(1000).validate(value)
 
           # - name: content-alt
           #   title: alternative accessibili
@@ -116,8 +119,9 @@ sections:
           - name: "accessible-alternatives"
             widget: textarea
             title: alternative accessibili
-            description: indicare le alternative accessibili a seconda dei casi
+            description: indicare le alternative accessibili a seconda dei casi (massimo 1000 caratteri)
             enabled_if: this["compliance-status"] != "compliant"
+            valid_if: Yup.string().max(1000).validate(value)
 
       - name: content-methodology
         title: redazione della dichiarazione di accessibilità
