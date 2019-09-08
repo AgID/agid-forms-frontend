@@ -3,7 +3,7 @@ import { useState } from "react";
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 
-import { graphql, navigate, useStaticQuery } from "gatsby";
+import { graphql, Link, navigate, useStaticQuery } from "gatsby";
 
 import { Button, Form, Input, Label } from "reactstrap";
 import { FormGroup } from "../components/FormGroup";
@@ -141,23 +141,35 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                     })}
                   </Label>
                 </FormGroup>
-                <Button
-                  disabled={!agree}
-                  className="mb-3"
-                  color="primary"
-                  onClick={async () =>
-                    ipaData && ipaData.ipa_pa[0]
-                      ? await getSecret({
-                          variables: {
-                            ipa_code: ipaData.ipa_pa[0].cod_amm,
-                            body: "{}"
-                          }
-                        })
-                      : () => ({})
-                  }
-                >
-                  {t("go_on")}
-                </Button>
+
+                <div className="text-center mt-4">
+                  <div className="btn btn-outline-primary mx-4">
+                    <Link
+                      to="/"
+                      className="text-decoration-none"
+                      // tslint:disable-next-line: no-object-mutation
+                      onClick={() => (window.location.href = "/")}
+                    >
+                      {t("cancel")}
+                    </Link>
+                  </div>
+                  <Button
+                    disabled={!agree}
+                    color="primary"
+                    onClick={async () =>
+                      ipaData && ipaData.ipa_pa[0]
+                        ? await getSecret({
+                            variables: {
+                              ipa_code: ipaData.ipa_pa[0].cod_amm,
+                              body: "{}"
+                            }
+                          })
+                        : () => ({})
+                    }
+                  >
+                    {t("auth.send_me_email")}
+                  </Button>
+                </div>
               </>
             )}
             {!hasRtd && (
@@ -326,34 +338,47 @@ const LoginButtonComponent = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="form-check">
-      <label htmlFor="secret">
-        <Trans i18nKey="auth.insert_secret" />
-      </label>
-      <Input
-        type="password"
-        name="secret"
-        id="secret"
-        value={secret || ""}
-        onChange={evt => setSecret(evt.target.value)}
-      />
-      <br />
-      <Button
-        color="primary"
-        onClick={() =>
-          getTokens({
-            variables: {
-              ipa_code: selectedPa.value,
-              body: {
-                secret: secret || ""
+    <>
+      <div className="form-check">
+        <label htmlFor="secret">
+          <Trans i18nKey="auth.insert_secret" />
+        </label>
+        <Input
+          type="password"
+          name="secret"
+          id="secret"
+          value={secret || ""}
+          onChange={evt => setSecret(evt.target.value)}
+        />
+      </div>
+      <div className="text-center mt-4">
+        <div className="btn btn-outline-primary mx-4">
+          <Link
+            to="/"
+            className="text-decoration-none"
+            // tslint:disable-next-line: no-object-mutation
+            onClick={() => (window.location.href = "/")}
+          >
+            {t("cancel")}
+          </Link>
+        </div>
+        <Button
+          color="primary"
+          onClick={() =>
+            getTokens({
+              variables: {
+                ipa_code: selectedPa.value,
+                body: {
+                  secret: secret || ""
+                }
               }
-            }
-          })
-        }
-      >
-        {t("auth.login_as", { selectedPa: selectedPa.label })}
-      </Button>
-    </div>
+            })
+          }
+        >
+          {t("auth.login_as", { selectedPa: selectedPa.label })}
+        </Button>
+      </div>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ const IT = {
   status: "stato",
   verified: "verificato",
   edit: "modifica",
+  cancel: "annulla",
   updated_at: "aggiornato il",
   view: "visualizza",
   save_draft: "salva bozza",
@@ -35,28 +36,29 @@ const IT = {
   auth: {
     pa_placeholder: "Nome o codice IPA...",
     description:
-      "Per poter procedere alla compilazione della dichiarazione di accessibilità è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni.</0>",
+      "Per poter procedere alla compilazione della dichiarazione di accessibilità è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
     email_sent:
-      "un'email contenente il codice di accesso è stata inviata all'indirizzo",
+      "un'email contenente la chiave di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
-      "Richiedo l'invio del codice di accesso alla casella email del Responsabile della Transizione Digitale: {{email}}",
+      "Richiedo che venga inviata la chiave di accesso alla casella email del Responsabile della Transizione Digitale: {{email}}",
     expired_session:
       "la tua sessione è scaduta, è necessario effettuare un nuovo login",
     // tslint:disable-next-line: no-hardcoded-credentials
-    has_password: "ho già il codice di accesso",
-    insert_secret: "inserisci il codice di accesso che hai ricevuto per email:",
+    has_password: "ho già la chiave di accesso",
+    insert_secret: "inserisci la chiave di accesso che hai ricevuto per email:",
     login_as: "accedi come {{selectedPa}}",
     // tslint:disable-next-line: no-hardcoded-credentials
-    not_has_password: "devo ancora ottenere il codice di accesso",
-    select_pa: "Seleziona un'amministrazione",
+    not_has_password: "devo ancora ottenere la chiave di accesso",
+    send_me_email: "invia email",
+    select_pa: "Cerca la tua amministrazione",
     select_pa_hint:
-      "inserisci il nome o il codice ipa della tua amministrazione",
+      "inserisci la denominazione della tua amministrazione o il codice ipa",
     rtd_not_found:
       "l'indirizzo email del responsabile per la transizione digitale non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
     // tslint:disable-next-line: no-hardcoded-credentials
     wrong_password:
       // tslint:disable-next-line: no-hardcoded-credentials
-      "il codice immesso non è corretto o è scaduto, prova a richiedere un nuovo codice"
+      "la chiave immessa non è corretta o è scaduta, prova a richiedere una nuova chiave"
   },
   login: "accedi",
   logout: "logout",

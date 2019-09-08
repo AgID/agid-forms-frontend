@@ -64,9 +64,12 @@ const DashboardDeclTemplate = () => {
             return (
               <div className="p-lg-4">
                 <h2>{t("acc_decl.create_new_decl_title")}</h2>
-                <p className="w-paragraph mb-5">
-                  {t("acc_decl.create_new_decl_desc")}
-                </p>
+                <div
+                  className="w-paragraph mb-5"
+                  dangerouslySetInnerHTML={{
+                    __html: t("acc_decl.create_new_decl_desc")
+                  }}
+                />
                 <NewDeclCta />
               </div>
             );
