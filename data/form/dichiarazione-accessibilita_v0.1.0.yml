@@ -141,7 +141,7 @@ sections:
           #   fields:
           - name: "accessible-alternatives"
             widget: textarea
-            title: alternative accessibili
+            title: Alternative accessibili
             description: indicare le alternative accessibili a seconda dei casi (massimo 1000 caratteri)
             enabled_if: this["compliance-status"] != "compliant"
             valid_if: Yup.string().max(1000).validate(value)
@@ -161,11 +161,11 @@ sections:
             widget: radio
             title: modalità della valutazione
             options:
-              - label: un’autovalutazione effettuata direttamente dal soggetto erogatore
+              - label: Un’autovalutazione effettuata direttamente dal soggetto erogatore
                 value: methodology-auto
-              - label: una valutazione effettuata da terzi
+              - label: Una valutazione effettuata da terzi
                 value: methodology-third-party
-              - label: allegato 2 - modello di autovalutazione fornito da AGID
+              - label: Modello di autovalutazione fornito da AGID - allegato 2
                 value: methodology-attachment
             # show_if: this["methodology"] == "methodology-other"
             # required_if: this["methodology"] == "methodology-other"
@@ -173,6 +173,11 @@ sections:
 
       - name: feedback-and-contacts
         title: feedback e recapiti
+        description: |-
+          Descrizione del meccanismo di feedback, e relativo link,
+          da utilizzare per notificare al soggetto erogatore
+          i casi di mancata conformità e per richiedere informazioni e contenuti
+          che sono esclusi dall'ambito di applicazione della direttiva.
         fields:
           - name: "feedback"
             widget: textarea
@@ -181,11 +186,11 @@ sections:
             required_if: "true"
           - name: "feedback-url"
             widget: text
-            title: URL del servizio
+            title: URL relativa al meccanismo di feedback
             description: inserisci il puntamento al feedback (se presente)
             valid_if: Yup.string().url().validate(value)
           - name: "manager-email"
-            title: Email responsabile
+            title: Email responsabile della transizione digitale (RTD)
             widget: email
             valid_if: Yup.string().email().validate(value)
             required_if: "true"
@@ -207,7 +212,7 @@ sections:
   - name: section-2
     title: Sezione 2
     description: |-
-      Ulteriori informazioni richieste dall'Agenzia per l'Italia digitale
+      Informazioni richieste dall'Agenzia per l'Italia digitale
     groups:
       - name: application-information
         title: informazioni sul sito / app
@@ -218,6 +223,7 @@ sections:
             required_if: "true"
             valid_if: Yup.date().validate(value)
           - name: website-cms
+            description: Seleziona il sistema utilizzato per la gestione dei contenuti, se presente.
             title: CMS utilizzato
             widget: select
             multiple: false
@@ -268,29 +274,29 @@ sections:
             required_if: this["device-type"] == "mobile-app"
 
       - name: application-org
-        title: informazioni sull'organico e la struttura
+        title: informazioni sulla struttura
         fields:
           - name: people-disabled
-            title: Dipendenti con disabilità
-            description: in cifre
+            title: Numero di dipendenti con disabilità
+            description: indicare il numero
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
             title: Postazioni per persone con disabilità
-            description: in cifre
+            description: indicare il numero
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-expenditure
-            title: Percentuale spesa prevista nel bilancio
+            title: Percentuale spesa prevista nel bilancio in tema di accessibiltà
             description: in percentuale
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
 
       - name: application-manager
-        title: Il responsabile dei processi di integrazione
+        title: Responsabile dei processi di integrazione
         fields:
           - name: manager-present
             title: è previsto nella struttura
