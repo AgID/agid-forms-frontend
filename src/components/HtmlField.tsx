@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import { FormFieldPropsT } from "../utils/forms";
+import { FormFieldPropsT, getEmptyValue } from "../utils/forms";
 import { Label } from "./Label";
 
 export const HtmlField = ({
@@ -10,7 +10,7 @@ export const HtmlField = ({
   valueExpression
 }: FormFieldPropsT) => {
   const content = isHidden
-    ? ""
+    ? getEmptyValue(field)
     : valueExpression
     ? // compute field value then cast to string
       valueExpression({ Math, ...form.values }).toString()

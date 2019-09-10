@@ -7,7 +7,12 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import { Input } from "reactstrap";
-import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
+import {
+  FormFieldPropsT,
+  FormValuesT,
+  getEmptyValue,
+  validateField
+} from "../utils/forms";
 
 export const CustomRadioComponent = ({
   field,
@@ -25,14 +30,16 @@ export const CustomRadioComponent = ({
   isDisabled: boolean;
   isRequired: boolean;
 }) => {
+  const fieldValue = getIn(form.values, field.name);
+  const [checked, setChecked] = React.useState(fieldValue);
   return options.map((option, index) => (
     <div key={option.value}>
       <Input
         {...field}
         {...props}
         value={option.value}
-        checked={option.value === field.value}
-        onClick={() => form.setFieldValue(field.name, option.value)}
+        checked={!isHidden && !isDisabled && option.value === fieldValue}
+        onChange={() => form.setFieldValue(field.name, checked)}
         id={`${field.name}-${index}`}
       />
       <Label
@@ -40,16 +47,15 @@ export const CustomRadioComponent = ({
         className="d-block my-2 my-lg-3 font-weight-semibold"
         title={option.label}
         onClick={() => {
-          isDisabled
-            ? // tslint:disable-next-line: no-unused-expression
-              () => void 0
-            : form.setFieldValue(
-                field.name,
-                // uncheck radio when checked
-                getIn(form.values, field.name) === option.value
-                  ? ""
-                  : option.value
-              );
+          if (!isDisabled) {
+            if (!isRequired && field.value === option.value) {
+              // uncheck radio when checked
+              form.setFieldValue(field.name, getEmptyValue(field));
+              setChecked(getEmptyValue(field));
+            } else if (field.value !== option.value) {
+              setChecked(option.value);
+            }
+          }
         }}
       />
     </div>
@@ -85,21 +91,18 @@ export const RadioField = ({
       <Field
         name={field.name}
         type="radio"
-        checked={
-          isHidden || isDisabled ? false : getIn(form.values, field.name)
-        }
         component={CustomRadioComponent}
         className="pl-0"
-        validate={validateField(isRequired, validationExpression, field, form)} // always required
+        validate={validateField(isRequired, validationExpression, field, form)}
         value={
           isHidden || isDisabled
-            ? ""
+            ? getEmptyValue(field)
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
             : getIn(form.values, field.name)
         }
-        isRequired={false}
+        isRequired={isRequired}
         isDisabled={isDisabled}
         options={field.options}
       />

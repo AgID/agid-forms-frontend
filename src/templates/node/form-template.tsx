@@ -363,12 +363,16 @@ const FormTemplate = ({
             <>
               <Mutation<UpsertNode, UpsertNodeVariables>
                 mutation={UPSERT_NODE}
-                refetchQueries={[
-                  {
-                    query: GET_LATEST_NODE_WITH_PUBLISHED,
-                    variables: { id: nodeId }
-                  }
-                ]}
+                refetchQueries={
+                  nodeId
+                    ? [
+                        {
+                          query: GET_LATEST_NODE_WITH_PUBLISHED,
+                          variables: { id: nodeId }
+                        }
+                      ]
+                    : []
+                }
                 onCompleted={upsertNodeResult =>
                   navigate(
                     `/revision/${

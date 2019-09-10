@@ -45,8 +45,11 @@ export const toFirstGroupFieldName = (name: typeof GROUP_FIELD_PATTERN) => {
   return [groupName, "0", fieldName].join(".");
 };
 
-export const isEmptyField = (value: any) =>
-  value === undefined || value === null || value === "";
+export const isEmptyFieldValue = (value: any) =>
+  value === undefined ||
+  value === null ||
+  value === "" ||
+  (Array.isArray(value) && value.length === 0);
 
 export interface FormValuesT {
   [k: string]: any;
@@ -78,7 +81,7 @@ export const validateField = (
     ? (value: any) =>
         Promise.resolve()
           .then(() => {
-            if (isRequired && isEmptyField(value)) {
+            if (isRequired && isEmptyFieldValue(value)) {
               // tslint:disable-next-line: no-string-throw
               throw "Campo richiesto";
             }
@@ -113,7 +116,9 @@ export const validateField = (
 export function getGroupFields(group: FormGroupT) {
   return group.fields && group.repeatable
     ? (group.fields as ReadonlyArray<FieldT>).map(field =>
-        field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
+        field
+          ? { ...field, name: `${group.name}.0.${field.name}` }
+          : getDefaultValue(field)
       )
     : group.fields || [];
 }
@@ -221,7 +226,13 @@ export function flattenFormValues(
       ) {
         return prevValues;
       }
-      if (Array.isArray(values[fieldName])) {
+      if (
+        // TODO: replace this heuristic check:
+        // a group is a multidimensional array while a plain array
+        // could be the value of a multiple checkbox / select field.
+        Array.isArray(values[fieldName]) &&
+        Array.isArray(values[fieldName][0])
+      ) {
         const group: ReadonlyArray<any> = values[fieldName];
         return {
           ...prevValues,
@@ -255,10 +266,24 @@ export function flattenFormValues(
           [fieldName]: values[fieldName].toString()
         };
       }
+      // multiple select / checkboxes
+      if (Array.isArray(values[fieldName])) {
+        return {
+          ...prevValues,
+          [fieldName]: values[fieldName].map((v: any) => v.toString())
+        };
+      }
       return prevValues;
     },
     {} as Record<string, string>
   );
+}
+
+export function getEmptyValue(field: FieldT) {
+  if (field.widget === "checkbox" && field.options) {
+    return [];
+  }
+  return "";
 }
 
 export function getDefaultValue(field: FieldT) {
@@ -271,7 +296,7 @@ export function getDefaultValue(field: FieldT) {
   if (field.default !== undefined && field.default !== null) {
     return field.default;
   }
-  return "";
+  return getEmptyValue(field);
 }
 
 export function getFieldValueForView({
@@ -285,8 +310,11 @@ export function getFieldValueForView({
     case "date":
       return format(new Date(value), "DD.MM.YYYY");
     case "checkbox":
-      if (!Array.isArray(value) ? "si" : "no") {
+      if (!Array.isArray(value)) {
+        // TODO: localize
         return value ? "si" : "no";
+      } else {
+        return value.join(", ");
       }
       break;
     case "select":
