@@ -1,13 +1,13 @@
 menu:
-  - name: Gestione dichiarazioni
-    slug: "/dashboard/dichiarazione-accessibilita"
-    roles: [authenticated]
-  - name: Modello di autovalutazione
-    slug: "/doc/modello-autovalutazione"
-    roles: [anonymous, authenticated]
   - name: Guida alla compilazione
     slug: "/doc/guida-alla-compilazione"
     roles: [anonymous, authenticated]
+  - name: Modello di autovalutazione
+    slug: "/doc/modello-autovalutazione"
+    roles: [anonymous, authenticated]
+  - name: Gestione dichiarazioni
+    slug: "/dashboard/dichiarazione-accessibilita"
+    roles: [authenticated]
   # - name: Utenti
   #   authenticated: true
   #   slug: "/dashboard"

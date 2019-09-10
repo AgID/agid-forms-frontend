@@ -51,25 +51,23 @@ sections:
             required_if: this["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
 
+          - name: "specs-version"
+            widget: radio
+            title: Specifiche tecniche di riferimento
+            options:
+              - label: WCAG 2.0
+                value: wcag-20
+              - label: WCAG 2.1
+                value: wcag-21
+            show_if: this["device-type"] == "website"
+            required_if: this["device-type"] == "website"
+
   - name: section-1
     title: Sezione 1
     description: |-
       Contenuti in ottemperanza alla Decisione di esecuzione UE 2018/1523.
 
     groups:
-      - name: wcag-specs
-        title: specifiche tecniche
-        fields:
-          - name: "specs-version"
-            widget: radio
-            title: specifiche tecniche di riferimento
-            options:
-              - label: WCAG 2.0
-                value: wcag-20
-              - label: WCAG 2.1
-                value: wcag-21
-            required_if: "true"
-
       - name: content-compliance
         title: stato di conformità
         fields:
@@ -222,6 +220,9 @@ sections:
             widget: date
             required_if: "true"
             valid_if: Yup.date().validate(value)
+          - name: application-usability-test
+            title: Sono stati effettuati test usabilità
+            widget: checkbox
           - name: website-cms
             description: Seleziona il sistema utilizzato per la gestione dei contenuti, se presente.
             title: CMS utilizzato
@@ -263,8 +264,7 @@ sections:
             required_if: this["device-type"] == "mobile-app"
           - name: application-os
             title: Sistema operativo
-            widget: select
-            multiple: false
+            widget: checkbox
             options:
               - label: Android
                 value: android
@@ -301,6 +301,8 @@ sections:
           - name: manager-present
             title: è previsto nella struttura
             widget: checkbox
+            default_checked: false
           - name: manager-appointed
             title: è stato nominato dal soggetto erogatore
             widget: checkbox
+            default_checked: false
