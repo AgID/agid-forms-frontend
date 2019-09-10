@@ -116,9 +116,7 @@ export const validateField = (
 export function getGroupFields(group: FormGroupT) {
   return group.fields && group.repeatable
     ? (group.fields as ReadonlyArray<FieldT>).map(field =>
-        field
-          ? { ...field, name: `${group.name}.0.${field.name}` }
-          : getDefaultValue(field)
+        field ? { ...field, name: `${group.name}.0.${field.name}` } : ""
       )
     : group.fields || [];
 }
