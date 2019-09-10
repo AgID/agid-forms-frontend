@@ -8,7 +8,7 @@ import { Label } from "./Label";
 
 import { CustomInputComponent } from "./FormField";
 
-import { FormFieldPropsT, validateField } from "../utils/forms";
+import { FormFieldPropsT, getEmptyValue, validateField } from "../utils/forms";
 
 export const TextFormField = ({
   field,
@@ -43,7 +43,7 @@ export const TextFormField = ({
         validate={validateField(isRequired, validationExpression, field, form)}
         value={
           isHidden || isDisabled
-            ? ""
+            ? getEmptyValue(field)
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()

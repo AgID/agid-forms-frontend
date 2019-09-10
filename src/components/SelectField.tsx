@@ -7,7 +7,12 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import SelectBase from "react-select";
-import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
+import {
+  FormFieldPropsT,
+  FormValuesT,
+  getEmptyValue,
+  validateField
+} from "../utils/forms";
 
 export const CustomSelectComponent = ({
   field,
@@ -21,7 +26,7 @@ export const CustomSelectComponent = ({
 }) => {
   const value = options
     ? options.find(option => option.value === field.value)
-    : "";
+    : getEmptyValue(field);
   return (
     <SelectBase
       {...field}
@@ -67,7 +72,7 @@ export const SelectField = ({
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
           isHidden || isDisabled
-            ? ""
+            ? getEmptyValue(field)
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()

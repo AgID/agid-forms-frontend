@@ -7,7 +7,12 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import { Input } from "reactstrap";
-import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
+import {
+  FormFieldPropsT,
+  FormValuesT,
+  getEmptyValue,
+  validateField
+} from "../utils/forms";
 
 export const CustomCheckboxComponent = ({
   field,
@@ -25,9 +30,11 @@ export const CustomCheckboxComponent = ({
   isDisabled: boolean;
   isRequired: boolean;
 }) => {
+  const fieldValue = getIn(form.values, field.name);
+  const [checked, setChecked] = React.useState(fieldValue);
   return options.map((option, index) => {
-    const fieldValue = getIn(form.values, field.name);
-    const isChecked = (fieldValue || []).indexOf(option.value) !== -1;
+    // must depend from value (not from "checked")
+    const isChecked = fieldValue.includes(option.value);
     return (
       <div key={option.value}>
         <Input
@@ -36,24 +43,26 @@ export const CustomCheckboxComponent = ({
           value={option.value}
           checked={isChecked}
           id={`${field.name}-${index}`}
+          onChange={() => {
+            form.setFieldValue(field.name, checked);
+          }}
         />
         <Label
           className="d-block my-2 my-lg-3 font-weight-semibold"
           fieldName={`${field.name}-${index}`}
           title={option.label}
           onClick={() => {
-            isDisabled
-              ? // tslint:disable-next-line: no-unused-expression
-                () => void 0
-              : isChecked
-              ? form.setFieldValue(
-                  field.name,
-                  (fieldValue || []).filter((v: any) => v !== option.value)
-                )
-              : form.setFieldValue(
-                  field.name,
-                  (fieldValue || []).concat(option.value)
+            if (!isDisabled) {
+              if (checked.includes(option.value)) {
+                const nextValue = checked.filter(
+                  (value: string) => value !== option.value
                 );
+                setChecked(nextValue);
+              } else {
+                const nextValue = checked.concat(option.value);
+                setChecked(nextValue);
+              }
+            }
           }}
         />
       </div>
@@ -98,7 +107,7 @@ export const CheckboxMultipleField = ({
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
           isHidden || isDisabled
-            ? ""
+            ? getEmptyValue(field)
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()

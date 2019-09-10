@@ -6,7 +6,12 @@ import { FormikProps, getIn } from "formik";
 
 import { Input } from "reactstrap";
 
-import { FieldT, FormValuesT } from "../utils/forms";
+import {
+  FieldT,
+  FormValuesT,
+  getEmptyValue,
+  isEmptyFieldValue
+} from "../utils/forms";
 import { CheckboxField } from "./CheckboxField";
 import { CheckboxMultipleField } from "./CheckboxMultipleField";
 import { HtmlField } from "./HtmlField";
@@ -62,9 +67,14 @@ export const Formfield = ({
     (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
 
   // reset field value in case it's disabled or hidden
-  if ((isHidden || isDisabled) && getIn(form.values, field.name!) !== "") {
-    form.setFieldValue(field.name!, "");
-  }
+  React.useEffect(() => {
+    if (
+      (isHidden || isDisabled) &&
+      !isEmptyFieldValue(getIn(form.values, field.name!))
+    ) {
+      form.setFieldValue(field.name!, getEmptyValue(field));
+    }
+  });
 
   const hasError =
     form.touched[field.name!] !== undefined &&

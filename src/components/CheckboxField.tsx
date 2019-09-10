@@ -6,7 +6,12 @@ import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
-import { FormFieldPropsT, isEmptyField, validateField } from "../utils/forms";
+import {
+  FormFieldPropsT,
+  getEmptyValue,
+  isEmptyFieldValue,
+  validateField
+} from "../utils/forms";
 import { CustomInputComponent } from "./FormField";
 
 export const CheckboxField = ({
@@ -19,7 +24,17 @@ export const CheckboxField = ({
   valueExpression,
   hasError
 }: FormFieldPropsT) => {
-  return field.name ? (
+  if (!field.name) {
+    return null;
+  }
+
+  const fieldValue = getIn(form.values, field.name);
+
+  const [checked, setChecked] = React.useState(!isEmptyFieldValue(fieldValue));
+
+  const emptyValue = getEmptyValue(field);
+
+  return (
     <FormGroup
       key={field.name}
       isHidden={isHidden}
@@ -30,19 +45,23 @@ export const CheckboxField = ({
         name={field.name}
         id={field.name}
         type="checkbox"
-        checked={
-          isHidden || isDisabled ? false : getIn(form.values, field.name)
-        }
+        // must depend from value (not from "checked")
+        checked={isHidden || isDisabled ? false : fieldValue === field.name}
         component={CustomInputComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
+        onChange={() =>
+          form.setFieldValue(field.name!, checked ? field.name : emptyValue)
+        }
         value={
           isHidden || isDisabled
-            ? ""
+            ? emptyValue
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : getIn(form.values, field.name)
+            : checked
+            ? field.name
+            : emptyValue
         }
         disabled={isDisabled}
       />
@@ -50,13 +69,9 @@ export const CheckboxField = ({
         fieldName={field.name}
         title={field.title!}
         onClick={() => {
-          !isDisabled
-            ? form.setFieldValue(
-                field.name!,
-                isEmptyField(getIn(form.values, field.name!)) ? field.name : ""
-              )
-            : // tslint:disable-next-line: no-unused-expression
-              () => void 0;
+          if (!isDisabled) {
+            setChecked(!checked);
+          }
         }}
       />
       <ErrorMessage name={field.name} />
@@ -64,5 +79,5 @@ export const CheckboxField = ({
         <FieldDescription description={field.description} />
       )}
     </FormGroup>
-  ) : null;
+  );
 };
