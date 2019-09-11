@@ -5,7 +5,7 @@ import StaticLayout from "../components/StaticLayout";
 
 import { graphql, Link, navigate, useStaticQuery } from "gatsby";
 
-import { Button, Form, Input, Label } from "reactstrap";
+import { Button, Input, Label } from "reactstrap";
 import { FormGroup } from "../components/FormGroup";
 import { SearchIpa, SearchIpaVariables } from "../generated/graphql/SearchIpa";
 import { GET_SECRET, GET_TOKENS } from "../graphql/backend";
@@ -40,10 +40,15 @@ type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 
 type SelectedValueT = { value: string; label: string };
 
+const getIpaCodeFromUrl = () =>
+  new URLSearchParams(window.location.search).get("ipa");
+
 const SecretSelectionComponent = ({
-  setHasSecret
+  setHasSecret,
+  hasSecret
 }: {
   setHasSecret: Dispatcher<boolean | undefined>;
+  hasSecret?: boolean;
 }) => (
   <FormGroup
     className="my-4"
@@ -58,6 +63,8 @@ const SecretSelectionComponent = ({
         type="radio"
         id="secret-selection-1"
         onChange={() => setHasSecret(true)}
+        checked={hasSecret === true}
+        value={hasSecret ? "true" : "false"}
       />
       <Label check={true} for="secret-selection-1">
         <Trans i18nKey="auth.has_password" />
@@ -69,6 +76,8 @@ const SecretSelectionComponent = ({
         type="radio"
         id="secret-selection-2"
         onChange={() => setHasSecret(false)}
+        checked={hasSecret === false}
+        value={!hasSecret ? "true" : "false"}
       />
       <Label check={true} for="secret-selection-2">
         <Trans i18nKey="auth.not_has_password" />
@@ -223,7 +232,7 @@ const GetSecretConnectedComponent = ({
 );
 
 const getIpaOptions = (ipaData: SearchIpa | undefined) =>
-  ipaData && ipaData.ipa_pa
+  ipaData && Array.isArray(ipaData.ipa_pa)
     ? ipaData.ipa_pa.concat(ipaData.search_ipa || []).map(pa => ({
         value: pa.cod_amm,
         label: [pa.des_amm, pa.Comune, pa.cod_amm].join(", ")
@@ -242,6 +251,7 @@ const PaSelectionComponent = ({
   setSearch: Dispatcher<string>;
 }) => {
   const { t } = useTranslation();
+  const options = getIpaOptions(ipaData);
   return (
     <FormGroup isHidden={false} fieldName="pa">
       <Label
@@ -257,14 +267,15 @@ const PaSelectionComponent = ({
         name="pa"
         inputId="pa-select"
         className="react-select"
-        placeholder={t("auth.pa_placeholder")}
+        placeholder={options[0] ? options[0].label : t("auth.pa_placeholder")}
+        defaultInputValue={options[0] ? options[0].label : undefined}
         noOptionsMessage={inpt =>
           inpt.inputValue ? t("no_result_found") : t("auth.pa_placeholder")
         }
+        isClearable={true}
         cacheOptions={true}
-        defaultOptions={[]}
         isLoading={loading}
-        options={loading ? [] : getIpaOptions(ipaData)}
+        options={options}
         onChange={(value: ValueType<SelectedValueT>) => {
           if (value) {
             // this cast is needed because a wrong array type is inferred
@@ -274,7 +285,9 @@ const PaSelectionComponent = ({
             });
           }
         }}
-        onInputChange={(value: string) => setSearch(value)}
+        onInputChange={(value: string) => {
+          setSearch(value);
+        }}
       />
       <FieldDescription description={t("auth.select_pa_hint")} />
     </FormGroup>
@@ -284,19 +297,37 @@ const PaSelectionComponent = ({
 const SelectOrganizationConnectedComponent = ({
   setSelectedPa,
   setHasSecret,
+  hasSecret,
   selectedPa
 }: {
   setSelectedPa: Dispatcher<SelectedValueT | undefined>;
   setHasSecret: Dispatcher<boolean | undefined>;
   selectedPa?: SelectedValueT;
+  hasSecret?: boolean;
 }) => {
   const [search, setSearch] = useState<string>("");
   const [searchDebounced] = useDebounce(search, 400);
+
+  const ipaCode = getIpaCodeFromUrl();
+
+  React.useEffect(() => {
+    if (ipaCode) {
+      setSearch(ipaCode);
+    }
+  }, [ipaCode]);
 
   return (
     <Query<SearchIpa, SearchIpaVariables>
       query={SEARCH_IPA}
       variables={{ search: searchDebounced }}
+      onCompleted={value => {
+        if (ipaCode && value.ipa_pa && value.ipa_pa[0]) {
+          setSelectedPa({
+            label: value.ipa_pa[0].des_amm,
+            value: value.ipa_pa[0].cod_amm
+          });
+        }
+      }}
     >
       {({ loading, error, data: ipaData }) => {
         if (error) {
@@ -316,7 +347,10 @@ const SelectOrganizationConnectedComponent = ({
               setSelectedPa={setSelectedPa}
             />
             {selectedPa && (
-              <SecretSelectionComponent setHasSecret={setHasSecret} />
+              <SecretSelectionComponent
+                setHasSecret={setHasSecret}
+                hasSecret={hasSecret}
+              />
             )}
           </>
         );
@@ -436,9 +470,13 @@ const LoginButtonConnectedComponent = ({
 
 const IndexPage = () => {
   const { t } = useTranslation();
+  const ipaCode = getIpaCodeFromUrl();
+
   const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
   const [secret, setSecret] = useState<string>();
-  const [hasSecret, setHasSecret] = useState<boolean>();
+  const [hasSecret, setHasSecret] = useState<boolean | undefined>(
+    ipaCode ? true : undefined
+  );
 
   const { homepageData } = useStaticQuery(
     graphql`
@@ -489,6 +527,7 @@ const IndexPage = () => {
         <SelectOrganizationConnectedComponent
           selectedPa={selectedPa}
           setHasSecret={setHasSecret}
+          hasSecret={hasSecret}
           setSelectedPa={setSelectedPa}
         />
         {false === hasSecret && (
