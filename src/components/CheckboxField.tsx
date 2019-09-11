@@ -28,11 +28,8 @@ export const CheckboxField = ({
     return null;
   }
 
-  const fieldValue = getIn(form.values, field.name);
-
-  const [checked, setChecked] = React.useState(!isEmptyFieldValue(fieldValue));
-
   const emptyValue = getEmptyValue(field);
+  const fieldValue = getIn(form.values, field.name);
 
   return (
     <FormGroup
@@ -51,7 +48,10 @@ export const CheckboxField = ({
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         onChange={() =>
-          form.setFieldValue(field.name!, checked ? field.name : emptyValue)
+          form.setFieldValue(
+            field.name!,
+            isEmptyFieldValue(fieldValue) ? field.name : emptyValue
+          )
         }
         value={
           isHidden || isDisabled
@@ -59,21 +59,11 @@ export const CheckboxField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : checked
-            ? field.name
-            : emptyValue
+            : fieldValue
         }
         disabled={isDisabled}
       />
-      <Label
-        fieldName={field.name}
-        title={field.title!}
-        onClick={() => {
-          if (!isDisabled) {
-            setChecked(!checked);
-          }
-        }}
-      />
+      <Label fieldName={field.name} title={field.title!} />
       <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />
