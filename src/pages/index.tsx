@@ -41,7 +41,9 @@ type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 type SelectedValueT = { value: string; label: string };
 
 const getIpaCodeFromUrl = () =>
-  new URLSearchParams(window.location.search).get("ipa");
+  URLSearchParams
+    ? new URLSearchParams(window.location.search).get("ipa")
+    : undefined;
 
 const SecretSelectionComponent = ({
   setHasSecret,
