@@ -41,7 +41,7 @@ type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
 type SelectedValueT = { value: string; label: string };
 
 const getIpaCodeFromUrl = () =>
-  URLSearchParams
+  typeof URLSearchParams !== "undefined"
     ? new URLSearchParams(window.location.search).get("ipa")
     : undefined;
 
