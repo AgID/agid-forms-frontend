@@ -31,32 +31,27 @@ export const CustomRadioComponent = ({
   isRequired: boolean;
 }) => {
   const fieldValue = getIn(form.values, field.name);
-  const [checked, setChecked] = React.useState(fieldValue);
   return options.map((option, index) => (
     <div key={option.value}>
       <Input
         {...field}
         {...props}
         value={option.value}
-        checked={!isHidden && !isDisabled && option.value === fieldValue}
-        onChange={() => form.setFieldValue(field.name, checked)}
+        checked={option.value === fieldValue}
+        onChange={() => {
+          if (!isRequired && field.value === option.value) {
+            // uncheck radio when checked
+            form.setFieldValue(field.name, getEmptyValue(field));
+          } else {
+            form.setFieldValue(field.name, option.value);
+          }
+        }}
         id={`${field.name}-${index}`}
       />
       <Label
         fieldName={`${field.name}-${index}`}
         className="d-block my-2 my-lg-3 font-weight-semibold"
         title={option.label}
-        onClick={() => {
-          if (!isDisabled) {
-            if (!isRequired && field.value === option.value) {
-              // uncheck radio when checked
-              form.setFieldValue(field.name, getEmptyValue(field));
-              setChecked(getEmptyValue(field));
-            } else if (field.value !== option.value) {
-              setChecked(option.value);
-            }
-          }
-        }}
       />
     </div>
   ));

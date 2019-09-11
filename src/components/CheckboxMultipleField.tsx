@@ -31,7 +31,6 @@ export const CustomCheckboxComponent = ({
   isRequired: boolean;
 }) => {
   const fieldValue = getIn(form.values, field.name);
-  const [checked, setChecked] = React.useState(fieldValue);
   return options.map((option, index) => {
     // must depend from value (not from "checked")
     const isChecked = fieldValue.includes(option.value);
@@ -44,26 +43,16 @@ export const CustomCheckboxComponent = ({
           checked={isChecked}
           id={`${field.name}-${index}`}
           onChange={() => {
-            form.setFieldValue(field.name, checked);
+            const nextValue = isChecked
+              ? fieldValue.filter((value: string) => value !== option.value)
+              : fieldValue.concat(option.value);
+            form.setFieldValue(field.name, nextValue);
           }}
         />
         <Label
           className="d-block my-2 my-lg-3 font-weight-semibold"
           fieldName={`${field.name}-${index}`}
           title={option.label}
-          onClick={() => {
-            if (!isDisabled) {
-              if (checked.includes(option.value)) {
-                const nextValue = checked.filter(
-                  (value: string) => value !== option.value
-                );
-                setChecked(nextValue);
-              } else {
-                const nextValue = checked.concat(option.value);
-                setChecked(nextValue);
-              }
-            }
-          }}
         />
       </div>
     );
@@ -109,8 +98,7 @@ export const CheckboxMultipleField = ({
           isHidden || isDisabled
             ? getEmptyValue(field)
             : valueExpression
-            ? // compute field value then cast to string
-              valueExpression({ Math, ...form.values }).toString()
+            ? valueExpression({ Math, ...form.values })
             : getIn(form.values, field.name)
         }
         isRequired={false}

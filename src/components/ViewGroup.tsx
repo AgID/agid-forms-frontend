@@ -15,7 +15,7 @@ const ViewGroup = ({
 }) => (
   <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
     {group.title && <FormGroupTitle title={group.title} />}
-    {group.description && <p>{group.description}</p>}
+    {group.description && <p className="w-paragraph">{group.description}</p>}
     {group.repeatable && <ViewFieldArray group={group} values={values} />}
     {!group.repeatable &&
       group.fields &&
