@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="49px" viewBox="0 0 60 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/horn </title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dichiarazione_web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="REV_03_07_da-bozza-a-online_copia-e-incolla-link" transform="translate(-305.000000, -272.000000)">
+            <g id="modale" transform="translate(209.000000, 214.000000)">
+                <g id="Icons/horn-" transform="translate(90.000000, 44.000000)">
+                    <rect id="borders" x="0" y="0" width="72" height="72"></rect>
+                    <path d="M15,27 C10.0294373,27 6,31.0294373 6,36 C6,40.9705627 10.0294373,45 15,45 L16.5,45 L21,57.9 C22.0044117,60.8776744 24.7586795,62.9134375 27.9,63 L28.5,63 C29.9280753,63.0515 31.2843548,62.3733603 32.1,61.2 C33.0443762,60.0113313 33.2737739,58.4055473 32.7,57 L28.8,45 L34.2,45 L60,56.4 L60,14.1 L34.2,27 L15,27 Z M30,57.9 C30.0921407,58.4199348 29.9850279,58.9554989 29.7,59.4 L28.5,60 L27.9,60 C26.0086471,59.9820472 24.3303942,58.7832951 23.7,57 L19.8,45 L25.5,45 L30,57.9 Z M15,42 C11.6862915,42 9,39.3137085 9,36 C9,32.6862915 11.6862915,30 15,30 L33,30 L33,42 L15,42 Z M57,51.6 L36,42.6 L36,29.4 L57,18.9 L57,51.6 Z M66,27 L66,45 L63,45 L63,27 L66,27 Z" id="Shape" fill="#0073E6" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

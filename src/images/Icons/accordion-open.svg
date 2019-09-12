@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="4px" viewBox="0 0 24 4" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>ic-accordion open</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="HOMEPAGE" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.0-B_HOME_DICHIARAZIONE" transform="translate(-487.000000, -2204.000000)" fill="#0066CC">
+            <g id="Domande-frequenti" transform="translate(0.000000, 1627.000000)">
+                <g id="domande-frequenti" transform="translate(93.000000, 122.000000)">
+                    <path d="M395.333333,458.333333 L404.666667,458.333333 L407.333333,458.333333 L416.666667,458.333333 C417.055557,458.333333 417.374997,458.208336 417.625003,457.958336 C417.875003,457.708331 418,457.388891 418,457 C418,456.611109 417.875003,456.291669 417.625003,456.041664 C417.374997,455.791664 417.055557,455.666667 416.666667,455.666667 L407.333333,455.666667 L404.666667,455.666667 L395.333333,455.666667 C394.944443,455.666667 394.625001,455.791664 394.375,456.041664 C394.124999,456.291669 394,456.611109 394,457 C394,457.388891 394.124999,457.708331 394.375,457.958336 C394.625001,458.208336 394.944443,458.333333 395.333333,458.333333 Z" id="ic-accordion-open"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
