@@ -38,6 +38,7 @@ export const SiteConfigFragment = graphql`
         defaultLanguage
         author
         authorLogo
+        siteLogo
         authorUrl
         homepage
         hostname

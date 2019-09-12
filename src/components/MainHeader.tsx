@@ -9,7 +9,8 @@ import Icon from "./Icon";
 
 type MainHeaderProps = Pick<
   NonNullable<ReturnType<typeof getSiteConfig>>,
-  "title" | "description" | "socialLinks"
+  // tslint:disable-next-line: max-union-size
+  "title" | "description" | "socialLinks" | "siteLogo"
 > & {
   menu: ReturnType<typeof getMenu>;
   organization: string;
@@ -22,7 +23,8 @@ const MainHeader = ({
   menu,
   socialLinks,
   organization,
-  user
+  user,
+  siteLogo
 }: MainHeaderProps) => (
   <>
     <div className="it-nav-wrapper">
@@ -33,7 +35,7 @@ const MainHeader = ({
               <div className="it-header-center-content-wrapper">
                 <div className="it-brand-wrapper">
                   <Link to="/">
-                    {/* <Icon icon="code-circle" /> */}
+                    <img src={siteLogo || ""} alt="" />
                     <div className="it-brand-text">
                       <h2 className="no_toc">{title}</h2>
                       <h3 className="no_toc d-none d-md-block">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="2px" height="568px" viewBox="0 0 2 568" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>divider_vert</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#93A0AB" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#73808B" stop-opacity="0.563312861" offset="40.7088946%"></stop>
+            <stop stop-color="#5A6772" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="HOMEPAGE" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5" stroke-linecap="square">
+        <g id="1.0-B_HOME_DICHIARAZIONE" transform="translate(-701.000000, -1054.000000)" stroke="url(#linearGradient-1)" stroke-width="0.5">
+            <g id="Group-7" transform="translate(0.000000, 1054.000000)">
+                <g id="Group-5">
+                    <path d="M702,0.5 L702,567.5" id="divider_vert"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

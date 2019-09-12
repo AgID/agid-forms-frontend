@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="31px" viewBox="0 0 19 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Alert/pin</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dichiarazione_web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="REV_03_06_da-bozza-a-online_pubblica-bozza" transform="translate(-217.000000, -560.000000)">
+            <g id="riepilogo" transform="translate(108.000000, 536.000000)">
+                <g id="IMPORTANTE">
+                    <g id="Group-10" transform="translate(101.000000, 22.000000)">
+                        <g id="Icons/pin">
+                            <rect id="borders" x="0" y="0" width="35" height="35"></rect>
+                            <path d="M26.3958333,20.4166667 L21.875,15.0208333 L21.875,6.70833333 L23.7708333,2.91666667 L11.2291667,2.91666667 L13.125,6.70833333 L13.125,15.0208333 L8.60416667,20.4166667 L16.7708333,20.4166667 L16.7708333,32.0833333 L18.2291667,32.0833333 L18.2291667,20.4166667 L26.3958333,20.4166667 Z M14.5833333,7.29166667 L20.4166667,7.29166667 L20.4166667,14.5833333 L14.5833333,14.5833333 L14.5833333,7.29166667 Z M21.4375,4.375 L20.7083333,5.83333333 L14.2916667,5.83333333 L13.5625,4.375 L21.4375,4.375 Z M14.1458333,16.0416667 L20.8541667,16.0416667 L23.1875,18.9583333 L11.8125,18.9583333 L14.1458333,16.0416667 Z" id="Shape" fill="#0073E6" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

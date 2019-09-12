@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/info circle</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dichiarazione_web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="REV_03_02_prima-compilazione_form_nuova-dichiarazione" transform="translate(-450.000000, -2559.000000)">
+            <g id="Group-12" transform="translate(107.000000, 447.000000)">
+                <g id="form-modello" transform="translate(0.000000, 89.000000)">
+                    <g id="Sezione-1" transform="translate(101.000000, 663.000000)">
+                        <g id="feedback-e-recapiti" transform="translate(36.000000, 1355.000000)">
+                            <g id="feedback">
+                                <g id="Group-20">
+                                    <g id="Icons/info-circle-" transform="translate(204.000000, 3.000000)">
+                                        <rect id="borders" x="0" y="0" width="24" height="24"></rect>
+                                        <path d="M12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 C17.5228475,22 22,17.5228475 22,12 C22,9.3478351 20.9464316,6.80429597 19.0710678,4.92893219 C17.195704,3.0535684 14.6521649,2 12,2 Z M12,21 C7.02943725,21 3,16.9705627 3,12 C3,7.02943725 7.02943725,3 12,3 C16.9705627,3 21,7.02943725 21,12 C21,16.9705627 16.9705627,21 12,21 Z M11.3,6 L12.8,6 L12.8,8 L11.3,8 L11.3,6 Z M11.3,9 L12.8,9 L12.8,18 L11.3,18 L11.3,9 Z" id="circle" fill="#0073E6" fill-rule="nonzero"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

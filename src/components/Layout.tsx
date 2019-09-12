@@ -63,6 +63,7 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
           title={siteConfig.title}
           description={siteConfig.description}
           socialLinks={siteConfig.socialLinks}
+          siteLogo={siteConfig.siteLogo}
           menu={menu}
           user={sessionInfo}
           organization={sessionInfo ? sessionInfo.organizationName : ""}
