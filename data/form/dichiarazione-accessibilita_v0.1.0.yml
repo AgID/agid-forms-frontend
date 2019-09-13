@@ -7,7 +7,7 @@ version: 0.1.0
 title_pattern: this["website-name"] + this["app-name"]
 sections:
   - name: section-0
-    title: Compila la dichiarazione
+    title: Dichiarazione di accessibilità
     description: |-
       Tutti i campi sono obbligatori.
     groups:
