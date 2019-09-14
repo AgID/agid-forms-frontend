@@ -376,7 +376,10 @@ const LoginButtonComponent = ({
   return (
     <>
       <div className="form-check">
-        <label htmlFor="secret">
+        <label
+          htmlFor="secret"
+          className="d-block font-weight-semibold neutral-2-color-a5 font-size-xs form-check-label"
+        >
           <Trans i18nKey="auth.insert_secret" />
         </label>
         <Input
@@ -522,7 +525,9 @@ const IndexPage = () => {
 
         <p className="w-paragraph-sans mb-5">
           <Trans i18nKey="auth.description">
-            <a href="https://indicepa.gov.it">indicepa</a>
+            <a className="external" href="https://indicepa.gov.it">
+              indicepa <span>{t("external_link")}</span>
+            </a>
           </Trans>
         </p>
 

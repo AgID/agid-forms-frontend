@@ -182,6 +182,7 @@ export const MegaMenu = ({ menu, user }: MegaMenuProps) => {
                         <Link
                           to={menuItem.slug!}
                           className="nav-link megamenu-top-link font-weight-600"
+                          activeClassName="nav-link--active"
                         >
                           {t(menuItem.name)}
                         </Link>

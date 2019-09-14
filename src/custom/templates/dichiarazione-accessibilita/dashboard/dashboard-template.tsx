@@ -35,8 +35,8 @@ const DashboardDeclTemplate = () => {
   );
 
   return (
-    <StaticLayout title={t("pages.dashboard_title")}>
-      <SEO title={t("pages.dashboard_title")} />
+    <StaticLayout title={t("acc_decl.dashboard_title")}>
+      <SEO title={t("acc_decl.dashboard_title")} />
       <Query<GetUserAccessibilityDecl, GetUserAccessibilityDeclVariables>
         query={GET_USER_ACCESSIBILITY_DECLS}
         fetchPolicy="network-only"
@@ -77,7 +77,8 @@ const DashboardDeclTemplate = () => {
           return (
             <div>
               <NewDeclCta />
-              <table className="table table-hover">
+              <h2>{t("acc_decl.decl_statuses")}</h2>
+              <table className="table table-hover table-responsive">
                 <thead className="lightgrey-bg-a3">
                   <tr>
                     <th className="font-variant-small-caps">
