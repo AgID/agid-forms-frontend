@@ -3,6 +3,7 @@ import * as React from "react";
 import { Field, FieldAttributes, FormikProps, getIn } from "formik";
 import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
+import { FieldHint } from "./FieldHint";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
@@ -11,6 +12,7 @@ import {
   FormFieldPropsT,
   FormValuesT,
   getEmptyValue,
+  OptionT,
   validateField
 } from "../utils/forms";
 
@@ -25,36 +27,43 @@ export const CustomRadioComponent = ({
 }: {
   field: FieldAttributes<any>;
   form: FormikProps<FormValuesT>;
-  options: ReadonlyArray<{ value: string; label: string }>;
+  options: ReadonlyArray<OptionT>;
   isHidden: boolean;
   isDisabled: boolean;
   isRequired: boolean;
 }) => {
   const fieldValue = getIn(form.values, field.name);
-  return options.map((option, index) => (
-    <div key={option.value}>
-      <Input
-        {...field}
-        {...props}
-        value={option.value}
-        checked={option.value === fieldValue}
-        onChange={() => {
-          if (!isRequired && field.value === option.value) {
-            // uncheck radio when checked
-            form.setFieldValue(field.name, getEmptyValue(field));
-          } else {
-            form.setFieldValue(field.name, option.value);
-          }
-        }}
-        id={`${field.name}-${index}`}
-      />
-      <Label
-        fieldName={`${field.name}-${index}`}
-        className="d-block my-2 my-lg-3 font-weight-semibold"
-        title={option.label}
-      />
-    </div>
-  ));
+  return options.map(
+    (option, index) =>
+      option.value &&
+      option.label && (
+        <div key={option.value}>
+          <div className="d-flex align-items-center">
+            <Input
+              {...field}
+              {...props}
+              value={option.value}
+              checked={option.value === fieldValue}
+              onChange={() => {
+                if (!isRequired && field.value === option.value) {
+                  // uncheck radio when checked
+                  form.setFieldValue(field.name, getEmptyValue(field));
+                } else {
+                  form.setFieldValue(field.name, option.value);
+                }
+              }}
+              id={`${field.name}-${index}`}
+            />
+            <Label
+              fieldName={`${field.name}-${index}`}
+              className="d-block my-2 font-weight-semibold"
+              title={option.label}
+            />
+            {option.hint && <FieldHint hint={option.hint} />}
+          </div>
+        </div>
+      )
+  );
 };
 
 export const RadioField = ({

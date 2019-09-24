@@ -6,6 +6,7 @@ import { FormikProps } from "formik";
 
 import { format } from "date-fns";
 import { PatternString } from "italia-ts-commons/lib/strings";
+import { FormConfig_allFormYaml_edges_node_sections_groups_fields_options } from "../generated/graphql/FormConfig";
 import {
   FormSchemaFragment_edges_node,
   FormSchemaFragment_edges_node_sections,
@@ -59,6 +60,7 @@ export type FormT = FormSchemaFragment_edges_node;
 export type FormsectionT = FormSchemaFragment_edges_node_sections;
 export type FormGroupT = FormSchemaFragment_edges_node_sections_groups;
 export type FieldT = FormSchemaFragment_edges_node_sections_groups_fields;
+export type OptionT = FormConfig_allFormYaml_edges_node_sections_groups_fields_options;
 
 export type FormFieldPropsT = {
   field: FieldT;

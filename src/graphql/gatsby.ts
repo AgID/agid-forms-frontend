@@ -121,6 +121,7 @@ export const FormSchemaFragment = graphql`
               options {
                 value
                 label
+                hint
               }
             }
           }

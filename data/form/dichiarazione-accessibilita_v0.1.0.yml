@@ -78,18 +78,18 @@ sections:
             options:
               - label: conforme
                 value: compliant
-                description: |-
+                hint: |-
                   Selezionare questa opzione soltanto se sono pienamente rispettate tutte le prescrizioni
                   della norma o della specifica tecnica, senza alcuna eccezione.
               - label: parzialmente conforme
                 value: partially-compliant
-                description: |-
+                hint: |-
                   Selezionare questa opzione soltanto se è rispettata la maggior parte delle prescrizioni
                   della norma o della specifica tecnica, seppure con qualche eccezione. Ciò significa che il sito o l’applicazione
                   non sono ancora pienamente conformi e che devono essere adottate le misure necessarie per raggiungere la piena conformità.
               - label: non conforme
                 value: non-compliant
-                description: |-
+                hint: |-
                   Selezionare questa opzione soltanto se non è rispettata la maggior parte delle prescrizioni
                   della norma o della specifica tecnica.
             required_if: "true"
