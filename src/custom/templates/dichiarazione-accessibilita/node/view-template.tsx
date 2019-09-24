@@ -141,10 +141,12 @@ const Groups: Record<
           La dichiarazione è stata effettuata utilizzando una valutazione
           conforme alle prescrizioni della direttiva (UE) 2016/2012 mediante{" "}
           <strong>
-            {getSelectedLabel(
-              fields["methodology-details"],
-              values["methodology-details"]
-            )}
+            {(
+              getSelectedLabel(
+                fields["methodology-details"],
+                values["methodology-details"]
+              ) || ""
+            ).toLowerCase()}
           </strong>
         </p>
         <p className="w-paragraph">

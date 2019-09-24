@@ -1,5 +1,7 @@
 const IT = {
   acc_decl: {
+    decl_statuses: "Stato delle dichiarazioni",
+    dashboard_title: "Gestione delle dichiarazioni",
     compliant: "conforme",
     "partially-compliant": "parzialmente conforme",
     "non-compliant": "non conforme",
