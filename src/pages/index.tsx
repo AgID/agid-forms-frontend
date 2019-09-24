@@ -414,7 +414,7 @@ const LoginButtonComponent = ({
             })
           }
         >
-          {t("auth.login_as", { selectedPa: selectedPa.label })}
+          {t("auth.login")}
         </Button>
       </div>
     </>

@@ -45,8 +45,8 @@ const IT = {
       "la tua sessione è scaduta, è necessario effettuare un nuovo login",
     // tslint:disable-next-line: no-hardcoded-credentials
     has_password: "ho già la chiave di accesso",
-    insert_secret: "Inserisci la chiave di accesso che hai ricevuto per email:",
-    login_as: "accedi come {{selectedPa}}",
+    insert_secret: "inserisci la chiave di accesso che hai ricevuto per email:",
+    login: "Accedi",
     // tslint:disable-next-line: no-hardcoded-credentials
     not_has_password: "devo ancora ottenere la chiave di accesso",
     send_me_email: "invia email",
