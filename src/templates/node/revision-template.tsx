@@ -8,7 +8,6 @@ import { Link } from "gatsby";
 import { ViewConfig } from "../../generated/graphql/ViewConfig";
 
 import { Query } from "react-apollo";
-import BodyStyles from "../../components/BodyStyles";
 import LoadableView from "../../components/LoadableView";
 import {
   GetNodeRevision,
@@ -36,7 +35,6 @@ const RevisionTemplate = ({
   const [ctaClicked, setCtaClicked] = React.useState(false);
   return (
     <StaticLayout title={title}>
-      <BodyStyles backgroundColor="#e7e6ff" />
       <SEO title={t("pages.revision_title")} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}

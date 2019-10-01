@@ -1,7 +1,6 @@
 import { graphql, Link } from "gatsby";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import BodyStyles from "../components/BodyStyles";
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
@@ -12,7 +11,6 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
   const { t } = useTranslation();
   return (
     <StaticLayout title={t("pages.action_page_title")}>
-      <BodyStyles backgroundColor="#e7e6ff" />
       <SEO title={t("pages.action_page_title")} />
       <ul>
         {getForms(data).map(({ node }) => {

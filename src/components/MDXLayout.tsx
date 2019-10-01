@@ -24,7 +24,7 @@ const MDXLayout = ({ children: content }: { children: React.ReactNode }) => {
         wrapper: StaticLayout
       }}
     >
-      {content};
+      {content}
     </MDXProvider>
   );
 };

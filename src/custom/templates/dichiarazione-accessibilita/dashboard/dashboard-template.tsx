@@ -78,7 +78,7 @@ const DashboardDeclTemplate = () => {
             <div>
               <NewDeclCta />
               <h2>{t("acc_decl.decl_statuses")}</h2>
-              <table className="table table-hover table-responsive">
+              <table className="table table-hover">
                 <thead className="lightgrey-bg-a3">
                   <tr>
                     <th className="font-variant-small-caps">

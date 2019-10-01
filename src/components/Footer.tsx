@@ -6,6 +6,8 @@ import { Trans } from "react-i18next";
 import { getSiteConfig } from "../graphql/gatsby";
 import Icon from "./Icon";
 
+const FOOTER_BACKGROUND_COLOR = "#241dae";
+
 type FooterProps = Pick<
   NonNullable<ReturnType<typeof getSiteConfig>>,
   // tslint:disable-next-line: max-union-size
@@ -26,7 +28,7 @@ const Footer = ({
   hotjar
 }: FooterProps) => {
   return (
-    <footer id="footer" className="neutral-1-bg-a9">
+    <footer id="footer" style={{ backgroundColor: FOOTER_BACKGROUND_COLOR }}>
       <Container>
         <Row className="py-4">
           <Col xs="12" sm="6" md="4">
@@ -81,7 +83,7 @@ const Footer = ({
                   <li key={footerLink.name} className="list-inline-item px-1">
                     <Link
                       className="small-prints font-weight-bold"
-                      style={{ color: "#0bd9d2" }}
+                      style={{ color: "#fff" }}
                       to={footerLink.url}
                     >
                       {footerLink.name}
@@ -94,7 +96,7 @@ const Footer = ({
                 <a
                   className="small-prints font-weight-bold"
                   href={hotjar.surveyUrl}
-                  style={{ color: "#0bd9d2" }}
+                  style={{ color: "#fff" }}
                 >
                   <Trans i18nKey="give_feedback" />
                 </a>

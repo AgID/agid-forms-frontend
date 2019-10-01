@@ -34,7 +34,6 @@ import {
   FormikValues
 } from "formik";
 import { Mutation, Query } from "react-apollo";
-import BodyStyles from "../../components/BodyStyles";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { getForm } from "../../graphql/gatsby";
 import {
@@ -316,7 +315,6 @@ const FormTemplate = ({
   return (
     <StaticLayout title={title}>
       <SEO title={title} />
-      <BodyStyles backgroundColor="#e7e6ff" />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}

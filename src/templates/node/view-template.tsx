@@ -10,7 +10,6 @@ import { ViewConfig } from "../../generated/graphql/ViewConfig";
 import { navigate } from "@reach/router";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
-import BodyStyles from "../../components/BodyStyles";
 import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { getForm } from "../../graphql/gatsby";
@@ -31,7 +30,6 @@ const ViewTemplate = ({
   const [ctaClicked, setCtaClicked] = React.useState(false);
   return (
     <StaticLayout title={title}>
-      <BodyStyles backgroundColor="#e7e6ff" />
       <SEO title={t("pages.view_title")} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}

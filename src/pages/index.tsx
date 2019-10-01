@@ -188,6 +188,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                 <Trans i18nKey="auth.rtd_not_found" />
                 <br />
                 <a
+                  className="external"
                   href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
                     ipaData!.ipa_pa[0].cod_amm
                   }`}
