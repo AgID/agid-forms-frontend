@@ -19,6 +19,7 @@ import { Button } from "reactstrap";
 
 import {
   FieldT,
+  flattenFormFieldsWithKeys,
   FormGroupT,
   FormT,
   FormValuesT,
@@ -195,6 +196,7 @@ const FormComponent = ({
   ) => void;
   links: ReadonlyArray<{ to: string; title: string }>;
 }) => {
+  const fields = flattenFormFieldsWithKeys(form);
   return (
     <Formik
       initialValues={initialValues}
@@ -268,7 +270,7 @@ const FormComponent = ({
               <Trans i18nKey="save_draft" />
             </Button>
           </div>
-          <FormErrors formik={formik} />
+          <FormErrors formik={formik} fields={fields} />
         </Form>
       )}
     />

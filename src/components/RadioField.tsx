@@ -38,7 +38,7 @@ export const CustomRadioComponent = ({
       option.value &&
       option.label && (
         <div key={option.value}>
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center focusable">
             <Input
               {...field}
               {...props}
