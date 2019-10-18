@@ -35,7 +35,7 @@ export const CustomCheckboxComponent = ({
     // must depend from value (not from "checked")
     const isChecked = fieldValue.includes(option.value);
     return (
-      <div key={option.value}>
+      <div key={option.value} className="focusable">
         <Input
           {...field}
           {...props}

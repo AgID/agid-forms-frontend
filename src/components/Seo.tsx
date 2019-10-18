@@ -1,6 +1,7 @@
 import { graphql, StaticQuery } from "gatsby";
 import * as React from "react";
 import Helmet from "react-helmet";
+import { useTranslation } from "react-i18next";
 import { getSiteConfig } from "../graphql/gatsby";
 
 type SeoProps = {
@@ -14,13 +15,9 @@ type SeoProps = {
   title?: string;
 };
 
-function SEO({
-  description,
-  lang = "en",
-  meta = [],
-  title,
-  keywords
-}: SeoProps) {
+function SEO({ description, meta = [], title, keywords }: SeoProps) {
+  const { i18n } = useTranslation();
+
   return (
     <StaticQuery
       query={graphql`
@@ -37,9 +34,6 @@ function SEO({
         }
         return (
           <Helmet
-            htmlAttributes={{
-              lang
-            }}
             title={title || siteConfig.title!}
             meta={[
               {
@@ -80,7 +74,7 @@ function SEO({
               }
             ].concat(meta)}
           >
-            <html lang={lang} />
+            <html lang={i18n.language.split("-")[0]} />
           </Helmet>
         );
       }}

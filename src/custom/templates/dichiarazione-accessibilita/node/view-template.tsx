@@ -9,7 +9,7 @@ import * as React from "react";
 import { graphql, Link, useStaticQuery } from "gatsby";
 import { useState } from "react";
 import { Mutation } from "react-apollo";
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
@@ -46,7 +46,7 @@ const getComplianceString = (complianceStatus: string, isWebSite: boolean) => {
     case "partially-compliant":
       return `${
         isWebSite ? "Questo sito web" : "Questa applicazione"
-      } è parzialmente conforme, in ragione dei casi di non conformità [e/o] delle deroghe elencate di seguito.`;
+      } è parzialmente conforme, in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
     case "non-compliant":
       return `${
         isWebSite ? "Questo sito web" : "Questa applicazione"
@@ -293,6 +293,8 @@ const ViewTemplate = ({
   setCtaClicked,
   links
 }: LoadableViewTemplateProps) => {
+  const { t } = useTranslation();
+
   const { hostnameData } = useStaticQuery(
     graphql`
       query Hostname {
@@ -315,6 +317,12 @@ const ViewTemplate = ({
 
   return (
     <div className="px-lg-5 py-lg-4">
+      {!publishedVersion && (
+        <div className="alert alert-warning my-3">
+          <p>{t("draft_version")}</p>
+        </div>
+      )}
+
       <p className="w-paragraph neutral-2-color-b5">
         redatta il {format(node.updated_at, "DD.MM.YYYY")}
       </p>

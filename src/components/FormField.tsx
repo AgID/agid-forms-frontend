@@ -19,6 +19,12 @@ import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
 import { TextFormField } from "./TextFormField";
 
+interface ICustomInputComponentProps {
+  field: readonly JSX.Element[];
+  form: FormikProps<FormValuesT>;
+  innerRef?: React.Ref<any>;
+}
+
 /**
  * Wrap inputs in bootstrap input
  */
@@ -26,10 +32,7 @@ export const CustomInputComponent = ({
   field,
   form,
   ...props
-}: {
-  field: readonly JSX.Element[];
-  form: FormikProps<FormValuesT>;
-}) => <Input {...field} {...props} />;
+}: ICustomInputComponentProps) => <Input {...field} {...props} />;
 
 /**
  * Parse and cache compiled javascript expressions.

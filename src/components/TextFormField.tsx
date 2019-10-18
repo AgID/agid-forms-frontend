@@ -20,6 +20,7 @@ export const TextFormField = ({
   valueExpression,
   hasError
 }: FormFieldPropsT) => {
+  const value = getIn(form.values, field.name || "");
   return field.name ? (
     <FormGroup
       key={field.name}
@@ -47,9 +48,14 @@ export const TextFormField = ({
             : valueExpression
             ? // compute field value then cast to string
               valueExpression({ Math, ...form.values }).toString()
-            : getIn(form.values, field.name)
+            : value
         }
       />
+      {field.widget === "textarea" && (
+        <span className="float-right form-text neutral-2-color-a5 font-size-xxs">
+          {value.length} caratteri
+        </span>
+      )}
       <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />

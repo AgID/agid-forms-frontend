@@ -179,8 +179,7 @@ export const SlimHeader = ({
                     >
                       <DropdownToggle
                         caret={true}
-                        tag="a"
-                        className="bg-white text-primary font-weight-600 btn btn-xs px-3 text-decoration-none"
+                        className="bg-white text-primary font-weight-600 btn btn-xs px-3 py-1 text-decoration-none"
                         style={{
                           cursor: "pointer",
                           marginRight: "-16px"
@@ -220,16 +219,12 @@ export const SlimHeader = ({
                             <span>profile</span>
                           </a>
                         </DropdownItem> */}
-                        <DropdownItem tag="span">
-                          <a
-                            className="list-item text-primary"
-                            href="#"
-                            onClick={onLogout}
-                          >
-                            <span className="text-danger">
-                              <Trans i18nKey="logout" />
-                            </span>
-                          </a>
+                        <DropdownItem
+                          className="list-item text-primary text-danger"
+                          style={{ backgroundColor: "transparent" }}
+                          onClick={onLogout}
+                        >
+                          <Trans i18nKey="logout" />
                         </DropdownItem>
                       </DropdownMenu>
                     </Dropdown>

@@ -2,23 +2,25 @@ import * as React from "react";
 
 import { Field, FormikProps, getIn } from "formik";
 import { Trans } from "react-i18next";
-import { flattenFormErrors, FormValuesT } from "../utils/forms";
+import { FieldT, flattenFormErrors, FormValuesT } from "../utils/forms";
 
-const ErrorMessage = ({ name }: { name: string }) => (
+const ErrorMessage = ({ name, label }: { name: string; label: string }) => (
   <Field
     name={name}
     render={({ form }: { form: FormikProps<FormValuesT> }) => {
       const error = getIn(form.errors, name);
       const touch = getIn(form.touched, name);
-      return touch && error ? `${name}: ${error}` : null;
+      return touch && error ? `${label}: ${error}` : null;
     }}
   />
 );
 
 export const FormErrors = ({
-  formik
+  formik,
+  fields
 }: {
   formik: FormikProps<FormValuesT>;
+  fields: Record<string, FieldT>;
 }) => {
   const hasErrors =
     Object.keys(formik.errors).length > 0 &&
@@ -33,7 +35,10 @@ export const FormErrors = ({
           return (
             <div key={fieldName}>
               <small className="text-warning">
-                <ErrorMessage name={fieldName} />
+                <ErrorMessage
+                  name={fieldName}
+                  label={fields[fieldName].title || ""}
+                />
               </small>
             </div>
           );
