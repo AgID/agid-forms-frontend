@@ -75,7 +75,9 @@ const DashboardTemplate = () => {
                       <td>{node.status}</td>
                       <td>
                         <Link
-                          to={`/form/${node.type.replace("_", "-")}/${node.id}`}
+                          to={`/form/${node.type.replace(/_/g, "-")}/${
+                            node.id
+                          }`}
                         >
                           edit
                         </Link>{" "}

@@ -36,7 +36,7 @@ const IT = {
   auth: {
     pa_placeholder: "Nome o codice IPA...",
     description:
-      "Per poter procedere alla compilazione della dichiarazione di accessibilità è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
+      "Per poter procedere alla compilazione è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
     email_sent:
       "un'email contenente la chiave di accesso è stata inviata all'indirizzo",
     email_to_be_sent:

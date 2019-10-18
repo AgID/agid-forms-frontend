@@ -58,11 +58,11 @@
   }
 }
 
-@media (min-width: 768px) {
-  body {
-    background-color: #e7f1fa;
-  }
-}
+// @media (min-width: 768px) {
+//   body {
+//     background-color: #e7f1fa;
+//   }
+// }
 
 .page-container {
   min-height: 40vh;
@@ -78,16 +78,16 @@
 }
 
 .w-paragraph-sans {
-  max-width: 32em;
+  max-width: 34em;
 }
 
 .w-paragraph {
-  max-width: 32em;
+  max-width: 34em;
   font-family: Lora, Georgia, serif;
 }
 
 .main li {
-  max-width: 32em;
+  max-width: 34em;
   font-family: Lora, Georgia, serif;
 }
 

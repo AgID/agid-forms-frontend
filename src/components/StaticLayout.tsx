@@ -1,14 +1,17 @@
 import { graphql, StaticQuery } from "gatsby";
 import * as React from "react";
-import { getMenu, getSiteConfig } from "../graphql/gatsby";
+
+import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
 import Layout from "./Layout";
 
 const StaticLayout = ({
   children,
-  title
+  title,
+  contextMenu
 }: {
   children: React.ReactNode;
   title?: string;
+  contextMenu?: ReturnType<typeof getContextualMenu>;
 }) => {
   return (
     <StaticQuery
@@ -30,6 +33,7 @@ const StaticLayout = ({
             siteConfig={getSiteConfig(data)}
             menu={getMenu(data)}
             title={title}
+            contextMenu={contextMenu}
           >
             {children}
           </Layout>

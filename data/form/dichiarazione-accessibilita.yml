@@ -7,7 +7,7 @@ version: 0.1.0
 title_pattern: this["website-name"] + this["app-name"]
 sections:
   - name: section-0
-    title: Dichiarazione di accessibilità
+    title: Sezione 1
     description: |-
       Tutti i campi sono obbligatori.
     groups:
@@ -63,7 +63,7 @@ sections:
             required_if: this["device-type"] == "website"
 
   - name: section-1
-    title: Sezione 1
+    title: Sezione 2
     description: |-
       Contenuti in ottemperanza alla Decisione di esecuzione UE 2018/1523.
 
@@ -211,7 +211,7 @@ sections:
       #       default: example@agid.gov.it
 
   - name: section-2
-    title: Sezione 2
+    title: Sezione 3
     description: |-
       Informazioni richieste dall'Agenzia per l'Italia digitale
     groups:

@@ -29,6 +29,9 @@ export const query = graphql`
     allFormYaml {
       ...FormSchemaFragment
     }
+    allMenuYaml {
+      ...ContextualMenuFragment
+    }
   }
 `;
 

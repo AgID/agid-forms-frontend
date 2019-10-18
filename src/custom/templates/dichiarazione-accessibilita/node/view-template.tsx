@@ -297,7 +297,7 @@ const ViewTemplate = ({
 
   const { hostnameData } = useStaticQuery(
     graphql`
-      query Hostname {
+      query HostnameAcc {
         hostnameData: allConfigYaml(filter: { title: { ne: null } }) {
           edges {
             node {
@@ -316,7 +316,7 @@ const ViewTemplate = ({
   );
 
   return (
-    <div className="px-lg-5 py-lg-4">
+    <div className="py-lg-4">
       {!publishedVersion && (
         <div className="alert alert-warning my-3">
           <p>{t("draft_version")}</p>

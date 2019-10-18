@@ -76,13 +76,13 @@ module.exports = {
         dest: `${__dirname}/gatsby-schema.json`
       }
     },
-    {
-      resolve: "gatsby-plugin-webpack-bundle-analyzer",
-      options: {
-        analyzerPort: 3000,
-        production: true
-      }
-    },
+    // {
+    //   resolve: "gatsby-plugin-webpack-bundle-analyzer",
+    //   options: {
+    //     analyzerPort: 3000,
+    //     production: true
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {

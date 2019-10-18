@@ -1,5 +1,8 @@
 import { graphql } from "gatsby";
-import { FormConfig } from "../generated/graphql/FormConfig";
+import {
+  FormConfig,
+  FormConfig_allMenuYaml_edges_node
+} from "../generated/graphql/FormConfig";
 import {
   LayoutQuery,
   LayoutQuery_menu_edges_node_menu,
@@ -7,6 +10,7 @@ import {
 } from "../generated/graphql/LayoutQuery";
 import { ViewConfig } from "../generated/graphql/ViewConfig";
 import { FormT } from "../utils/forms";
+import { get } from "../utils/safe_access";
 
 export const MenuFragment = graphql`
   fragment MenuFragment on ConfigYamlConnection {
@@ -28,6 +32,38 @@ export const getMenu = (
   data.menu && Array.isArray(data.menu.edges) && data.menu.edges[0]
     ? data.menu.edges[0].node.menu
     : null;
+
+export const ContextualMenuFragment = graphql`
+  fragment ContextualMenuFragment on MenuYamlConnection {
+    edges {
+      node {
+        menu {
+          id
+          items {
+            name
+            slug
+            roles
+          }
+        }
+      }
+    }
+  }
+`;
+
+export function getContextualMenu(
+  data: FormConfig | ViewConfig,
+  formId?: string
+): FormConfig_allMenuYaml_edges_node | null {
+  if (!formId) {
+    return null;
+  }
+  const menu = data.allMenuYaml
+    ? data.allMenuYaml.edges.filter(
+        node => get(node, n => n.node.menu.id, "") === formId
+      )
+    : null;
+  return get(menu, n => n[0].node, null);
+}
 
 export const SiteConfigFragment = graphql`
   fragment SiteConfigFragment on ConfigYamlConnection {
