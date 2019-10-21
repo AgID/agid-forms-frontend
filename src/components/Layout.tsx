@@ -88,7 +88,7 @@ const Layout = ({
           )}
           <div className="page-container py-1 mt-md-2 d-md-flex">
             {contextMenu && (
-              <div className="col-md-3 pr-4 pt-2">
+              <div className="col-md-3 pt-2">
                 <ContextMenu
                   contextMenu={contextMenu}
                   siteName={siteConfig.title || ""}

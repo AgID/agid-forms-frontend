@@ -126,6 +126,8 @@ export const FormSchemaFragment = graphql`
         id
         name
         version
+        description
+        category
         language
         enabled
         slug_pattern

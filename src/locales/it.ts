@@ -73,7 +73,8 @@ const IT = {
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
     index_page_title: "Modulistica AGID",
-    action_page_title: "Modulistica AGID",
+    action_page_title: "Form",
+    action_goto_form: "Accedi al modulo",
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
     notfound_page_text: "Pagina non trovata",

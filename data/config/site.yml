@@ -6,7 +6,7 @@ authorLogo: "/images/logo-agid.svg"
 keywords: Agenzia per l'Italia Digitale, Dichiarazione Accessibilità
 authorUrl: https://www.agid.gov.it
 hostname: form.agid.gov.it
-homepage: /dashboard/dichiarazione-accessibilita
+homepage: /actions
 owners:
   - name: AGID
     url: https://www.agid.gov.it

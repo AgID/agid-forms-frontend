@@ -1,5 +1,11 @@
 id: dichiarazione-accessibilita
 name: Dichiarazione di accessibilità
+category: accessibilità
+description: |-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+  tempor et lectus finibus gravida. Phasellus egestas massa id aliquet dignissim.
+  Aliquam erat volutpat. Praesent at tellus sed felis sagittis malesuada nec a
+  ipsum. Morbi eget porttitor erat.
 language: it
 enabled: true
 version: 0.1.0

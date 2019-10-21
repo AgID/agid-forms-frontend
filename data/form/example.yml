@@ -2,6 +2,8 @@ id: example-form
 enabled: false
 name: form di esempio
 language: it
+description: "description"
+category: "category"
 version: 0.1.0
 skip_draft: false
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
