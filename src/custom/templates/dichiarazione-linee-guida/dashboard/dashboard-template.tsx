@@ -3,7 +3,7 @@ import * as React from "react";
 import SEO from "../../../../components/Seo";
 
 import { Link } from "@reach/router";
-import { Link as GatsbyLink } from "gatsby";
+import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 
 import { format } from "date-fns";
 import { Query } from "react-apollo";
@@ -15,6 +15,8 @@ import {
   GetUserNodesOfType,
   GetUserNodesOfTypeVariables
 } from "../../../../generated/graphql/GetUserNodesOfType";
+
+import { getContextualMenu } from "../../../../graphql/gatsby";
 import { GET_USER_NODE_OF_TYPE } from "../../../../graphql/hasura";
 
 const DashboardDeclTemplate = () => {
@@ -35,8 +37,19 @@ const DashboardDeclTemplate = () => {
     </p>
   );
 
+  const data = useStaticQuery(graphql`
+    query DashboardDeclConfig {
+      allMenuYaml {
+        ...ContextualMenuFragment
+      }
+    }
+  `);
+
   return (
-    <StaticLayout title={t("lg_decl.dashboard_title")}>
+    <StaticLayout
+      title={t("lg_decl.dashboard_title")}
+      contextMenu={getContextualMenu(data, "dichiarazione-linee-guida")}
+    >
       <SEO title={t("lg_decl.dashboard_title")} />
       <Query<GetUserNodesOfType, GetUserNodesOfTypeVariables>
         query={GET_USER_NODE_OF_TYPE}

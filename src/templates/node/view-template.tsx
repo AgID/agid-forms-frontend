@@ -12,7 +12,7 @@ import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import { getForm } from "../../graphql/gatsby";
+import { getContextualMenu, getForm } from "../../graphql/gatsby";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 import { get } from "../../utils/safe_access";
@@ -28,8 +28,9 @@ const ViewTemplate = ({
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
   const [ctaClicked, setCtaClicked] = React.useState(false);
+  const [formId, setFormId] = React.useState<string>();
   return (
-    <StaticLayout title={title}>
+    <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
       <SEO title={t("pages.view_title")} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
@@ -84,7 +85,7 @@ const ViewTemplate = ({
              * an eventual link to the latest version
              */
           }
-          const formId = publishedNode.content.schema.id;
+          setFormId(publishedNode.content.schema.id);
           const form = getForm(data, formId);
           if (!form) {
             return (
@@ -108,7 +109,7 @@ const ViewTemplate = ({
           return (
             <>
               {isLoggedIn() && latestNode && (
-                <div className="pl-lg-5">
+                <div>
                   {!isLatestPublishedVersion && (
                     <p className="alert alert-warning mt-3">
                       {t("not_latest_version")}

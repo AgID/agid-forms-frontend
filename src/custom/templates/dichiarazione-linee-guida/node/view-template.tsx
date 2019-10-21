@@ -94,7 +94,7 @@ const PublishCta = ({
               })
             }
           >
-            <Trans i18nKey="publish_node" />
+            <Trans i18nKey="submit" />
           </Button>
         );
       }}

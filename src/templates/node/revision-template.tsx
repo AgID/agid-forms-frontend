@@ -13,7 +13,7 @@ import {
   GetNodeRevision,
   GetNodeRevisionVariables
 } from "../../generated/graphql/GetNodeRevision";
-import { getForm } from "../../graphql/gatsby";
+import { getContextualMenu, getForm } from "../../graphql/gatsby";
 import { GET_NODE_REVISION_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 
@@ -33,8 +33,9 @@ const RevisionTemplate = ({
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.revision_title"));
   const [ctaClicked, setCtaClicked] = React.useState(false);
+  const [formId, setFormId] = React.useState<string>();
   return (
-    <StaticLayout title={title}>
+    <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
       <SEO title={t("pages.revision_title")} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
@@ -77,8 +78,8 @@ const RevisionTemplate = ({
           {
             /* shows the latest published page with an eventual link to latest version (only if the user is logged in) */
           }
-          const formId = nodeRevision.content.schema.id;
-          const form = getForm(data, String(formId));
+          setFormId(String(nodeRevision.content.schema.id));
+          const form = getForm(data, formId);
           if (!form) {
             return (
               <p className="alert alert-warning">
@@ -100,7 +101,7 @@ const RevisionTemplate = ({
           return (
             <>
               {isLoggedIn() && (
-                <div className="pl-lg-5">
+                <div>
                   {publishedNode && !isLatestPublishedVersion && (
                     <p className="alert alert-warning mt-3">
                       {t("not_published_version")}

@@ -5,6 +5,7 @@ const IT = {
   status: "stato",
   verified: "verificato",
   edit: "modifica",
+  submit: "invia",
   cancel: "annulla",
   updated_at: "aggiornato il",
   view: "visualizza",

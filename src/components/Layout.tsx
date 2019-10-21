@@ -6,13 +6,14 @@ import "../styles/global.scss";
 import * as React from "react";
 import { Container } from "reactstrap";
 
+import ContextMenu from "./ContextMenu";
 import Cookiebar from "./Cookiebar";
 import Footer from "./Footer";
 import Hotjar from "./Hotjar";
 import MainHeader from "./MainHeader";
 import SlimHeader from "./SlimHeader";
 
-import { Link, navigate } from "gatsby";
+import { navigate } from "gatsby";
 import { Trans } from "react-i18next";
 import { GraphqlClient } from "../graphql/client";
 import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
@@ -85,21 +86,16 @@ const Layout = ({
           {title && (
             <h1 className="px-2 py-3 py-lg-0 px-lg-0 main-title">{title}</h1>
           )}
-          <div className="page-container py-1 mt-md-2">
-            {contextMenu && contextMenu.menu && contextMenu.menu.items && (
-              <ul>
-                {contextMenu.menu.items.map(item => {
-                  return (
-                    item && (
-                      <li key={item.slug!}>
-                        <Link to={item.slug!}>{item.name}</Link>
-                      </li>
-                    )
-                  );
-                })}
-              </ul>
+          <div className="page-container py-1 mt-md-2 d-md-flex">
+            {contextMenu && (
+              <div className="col-md-3 pr-4 pt-2">
+                <ContextMenu
+                  contextMenu={contextMenu}
+                  siteName={siteConfig.title || ""}
+                />
+              </div>
             )}
-            {children}
+            <div className="main-content">{children}</div>
           </div>
         </main>
       </Container>
