@@ -36,8 +36,10 @@ const StaticLayout = ({
     const section = window.location.pathname.split("/")[2];
     if (!contextMenu && section) {
       setInnerContextMenu(getContextualMenu(data, section));
+    } else if (contextMenu) {
+      setInnerContextMenu(contextMenu);
     }
-  }, []);
+  });
 
   return (
     <Layout

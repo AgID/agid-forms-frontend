@@ -4,7 +4,7 @@ menu:
     - name: Linee guida siti web
       slug: "/doc/dichiarazione-linee-guida"
       roles: [authenticated]
-    - name: Modulo di adesione alle Linee guida siti web
+    - name: Modulo di adesione alle Linee guida per i siti web
       slug: "/form/dichiarazione-linee-guida"
       roles: [authenticated]
     - name: Gestione moduli

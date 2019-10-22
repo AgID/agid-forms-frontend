@@ -17,14 +17,7 @@ import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
 import { isLoggedIn } from "../../utils/auth";
 import { get } from "../../utils/safe_access";
 
-const ViewTemplate = ({
-  data,
-  uuid
-}: {
-  data: ViewConfig;
-  formId?: string;
-  uuid: string;
-}) => {
+const ViewTemplate = ({ data, uuid }: { data: ViewConfig; uuid: string }) => {
   const { t } = useTranslation();
   const [title, setTitle] = React.useState(t("pages.view_title"));
   const [ctaClicked, setCtaClicked] = React.useState(false);

@@ -164,6 +164,9 @@
   }
 }
 
+.main-content h1 {
+  max-width: 12em;
+}
 .centered h1 {
   margin: auto;
 }
@@ -183,6 +186,14 @@ input[type=number],
 
 .btn-primary:disabled, .btn-primary.disabled {
   color: #67696B;
+}
+
+.link-list-wrapper ul li a span {
+  line-height: 1.5;
+}
+.link-list-wrapper ul li a.active span {
+  font-weight: 700;
+  text-decoration: none;
 }
 
 a:focus,

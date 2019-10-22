@@ -12,7 +12,7 @@ const ContextMenu = ({
   contextMenu &&
   contextMenu.menu &&
   contextMenu.menu.items && (
-    <nav className="sidebar-wrapper">
+    <nav className="sidebar-wrapper it-line-right-side">
       <div className="sidebar-linklist-wrapper">
         <div className="link-list-wrapper">
           {" "}

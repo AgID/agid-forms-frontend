@@ -33,10 +33,16 @@ const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
         Comunicazione acquisita !
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
-        <p className="font-weight-bold pt-4">
+        <p className="pt-4 w-paragraph">
           Hai appena comunicato all'Agenzia per l'Italia Digitale la data di
-          adesione alle Linee Guida di Design. Torna alla{" "}
-          <Link to={dashboardLink}>gestione moduli</Link>
+          adesione alle Linee Guida di Design.
+        </p>
+
+        <p className="pt-4 w-paragraph">
+          Vai alla <Link to={dashboardLink}>gestione moduli</Link> o{" "}
+          <Link to="/form/dichiarazione-linee-guida">
+            invia una nuova comunicazione
+          </Link>
         </p>
       </ModalBody>
     </Modal>

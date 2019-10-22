@@ -90,17 +90,23 @@ const DashboardDeclTemplate = () => {
             );
           }
           return (
-            <div>
+            <div className="table-responsive">
               <NewDeclCta />
               <table className="table table-hover mt-4">
                 <thead className="lightgrey-bg-a3">
                   <tr>
-                    <th className="font-variant-small-caps">{t("name")}</th>
-                    <th className="font-variant-small-caps">
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("name")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
                       {t("updated_at")}
                     </th>
-                    <th className="font-variant-small-caps">{t("edit")}</th>
-                    <th className="font-variant-small-caps">{t("status")}</th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("edit")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("status")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="font-size-xs color-black font-weight-600">
