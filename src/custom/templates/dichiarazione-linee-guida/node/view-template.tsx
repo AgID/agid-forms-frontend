@@ -30,11 +30,13 @@ const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
   return (
     <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
-        Dichiarazione acquisita !
+        Comunicazione acquisita !
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
         <p className="font-weight-bold pt-4">
-          <Link to={dashboardLink}>Gestione dichiarazioni</Link>
+          Hai appena comunicato all'Agenzia per l'Italia Digitale la data di
+          adesione alle Linee Guida di Design. Torna alla{" "}
+          <Link to={dashboardLink}>gestione moduli</Link>
         </p>
       </ModalBody>
     </Modal>

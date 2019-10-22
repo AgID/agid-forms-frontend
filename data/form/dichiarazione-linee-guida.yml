@@ -1,11 +1,10 @@
 id: dichiarazione-linee-guida
-name: Modulo di adesione alle linee guida per i siti web
+name: L61 - Adeguamento alle Linee guida di design dei siti e servizi web delle PA
 category: piano triennale
 description: |-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-  tempor et lectus finibus gravida. Phasellus egestas massa id aliquet dignissim.
-  Aliquam erat volutpat. Praesent at tellus sed felis sagittis malesuada nec a
-  ipsum. Morbi eget porttitor erat.
+  Come da Piano Triennale per l'informatica nella PA vigente, le PA centrali (det.
+  AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
+  rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
 language: it
 enabled: true
 version: 0.1.0
@@ -15,10 +14,10 @@ sections:
   - name: section-0
     title: Informazioni di contesto
     description: |-
-      Tutti i campi sono obbligatori.
+      Compilare in tutte le loro parti i campi sottostanti.
     groups:
       - name: information
-        title: oggetto della dichiarazione
+        title: oggetto della comunicazione
         fields:
           - name: "website-name"
             widget: text

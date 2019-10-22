@@ -2,14 +2,11 @@ menu:
   id: dichiarazione-linee-guida
   items:
     - name: Linee guida siti web
-      slug: "/doc/dichiarazione-linee-guida/guida-alla-compilazione"
+      slug: "/doc/dichiarazione-linee-guida"
       roles: [authenticated]
     - name: Modulo di adesione alle Linee guida siti web
       slug: "/form/dichiarazione-linee-guida"
       roles: [authenticated]
-    - name: Gestione delle dichiarazioni
+    - name: Gestione moduli
       slug: "/dashboard/dichiarazione-linee-guida"
-      roles: [authenticated]
-    - name: Guida alla compilazione
-      slug: "/doc/dichiarazione-linee-guida/guida-alla-compilazione#2"
       roles: [authenticated]
