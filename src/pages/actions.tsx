@@ -12,15 +12,32 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
   return (
     <StaticLayout title={t("pages.action_page_title")}>
       <SEO title={t("pages.action_page_title")} />
-      <ul>
+      <div className="row">
         {getForms(data).map(({ node }) => {
           return (
-            <li key={node.id}>
-              <Link to={`/form/${node.id}`}>{node.name}</Link>
-            </li>
+            <div className="col-12 col-lg-4" key={node.id}>
+              <div className="card-wrapper">
+                <div className="card">
+                  <div className="card-body">
+                    <p className="card-category font-variant-small-caps">
+                      {node.category}
+                    </p>
+                    <h5 className="card-title">
+                      <Link to={`/form/${node.id}`}>{node.action}</Link>
+                    </h5>
+                    <p className="card-text">{node.description}</p>
+                    <p>
+                      <Link to={`/form/${node.id}`} className="card-title">
+                        {t("pages.action_goto_form")}
+                      </Link>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
-      </ul>
+      </div>
     </StaticLayout>
   );
 };
@@ -33,8 +50,14 @@ export const query = graphql`
           id
           version
           name
+          description
+          category
+          action
         }
       }
+    }
+    allMenuYaml {
+      ...ContextualMenuFragment
     }
   }
 `;

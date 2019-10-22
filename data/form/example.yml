@@ -1,8 +1,11 @@
 id: example-form
-enabled: true
+enabled: false
 name: form di esempio
 language: it
+description: "description"
+category: "category"
 version: 0.1.0
+skip_draft: false
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: "'Dichiarazione accessibilita ' + formatDate(Date(), 'MM/YYYY') + ' ' + title"
 sections:
@@ -35,7 +38,7 @@ sections:
             widget: text
             description: potenza di 2
             default: questo campo ha un valore di default
-            computed_value: "Math.pow(2, this[\"quinto-item\"] / 1)"
+            computed_value: 'Math.pow(2, this["quinto-item"] / 1)'
           - name: quarto-item
             title: quarto item
             widget: text
@@ -106,7 +109,7 @@ sections:
             default: "<p>this is some <strong>html</strong> content"
           - name: text-field-uppercase
             widget: html
-            computed_value: "\"uppercase: \" + this[\"quarto-item\"].toUpperCase()"
+            computed_value: '"uppercase: " + this["quarto-item"].toUpperCase()'
           - name: radio-item
             title: radio-item
             widget: radio

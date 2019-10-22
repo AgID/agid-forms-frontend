@@ -1,12 +1,12 @@
-title: Dichiarazione di accessibilità
-description: siti web e applicazioni mobili
+title: eForm AGID
+description: ""
 author: Agenzia per l'Italia Digitale
-siteLogo: "/images/logo-acc-01.svg"
+siteLogo: ""
 authorLogo: "/images/logo-agid.svg"
 keywords: Agenzia per l'Italia Digitale, Dichiarazione Accessibilità
 authorUrl: https://www.agid.gov.it
 hostname: form.agid.gov.it
-homepage: /dashboard/dichiarazione-accessibilita
+homepage: /actions
 owners:
   - name: AGID
     url: https://www.agid.gov.it

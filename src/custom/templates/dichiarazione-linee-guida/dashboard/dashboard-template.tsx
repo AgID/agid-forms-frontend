@@ -3,18 +3,21 @@ import * as React from "react";
 import SEO from "../../../../components/Seo";
 
 import { Link } from "@reach/router";
-import { Link as GatsbyLink } from "gatsby";
+import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 
 import { format } from "date-fns";
 import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import StaticLayout from "../../../../components/StaticLayout";
+import { getSessionInfo } from "../../../../utils/auth";
+
 import {
   GetUserNodesOfType,
   GetUserNodesOfTypeVariables
 } from "../../../../generated/graphql/GetUserNodesOfType";
+
+import { getContextualMenu } from "../../../../graphql/gatsby";
 import { GET_USER_NODE_OF_TYPE } from "../../../../graphql/hasura";
-import { getSessionInfo } from "../../../../utils/auth";
 
 const DashboardDeclTemplate = () => {
   const { t } = useTranslation();
@@ -26,23 +29,34 @@ const DashboardDeclTemplate = () => {
   const NewDeclCta = () => (
     <p>
       <GatsbyLink
-        to="/form/dichiarazione-accessibilita"
+        to="/form/dichiarazione-linee-guida"
         className="btn btn-primary"
       >
-        {t("acc_decl.create_new_decl_cta")}
+        {t("lg_decl.create_new_decl_cta")}
       </GatsbyLink>
     </p>
   );
 
+  const data = useStaticQuery(graphql`
+    query DashboardDeclConfig {
+      allMenuYaml {
+        ...ContextualMenuFragment
+      }
+    }
+  `);
+
   return (
-    <StaticLayout title={t("acc_decl.dashboard_title")}>
-      <SEO title={t("acc_decl.dashboard_title")} />
+    <StaticLayout
+      title={t("lg_decl.dashboard_title")}
+      contextMenu={getContextualMenu(data, "dichiarazione-linee-guida")}
+    >
+      <SEO title={t("lg_decl.dashboard_title")} />
       <Query<GetUserNodesOfType, GetUserNodesOfTypeVariables>
         query={GET_USER_NODE_OF_TYPE}
         fetchPolicy="network-only"
         variables={{
           userId: sessionInfo.userId,
-          nodeType: "dichiarazione_accessibilita"
+          nodeType: "dichiarazione_linee_guida"
         }}
       >
         {({
@@ -64,11 +78,11 @@ const DashboardDeclTemplate = () => {
           if (userNodes && !userNodes.node[0]) {
             return (
               <div className="p-lg-4">
-                <h2>{t("acc_decl.create_new_decl_title")}</h2>
+                <h2>{t("lg_decl.create_new_decl_title")}</h2>
                 <div
                   className="w-paragraph mb-5"
                   dangerouslySetInnerHTML={{
-                    __html: t("acc_decl.create_new_decl_desc")
+                    __html: t("lg_decl.create_new_decl_desc")
                   }}
                 />
                 <NewDeclCta />
@@ -76,21 +90,23 @@ const DashboardDeclTemplate = () => {
             );
           }
           return (
-            <div>
+            <div className="table-responsive">
               <NewDeclCta />
               <table className="table table-hover mt-4">
                 <thead className="lightgrey-bg-a3">
                   <tr>
-                    <th className="font-variant-small-caps">
-                      {t("acc_decl.device_type")}
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("name")}
                     </th>
-                    <th className="font-variant-small-caps">{t("name")}</th>
-                    <th className="font-variant-small-caps">{t("outcome")}</th>
-                    <th className="font-variant-small-caps">
+                    <th scope="col" className="font-variant-small-caps">
                       {t("updated_at")}
                     </th>
-                    <th className="font-variant-small-caps">{t("edit")}</th>
-                    <th className="font-variant-small-caps">{t("status")}</th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("edit")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("status")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="font-size-xs color-black font-weight-600">
@@ -99,25 +115,11 @@ const DashboardDeclTemplate = () => {
                       return (
                         <tr key={node.id}>
                           <td>
-                            {node.content.values["device-type"] === "website"
-                              ? "sito"
-                              : "app"}
-                          </td>
-                          <td>
-                            {node.content.values["device-type"] === "website"
-                              ? node.content.values["website-name"]
-                              : node.content.values["app-name"]}
+                            {node.content.values["website-name"]}
                             <br />
                             <small className="font-size-xxs">
-                              {node.content.values["device-type"] === "website"
-                                ? node.content.values["website-url"]
-                                : node.content.values["app-url"]}
+                              {node.content.values["website-url"]}
                             </small>
-                          </td>
-                          <td>
-                            {t(
-                              `acc_decl.${node.content.values["compliance-status"]}`
-                            )}
                           </td>
                           <td>{format(node.updated_at, "DD/MM/YYYY")}</td>
                           <td>

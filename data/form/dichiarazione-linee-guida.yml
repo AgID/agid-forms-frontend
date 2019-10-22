@@ -1,0 +1,40 @@
+id: dichiarazione-linee-guida
+name: Modulo di adesione alle linee guida per i siti web
+action: L61 - Adeguamento alle Linee guida di design dei siti e servizi web delle PA
+category: piano triennale
+description: |-
+  Come da Piano Triennale per l'informatica nella PA vigente, le PA centrali (det.
+  AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
+  rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
+language: it
+enabled: true
+version: 0.1.0
+title_pattern: this["website-name"]
+skip_draft: true
+sections:
+  - name: section-0
+    title: Informazioni di contesto
+    description: |-
+      Compilare in tutte le loro parti i campi sottostanti.
+    groups:
+      - name: information
+        title: oggetto della comunicazione
+        fields:
+          - name: "website-name"
+            widget: text
+            title: Nome del sito
+            description: inserisci il nome del sito web
+            required_if: "true"
+          - name: "website-url"
+            widget: text
+            title: URL del sito
+            description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
+            required_if: "true"
+      - name: date
+        title: adeguamento alle linee guida
+        fields:
+          - name: "adjustment-date"
+            title: Data prevista per l'adeguamento
+            widget: date
+            required_if: "true"
+            valid_if: Yup.date().validate(value)

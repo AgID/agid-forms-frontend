@@ -36,7 +36,7 @@ import {
 } from "formik";
 import { Mutation, Query } from "react-apollo";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
-import { getForm } from "../../graphql/gatsby";
+import { getContextualMenu, getForm } from "../../graphql/gatsby";
 import {
   GET_LATEST_NODE_WITH_PUBLISHED,
   UPSERT_NODE
@@ -107,7 +107,7 @@ const toNode = (
       title: titleExpression
         ? titleExpression({ ...values, formatDate: format, Date, id: form.id })
         : form.id,
-      type: form.id.replace("-", "_")
+      type: form.id.replace(/-/g, "_")
     }
   }
 });
@@ -203,7 +203,7 @@ const FormComponent = ({
       validateOnChange={true}
       onSubmit={onSubmit}
       render={(formik: FormikProps<FormValuesT>) => (
-        <Form className="px-lg-5 py-lg-4">
+        <Form className="py-lg-2">
           {form.sections!.map(section => {
             if (!section) {
               return null;
@@ -315,7 +315,7 @@ const FormTemplate = ({
   const [title, setTitle] = React.useState(form.name || formId);
 
   return (
-    <StaticLayout title={title}>
+    <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
       <SEO title={title} />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>

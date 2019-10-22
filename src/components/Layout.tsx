@@ -6,6 +6,7 @@ import "../styles/global.scss";
 import * as React from "react";
 import { Container } from "reactstrap";
 
+import ContextMenu from "./ContextMenu";
 import Cookiebar from "./Cookiebar";
 import Footer from "./Footer";
 import Hotjar from "./Hotjar";
@@ -15,21 +16,29 @@ import SlimHeader from "./SlimHeader";
 import { navigate } from "gatsby";
 import { Trans } from "react-i18next";
 import { GraphqlClient } from "../graphql/client";
-import { getMenu, getSiteConfig } from "../graphql/gatsby";
+import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
 import { getSessionInfo, logout } from "../utils/auth";
 
 type LayoutProps = {
   children: React.ReactNode;
   menu: ReturnType<typeof getMenu>;
+  contextMenu?: ReturnType<typeof getContextualMenu>;
   siteConfig: ReturnType<typeof getSiteConfig>;
   title?: string;
 };
 
-const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
+const Layout = ({
+  children,
+  menu,
+  title,
+  siteConfig,
+  contextMenu
+}: LayoutProps) => {
   if (!siteConfig) {
     return <p>missing site configuration.</p>;
   }
   const sessionInfo = getSessionInfo();
+
   return (
     <div className="layout-container">
       {siteConfig.cookiePolicyLink && (
@@ -74,11 +83,23 @@ const Layout = ({ children, menu, title, siteConfig }: LayoutProps) => {
         id="main"
       >
         <main>
-          {title && (
-            <h1 className="px-2 py-3 py-lg-0 px-lg-0 main-title">{title}</h1>
-          )}
-          <div className="page-container shadow-md py-4 py-md-5 px-2 px-md-5 mt-md-4 rounded bg-white">
-            {children}
+          <div className="page-container py-1 mt-md-2 d-md-flex">
+            {contextMenu && (
+              <div className="col-md-3 pt-2">
+                <ContextMenu
+                  contextMenu={contextMenu}
+                  siteName={siteConfig.title || ""}
+                />
+              </div>
+            )}
+            <div className="main-content pl-md-5">
+              {title && (
+                <h1 className="px-2 py-3 py-lg-0 px-lg-0 main-title">
+                  {title}
+                </h1>
+              )}
+              {children}
+            </div>
           </div>
         </main>
       </Container>

@@ -149,7 +149,7 @@ export const GET_NODE_REVISION_WITH_PUBLISHED = gql`
 `;
 
 export const GET_USER_NODES = gql`
-  query GetUserNodes($userId: uuid) {
+  query GetUserNodes($userId: uuid!) {
     node(where: { user_id: { _eq: $userId } }) {
       id
       created_at
@@ -164,8 +164,22 @@ export const GET_USER_NODES = gql`
   }
 `;
 
+export const GET_USER_NODE_OF_TYPE = gql`
+  query GetUserNodesOfType($userId: uuid!, $nodeType: String!) {
+    node: last_published_or_draft(
+      where: { _and: { user_id: { _eq: $userId }, type: { _eq: $nodeType } } }
+    ) {
+      id
+      content
+      updated_at
+      status
+      type
+    }
+  }
+`;
+
 export const GET_USER_INFO = gql`
-  query GetUserInfo($userId: uuid) {
+  query GetUserInfo($userId: uuid!) {
     user(where: { id: { _eq: $userId } }) {
       id
       email
