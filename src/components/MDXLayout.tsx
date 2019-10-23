@@ -21,7 +21,14 @@ const MDXLayout = ({ children: content }: { children: React.ReactNode }) => {
         li: ({ children }: { children: React.ReactNode }) => (
           <li className="my-4">{children}</li>
         ),
-        wrapper: StaticLayout
+        wrapper: (props: any) => {
+          return (
+            <StaticLayout
+              {...props}
+              breadcrumbItems={props._frontmatter.breadcrumb || []}
+            />
+          );
+        }
       }}
     >
       {content}

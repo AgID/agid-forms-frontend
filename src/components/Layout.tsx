@@ -18,6 +18,7 @@ import { Trans } from "react-i18next";
 import { GraphqlClient } from "../graphql/client";
 import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
 import { getSessionInfo, logout } from "../utils/auth";
+import Breadcrumb, { IBreadcrumbItem } from "./Breadcrumb";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ type LayoutProps = {
   contextMenu?: ReturnType<typeof getContextualMenu>;
   siteConfig: ReturnType<typeof getSiteConfig>;
   title?: string;
+  breadcrumbItems?: ReadonlyArray<IBreadcrumbItem>;
 };
 
 const Layout = ({
@@ -32,7 +34,8 @@ const Layout = ({
   menu,
   title,
   siteConfig,
-  contextMenu
+  contextMenu,
+  breadcrumbItems
 }: LayoutProps) => {
   if (!siteConfig) {
     return <p>missing site configuration.</p>;
@@ -78,6 +81,17 @@ const Layout = ({
           organization={sessionInfo ? sessionInfo.organizationName : ""}
         />
       </div>
+      {
+        <Breadcrumb
+          items={
+            breadcrumbItems
+              ? [{ label: siteConfig.title!, link: "/" }].concat(
+                  breadcrumbItems
+                )
+              : []
+          }
+        />
+      }
       <Container
         className="py-lg-5 px-3 px-lg-0 justify-content-md-center main"
         id="main"
@@ -92,9 +106,9 @@ const Layout = ({
                 />
               </div>
             )}
-            <div className="main-content pl-md-5">
+            <div className="main-content pt-md-4 pl-md-5">
               {title && (
-                <h1 className="px-2 py-3 py-lg-0 px-lg-0 main-title">
+                <h1 className="px-2 py-3 mb-md-4 py-lg-0 px-lg-0 main-title">
                   {title}
                 </h1>
               )}

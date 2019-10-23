@@ -1,7 +1,7 @@
 menu:
   - name: Home
     slug: "/"
-    roles: [anonymous, authenticated]
+    roles: [none]
   # - name: Guida alla compilazione
   #   slug: "/doc/guida-alla-compilazione"
   #   roles: [anonymous, authenticated]

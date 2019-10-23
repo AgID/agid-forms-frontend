@@ -12,11 +12,12 @@ const IT = {
     create_new_decl_cta: "Nuova dichiarazione"
   },
   lg_decl: {
-    decl_statuses: "Stato delle dichiarazioni",
-    dashboard_title: "Gestione delle dichiarazioni",
-    create_new_decl_title: "Compila la prima dichiarazione",
+    title: "Linee guida siti web",
+    decl_statuses: "Stato delle comunicazioni",
+    dashboard_title: "Gestione moduli",
+    create_new_decl_title: "Compila il primo modulo",
     create_new_decl_desc: "",
-    create_new_decl_cta: "Nuova dichiarazione"
+    create_new_decl_cta: "Nuovo modulo"
   }
 };
 
