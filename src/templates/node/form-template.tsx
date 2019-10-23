@@ -315,7 +315,14 @@ const FormTemplate = ({
   const [title, setTitle] = React.useState(form.name || formId);
 
   return (
-    <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
+    <StaticLayout
+      title={title}
+      contextMenu={getContextualMenu(data, formId)}
+      breadcrumbItems={[
+        { label: t("lg_decl.title"), link: "/doc/dichiarazione-linee-guida" },
+        { label: title!, link: "" }
+      ]}
+    >
       <SEO title={title} />
       {/* try to get exiting form values from database */}
       <Query<GetNode, GetNodeVariables>

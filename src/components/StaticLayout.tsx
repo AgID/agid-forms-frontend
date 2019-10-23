@@ -2,16 +2,19 @@ import { graphql, useStaticQuery } from "gatsby";
 import * as React from "react";
 
 import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
+import { IBreadcrumbItem } from "./Breadcrumb";
 import Layout from "./Layout";
 
 const StaticLayout = ({
   children,
   title,
-  contextMenu
+  contextMenu,
+  breadcrumbItems
 }: {
   children: React.ReactNode;
   title?: string;
   contextMenu?: ReturnType<typeof getContextualMenu>;
+  breadcrumbItems?: ReadonlyArray<IBreadcrumbItem>;
 }) => {
   const [innerContextMenu, setInnerContextMenu] = React.useState(contextMenu);
 
@@ -47,6 +50,7 @@ const StaticLayout = ({
       menu={getMenu(data)}
       title={title}
       contextMenu={innerContextMenu}
+      breadcrumbItems={breadcrumbItems}
     >
       {children}
     </Layout>

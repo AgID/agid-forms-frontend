@@ -49,6 +49,10 @@ const DashboardDeclTemplate = () => {
     <StaticLayout
       title={t("lg_decl.dashboard_title")}
       contextMenu={getContextualMenu(data, "dichiarazione-linee-guida")}
+      breadcrumbItems={[
+        { label: t("lg_decl.title"), link: "/doc/dichiarazione-linee-guida" },
+        { label: t("lg_decl.dashboard_title"), link: "" }
+      ]}
     >
       <SEO title={t("lg_decl.dashboard_title")} />
       <Query<GetUserNodesOfType, GetUserNodesOfTypeVariables>
