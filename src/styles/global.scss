@@ -195,6 +195,9 @@ input[type=number],
   font-weight: 700;
   text-decoration: none;
 }
+.link-list-wrapper ul li:first-of-type a span {
+  color: #2f3133;
+}
 
 a:focus,
 .dropdown-item:focus,
@@ -211,8 +214,17 @@ a:focus,
   background-color: transparent !important;
 }
 
+@media (min-width: 992px) {
+  .it-header-slim-wrapper {
+    height: auto;
+    min-height: 48px;
+    padding: 2px 0;
+  }
+}
+
 .it-header-slim-wrapper {
-  background-color: #3123ca !important;
+  background-color: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 .it-header-slim-wrapper .it-header-slim-wrapper-content a:hover {
   color: white;

@@ -17,7 +17,9 @@ const IT = {
     dashboard_title: "Gestione moduli",
     create_new_decl_title: "Compila il primo modulo",
     create_new_decl_desc: "",
-    create_new_decl_cta: "Nuovo modulo"
+    create_new_decl_cta: "Nuovo modulo",
+    dashboard_adjustment_date: "data di adesione",
+    dashboard_sent_date: "data di invio"
   }
 };
 

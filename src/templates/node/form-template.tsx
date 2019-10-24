@@ -318,7 +318,10 @@ const FormTemplate = ({
     <StaticLayout
       title={title}
       contextMenu={getContextualMenu(data, formId)}
-      breadcrumbItems={[{ label: title!, link: "" }]}
+      breadcrumbItems={[
+        { label: form.action!, link: `/doc/${formId}` },
+        { label: title!, link: "" }
+      ]}
     >
       <SEO title={title} />
       {/* try to get exiting form values from database */}

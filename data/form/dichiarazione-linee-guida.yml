@@ -4,9 +4,13 @@ action: Linee guida di design
 # action: L61 - Adeguamento alle Linee guida di design dei siti e servizi web delle PA
 category: piano triennale
 description: |-
-  Come da Piano Triennale per l'informatica nella PA vigente, le PA centrali (det.
+  Come da L61- “Adeguamento alle Linee guida di design dei siti e servizi web
+  delle PA” del Piano Triennale per l'informatica nella PA, le PA centrali (det.
   AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
   rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
+# Come da Piano Triennale per l'informatica nella PA vigente, le PA centrali (det.
+# AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
+# rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
 language: it
 enabled: true
 version: 0.1.0

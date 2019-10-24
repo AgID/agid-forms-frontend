@@ -16,20 +16,38 @@ const ContextMenu = ({
       <div className="sidebar-linklist-wrapper">
         <div className="link-list-wrapper">
           {" "}
-          <h2 className="display-3 no_toc">
+          <h2 className="display-3 no_toc mb-4">
             <Link to="/" className="primary-color-a12 text-decoration-none">
               <span className="primary-color-a9">&lt;</span> {siteName}
             </Link>
           </h2>
           <ul className="link-list">
-            {contextMenu.menu.items.map(item => {
+            {contextMenu.menu.items.slice(0, 1).map(item => {
               return (
                 item && (
-                  <li key={item.slug!}>
+                  <li
+                    key={item.slug!}
+                    className="mb-md-2"
+                    style={{ borderLeft: "4px solid blue" }}
+                  >
+                    <Link
+                      to={item.slug!}
+                      className="list-item large py-2 font-weight-bold neutral-1-color-b5"
+                    >
+                      <span>{item.name}</span>
+                    </Link>
+                  </li>
+                )
+              );
+            })}
+            {contextMenu.menu.items.slice(1).map(item => {
+              return (
+                item && (
+                  <li key={item.slug!} className="mb-md-2 pl-3">
                     <Link
                       to={item.slug!}
                       className="list-item large py-2"
-                      activeClassName="active"
+                      activeClassName="font-weight-bold primary-color-a11"
                     >
                       <span>{item.name}</span>
                     </Link>
