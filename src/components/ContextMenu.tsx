@@ -17,12 +17,8 @@ const ContextMenu = ({
         <div className="link-list-wrapper">
           {" "}
           <h2 className="display-3 no_toc">
-            <Link
-              to="/"
-              className="primary-color-a12 text-decoration-none font-variant-small-caps"
-            >
-              <span className="primary-color-a9">&lt;</span>{" "}
-              {siteName.toLocaleLowerCase()}
+            <Link to="/" className="primary-color-a12 text-decoration-none">
+              <span className="primary-color-a9">&lt;</span> {siteName}
             </Link>
           </h2>
           <ul className="link-list">

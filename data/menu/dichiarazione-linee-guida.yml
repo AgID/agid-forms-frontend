@@ -1,10 +1,10 @@
 menu:
   id: dichiarazione-linee-guida
   items:
-    - name: Linee guida siti web
+    - name: Linee guida di design
       slug: "/doc/dichiarazione-linee-guida"
       roles: [authenticated]
-    - name: Modulo di adesione alle Linee guida per i siti web
+    - name: Modulo di adesione alle Linee guida di design
       slug: "/form/dichiarazione-linee-guida"
       roles: [authenticated]
     - name: Gestione moduli

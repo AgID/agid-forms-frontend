@@ -23,7 +23,7 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
                       {node.category}
                     </p>
                     <h5 className="card-title">
-                      <Link to={`/form/${node.id}`}>{node.action}</Link>
+                      <Link to={`/doc/${node.id}`}>{node.action}</Link>
                     </h5>
                     <p className="card-text">{node.description}</p>
                     <p>

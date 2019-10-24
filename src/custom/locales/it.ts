@@ -12,7 +12,7 @@ const IT = {
     create_new_decl_cta: "Nuova dichiarazione"
   },
   lg_decl: {
-    title: "Linee guida siti web",
+    title: "Linee guida di design",
     decl_statuses: "Stato delle comunicazioni",
     dashboard_title: "Gestione moduli",
     create_new_decl_title: "Compila il primo modulo",

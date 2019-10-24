@@ -37,7 +37,7 @@ const IT = {
   auth: {
     pa_placeholder: "Nome o codice IPA...",
     description:
-      "Per poter procedere alla compilazione è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
+      "Per poter procedere alla compilazione di un modulo è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
     email_sent:
       "un'email contenente la chiave di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
@@ -72,8 +72,8 @@ const IT = {
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "eForm AGID",
-    action_page_title: "eForm AGID",
+    index_page_title: "eForm",
+    action_page_title: "eForm",
     action_goto_form: "Accedi al modulo",
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",

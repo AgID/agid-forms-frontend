@@ -1,5 +1,5 @@
-title: eForm AGID
-description: ""
+title: eForm
+description: "moduli on-line"
 author: Agenzia per l'Italia Digitale
 siteLogo: ""
 authorLogo: "/images/logo-agid.svg"
@@ -9,6 +9,7 @@ hostname: form.agid.gov.it
 homepage: /actions
 owners:
   - name: AGID
+    longName: Agenzia per l'Italia Digitale
     url: https://www.agid.gov.it
 slimHeaderLinks:
   - name: Piano Triennale

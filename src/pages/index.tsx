@@ -521,7 +521,7 @@ const IndexPage = () => {
           <Trans i18nKey="auth.expired_session" />
         </p>
       )}
-      <div className="p-lg-5">
+      <div className="">
         <h2>{capitalizeFirst(t("login"))}</h2>
 
         <p className="w-paragraph-sans mb-5">
