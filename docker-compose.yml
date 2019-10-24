@@ -13,6 +13,7 @@ services:
         - HASURA_GRAPHQL_ADMIN_SECRET
         - GATSBY_HASURA_GRAPHQL_ENDPOINT
         - GATSBY_BACKEND_ENDPOINT
+        - GOOGLE_ANALYTICS_TRACKING_ID
     labels:
       - traefik.enable=true
       - traefik.port=${HTTP_PORT}

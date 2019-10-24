@@ -1,6 +1,8 @@
 require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env`
 });
+
+console.log("tracking id", process.env.GOOGLE_ANALYTICS_TRACKING_ID);
 
 module.exports = {
   plugins: [
