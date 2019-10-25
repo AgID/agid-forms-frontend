@@ -6,7 +6,7 @@
 import { format } from "date-fns";
 import * as React from "react";
 
-import { Link } from "gatsby";
+import { Link, navigate } from "gatsby";
 import { useState } from "react";
 import { Mutation } from "react-apollo";
 import { Trans, useTranslation } from "react-i18next";
@@ -28,7 +28,11 @@ import { get } from "../../../../utils/safe_access";
 const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
+    <Modal
+      isOpen={isOpen}
+      toggle={() => setIsOpen(!isOpen)}
+      onClosed={() => navigate("/form/dichiarazione-linee-guida")}
+    >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
         Comunicazione acquisita !
       </ModalHeader>
@@ -168,13 +172,14 @@ const ViewTemplate = ({
         );
       })}
       <div className="text-center">
-        {links.map(link => (
-          <div className="btn btn-outline-primary mx-4" key={link.to}>
-            <Link to={link.to} className="text-decoration-none">
-              {link.title}
-            </Link>
-          </div>
-        ))}
+        {!form.skip_draft &&
+          links.map(link => (
+            <div className="btn btn-outline-primary mx-4" key={link.to}>
+              <Link to={link.to} className="text-decoration-none">
+                {link.title}
+              </Link>
+            </div>
+          ))}
         {(!publishedVersion || node.version > publishedVersion) && (
           <PublishCta
             nodeId={node.id}
@@ -185,13 +190,10 @@ const ViewTemplate = ({
           />
         )}
       </div>
-      {publishedVersion &&
-        ctaClicked &&
-        node.version === publishedVersion - 1 && (
-          <PublishModal
-            dashboardLink={`/dashboard/dichiarazione-linee-guida`}
-          />
-        )}
+      {publishedVersion && ctaClicked && (
+        // node.version === publishedVersion - 1 &&
+        <PublishModal dashboardLink={`/dashboard/dichiarazione-linee-guida`} />
+      )}
     </div>
   );
 };

@@ -92,6 +92,7 @@ const getInitialValues = (fields: ReadonlyArray<FieldT | null>) =>
 const toNode = (
   values: FormValuesT,
   form: FormT,
+  skipDraft: boolean = false,
   titleExpression?: ReturnType<typeof parser.compile> | null
 ) => ({
   variables: {
@@ -104,6 +105,7 @@ const toNode = (
         }
       },
       language: form.language,
+      status: skipDraft ? "published" : "draft",
       title: titleExpression
         ? titleExpression({ ...values, formatDate: format, Date, id: form.id })
         : form.id,
@@ -186,7 +188,8 @@ const FormComponent = ({
   form,
   initialValues,
   onSubmit,
-  links
+  links,
+  skipDraft
 }: {
   form: FormT;
   initialValues: InitialValuesT;
@@ -195,6 +198,7 @@ const FormComponent = ({
     formikActions: FormikActions<FormikValues>
   ) => void;
   links: ReadonlyArray<{ to: string; title: string }>;
+  skipDraft: boolean;
 }) => {
   const fields = flattenFormFieldsWithKeys(form);
   return (
@@ -267,7 +271,11 @@ const FormComponent = ({
               }
               className="mt-4 mx-auto"
             >
-              <Trans i18nKey="save_draft" />
+              {skipDraft ? (
+                <Trans i18nKey="submit" />
+              ) : (
+                <Trans i18nKey="save_draft" />
+              )}
             </Button>
           </div>
           <FormErrors formik={formik} fields={fields} />
@@ -366,6 +374,8 @@ const FormTemplate = ({
               ]
             : [];
 
+          const skipDraft = Boolean(form.skip_draft);
+
           return (
             <>
               <Mutation<UpsertNode, UpsertNodeVariables>
@@ -381,11 +391,17 @@ const FormTemplate = ({
                     : []
                 }
                 onCompleted={upsertNodeResult =>
-                  navigate(
-                    `/revision/${
-                      upsertNodeResult.insert_node!.returning[0].id
-                    }/${upsertNodeResult.insert_node!.returning[0].version}`
-                  )
+                  skipDraft
+                    ? navigate(
+                        `/view/${
+                          upsertNodeResult.insert_node!.returning[0].id
+                        }?cta`
+                      )
+                    : navigate(
+                        `/revision/${
+                          upsertNodeResult.insert_node!.returning[0].id
+                        }/${upsertNodeResult.insert_node!.returning[0].version}`
+                      )
                 }
               >
                 {(
@@ -415,12 +431,18 @@ const FormTemplate = ({
                       initialValues={
                         latestNode ? latestNode.content.values : initialValues
                       }
+                      skipDraft={skipDraft}
                       onSubmit={async (
                         values: FormValuesT,
                         actions: FormikActions<FormValuesT>
                       ) => {
                         actions.setSubmitting(true);
-                        const node = toNode(values, form, titleExpression);
+                        const node = toNode(
+                          values,
+                          form,
+                          skipDraft,
+                          titleExpression
+                        );
                         // store form values into database
                         await upsertNode({
                           ...node,

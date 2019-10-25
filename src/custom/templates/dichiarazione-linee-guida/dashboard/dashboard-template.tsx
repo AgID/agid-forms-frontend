@@ -120,6 +120,9 @@ const DashboardDeclTemplate = () => {
                       <th scope="col" className="font-variant-small-caps px-5">
                         {t("lg_decl.dashboard_adjustment_date")}
                       </th>
+                      <th scope="col" className="font-variant-small-caps px-5">
+                        {t("view")}
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="font-size-xs color-black font-weight-600">
@@ -142,6 +145,9 @@ const DashboardDeclTemplate = () => {
                                 node.content.values["adjustment-date"],
                                 "DD/MM/YYYY"
                               )}
+                            </td>
+                            <td className="px-5">
+                              <a href={`/view/${node.id}`}>{t("view")}</a>
                             </td>
                           </tr>
                         );
