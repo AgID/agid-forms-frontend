@@ -22,6 +22,14 @@ const ViewTemplate = ({ data, uuid }: { data: ViewConfig; uuid: string }) => {
   const [title, setTitle] = React.useState(t("pages.view_title"));
   const [ctaClicked, setCtaClicked] = React.useState(false);
   const [formId, setFormId] = React.useState<string>();
+
+  React.useEffect(() => {
+    // make the confirmation modal visible in case we skip the draft phase
+    if (window.location.search.match(/cta/)) {
+      setCtaClicked(true);
+    }
+  }, []);
+
   return (
     <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
       <SEO title={t("pages.view_title")} />

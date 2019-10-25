@@ -30,9 +30,20 @@ const DashboardDeclTemplate = () => {
     <p>
       <GatsbyLink
         to="/form/dichiarazione-linee-guida"
-        className="btn btn-primary"
+        className="btn btn-outline-primary"
       >
-        {t("lg_decl.create_new_decl_cta")}
+        {t("lg_decl.create_new_decl_cta")}{" "}
+        <span
+          aria-hidden="true"
+          style={{
+            fontSize: "24px",
+            lineHeight: "1px",
+            paddingLeft: "16px",
+            fontWeight: "bold"
+          }}
+        >
+          +
+        </span>
       </GatsbyLink>
     </p>
   );
@@ -94,67 +105,56 @@ const DashboardDeclTemplate = () => {
             );
           }
           return (
-            <div className="table-responsive">
+            <div>
               <NewDeclCta />
-              <table className="table table-hover mt-4">
-                <thead className="lightgrey-bg-a3">
-                  <tr>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("name")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("updated_at")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("edit")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("status")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="font-size-xs color-black font-weight-600">
-                  {userNodes &&
-                    userNodes.node.map(node => {
-                      return (
-                        <tr key={node.id}>
-                          <td>
-                            {node.content.values["website-name"]}
-                            <br />
-                            <small className="font-size-xxs">
-                              {node.content.values["website-url"]}
-                            </small>
-                          </td>
-                          <td>{format(node.updated_at, "DD/MM/YYYY")}</td>
-                          <td>
-                            <Link
-                              to={`/form/${node.type!.replace(/_/g, "-")}/${
-                                node.id
-                              }`}
-                            >
-                              {t("edit")}
-                            </Link>
-                          </td>
-                          <td>
-                            {node.status === "published" ? (
-                              <Link to={`/view/${node.id}`}>
-                                {t(`status_name.${node.status}`)}
-                              </Link>
-                            ) : (
-                              t(`status_name.${node.status}`)
-                            )}
-                            {node.content.metadata &&
-                              node.content.metadata.verified && (
-                                <p className="font-weight-normal">
-                                  [{t(`verified`)}]
-                                </p>
+              <div className="table-responsive">
+                <table className="table table-hover mt-4">
+                  <thead className="lightgrey-bg-a3">
+                    <tr>
+                      <th scope="col" className="font-variant-small-caps px-5">
+                        {t("name")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps px-5">
+                        {t("lg_decl.dashboard_sent_date")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps px-5">
+                        {t("lg_decl.dashboard_adjustment_date")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps px-5">
+                        {t("view")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-size-xs color-black font-weight-600">
+                    {userNodes &&
+                      userNodes.node.map(node => {
+                        return (
+                          <tr key={node.id}>
+                            <td className="px-5">
+                              {node.content.values["website-name"]}
+                              <br />
+                              <small className="font-size-xxs">
+                                {node.content.values["website-url"]}
+                              </small>
+                            </td>
+                            <td className="px-5">
+                              {format(node.updated_at, "DD/MM/YYYY")}
+                            </td>
+                            <td className="px-5">
+                              {format(
+                                node.content.values["adjustment-date"],
+                                "DD/MM/YYYY"
                               )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
+                            </td>
+                            <td className="px-5">
+                              <a href={`/view/${node.id}`}>{t("view")}</a>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+              </div>
             </div>
           );
         }}

@@ -87,6 +87,7 @@ export const SiteConfigFragment = graphql`
         }
         owners {
           name
+          longName
           url
         }
         languages {
@@ -125,12 +126,14 @@ export const FormSchemaFragment = graphql`
       node {
         id
         name
+        action
         version
         description
         category
         language
         enabled
         slug_pattern
+        skip_draft
         title_pattern
         sections {
           title

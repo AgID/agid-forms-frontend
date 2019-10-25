@@ -97,7 +97,7 @@ const Layout = ({
         id="main"
       >
         <main>
-          <div className="page-container py-1 mt-md-2 d-md-flex">
+          <div className="page-container mt-md-2 d-md-flex">
             {contextMenu && (
               <div className="col-md-3 pt-2">
                 <ContextMenu
@@ -106,7 +106,7 @@ const Layout = ({
                 />
               </div>
             )}
-            <div className="main-content pt-md-4 pl-md-5">
+            <div className="main-content pl-md-5">
               {title && (
                 <h1 className="px-2 py-3 mb-md-4 py-lg-0 px-lg-0 main-title">
                   {title}

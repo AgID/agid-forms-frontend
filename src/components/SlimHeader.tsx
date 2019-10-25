@@ -79,6 +79,11 @@ export const SlimHeader = ({
                       aria-controls="header-links"
                     >
                       <span>{owner.name}</span>
+                      {owner.longName && (
+                        <span className="d-none d-md-inline">
+                          &nbsp; - &nbsp; {owner.longName}
+                        </span>
+                      )}
                     </a>
                   )
               )}
@@ -229,7 +234,10 @@ export const SlimHeader = ({
                       </DropdownMenu>
                     </Dropdown>
                   ) : (
-                    <a href="/" className="btn btn-primary btn-sm">
+                    <a
+                      href="/"
+                      className="bg-white text-primary font-weight-600 btn btn-xs px-3 py-2 text-decoration-none"
+                    >
                       <Trans i18nKey="login" />
                     </a>
                   )}
