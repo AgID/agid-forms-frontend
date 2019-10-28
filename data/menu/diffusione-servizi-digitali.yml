@@ -1,0 +1,6 @@
+menu:
+  id: diffusione-servizi-digitali
+  items:
+    - name: Questionario sulla diffusione dei servizi digitali
+      slug: "/form/diffusione-servizi-digitali"
+      roles: [authenticated]

@@ -2,7 +2,7 @@ menu:
   id: dichiarazione-accessibilita
   items:
     - name: Dichiarazione di accessibilità
-      slug: "/doc/dichiarazione-accessibilita/guida-alla-compilazione"
+      slug: "/doc/dichiarazione-accessibilita"
       roles: [authenticated]
     - name: Modulo per la dichiarazione di accessibilità
       slug: "/form/dichiarazione-accessibilita"
@@ -11,5 +11,5 @@ menu:
       slug: "/dashboard/dichiarazione-accessibilita"
       roles: [authenticated]
     - name: FAQ
-      slug: "/doc/dichiarazione-accessibilita/guida-alla-compilazione#2"
+      slug: "/doc/dichiarazione-accessibilita/guida-alla-compilazione"
       roles: [authenticated]
