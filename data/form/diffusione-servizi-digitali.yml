@@ -1,0 +1,195 @@
+id: diffusione-servizi-digitali
+name: Questionario sulla diffusione dei servizi digitali
+action: Questionario sulla diffusione dei servizi digitali
+category: piano triennale
+description: Questionario sulla diffusione dei servizi digitali
+language: it
+enabled: true
+version: 0.1.0
+title_pattern: '"Diffusione servizi digitali"'
+skip_draft: true
+sections:
+  - name: section-0
+    title: Informazioni di contesto
+    description: |-
+      Compilare in tutte le loro parti i campi sottostanti.
+    groups:
+      - name: questions
+        title: Questionario
+        fields:
+          - name: "spid-enabled"
+            widget: radio
+            title: La Sua Amministrazione ha reso accessibili i servizi tramite SPID ?
+            required_if: "true"
+            default_selected: si
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "no-spid-reason"
+            widget: textarea
+            title: Per quali motivi ? Quali difficoltà ha incontrato ?
+            required_if: this["spid-enabled"] == "no"
+            show_if: this["spid-enabled"] == "no"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "spid-services-number"
+            widget: number
+            title: Quanti sono i servizi che la Sua Amministrazione ha reso accessibili tramite SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+
+          - name: "spid-service-names"
+            widget: textarea
+            title: Quali sono i servizi che la Sua Amministrazione ha reso accessibili tramite SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "spid-services-reasons"
+            widget: textarea
+            title: Quali difficoltà ha riscontrato nel rendere i servizi della Sua Amministrazione accessibili tramite SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "spid-services-people"
+            widget: number
+            title: Percentualmente, quanti cittadini utilizzano SPID per accedere ai servizi della Sua Amministrazione ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+
+          - name: "spid-services-analytics"
+            widget: radio
+            title: |-
+              Sono stati attivati dei sistemi di rilevazione statistica (analytics) per il monitoraggio
+              dell’utilizzo dei servizi digitali accessibili via SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "service-responsive"
+            widget: radio
+            title: |-
+              I servizi resi accessibili tramite SPID dalla Sua Amministrazione hanno un buon grado di accessibilità e
+              usabilità? Sono responsive ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "service-responsive-no"
+            widget: textarea
+            title: Quali criticità hanno riscontrato gli utenti ?
+            required_if: this["spid-enabled"] == "si" && this["service-responsive"] == "no"
+            show_if: this["spid-enabled"] == "si" && this["service-responsive"] == "no"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          #####
+
+          - name: "has-feedback"
+            widget: radio
+            title: |-
+              Agli utenti vengono forniti strumenti on line per inviare feedback sui servizi erogati via SPID, oltre
+              allo strumento della mail ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "has-other-login"
+            widget: radio
+            title: |-
+              La Sua Amministrazione consente l'accesso ai servizi online 
+              anche con credenziali diverse da SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "has-others-login-yes"
+            widget: textarea
+            title: Perché ?
+            required_if: this["spid-enabled"] == "si" && this["has-other-login"] == "si"
+            show_if: this["spid-enabled"] == "si" && this["has-other-login"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "has-other-login-yes-but"
+            widget: radio
+            title: La Sua Amministrazione prevede di rendere SPID unica modalità di accesso ai servizi digitali ?
+            required_if: this["spid-enabled"] == "si" && this["has-other-login"] == "si"
+            show_if: this["spid-enabled"] == "si" && this["has-other-login"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "has-others-login-yes-but-no"
+            widget: textarea
+            title: Perché ?
+            required_if: this["spid-enabled"] == "si" && this["has-other-login-yes-but"] == "no"
+            show_if: this["spid-enabled"] == "si" && this["has-other-login-yes-but"] == "no"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "has-eidas"
+            widget: radio
+            title: |-
+              La Sua Amministrazione ha già aderito al nodo eIDAS che permette di rendere i servizi digitali
+              accessibili anche ai cittadini degli altri Paesi europei tramite i loro rispettivi sistemi d’identificazione
+              elettronica ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
+
+          - name: "has-eidas-reason"
+            widget: date
+            title: Entro quando è prevista l'adesione ?
+            required_if: this["spid-enabled"] == "si" && this["has-eidas"] == "si"
+            show_if: this["spid-enabled"] == "si" && this["has-eidas"] == "si"
+
+          ##
+
+          - name: "howto-help"
+            widget: textarea
+            title: |-
+              Quali informazioni ritiene che possano essere meglio evidenziate per facilitare il processo di
+              adesione a SPID da parte della Sua Amministrazione ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "communication"
+            widget: textarea
+            title: |-
+              La Sua Amministrazione ha progettato campagne di comunicazione sui servizi digitali accessibili
+              tramite SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
+
+          - name: "best-practice"
+            widget: textarea
+            title: La Sua Amministrazione ha buone pratiche da segnalare nell’adozione e utilizzo di SPID ?
+            required_if: this["spid-enabled"] == "si"
+            show_if: this["spid-enabled"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)

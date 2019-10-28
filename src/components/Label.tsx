@@ -17,6 +17,7 @@ export const Label = ({
     for={fieldName}
     htmlFor={fieldName}
     check={true}
+    style={{ lineHeight: "1.55", maxWidth: "34em" }}
     className="d-block font-weight-semibold neutral-2-color-a5 font-size-xs"
     {...props}
   >
