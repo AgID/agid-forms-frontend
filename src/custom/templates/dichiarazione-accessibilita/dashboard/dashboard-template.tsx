@@ -79,18 +79,27 @@ const DashboardDeclTemplate = () => {
             <div>
               <NewDeclCta />
               <table className="table table-hover mt-4">
+                <caption>{t("acc_decl.decl_statuses")}</caption>
                 <thead className="lightgrey-bg-a3">
                   <tr>
-                    <th className="font-variant-small-caps">
+                    <th scope="col" className="font-variant-small-caps">
                       {t("acc_decl.device_type")}
                     </th>
-                    <th className="font-variant-small-caps">{t("name")}</th>
-                    <th className="font-variant-small-caps">{t("outcome")}</th>
-                    <th className="font-variant-small-caps">
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("name")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("outcome")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
                       {t("updated_at")}
                     </th>
-                    <th className="font-variant-small-caps">{t("edit")}</th>
-                    <th className="font-variant-small-caps">{t("status")}</th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("edit")}
+                    </th>
+                    <th scope="col" className="font-variant-small-caps">
+                      {t("status")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="font-size-xs color-black font-weight-600">

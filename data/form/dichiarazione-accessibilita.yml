@@ -1,5 +1,6 @@
 id: dichiarazione-accessibilita
 name: Dichiarazione di accessibilità
+action: Dichiarazione di accessibilità
 category: accessibilità
 description: |-
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
@@ -7,7 +8,7 @@ description: |-
   Aliquam erat volutpat. Praesent at tellus sed felis sagittis malesuada nec a
   ipsum. Morbi eget porttitor erat.
 language: it
-enabled: false
+enabled: true
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: this["website-name"] + this["app-name"]
