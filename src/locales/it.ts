@@ -31,7 +31,9 @@ const IT = {
     error_sending_data:
       "si è verificato un errore durante l'invio dei dati, puoi comunque riprovare a effettuare l'operazione.",
     too_many_requests:
-      "hai effettuato troppe richieste nell'arco di tempo. Riprova più tardi."
+      "hai effettuato troppe richieste nell'arco di tempo. Riprova più tardi.",
+    file_too_large:
+      "La dimensione del file ({{size}} kb) è maggiore di quella consentita ({{maxSize}} kb)"
   },
   follow_us: "seguici su",
   auth: {

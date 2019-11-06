@@ -5,13 +5,14 @@ import { setContext } from "apollo-link-context";
 import { onError } from "apollo-link-error";
 import { HttpLink } from "apollo-link-http";
 import { RestLink } from "apollo-link-rest";
-
+import { createUploadLink } from "apollo-upload-client";
 import * as fetch from "isomorphic-fetch";
 
 import { navigate } from "gatsby";
 import {
   GATSBY_BACKEND_ENDPOINT,
-  GATSBY_HASURA_GRAPHQL_ENDPOINT
+  GATSBY_HASURA_GRAPHQL_ENDPOINT,
+  GATSBY_UPLOAD_ENDPOINT
 } from "../config";
 import { getBackendToken, getGraphqlToken, logout } from "../utils/auth";
 import { ApolloErrorsT, isJwtExpiredError } from "../utils/errors";
@@ -71,7 +72,12 @@ const onErrorLink = onError(res => {
   }
 });
 
+const uploadLink = createUploadLink({
+  uri: `${GATSBY_UPLOAD_ENDPOINT}/graphql`
+});
+
 export const GraphqlClient = new ApolloClient({
+  // ssrMode: typeof window !== "undefined",
   cache: new InMemoryCache({
     dataIdFromObject: object => {
       // tslint:disable-next-line:no-useless-cast
@@ -82,5 +88,14 @@ export const GraphqlClient = new ApolloClient({
       return object.id;
     }
   }),
-  link: ApolloLink.from([onErrorLink, restLink, graphqlAuthLink, httpLink])
+  link:
+    // Routes the query to the proper client
+    // see https://www.loudnoises.us/next-js-two-apollo-clients-two-graphql-data-sources-the-easy-way/
+    // to discriminate from variables content
+    // see https://stackoverflow.com/questions/56423772/unknown-type-upload-in-apollo-server-2-6
+    ApolloLink.split(
+      operation => operation.getContext().clientName === "upload",
+      ApolloLink.from([onErrorLink, graphqlAuthLink, uploadLink]),
+      ApolloLink.from([onErrorLink, restLink, graphqlAuthLink, httpLink])
+    )
 });

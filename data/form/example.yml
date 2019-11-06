@@ -1,6 +1,7 @@
 id: example-form
 enabled: false
 name: form di esempio
+action: form di esempio
 language: it
 description: "description"
 category: "category"
@@ -176,3 +177,17 @@ sections:
             default_multiple_selection:
               - secondo valore
               - terzo valore
+  - name: section-4
+    title: section 4
+    description: description of section 4
+    groups:
+      - name: fieldgroup-4
+        title: fieldgroup 4
+        description: description of fieldgroup 4
+        fields:
+          - name: file-upload
+            title: File upload widget
+            widget: file
+            description: max 1MB
+            accept: "image/x-png, image/gif, image/jpeg"
+            max_size: 1000000

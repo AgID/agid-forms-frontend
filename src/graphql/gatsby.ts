@@ -150,6 +150,8 @@ export const FormSchemaFragment = graphql`
               default_multiple_selection
               description
               name
+              accept
+              max_size
               multiple
               title
               widget

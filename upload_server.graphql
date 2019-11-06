@@ -1,0 +1,12 @@
+scalar Upload
+
+type File {
+  id: String!
+  version: Int!
+  filename: String!
+  mimetype: String!
+}
+
+extend type mutation_root {
+  singleUpload(file: Upload!): File!
+}
