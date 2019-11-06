@@ -6,6 +6,7 @@
 
 import React from "react";
 import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
 import { GraphqlClient } from "./src/graphql/client";
 
 import MDXLayout from "./src/components/MDXLayout";
@@ -22,7 +23,11 @@ export const wrapRootElement = ({ element }) => (
   // <ThemeProvider theme={theme}>
   <MDXLayout>
     <I18nextProvider i18n={i18n}>
-      <ApolloProvider client={GraphqlClient}>{element}</ApolloProvider>
+      <ApolloProvider client={GraphqlClient}>
+        <ApolloHooksProvider client={GraphqlClient}>
+          {element}
+        </ApolloHooksProvider>
+      </ApolloProvider>
     </I18nextProvider>
   </MDXLayout>
   // </ThemeProvider>

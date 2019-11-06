@@ -67,147 +67,145 @@ export const MegaMenu = ({ menu, user }: MegaMenuProps) => {
 
   const { t } = useTranslation();
 
-  return (
-    hasVisibleItemsForUser({ menu, user }) && (
-      <nav
-        className="navbar navbar-expand-lg has-megamenu"
-        aria-label="primary-navigation"
+  return hasVisibleItemsForUser({ menu, user }) ? (
+    <nav
+      className="navbar navbar-expand-lg has-megamenu"
+      aria-label="primary-navigation"
+    >
+      <button
+        className="custom-navbar-toggler"
+        type="button"
+        aria-controls="navbarNavC"
+        aria-expanded={isOffcanvasOpen}
+        aria-label={t("toggle_navigation")}
+        onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
       >
-        <button
-          className="custom-navbar-toggler"
-          type="button"
-          aria-controls="navbarNavC"
-          aria-expanded={isOffcanvasOpen}
-          aria-label={t("toggle_navigation")}
-          onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
-        >
-          <Icon className="icon icon-sm icon-light" icon="burger" />
-        </button>
+        <Icon className="icon icon-sm icon-light" icon="burger" />
+      </button>
 
-        <CSSTransition
-          in={isOffcanvasOpen}
-          timeout={{
-            enter: 1,
-            exit: 300
-          }}
-          classNames={{
-            enter: "navbar-collapsable d-block",
-            enterDone: "navbar-collapsable d-block expanded",
-            exit: "navbar-collapsable d-block",
-            exitDone: "navbar-collapsable"
-          }}
-        >
-          <div className={`navbar-collapsable`} id="navbarNavC">
-            <div
-              className={`overlay ${isOffcanvasOpen ? "d-block" : "d-none"}`}
+      <CSSTransition
+        in={isOffcanvasOpen}
+        timeout={{
+          enter: 1,
+          exit: 300
+        }}
+        classNames={{
+          enter: "navbar-collapsable d-block",
+          enterDone: "navbar-collapsable d-block expanded",
+          exit: "navbar-collapsable d-block",
+          exitDone: "navbar-collapsable"
+        }}
+      >
+        <div className={`navbar-collapsable`} id="navbarNavC">
+          <div
+            className={`overlay ${isOffcanvasOpen ? "d-block" : "d-none"}`}
+            onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
+          />
+          <div className="close-div sr-only">
+            <button
+              className="btn close-menu"
+              type="button"
               onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
-            />
-            <div className="close-div sr-only">
-              <button
-                className="btn close-menu"
-                type="button"
-                onClick={() => setIsOffcanvasOpen(!isOffcanvasOpen)}
-              >
-                <Icon className="icon icon-sm icon-light" icon="close" />
-                {t("close")}
-              </button>
-            </div>
-            <div className="menu-wrapper">
-              <ul className="navbar-nav megamenu-top-links shadow-md mt-4">
-                {menu.map(menuItem => {
-                  return (
-                    menuItem &&
-                    menuItem.name &&
+            >
+              <Icon className="icon icon-sm icon-light" icon="close" />
+              {t("close")}
+            </button>
+          </div>
+          <div className="menu-wrapper">
+            <ul className="navbar-nav megamenu-top-links shadow-md mt-4">
+              {menu.map(menuItem => {
+                return (
+                  menuItem &&
+                  menuItem.name &&
+                  userHasAnyRole(
+                    user,
+                    (menuItem.roles as ReadonlyArray<string>) || []
+                  ) &&
+                  // TODO: remove cast
+                  ((menuItem as any).subtree ? (
+                    <Dropdown
+                      key={menuItem.slug!}
+                      className="nav-item megamenu"
+                      tag="li"
+                      isOpen={isDropdownOpen[menuItem.slug!]}
+                      toggle={() =>
+                        setIsDropdownOpen({
+                          [menuItem.slug!]: isDropdownOpen[menuItem.slug!]
+                            ? !isDropdownOpen[menuItem.slug!]
+                            : true
+                        })
+                      }
+                    >
+                      <DropdownToggle
+                        caret={true}
+                        tag="a"
+                        className="nav-link megamenu-top-link font-weight-600"
+                        activeClassName="active"
+                        role="button"
+                        style={{
+                          cursor: "pointer"
+                        }}
+                      >
+                        {t(menuItem.name)}
+                        <Icon
+                          className="icon d-inline-block"
+                          icon="expand"
+                          style={{
+                            fill: !isOffcanvasOpen
+                              ? FOREGROUND_COLOR
+                              : BACKGROUND_COLOR
+                          }}
+                        />
+                      </DropdownToggle>
+                      <DropdownMenu
+                        modifiers={dropdownModifiers(isOffcanvasOpen)}
+                      >
+                        <div className="link-list-wrapper">
+                          <ul className="mt-2">
+                            {/* TODO: remove cast */}
+                            {(menuItem as any).subtree.map(
+                              (item: any) =>
+                                item &&
+                                item.slug && (
+                                  <DropdownItem
+                                    tag="li"
+                                    key={item.slug}
+                                    className="p-0"
+                                  >
+                                    <Link to={item.slug} className="p-0">
+                                      {t(item.name)}
+                                    </Link>
+                                  </DropdownItem>
+                                )
+                            )}
+                          </ul>
+                        </div>
+                      </DropdownMenu>
+                    </Dropdown>
+                  ) : (
                     userHasAnyRole(
                       user,
                       (menuItem.roles as ReadonlyArray<string>) || []
-                    ) &&
-                    // TODO: remove cast
-                    ((menuItem as any).subtree ? (
-                      <Dropdown
-                        key={menuItem.slug!}
-                        className="nav-item megamenu"
-                        tag="li"
-                        isOpen={isDropdownOpen[menuItem.slug!]}
-                        toggle={() =>
-                          setIsDropdownOpen({
-                            [menuItem.slug!]: isDropdownOpen[menuItem.slug!]
-                              ? !isDropdownOpen[menuItem.slug!]
-                              : true
-                          })
-                        }
-                      >
-                        <DropdownToggle
-                          caret={true}
-                          tag="a"
+                    ) && (
+                      <li className="nav-item megamenu" key={menuItem.slug!}>
+                        <Link
+                          to={menuItem.slug!}
                           className="nav-link megamenu-top-link font-weight-600"
-                          activeClassName="active"
-                          role="button"
-                          style={{
-                            cursor: "pointer"
-                          }}
+                          activeClassName="nav-link--active"
                         >
                           {t(menuItem.name)}
-                          <Icon
-                            className="icon d-inline-block"
-                            icon="expand"
-                            style={{
-                              fill: !isOffcanvasOpen
-                                ? FOREGROUND_COLOR
-                                : BACKGROUND_COLOR
-                            }}
-                          />
-                        </DropdownToggle>
-                        <DropdownMenu
-                          modifiers={dropdownModifiers(isOffcanvasOpen)}
-                        >
-                          <div className="link-list-wrapper">
-                            <ul className="mt-2">
-                              {/* TODO: remove cast */}
-                              {(menuItem as any).subtree.map(
-                                (item: any) =>
-                                  item &&
-                                  item.slug && (
-                                    <DropdownItem
-                                      tag="li"
-                                      key={item.slug}
-                                      className="p-0"
-                                    >
-                                      <Link to={item.slug} className="p-0">
-                                        {t(item.name)}
-                                      </Link>
-                                    </DropdownItem>
-                                  )
-                              )}
-                            </ul>
-                          </div>
-                        </DropdownMenu>
-                      </Dropdown>
-                    ) : (
-                      userHasAnyRole(
-                        user,
-                        (menuItem.roles as ReadonlyArray<string>) || []
-                      ) && (
-                        <li className="nav-item megamenu" key={menuItem.slug!}>
-                          <Link
-                            to={menuItem.slug!}
-                            className="nav-link megamenu-top-link font-weight-600"
-                            activeClassName="nav-link--active"
-                          >
-                            {t(menuItem.name)}
-                          </Link>
-                        </li>
-                      )
-                    ))
-                  );
-                })}
-              </ul>
-            </div>
+                        </Link>
+                      </li>
+                    )
+                  ))
+                );
+              })}
+            </ul>
           </div>
-        </CSSTransition>
-      </nav>
-    )
-  );
+        </div>
+      </CSSTransition>
+    </nav>
+  ) : null;
 };
 
 export default MegaMenu;

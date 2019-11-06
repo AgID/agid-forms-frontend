@@ -14,6 +14,7 @@ import {
 } from "../utils/forms";
 import { CheckboxField } from "./CheckboxField";
 import { CheckboxMultipleField } from "./CheckboxMultipleField";
+import { FileField } from "./FileField";
 import { HtmlField } from "./HtmlField";
 import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
@@ -109,6 +110,8 @@ export const Formfield = ({
       return RadioField(widgetOpts);
     case "select":
       return SelectField(widgetOpts);
+    case "file":
+      return FileField(widgetOpts);
     case "html":
       return HtmlField(widgetOpts);
     default:

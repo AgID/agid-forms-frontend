@@ -8,6 +8,7 @@ import React from "react";
 import * as Sentry from "@sentry/browser";
 
 import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "@apollo/react-hooks";
 import { GraphqlClient } from "./src/graphql/client";
 import MDXLayout from "./src/components/MDXLayout";
 
@@ -26,7 +27,11 @@ if (process.env.GATSBY_SENTRY_DSN) {
 export const wrapRootElement = ({ element }) => (
   // <ThemeProvider theme={theme}>
   <MDXLayout>
-    <ApolloProvider client={GraphqlClient}>{element}</ApolloProvider>
+    <ApolloProvider client={GraphqlClient}>
+      <ApolloHooksProvider client={GraphqlClient}>
+        {element}
+      </ApolloHooksProvider>
+    </ApolloProvider>
   </MDXLayout>
   // </ThemeProvider>
 );

@@ -1,5 +1,5 @@
 import { navigate } from "@reach/router";
-import React from "react";
+import * as React from "react";
 
 const RedirectToForm = () => {
   React.useEffect(() => navigate("/form/diffusione-servizi-digitali"), []);

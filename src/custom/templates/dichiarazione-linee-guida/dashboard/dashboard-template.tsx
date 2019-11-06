@@ -2,7 +2,6 @@ import * as React from "react";
 
 import SEO from "../../../../components/Seo";
 
-import { Link } from "@reach/router";
 import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
 
 import { format } from "date-fns";

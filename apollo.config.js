@@ -8,7 +8,6 @@ module.exports = {
       headers: {
         "X-Hasura-Admin-Secret": process.env.HASURA_GRAPHQL_ADMIN_SECRET
       }
-    },
-    includes: ["api_backend.graphql", "./src/**/*.{ts,tsx}"]
+    }
   }
 };
