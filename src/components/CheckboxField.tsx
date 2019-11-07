@@ -63,7 +63,11 @@ export const CheckboxField = ({
         }
         disabled={isDisabled}
       />
-      <Label fieldName={field.name} title={field.title!} />
+      <Label
+        fieldName={field.name}
+        title={field.title!}
+        className="d-block my-2 my-lg-3 font-weight-semibold"
+      />
       <ErrorMessage name={field.name} />
       {field.description && (
         <FieldDescription description={field.description} />

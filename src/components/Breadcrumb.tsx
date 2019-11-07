@@ -8,7 +8,7 @@ export interface IBreadcrumbItem {
 }
 
 const Breadcrumb = ({ items }: { items: ReadonlyArray<IBreadcrumbItem> }) => (
-  <div className="d-none d-md-flex align-items-center neutral-1-bg-a1 py-md-4 pl-5">
+  <div className="d-none d-md-flex align-items-center neutral-1-bg-a1 py-md-4 pl-5 breadcrumb">
     <Container>
       <nav
         className="d-flex align-items-center breadcrumb-container"

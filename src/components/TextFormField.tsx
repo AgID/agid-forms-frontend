@@ -40,7 +40,6 @@ export const TextFormField = ({
         required={isRequired}
         disabled={isDisabled}
         component={CustomInputComponent}
-        className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)}
         value={
           isHidden || isDisabled

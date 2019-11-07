@@ -1,5 +1,5 @@
 id: dichiarazione-accessibilita
-name: Dichiarazione di accessibilità
+name: Modulo di dichiarazione siti web e app mobili
 action: Dichiarazione di accessibilità
 category: accessibilità
 description: |-
@@ -14,16 +14,16 @@ version: 0.1.0
 title_pattern: this["website-name"] + this["app-name"]
 sections:
   - name: section-0
-    title: Sezione 1
+    title: Informazioni di contesto
     description: |-
       Tutti i campi sono obbligatori.
     groups:
       - name: information
-        title: informazioni generali
+        title: Oggetto della dichiarazione
         fields:
           - name: "device-type"
             widget: radio
-            title: Oggetto della dichiarazione
+            title: ""
             default: website
             options:
               - label: sito web
@@ -70,7 +70,7 @@ sections:
             required_if: this["device-type"] == "website"
 
   - name: section-1
-    title: Sezione 2
+    title: Sezione 1
     description: |-
       Contenuti in ottemperanza alla Decisione di esecuzione UE 2018/1523.
 
@@ -170,13 +170,13 @@ sections:
                 value: methodology-auto
               - label: Una valutazione effettuata da terzi
                 value: methodology-third-party
+            required_if: "true"
           - name: "methodology-model"
             widget: checkbox
             title: è stato utilizzato il modello di autovalutazione fornito da AGID - allegato 2
             default_checked: false
             # show_if: this["methodology"] == "methodology-other"
             # required_if: this["methodology"] == "methodology-other"
-            required_if: "true"
 
       - name: feedback-and-contacts
         title: feedback e recapiti
@@ -218,7 +218,7 @@ sections:
       #       default: example@agid.gov.it
 
   - name: section-2
-    title: Sezione 3
+    title: Sezione 2
     description: |-
       Informazioni richieste dall'Agenzia per l'Italia digitale
     groups:

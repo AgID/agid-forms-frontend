@@ -93,7 +93,7 @@ const Layout = ({
         />
       }
       <Container
-        className="py-lg-5 px-3 px-lg-0 justify-content-md-center main"
+        className="py-lg-3 px-3 px-lg-0 justify-content-md-center main"
         id="main"
       >
         <main>
@@ -106,9 +106,9 @@ const Layout = ({
                 />
               </div>
             )}
-            <div className="main-content pl-md-5">
+            <div className="main-content pl-md-4">
               {title && (
-                <h1 className="px-2 py-3 mb-md-4 py-lg-0 px-lg-0 main-title">
+                <h1 className="px-2 py-3 mb-md-2 py-lg-0 px-lg-0 main-title">
                   {title}
                 </h1>
               )}

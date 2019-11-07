@@ -5,6 +5,14 @@ import {
   isEmptyFieldValue
 } from "../utils/forms";
 
+export const formatFieldValue = (value: string) =>
+  value.split("\n").map(txt => (
+    <>
+      {txt}
+      <br />
+    </>
+  ));
+
 const ViewField = ({
   field,
   value,
@@ -15,20 +23,25 @@ const ViewField = ({
   inline?: boolean;
 }) => {
   const fieldValue = getFieldValueForView({ field, value });
-  return !isEmptyFieldValue(fieldValue) ? (
+  if (!fieldValue || isEmptyFieldValue(fieldValue)) {
+    return null;
+  }
+  const renderedFieldValue =
+    field.widget === "textarea" ? formatFieldValue(fieldValue) : fieldValue;
+  return (
     <div className="mb-4">
       <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
         {field.title}
         {inline ? (
           <span>
             {": "}
-            <span className="font-weight-normal">{fieldValue}</span>
+            <span className="font-weight-normal">{renderedFieldValue}</span>
           </span>
         ) : null}
       </p>
-      {!inline && <p className="w-paragraph">{fieldValue}</p>}
+      {!inline && <p className="w-paragraph">{renderedFieldValue}</p>}
     </div>
-  ) : null;
+  );
 };
 
 export default ViewField;

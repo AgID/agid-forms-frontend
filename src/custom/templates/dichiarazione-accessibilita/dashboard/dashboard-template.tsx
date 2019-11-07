@@ -27,9 +27,20 @@ const DashboardDeclTemplate = () => {
     <p>
       <GatsbyLink
         to="/form/dichiarazione-accessibilita"
-        className="btn btn-primary"
+        className="btn btn-outline-primary"
       >
         {t("acc_decl.create_new_decl_cta")}
+        <span
+          aria-hidden="true"
+          style={{
+            fontSize: "24px",
+            lineHeight: "1px",
+            paddingLeft: "16px",
+            fontWeight: "bold"
+          }}
+        >
+          +
+        </span>
       </GatsbyLink>
     </p>
   );

@@ -14,6 +14,7 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
 import { LoadableViewTemplateProps } from "../../../../components/LoadableView";
+import { formatFieldValue } from "../../../../components/ViewField";
 import ViewGroup from "../../../../components/ViewGroup";
 import { GetNode_published } from "../../../../generated/graphql/GetNode";
 import {
@@ -41,16 +42,22 @@ const getComplianceString = (complianceStatus: string, isWebSite: boolean) => {
   switch (complianceStatus) {
     case "compliant":
       return `${
-        isWebSite ? "Questo sito web" : "Questa applicazione"
-      } è conforme.`;
+        isWebSite
+          ? "Questo <strong>sito web</strong>"
+          : "Questa <strong>applicazione</strong>"
+      } è <strong>conforme</strong>.`;
     case "partially-compliant":
       return `${
-        isWebSite ? "Questo sito web" : "Questa applicazione"
-      } è parzialmente conforme, in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
+        isWebSite
+          ? "Questo <strong>sito web</strong>"
+          : "Questa <strong>applicazione</strong>"
+      } è <strong>parzialmente conforme<strong>, in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
     case "non-compliant":
       return `${
-        isWebSite ? "Questo sito web" : "Questa applicazione"
-      } non è conforme.`;
+        isWebSite
+          ? "Questo <strong>sito web</strong>"
+          : "Questa <strong>applicazione</strong>"
+      } <strong>non è conforme</strong>.`;
     default:
       return "";
   }
@@ -74,12 +81,15 @@ const Groups: Record<
     return (
       <div className="mb-lg-5">
         <FormGroupTitle title={group.title} />
-        <p className="w-paragraph">
-          {getComplianceString(
-            values["compliance-status"],
-            values["device-type"] === "website"
-          )}
-        </p>
+        <p
+          className="w-paragraph"
+          dangerouslySetInnerHTML={{
+            __html: getComplianceString(
+              values["compliance-status"],
+              values["device-type"] === "website"
+            )
+          }}
+        />
       </div>
     );
   },
@@ -110,7 +120,7 @@ const Groups: Record<
                   {fields[fieldName].title}
                 </h4>
                 <p className="w-paragraph pl-lg-4">
-                  {values[`${fieldName}-text`]}
+                  {formatFieldValue(values[`${fieldName}-text`])}
                 </p>
               </div>
             )
@@ -151,10 +161,13 @@ const Groups: Record<
         </p>
         <p className="w-paragraph">
           La dichiarazione è stata aggiornata il{" "}
-          {format(node.updated_at, "DD.MM.YYYY")} a seguito di una revisione{" "}
-          {values["device-type"] === "website"
-            ? "del sito web"
-            : "dell'applicazione mobile"}
+          <strong>{format(node.updated_at, "DD.MM.YYYY")}</strong> a seguito di
+          una revisione{" "}
+          <strong>
+            {values["device-type"] === "website"
+              ? "del sito web"
+              : "dell'applicazione mobile"}
+          </strong>
           .
         </p>
       </div>
@@ -332,12 +345,13 @@ const ViewTemplate = ({
         }
         return (
           <div key={section.name || ""} className="view-section">
-            {section.title && (
+            {section.title && section.name !== "section-0" && (
               <h2 className="h3 mb-2 mb-lg-4">{section.title}</h2>
             )}
 
             {section.name === "section-0" && (
               <div className="pb-4">
+                <h2>Dichiarazione di accessibilità</h2>
                 <p className="w-paragraph neutral-2-color-b5">
                   <strong>
                     {get(

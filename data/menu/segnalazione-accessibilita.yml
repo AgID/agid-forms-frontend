@@ -1,0 +1,6 @@
+menu:
+  id: segnalazione-accessibilita
+  items:
+    - name: Modulo per la segnalazione di inaccessibilità
+      slug: "/form/segnalazione-accessibilita"
+      roles: [authenticated]

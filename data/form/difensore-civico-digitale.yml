@@ -1,0 +1,71 @@
+id: difensore-civico-digitale
+name: Segnalazione al difensore civico digitale
+action: Segnalazione al difensore civico digitale
+category: piano triennale
+description: |-
+  Il difensore civico esaminerà le segnalazioni e, qualora le
+  ritenesse fondate, inviterà il soggetto responsabile della violazione a porvi
+  rimedio tempestivamente, pubblicando la decisione online.
+language: it
+enabled: false
+version: 0.1.0
+title_pattern: this["email"]
+skip_draft: true
+sections:
+  - name: section-0
+    groups:
+      - name: personal-information
+        title: informazioni personali
+        fields:
+          - name: "first-name"
+            widget: text
+            title: Nome
+            required_if: "true"
+          - name: "surname"
+            widget: text
+            title: Cognome
+            required_if: "true"
+          - name: "email"
+            widget: text
+            title: Email
+            required_if: "true"
+            valid_if: Yup.string().email().validate(value)
+          - name: "tax-number"
+            widget: text
+            title: Codice fiscale
+            required_if: "true"
+      - name: report-content
+        title: oggetto della segnalazione
+        fields:
+          - name: "report-category"
+            widget: select
+            title: Categoria della segnalazione
+            options:
+              - label: Uso delle tecnologie
+                value: "2"
+              - label: Identità digitale
+                value: "3"
+              - label: Domicilio digitale
+                value: "4"
+              - label: Pagamenti con modalità informatiche
+                value: "5"
+              - label: Comunicazione mediante le tecnologie dell'informazione
+                value: "6"
+              - label: Altro
+                value: "1"
+          - name: "website-url"
+            widget: text
+            title: Indirizzo web segnalato
+            valid_if: Yup.string().url().validate(value)
+          - name: "reported-pa"
+            widget: text
+            title: Pubblica Amministrazione segnalata
+            required_if: "true"
+          - name: "reported-subject"
+            widget: text
+            title: Oggetto
+            required_if: "true"
+          - name: "reported-text"
+            widget: textarea
+            title: Messaggio
+            required_if: "true"

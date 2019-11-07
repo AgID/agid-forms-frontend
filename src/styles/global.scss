@@ -83,6 +83,7 @@
 
 .w-paragraph {
   max-width: 34em;
+  color: #455B71;
   font-family: Lora, Georgia, serif;
 }
 
@@ -109,6 +110,10 @@
 
 .align-p-center p {
   margin: auto;
+}
+
+.breadcrumb {
+  box-shadow: 0 0 120px 0 rgba(0,0,0,.1);
 }
 
 .circle {
@@ -152,6 +157,10 @@
 
 .font-weight-300 {
   font-weight: 300 !important;
+}
+
+.card::after {
+  margin-top: 0 !important;
 }
 
 .card .card-body li {
