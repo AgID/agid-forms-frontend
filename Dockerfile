@@ -26,6 +26,7 @@ COPY /static /usr/src/app/static
 COPY tsconfig.json \
   apollo.config.js \
   api_backend.graphql \
+  upload_server.graphql \
   gatsby-browser.js \
   gatsby-config.js \
   gatsby-node.js \
@@ -35,7 +36,6 @@ COPY tsconfig.json \
 RUN sudo chmod 777 -R /usr/src/app/src
 
 RUN  yarn generate \
-  && yarn clean \
   && yarn build
 
 ## SERVE STATIC CONTENT
