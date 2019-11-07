@@ -68,7 +68,6 @@ export const SelectField = ({
         type="select"
         checked={getIn(form.values, field.name)}
         component={CustomSelectComponent}
-        className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
         value={
           isHidden || isDisabled

@@ -12,7 +12,7 @@ description: |-
 # AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
 # rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
 language: it
-enabled: true
+enabled: false
 version: 0.1.0
 title_pattern: this["website-name"]
 skip_draft: true
@@ -35,6 +35,7 @@ sections:
             title: URL del sito
             description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
             required_if: "true"
+            valid_if: Yup.string().url().validate(value)
       - name: date
         title: adeguamento alle linee guida
         fields:

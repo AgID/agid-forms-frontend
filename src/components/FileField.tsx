@@ -65,15 +65,31 @@ export const FileField = ({
         }
 
         if (loading) {
-          return <p>{t("loading_data")}</p>;
+          return (
+            <div>
+              <div>
+                <Label
+                  fieldName={field.name!}
+                  title={field.title!}
+                  isRequired={isRequired}
+                />
+              </div>
+              <p>{t("loading_data")}</p>
+            </div>
+          );
         }
 
         if (data) {
-          return <p>{data.singleUpload.filename}</p>;
-        }
-
-        if (value) {
-          return <p>{value}</p>;
+          return (
+            <div>
+              <Label
+                fieldName={field.name!}
+                title={field.title!}
+                isRequired={isRequired}
+              />
+              <p>{data.singleUpload.filename}</p>
+            </div>
+          );
         }
 
         return field.name ? (
@@ -96,7 +112,7 @@ export const FileField = ({
               required={isRequired}
               disabled={isDisabled}
               component={CustomInputComponent}
-              className="pl-0"
+              className="pl-0 mt-2 font-size-xs"
               validate={validateField(
                 isRequired,
                 validationExpression,
