@@ -6,7 +6,7 @@ import { onError } from "apollo-link-error";
 import { HttpLink } from "apollo-link-http";
 import { RestLink } from "apollo-link-rest";
 import { createUploadLink } from "apollo-upload-client";
-import * as fetch from "isomorphic-fetch";
+import fetch from "isomorphic-fetch";
 
 import { navigate } from "gatsby";
 import {

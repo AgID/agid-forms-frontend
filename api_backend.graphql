@@ -1,3 +1,17 @@
+directive @client on FIELD
+
+directive @type(
+  name: String
+) on FIELD
+
+directive @rest(
+  path: String
+  type: String
+  method: String
+  bodyKey: String
+  bodySerializer: String
+) on FIELD
+
 type GetPaFromIpa {
   ipa_pa: GetPaFromIpa_ipa_pa!
   ipa_ou: GetPaFromIpa_ipa_ou!
@@ -26,15 +40,33 @@ input LoginCredentialsInput {
   secret: String!
 }
 
+input EmailLoginCredentialsInput {
+  email: String!
+  secret: String!
+}
+
 type UserProfile {
   id: String!
   email: String!
+  roles: [String!]!
 }
 
 type LoginResult {
   backend_token: String!
   graphql_token: String!
   user: UserProfile!
+}
+
+input EmailPayloadInput {
+  email: String!
+}
+
+type EmailPayload {
+  email: String!
+}
+
+type SuccessResponse {
+  message: String
 }
 
 extend type mutation_root {
@@ -44,24 +76,26 @@ extend type mutation_root {
   Gets the information on the organization from the
   [IPA](https://indicepa.gov.it) catalogue using the provided IPA code.
   The secret code will be used by the client to login into the backend.
-  
   """
   post_auth_email_ipa_code(ipa_code: String!, body: String!): GetPaFromIpa!
+
+  """
+  """
+  post_auth_email_email_code(body: EmailPayloadInput!): EmailPayload!
+
   """
   The client post a secret code and the IPA code of the Public Administration
   he wants to personify. If the secret is valid for the provided IPA code,
-  then the backend returns a bearer token to authenicate subsequent API calls.
-  
+  then the backend returns a bearer token to authenicate subsequent API calls.  
   """
   post_auth_login_ipa_code(ipa_code: String!, body: LoginCredentialsInput!): LoginResult!
 
   """
-  Delete the session identified by the provided bearer token.
-  
+  """
+  post_auth_login_email_code(body: EmailLoginCredentialsInput!): LoginResult!
+
+  """
+  Delete the session identified by the provided bearer token.  
   """
   post_auth_logout(body: String!): SuccessResponse!
-}
-
-type SuccessResponse {
-  message: String
 }

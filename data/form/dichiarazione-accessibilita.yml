@@ -8,7 +8,7 @@ description: |-
   Aliquam erat volutpat. Praesent at tellus sed felis sagittis malesuada nec a
   ipsum. Morbi eget porttitor erat.
 language: it
-enabled: true
+roles: [rtd]
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: this["website-name"] + this["app-name"]

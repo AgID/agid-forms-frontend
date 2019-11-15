@@ -21,11 +21,11 @@ export const ApolloErrorsT = t.partial({
 });
 export type ApolloErrorsT = t.TypeOf<typeof ApolloErrorsT>;
 
-export function isTooManyRequestError(err: any) {
+export function isNetworkError(err: any, status: number) {
   return (
     ApolloErrorsT.is(err) &&
     err.networkError &&
-    err.networkError.statusCode === 429
+    err.networkError.statusCode === status
   );
 }
 

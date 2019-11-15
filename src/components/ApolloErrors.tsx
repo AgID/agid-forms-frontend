@@ -1,13 +1,13 @@
 import i18next from "i18next";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import { ApolloErrorsT, isTooManyRequestError } from "../utils/errors";
+import { ApolloErrorsT, isNetworkError } from "../utils/errors";
 
-const getErrorString = (
+export const getErrorString = (
   translate: i18next.TFunction,
   errors: ApolloErrorsT
 ) => {
-  if (isTooManyRequestError(errors)) {
+  if (isNetworkError(errors, 429)) {
     return translate("errors.too_many_requests");
   }
   return JSON.stringify(errors);

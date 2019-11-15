@@ -37,6 +37,9 @@ const IT = {
   },
   follow_us: "seguici su",
   auth: {
+    email_verified: "email verificata correttamente !",
+    verify_email_text: "Inserisci il codice che hai ricevuto per email",
+    verify_token_text: "verifica il codice",
     pa_placeholder: "Nome o codice IPA...",
     description:
       "Per poter procedere alla compilazione di un modulo è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
