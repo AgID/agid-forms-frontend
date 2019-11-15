@@ -1,7 +1,7 @@
 import { Link } from "gatsby";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
-import * as Loadable from "react-loadable";
+import Loadable from "react-loadable";
 import { GetNode_published } from "../generated/graphql/GetNode";
 import {
   FieldT,

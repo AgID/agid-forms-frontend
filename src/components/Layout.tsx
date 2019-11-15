@@ -78,7 +78,11 @@ const Layout = ({
           siteLogo={siteConfig.siteLogo}
           menu={menu}
           user={sessionInfo}
-          organization={sessionInfo ? sessionInfo.organizationName : ""}
+          organization={
+            sessionInfo && sessionInfo.organizationName
+              ? sessionInfo.organizationName
+              : ""
+          }
         />
       </div>
       {

@@ -7,7 +7,7 @@ description: |-
   ritenesse fondate, inviterà il soggetto responsabile della violazione a porvi
   rimedio tempestivamente, pubblicando la decisione online.
 language: it
-enabled: false
+roles: []
 version: 0.1.0
 title_pattern: this["email"]
 skip_draft: true

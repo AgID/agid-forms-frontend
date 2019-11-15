@@ -8,7 +8,7 @@ description: |-
   Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio
   2004, n. 4 s.m.i.
 language: it
-enabled: true
+roles: [authenticated]
 version: 0.1.0
 title_pattern: this["first-name"] + " " + this["surname"] + " / " + this["website-url"] + " " + this["mobile-app"]
 skip_draft: true
@@ -26,16 +26,16 @@ sections:
             widget: text
             title: Cognome
             required_if: "true"
-          - name: "pec-email"
-            widget: text
-            title: PEC (email)
-            required_if: "true"
-            valid_if: Yup.string().email().validate(value)
           - name: "email"
             widget: text
-            title: Email
+            title: Indirizzo email (o PEC)
             required_if: "true"
             valid_if: Yup.string().email().validate(value)
+            show_if: this["verify-email"] !== "true" && !Auth.isLoggedIn()
+          - name: "verify-email"
+            title: verifica l'indirizzo email
+            widget: verify-email
+            ref: "email"
           - name: "tax-number"
             widget: text
             title: Codice fiscale

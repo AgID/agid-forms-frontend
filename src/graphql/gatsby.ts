@@ -131,7 +131,7 @@ export const FormSchemaFragment = graphql`
         description
         category
         language
-        enabled
+        roles
         slug_pattern
         skip_draft
         title_pattern
@@ -155,6 +155,7 @@ export const FormSchemaFragment = graphql`
               multiple
               title
               widget
+              ref
               show_if
               valid_if
               enabled_if

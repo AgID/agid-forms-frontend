@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
+import { getSessionInfo, userHasAnyRole } from "../utils/auth";
 
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
@@ -14,6 +15,13 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
       <SEO title={t("pages.action_page_title")} />
       <div className="row">
         {getForms(data).map(({ node }) => {
+          if (
+            !userHasAnyRole(getSessionInfo(), node.roles as ReadonlyArray<
+              string
+            >)
+          ) {
+            return null;
+          }
           return (
             <div className="col-12 col-lg-4" key={node.id}>
               <div className="card-wrapper">
@@ -44,7 +52,7 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
 
 export const query = graphql`
   query ActionsPageConfig {
-    forms: allFormYaml(filter: { enabled: { eq: true } }) {
+    forms: allFormYaml {
       edges {
         node {
           id
@@ -53,6 +61,7 @@ export const query = graphql`
           description
           category
           action
+          roles
         }
       }
     }

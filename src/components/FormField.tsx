@@ -1,10 +1,11 @@
 import * as parser from "expression-eval";
-import * as memoize from "memoizee";
+import memoize from "memoizee";
 import * as React from "react";
 
 import { FormikProps, getIn } from "formik";
 
 import { Input } from "reactstrap";
+import { isLoggedIn } from "../utils/auth";
 
 import {
   FieldT,
@@ -19,6 +20,7 @@ import { HtmlField } from "./HtmlField";
 import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
 import { TextFormField } from "./TextFormField";
+import { VerifyEmailField } from "./VerifyEmailField";
 
 interface ICustomInputComponentProps {
   field: readonly JSX.Element[];
@@ -59,16 +61,27 @@ export const Formfield = ({
   const requiredExpression = getExpressionMemoized("required_if", field);
   const enabledExpression = getExpressionMemoized("enabled_if", field);
 
-  const isHidden = showIfExpression ? !showIfExpression(form.values) : false;
+  const authContext = {
+    isLoggedIn
+  };
+
+  const isHidden = showIfExpression
+    ? !showIfExpression({
+        Auth: authContext,
+        ...form.values
+      })
+    : false;
 
   const isDisabled = enabledExpression
-    ? !enabledExpression({ Math, ...form.values })
+    ? !enabledExpression({ Auth: authContext, Math, ...form.values })
     : false;
 
   const isRequired =
     !isHidden &&
     !isDisabled &&
-    (requiredExpression ? requiredExpression({ Math, ...form.values }) : false);
+    (requiredExpression
+      ? requiredExpression({ Auth: authContext, Math, ...form.values })
+      : false);
 
   // reset field value in case it's disabled or hidden
   React.useEffect(() => {
@@ -112,6 +125,8 @@ export const Formfield = ({
       return SelectField(widgetOpts);
     case "file":
       return FileField(widgetOpts);
+    case "verify-email":
+      return VerifyEmailField(widgetOpts);
     case "html":
       return HtmlField(widgetOpts);
     default:

@@ -4,7 +4,7 @@ action: Questionario sulla diffusione dei servizi digitali
 category: piano triennale
 description: Questionario sulla diffusione dei servizi digitali
 language: it
-enabled: false
+roles: []
 version: 0.1.0
 title_pattern: '"Diffusione servizi digitali"'
 skip_draft: true

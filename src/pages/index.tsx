@@ -8,7 +8,7 @@ import { graphql, Link, navigate, useStaticQuery } from "gatsby";
 import { Button, Input, Label } from "reactstrap";
 import { FormGroup } from "../components/FormGroup";
 import { SearchIpa, SearchIpaVariables } from "../generated/graphql/SearchIpa";
-import { GET_SECRET, GET_TOKENS } from "../graphql/backend";
+import { GET_SECRET_IPA, GET_TOKENS_IPA } from "../graphql/backend";
 import { GET_IPA, SEARCH_IPA } from "../graphql/hasura";
 import { capitalizeFirst } from "../utils/strings";
 
@@ -33,7 +33,7 @@ import {
   PostAuthLoginIpaCodeVariables
 } from "../generated/graphql/PostAuthLoginIpaCode";
 import { isLoggedIn, storeSessionInfo, storeTokens } from "../utils/auth";
-import { isTooManyRequestError } from "../utils/errors";
+import { isNetworkError } from "../utils/errors";
 import { get } from "../utils/safe_access";
 
 type Dispatcher<T> = React.Dispatch<React.SetStateAction<T>>;
@@ -94,7 +94,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
 
   return (
     <Mutation<PostAuthEmailIpaCode, PostAuthEmailIpaCodeVariables>
-      mutation={GET_SECRET}
+      mutation={GET_SECRET_IPA}
     >
       {(
         getSecret,
@@ -434,7 +434,7 @@ const LoginButtonConnectedComponent = ({
   onStoreTokens: (data: PostAuthLoginIpaCode) => void;
 }) => (
   <Mutation<PostAuthLoginIpaCode, PostAuthLoginIpaCodeVariables>
-    mutation={GET_TOKENS}
+    mutation={GET_TOKENS_IPA}
   >
     {(
       getTokens,
@@ -453,12 +453,12 @@ const LoginButtonConnectedComponent = ({
         <>
           {mutationError && (
             <p className="text-danger">
-              {isTooManyRequestError(mutationError) ? (
-                <ApolloErrors errors={mutationError} />
-              ) : (
+              {isNetworkError(mutationError, 403) ? (
                 <span>
                   <Trans i18nKey="auth.wrong_password" />
                 </span>
+              ) : (
+                <ApolloErrors errors={mutationError} />
               )}
             </p>
           )}
@@ -555,7 +555,8 @@ const IndexPage = () => {
                 userId: tokens.post_auth_login_ipa_code.user.id,
                 userEmail: tokens.post_auth_login_ipa_code.user.email,
                 organizationName: selectedPa.label,
-                organizationCode: selectedPa.value
+                organizationCode: selectedPa.value,
+                roles: tokens.post_auth_login_ipa_code.user.roles
               });
               navigate(homepage);
             }}
