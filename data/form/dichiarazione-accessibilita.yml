@@ -11,7 +11,7 @@ language: it
 roles: [rtd]
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: this["website-name"] + this["app-name"]
+title_pattern: values["website-name"] + values["app-name"]
 sections:
   - name: section-0
     title: Informazioni di contesto
@@ -35,27 +35,27 @@ sections:
             widget: text
             title: Nome del sito
             description: inserisci il nome del sito web
-            show_if: this["device-type"] == "website"
-            required_if: this["device-type"] == "website"
+            show_if: values["device-type"] == "website"
+            required_if: values["device-type"] == "website"
           - name: "website-url"
             widget: text
             title: URL del sito
             description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
-            show_if: this["device-type"] == "website"
-            required_if: this["device-type"] == "website"
+            show_if: values["device-type"] == "website"
+            required_if: values["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
           - name: "app-name"
             widget: text
             title: Nome dell'app
             description: inserisci il nome dell'applicazione
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
           - name: "app-url"
             widget: text
             title: URL dell'applicazione
             description: inserisci l'indirizzo nello store
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
 
           - name: "specs-version"
@@ -66,8 +66,8 @@ sections:
                 value: wcag-20
               - label: WCAG 2.1
                 value: wcag-21
-            show_if: this["device-type"] == "website"
-            required_if: this["device-type"] == "website"
+            show_if: values["device-type"] == "website"
+            required_if: values["device-type"] == "website"
 
   - name: section-1
     title: Sezione 1
@@ -107,38 +107,38 @@ sections:
           - name: "reason-42004"
             widget: checkbox
             title: inosservanza della legge 4/2004
-            enabled_if: this["compliance-status"] != "compliant"
+            enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-42004-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
-            show_if: this["reason-42004"]
-            required_if: this["reason-42004"]
-            enabled_if: this["compliance-status"] != "compliant"
+            show_if: values["reason-42004"]
+            required_if: values["reason-42004"]
+            enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
           - name: "reason-disproportionate-burden"
             widget: checkbox
             title: onere sproporzionato
-            enabled_if: this["compliance-status"] != "compliant"
+            enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili
             description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
-            show_if: this["reason-disproportionate-burden"]
-            required_if: this["reason-disproportionate-burden"]
-            enabled_if: this["compliance-status"] != "compliant"
+            show_if: values["reason-disproportionate-burden"]
+            required_if: values["reason-disproportionate-burden"]
+            enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
           - name: "reason-no-law"
             widget: checkbox
             title: Il contenuto non rientra nell'ambito della legislazione applicabile
-            enabled_if: this["compliance-status"] != "compliant"
+            enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-no-law-text"
             widget: textarea
             title: Indicare le sezioni, i contenuti e le funzioni non accessibili (massimo 2000 caratteri)
             description: indicare le alternative accessibili a seconda dei casi
-            show_if: this["reason-no-law"]
-            required_if: this["reason-no-law"]
-            enabled_if: this["compliance-status"] != "compliant"
+            show_if: values["reason-no-law"]
+            required_if: values["reason-no-law"]
+            enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
 
           # - name: content-alt
@@ -148,7 +148,7 @@ sections:
             widget: textarea
             title: Alternative accessibili
             description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
-            enabled_if: this["compliance-status"] != "compliant"
+            enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
 
       - name: content-methodology
@@ -175,8 +175,8 @@ sections:
             widget: checkbox
             title: è stato utilizzato il modello di autovalutazione fornito da AGID - allegato 2
             default_checked: false
-            # show_if: this["methodology"] == "methodology-other"
-            # required_if: this["methodology"] == "methodology-other"
+            # show_if: values["methodology"] == "methodology-other"
+            # required_if: values["methodology"] == "methodology-other"
 
       - name: feedback-and-contacts
         title: feedback e recapiti
@@ -254,13 +254,13 @@ sections:
                 value: liferay
               - label: Altro
                 value: other
-            show_if: this["device-type"] == "website"
-            required_if: this["device-type"] == "website"
+            show_if: values["device-type"] == "website"
+            required_if: values["device-type"] == "website"
           - name: website-cms-other
             title: Nome del CMS utilizzato
             widget: text
-            show_if: this["website-cms"] == "other"
-            required_if: this["website-cms"] == "other"
+            show_if: values["website-cms"] == "other"
+            required_if: values["website-cms"] == "other"
           - name: application-framework
             title: Framework utilizzato
             widget: select
@@ -275,13 +275,13 @@ sections:
                 value: xamarin
               - label: Altro
                 value: other
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
           - name: application-framework-other
             title: Nome del framework utilizzato
             widget: text
-            show_if: this["application-framework"] == "other"
-            required_if: this["application-framework"] == "other"
+            show_if: values["application-framework"] == "other"
+            required_if: values["application-framework"] == "other"
           - name: application-os
             title: Sistema operativo
             widget: checkbox
@@ -290,8 +290,8 @@ sections:
                 value: android
               - label: iOS
                 value: ios
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
 
       - name: application-org
         title: informazioni sulla struttura

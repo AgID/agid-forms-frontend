@@ -27,8 +27,8 @@ sections:
           #   widget: text
           #   description: potenza di 3
           #   default: questo campo ha un valore di default
-          #   computed_value: "Math.pow(3, this[\"quinto-item-x\"] / 1)"
-          #   show_if: this["quinto-item-x"] > 4
+          #   computed_value: "Math.pow(3, values[\"quinto-item-x\"] / 1)"
+          #   show_if: values["quinto-item-x"] > 4
           - name: quinto-item
             title: potenze di 2
             widget: text
@@ -39,12 +39,12 @@ sections:
             widget: text
             description: potenza di 2
             default: questo campo ha un valore di default
-            computed_value: 'Math.pow(2, this["quinto-item"] / 1)'
+            computed_value: 'Math.pow(2, values["quinto-item"] / 1)'
           - name: quarto-item
             title: quarto item
             widget: text
             description: richiesto se il primo valore è maggiore di 4
-            required_if: this["quinto-item"] > 4
+            required_if: values["quinto-item"] > 4
           - name: select-item
             title: select item
             widget: select
@@ -95,26 +95,26 @@ sections:
             title: email
             widget: text
             description: si abilita se sesto item è checked
-            show_if: this["sesto-item"]
+            show_if: values["sesto-item"]
             error_msg: il campo deve avere un formato corretto per l'email
-            enabled_if: this["sesto-item"]
+            enabled_if: values["sesto-item"]
           - name: "verify-email"
             widget: verify-email
             ref: "125-note"
-            show_if: this["125-note"]
+            show_if: values["125-note"]
           - name: ottavo-item
             title: email
             widget: text
             description: anche questo deve essere un indirizzo email
-            show_if: this["sesto-item"]
+            show_if: values["sesto-item"]
             valid_if: Yup.string().email('formato email non valido').validate(value)
-            enabled_if: this["125-note"].length > 0
+            enabled_if: values["125-note"].length > 0
           - name: text-field
             widget: html
             default: "<p>this is some <strong>html</strong> content"
           - name: text-field-uppercase
             widget: html
-            computed_value: '"uppercase: " + this["quarto-item"].toUpperCase()'
+            computed_value: '"uppercase: " + values["quarto-item"].toUpperCase()'
           - name: radio-item
             title: radio-item
             widget: radio

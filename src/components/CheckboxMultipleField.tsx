@@ -13,6 +13,7 @@ import {
   getEmptyValue,
   validateField
 } from "../utils/forms";
+import { parseQuery } from "../utils/strings";
 
 export const CustomCheckboxComponent = ({
   field,
@@ -69,6 +70,20 @@ export const CheckboxMultipleField = ({
   valueExpression,
   hasError
 }: FormFieldPropsT) => {
+  const fieldValue = getIn(form.values, field.name!);
+  const computedValue =
+    valueExpression && !isHidden
+      ? valueExpression({
+          Math,
+          values: form.values,
+          query: parseQuery(window.location.search)
+        })
+      : undefined;
+  React.useEffect(() => {
+    if (computedValue && computedValue !== fieldValue) {
+      form.setFieldValue(field.name!, computedValue);
+    }
+  });
   return field.name ? (
     <FormGroup
       key={field.name}
@@ -88,19 +103,11 @@ export const CheckboxMultipleField = ({
       <Field
         name={field.name}
         type="checkbox"
-        checked={
-          isHidden || isDisabled ? false : getIn(form.values, field.name)
-        }
+        checked={isHidden || isDisabled ? false : fieldValue}
         component={CustomCheckboxComponent}
         className="pl-0"
         validate={validateField(isRequired, validationExpression, field, form)} // always required
-        value={
-          isHidden || isDisabled
-            ? getEmptyValue(field)
-            : valueExpression
-            ? valueExpression({ Math, ...form.values })
-            : getIn(form.values, field.name)
-        }
+        value={fieldValue}
         isRequired={false}
         disabled={isDisabled}
         options={field.options}

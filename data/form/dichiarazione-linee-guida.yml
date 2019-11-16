@@ -14,7 +14,7 @@ description: |-
 language: it
 roles: [rtd]
 version: 0.1.0
-title_pattern: this["website-name"]
+title_pattern: values["website-name"]
 initial_status: "published"
 sections:
   - name: section-0

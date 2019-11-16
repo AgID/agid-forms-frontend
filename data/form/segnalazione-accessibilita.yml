@@ -10,7 +10,7 @@ description: |-
 language: it
 roles: [authenticated]
 version: 0.1.0
-title_pattern: this["name"] + " / " + this["reported-pa"]
+title_pattern: values["name"] + " / " + values["reported-pa"]
 initial_status: "archived"
 sections:
   - name: section-0
@@ -32,7 +32,7 @@ sections:
             title: Indirizzo email (o PEC)
             required_if: "true"
             valid_if: Yup.string().email().validate(value)
-            show_if: this["verify-email"] !== "true" && !Auth.isLoggedIn()
+            show_if: values["verify-email"] !== "true" && !Auth.isLoggedIn()
           - name: "verify-email"
             title: verifica l'indirizzo email
             widget: verify-email
@@ -48,37 +48,41 @@ sections:
           - name: "device-type"
             widget: radio
             title: Oggetto della segnalazione
-            default: website
             options:
               - label: sito web
                 value: website
               - label: applicazione mobile
                 value: mobile-app
             required_if: "true"
+            computed_value: query["device-type"] || "website"
           - name: "website-url"
             widget: text
             title: URL del sito
             description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
-            show_if: this["device-type"] == "website"
-            required_if: this["device-type"] == "website"
+            show_if: values["device-type"] == "website"
+            required_if: values["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
+            computed_value: query["website-url"] || ""
           - name: "app-name"
             widget: text
             title: Nome dell'app
             description: inserisci il nome dell'applicazione
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
+            computed_value: query["app-name"] || ""
           - name: "app-url"
             widget: text
             title: URL dell'applicazione
             description: inserisci l'indirizzo nello store
-            show_if: this["device-type"] == "mobile-app"
-            required_if: this["device-type"] == "mobile-app"
+            show_if: values["device-type"] == "mobile-app"
+            required_if: values["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
+            computed_value: query["app-url"] || ""
           - name: "reported-pa"
             widget: text
             title: Soggetto erogatore da segnalare
             required_if: "true"
+            computed_value: query["reported-pa"] || ""
 
       - name: report-content
         title: descrizione del problema di accessibilità
@@ -118,14 +122,14 @@ sections:
             description: allega la risposta ricevuta dal soggetto erogatore (max 10 MB)
             # accept: "image/x-png, image/gif, image/jpeg"
             max_size: 1000000
-            show_if: this["report-has-answer"] == "si"
-            required_if: this["report-has-answer"] == "si"
+            show_if: values["report-has-answer"] == "si"
+            required_if: values["report-has-answer"] == "si"
           - name: "notified-answer-reason"
             widget: textarea
             title: motivi della risposta insoddisfatta
             description: max 1000 caratteri
-            show_if: this["report-has-answer"] == "si"
-            required_if: this["report-has-answer"] == "si"
+            show_if: values["report-has-answer"] == "si"
+            required_if: values["report-has-answer"] == "si"
             valid_if: Yup.string().max(1000).validate(value)
 
       - name: privacy
@@ -135,5 +139,7 @@ sections:
           - name: "privacy"
             widget: checkbox
             title: acconsento al trattamento dei dati personali
-            valid_if: this["privacy"] == "privacy"
+            valid_if: values["privacy"] == "privacy"
             required_if: "true"
+            description: |
+              <a href="/doc/segnalazione-accessibilita/informativa-privacy">informativa sul trattamento dei dati personali</a>

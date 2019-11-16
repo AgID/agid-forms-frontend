@@ -9,7 +9,7 @@ description: |-
 language: it
 roles: []
 version: 0.1.0
-title_pattern: this["email"]
+title_pattern: values["email"]
 initial_status: "archived"
 sections:
   - name: section-0

@@ -68,19 +68,19 @@ export const Formfield = ({
   const isHidden = showIfExpression
     ? !showIfExpression({
         Auth: authContext,
-        ...form.values
+        values: form.values
       })
     : false;
 
   const isDisabled = enabledExpression
-    ? !enabledExpression({ Auth: authContext, Math, ...form.values })
+    ? !enabledExpression({ Auth: authContext, Math, values: form.values })
     : false;
 
   const isRequired =
     !isHidden &&
     !isDisabled &&
     (requiredExpression
-      ? requiredExpression({ Auth: authContext, Math, ...form.values })
+      ? requiredExpression({ Auth: authContext, Math, values: form.values })
       : false);
 
   // reset field value in case it's disabled or hidden
