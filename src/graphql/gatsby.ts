@@ -133,7 +133,7 @@ export const FormSchemaFragment = graphql`
         language
         roles
         slug_pattern
-        skip_draft
+        initial_status
         title_pattern
         sections {
           title

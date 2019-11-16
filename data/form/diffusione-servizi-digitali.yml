@@ -7,7 +7,7 @@ language: it
 roles: []
 version: 0.1.0
 title_pattern: '"Diffusione servizi digitali"'
-skip_draft: true
+initial_status: "archived"
 sections:
   - name: section-0
     title: Informazioni di contesto

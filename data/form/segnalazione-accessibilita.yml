@@ -10,21 +10,22 @@ description: |-
 language: it
 roles: [authenticated]
 version: 0.1.0
-title_pattern: this["first-name"] + " " + this["surname"] + " / " + this["website-url"] + " " + this["mobile-app"]
-skip_draft: true
+title_pattern: this["name"] + " / " + this["reported-pa"]
+initial_status: "archived"
 sections:
   - name: section-0
+    description: |
+      Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..  
+        
+      Reclamo da inviare al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+      a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
     groups:
       - name: personal-information
-        title: informazioni personali
+        title: dati del segnalante
         fields:
-          - name: "first-name"
+          - name: "name"
             widget: text
-            title: Nome
-            required_if: "true"
-          - name: "surname"
-            widget: text
-            title: Cognome
+            title: Nome e Cognome
             required_if: "true"
           - name: "email"
             widget: text
@@ -40,13 +41,9 @@ sections:
             widget: text
             title: Codice fiscale
             required_if: "true"
-          - name: "phone-number"
-            widget: text
-            title: Telefono
-            required_if: "true"
 
-      - name: report-content
-        title: descrizione del problema di accessibilità
+      - name: report-subject
+        title: oggetto della dichiarazione
         fields:
           - name: "device-type"
             widget: radio
@@ -78,48 +75,65 @@ sections:
             show_if: this["device-type"] == "mobile-app"
             required_if: this["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
-
           - name: "reported-pa"
             widget: text
             title: Soggetto erogatore da segnalare
             required_if: "true"
+
+      - name: report-content
+        title: descrizione del problema di accessibilità
+        fields:
           - name: "reported-date"
             widget: date
             title: Data della notifica inviata al soggetto erogatore
             required_if: "true"
-
           - name: "notified-feedback"
             widget: file
-            title: Feedback notificato
+            title: Feedback notificato al soggetto erogatore
+            description: allega il feedback inviato al soggetto erogatore (max 10 MB)
             required_if: "true"
+            # accept: "image/x-png, image/gif, image/jpeg"
+            max_size: 1000000
+
+          - name: "report-text"
+            widget: textarea
+            title: Descrizione del problema
+            description: |
+              Elenca i casi di non conformità del sito, sezioni, contenuti o funzioni che non sono conformi  
+              (max 1000 caratteri)
+            valid_if: Yup.string().max(1000).validate(value)
+            required_if: "true"
+          - name: "report-has-answer"
+            widget: radio
+            title: il soggetto erogatore ha risposto
+            required_if: "true"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
           - name: "notified-answer"
             widget: file
             title: Risposta del soggetto erogatore
-
-          - name: "report-text"
-            widget: text
-            title: Motivi della insoddisfazione
-            required_if: "true"
-          - name: "report-has-answer"
-            widget: checkbox
-            title: mancata risposta
+            description: allega la risposta ricevuta dal soggetto erogatore (max 10 MB)
+            # accept: "image/x-png, image/gif, image/jpeg"
+            max_size: 1000000
+            show_if: this["report-has-answer"] == "si"
+            required_if: this["report-has-answer"] == "si"
+          - name: "notified-answer-reason"
+            widget: textarea
+            title: motivi della risposta insoddisfatta
+            description: max 1000 caratteri
+            show_if: this["report-has-answer"] == "si"
+            required_if: this["report-has-answer"] == "si"
+            valid_if: Yup.string().max(1000).validate(value)
 
       - name: privacy
-        title: Informativa per il trattamento dei dati personali
-        description:
-          L'Agenzia per l'Italia Digitale garantisce che il trattamento dei dati personali, siano essi
-          acquisiti con moduli elettronici ovvero con altre modalità, è conforme a quanto
-          previsto in materia di protezione dei dati personali ai sensi dell’art. 13 e 14 del
-          Regolamento (UE) 2016/679. I dati forniti non saranno comunicati o ceduti a terzi ed il
-          loro trattamento avverrà esclusivamente per lo svolgimento delle attività per le quali
-          essi sono raccolti. I diritti dell'interessato sono quelli espressamente indicati dal
-          Regolamento (UE) 2016/679.
-
-          Il titolare del trattamento dei dati personali è
-          AgID – Agenzia per l’Italia Digitale
-          Indirizzo: Via Liszt 21 - 00144 Roma
-          Indirizzo PEC: protocollo@pec.agid.gov.it
+        # title: acconsento al trattamento dei miei dati personali
+        # description:
         fields:
           - name: "privacy"
             widget: checkbox
             title: acconsento al trattamento dei dati personali
+            valid_if: this["privacy"] == "privacy"
+            required_if: "true"
