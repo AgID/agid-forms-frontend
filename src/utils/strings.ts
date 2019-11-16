@@ -14,3 +14,20 @@ export function generateRandomId() {
       .substr(2, 9)
   );
 }
+
+export function parseQuery(queryString: string): Record<string, string> {
+  const pairs = (queryString[0] === "?"
+    ? queryString.substr(1)
+    : queryString
+  ).split("&");
+  return pairs.reduce(
+    (prev, pair) => {
+      const [name, value] = pair.split("=");
+      return {
+        ...prev,
+        [decodeURIComponent(name)]: decodeURIComponent(value || "")
+      };
+    },
+    {} as Record<string, string>
+  );
+}

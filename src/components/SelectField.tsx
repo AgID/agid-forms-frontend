@@ -13,6 +13,7 @@ import {
   getEmptyValue,
   validateField
 } from "../utils/forms";
+import { parseQuery } from "../utils/strings";
 
 export const CustomSelectComponent = ({
   field,
@@ -50,6 +51,20 @@ export const SelectField = ({
   valueExpression,
   hasError
 }: FormFieldPropsT) => {
+  const fieldValue = getIn(form.values, field.name!);
+  const computedValue =
+    valueExpression && !isHidden
+      ? valueExpression({
+          Math,
+          values: form.values,
+          query: parseQuery(window.location.search)
+        })
+      : undefined;
+  React.useEffect(() => {
+    if (computedValue && computedValue !== fieldValue) {
+      form.setFieldValue(field.name!, computedValue);
+    }
+  });
   return field.name ? (
     <FormGroup
       key={field.name}
@@ -66,17 +81,10 @@ export const SelectField = ({
         id={field.name}
         name={field.name}
         type="select"
-        checked={getIn(form.values, field.name)}
+        checked={fieldValue}
         component={CustomSelectComponent}
         validate={validateField(isRequired, validationExpression, field, form)} // always required
-        value={
-          isHidden || isDisabled
-            ? getEmptyValue(field)
-            : valueExpression
-            ? // compute field value then cast to string
-              valueExpression({ Math, ...form.values }).toString()
-            : getIn(form.values, field.name)
-        }
+        value={fieldValue}
         options={field.options}
         isDisabled={isDisabled}
       />

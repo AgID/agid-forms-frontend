@@ -12,6 +12,7 @@ import {
   isEmptyFieldValue,
   validateField
 } from "../utils/forms";
+import { parseQuery } from "../utils/strings";
 import { CustomInputComponent } from "./FormField";
 
 export const CheckboxField = ({
@@ -29,7 +30,21 @@ export const CheckboxField = ({
   }
 
   const emptyValue = getEmptyValue(field);
+
   const fieldValue = getIn(form.values, field.name);
+  const computedValue =
+    valueExpression && !isHidden
+      ? valueExpression({
+          Math,
+          values: form.values,
+          query: parseQuery(window.location.search)
+        })
+      : undefined;
+  React.useEffect(() => {
+    if (computedValue && computedValue !== fieldValue) {
+      form.setFieldValue(field.name!, computedValue);
+    }
+  });
 
   return (
     <FormGroup
@@ -53,14 +68,7 @@ export const CheckboxField = ({
             isEmptyFieldValue(fieldValue) ? field.name : emptyValue
           )
         }
-        value={
-          isHidden || isDisabled
-            ? emptyValue
-            : valueExpression
-            ? // compute field value then cast to string
-              valueExpression({ Math, ...form.values }).toString()
-            : fieldValue
-        }
+        value={fieldValue}
         disabled={isDisabled}
       />
       <Label

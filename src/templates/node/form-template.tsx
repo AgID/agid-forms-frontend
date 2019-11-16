@@ -107,7 +107,7 @@ const toNode = (
       language: form.language,
       status,
       title: titleExpression
-        ? titleExpression({ ...values, formatDate: format, Date, id: form.id })
+        ? titleExpression({ values, formatDate: format, Date, id: form.id })
         : form.id,
       type: form.id.replace(/-/g, "_")
     }

@@ -6,6 +6,7 @@ import { FormikProps } from "formik";
 
 import { format } from "date-fns";
 import { PatternString } from "italia-ts-commons/lib/strings";
+import { getExpression } from "../components/FormField";
 import { FormConfig_allFormYaml_edges_node_sections_groups_fields_options } from "../generated/graphql/FormConfig";
 import {
   FormSchemaFragment_edges_node,
@@ -91,7 +92,7 @@ export const validateField = (
               ? validationExpression({
                   Yup,
                   value,
-                  ...form.values
+                  values: form.values
                 })
               : true;
           })
