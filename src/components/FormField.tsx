@@ -13,6 +13,7 @@ import {
   getEmptyValue,
   isEmptyFieldValue
 } from "../utils/forms";
+import { parseQuery } from "../utils/strings";
 import { CheckboxField } from "./CheckboxField";
 import { CheckboxMultipleField } from "./CheckboxMultipleField";
 import { FileField } from "./FileField";
@@ -83,6 +84,17 @@ export const Formfield = ({
       ? requiredExpression({ Auth: authContext, Math, values: form.values })
       : false);
 
+  const computedValue =
+    valueExpression && !isHidden
+      ? valueExpression({
+          Math,
+          values: form.values,
+          query: parseQuery(window.location.search)
+        })
+      : undefined;
+
+  const fieldValue = getIn(form.values, field.name!);
+
   // reset field value in case it's disabled or hidden
   React.useEffect(() => {
     if (
@@ -90,6 +102,8 @@ export const Formfield = ({
       !isEmptyFieldValue(getIn(form.values, field.name!))
     ) {
       form.setFieldValue(field.name!, getEmptyValue(field));
+    } else if (computedValue && computedValue !== fieldValue) {
+      form.setFieldValue(field.name!, computedValue);
     }
   });
 

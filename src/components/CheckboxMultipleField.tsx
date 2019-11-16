@@ -7,13 +7,7 @@ import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
 
 import { Input } from "reactstrap";
-import {
-  FormFieldPropsT,
-  FormValuesT,
-  getEmptyValue,
-  validateField
-} from "../utils/forms";
-import { parseQuery } from "../utils/strings";
+import { FormFieldPropsT, FormValuesT, validateField } from "../utils/forms";
 
 export const CustomCheckboxComponent = ({
   field,
@@ -67,23 +61,9 @@ export const CheckboxMultipleField = ({
   isDisabled,
   isRequired,
   validationExpression,
-  valueExpression,
   hasError
 }: FormFieldPropsT) => {
   const fieldValue = getIn(form.values, field.name!);
-  const computedValue =
-    valueExpression && !isHidden
-      ? valueExpression({
-          Math,
-          values: form.values,
-          query: parseQuery(window.location.search)
-        })
-      : undefined;
-  React.useEffect(() => {
-    if (computedValue && computedValue !== fieldValue) {
-      form.setFieldValue(field.name!, computedValue);
-    }
-  });
   return field.name ? (
     <FormGroup
       key={field.name}
