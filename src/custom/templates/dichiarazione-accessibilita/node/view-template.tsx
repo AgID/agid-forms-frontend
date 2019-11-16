@@ -1,7 +1,5 @@
 /**
  * Template for node of type "dichiarazione-accessibilità".
- *
- * TODO: multilang
  */
 import { format } from "date-fns";
 import * as React from "react";
@@ -173,7 +171,29 @@ const Groups: Record<
       </div>
     );
   },
-  "feedback-and-contacts": ViewGroup,
+  "feedback-and-contacts": ({ group, values, node }) => (
+    <>
+      <ViewGroup group={group} values={values} inline={false} />
+      <FormGroupTitle title="Procedura di attuazione" />
+      <p>
+        <Link
+          to={
+            `/form/segnalazione-accessibilita?device-type=${values["device-type"]}&` +
+            `website-url=${encodeURIComponent(
+              values["website-url"]
+            )}&app-name=${encodeURIComponent(values["app-name"])}&` +
+            `app-url=${encodeURIComponent(
+              values["app-url"]
+            )}&reported-pa=${encodeURIComponent(
+              node.node_revision_group!.group_ipa_pa!.des_amm
+            )}`
+          }
+        >
+          Invia una segnalazione
+        </Link>
+      </p>
+    </>
+  ),
   "implementation-procedure": ViewGroup,
   "application-information": InlineViewGroup,
   "application-org": InlineViewGroup,
