@@ -15,7 +15,6 @@ import {
   OptionT,
   validateField
 } from "../utils/forms";
-import { parseQuery } from "../utils/strings";
 
 export const CustomRadioComponent = ({
   field,
@@ -74,26 +73,12 @@ export const RadioField = ({
   isDisabled,
   isRequired,
   validationExpression,
-  valueExpression,
   hasError
 }: FormFieldPropsT) => {
   if (!field.name) {
     return null;
   }
   const fieldValue = getIn(form.values, field.name);
-  const computedValue =
-    valueExpression && !isHidden
-      ? valueExpression({
-          Math,
-          values: form.values,
-          query: parseQuery(window.location.search)
-        })
-      : undefined;
-  React.useEffect(() => {
-    if (computedValue && computedValue !== fieldValue) {
-      form.setFieldValue(field.name!, computedValue);
-    }
-  });
   return (
     <FormGroup
       key={field.name}
