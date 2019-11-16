@@ -4,3 +4,6 @@ menu:
     - name: Modulo per la segnalazione di inaccessibilità
       slug: "/form/segnalazione-accessibilita"
       roles: [authenticated]
+    - name: Informativa sul trattamento dei dati personali
+      slug: "/doc/segnalazione-accessibilita/informativa-privacy"
+      roles: [authenticated]

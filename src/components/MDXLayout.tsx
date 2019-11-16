@@ -6,11 +6,21 @@ const MDXLayout = ({ children: content }: { children: React.ReactNode }) => {
   return (
     <MDXProvider
       components={{
-        h1: ({ children }: { children: React.ReactNode }) => (
-          <h1 style={{ maxWidth: "12em" }}>{children}</h1>
+        h1: ({ children, rest }: { children: React.ReactNode; rest: any }) => (
+          <h1 style={{ maxWidth: "12em" }} {...rest}>
+            {children}
+          </h1>
         ),
-        h2: ({ children }: { children: React.ReactNode }) => (
-          <h2 style={{ maxWidth: "15em" }}>{children}</h2>
+        h2: ({
+          children,
+          ...rest
+        }: {
+          children: React.ReactNode;
+          rest: any;
+        }) => (
+          <h2 style={{ maxWidth: "15em" }} {...rest}>
+            {children}
+          </h2>
         ),
         p: ({ children }: { children: React.ReactNode }) => (
           <p className="w-paragraph my-4">{children}</p>
