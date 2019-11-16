@@ -120,8 +120,7 @@ const ViewTemplate = ({
   values,
   publishedVersion,
   ctaClicked,
-  setCtaClicked,
-  links
+  setCtaClicked
 }: LoadableViewTemplateProps) => {
   const { t } = useTranslation();
   return (
@@ -172,14 +171,6 @@ const ViewTemplate = ({
         );
       })}
       <div className="text-center">
-        {!form.skip_draft &&
-          links.map(link => (
-            <div className="btn btn-outline-primary mx-4" key={link.to}>
-              <Link to={link.to} className="text-decoration-none">
-                {link.title}
-              </Link>
-            </div>
-          ))}
         {(!publishedVersion || node.version > publishedVersion) && (
           <PublishCta
             nodeId={node.id}
