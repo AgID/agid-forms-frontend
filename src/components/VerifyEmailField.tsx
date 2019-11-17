@@ -61,7 +61,7 @@ const VerifyEmailTextField = ({
       userEmail: data.post_auth_login_email_code.user.email,
       roles: data.post_auth_login_email_code.user.roles
     });
-    form.setFieldValue(field.name!, "true");
+    form.setFieldValue(field.name!, data.post_auth_login_email_code.user.email);
     return <p className="alert alert-info">{t("auth.email_verified")}</p>;
   }
 

@@ -13,20 +13,20 @@ import {
 } from "../utils/forms";
 
 const getViewfield = (fieldName: string, field: FieldT, value: string) => {
-  return fieldName ? (
+  return field && fieldName ? (
     <tr key={fieldName} className="mb-4">
-      <th scope="row">{field.title || field.name}</th>
+      <th scope="row">
+        {field.title || field.name} - {fieldName}
+      </th>
       <td>{value.toString()}</td>
     </tr>
-  ) : (
-    <></>
-  );
+  ) : null;
 };
 
 const renderViewFields = (
   fields: Record<string, FieldT>,
   values: Record<string, string>
-): readonly JSX.Element[] => {
+): ReadonlyArray<JSX.Element | null> => {
   return fields && values
     ? Object.keys(values).reduce(
         (prev, valueKey) =>
@@ -42,7 +42,7 @@ const renderViewFields = (
                 )
               ]
             : prev,
-        [] as readonly JSX.Element[]
+        [] as ReadonlyArray<JSX.Element | null>
       )
     : [];
 };
@@ -94,8 +94,10 @@ const LoadableView = ({
     },
     loading: ({ error: templateError }) => {
       return templateError ? (
-        <table className="table table-hover table-bordered table-striped">
-          <tbody>{renderViewFields(flattenedFields, flattenedValues)}</tbody>
+        <>
+          <table className="table table-hover table-bordered table-striped">
+            <tbody>{renderViewFields(flattenedFields, flattenedValues)}</tbody>
+          </table>
           <div className="text-center">
             {links.map(link => (
               <div className="btn btn-outline-primary mt-4 mx-4" key={link.to}>
@@ -105,7 +107,7 @@ const LoadableView = ({
               </div>
             ))}
           </div>
-        </table>
+        </>
       ) : (
         <p>{t("loading_data")}</p>
       );
