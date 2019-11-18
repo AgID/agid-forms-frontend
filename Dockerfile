@@ -47,5 +47,6 @@ COPY nginx.conf /etc/nginx/server.conf
 # may be overridden in .env
 ENV HTTP_PORT 80
 ENV CACHE_PUBLIC_EXPIRATION 30d
+ENV CACHE_IGNORE "none"
 
 EXPOSE ${HTTP_PORT}
