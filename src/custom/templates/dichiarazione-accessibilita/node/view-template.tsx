@@ -227,29 +227,40 @@ const PublishModal = ({
 }) => {
   const [isOpen, setIsOpen] = useState(true);
   return (
-    <Modal isOpen={isOpen} toggle={() => setIsOpen(!isOpen)}>
+    <Modal
+      isOpen={isOpen}
+      toggle={() => setIsOpen(!isOpen)}
+      contentClassName="rounded"
+    >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
         Pubblica il link {isWebsite ? " sul sito" : " nello store"}
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
-        <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
-          {isWebsite && (
-            <>
-              Copia e incolla - il link in calce - nel footer del tuo sito web.{" "}
-              <br /> A seguito di questa operazione verrà effettuata una
-              verifica automatica.
-            </>
-          )}
-          {!isWebsite && (
-            <>
-              Pubblica nello store della tua app il link in calce, in "Altre
-              informazioni" nella sezione "Sviluppatore".
-            </>
-          )}
-        </p>
-        <p className="font-weight-bold pt-4">
-          <a href={nodeLink}>{nodeLink}</a>
-        </p>
+        <div className="d-flex">
+          <div>
+            <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
+              {isWebsite && (
+                <>
+                  Copia e incolla - il link in calce - nel footer del tuo sito
+                  web. <br /> A seguito di questa operazione verrà effettuata
+                  una verifica automatica.
+                </>
+              )}
+              {!isWebsite && (
+                <>
+                  Pubblica nello store della tua app il link in calce, in "Altre
+                  informazioni" nella sezione "Sviluppatore".
+                </>
+              )}
+            </p>
+            <p className="font-weight-bold pt-4">
+              <a href={nodeLink}>{nodeLink}</a>
+            </p>
+          </div>
+          <div style={{ width: "150px" }}>
+            <img src={"/images/modals/copiaeincollacodice.svg"} alt="" />
+          </div>
+        </div>
       </ModalBody>
     </Modal>
   );

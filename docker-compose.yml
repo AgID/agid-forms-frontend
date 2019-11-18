@@ -1,10 +1,9 @@
 version: "3.4"
 
 services:
-
   agid-forms-frontend:
     image: agid-forms-frontend:local
-    env_file: 
+    env_file:
       - .env
     build:
       context: .
@@ -14,7 +13,9 @@ services:
         - HASURA_GRAPHQL_ADMIN_SECRET
         - GATSBY_HASURA_GRAPHQL_ENDPOINT
         - GATSBY_BACKEND_ENDPOINT
+        - GATSBY_UPLOAD_ENDPOINT
         - GOOGLE_ANALYTICS_TRACKING_ID
+        - GATSBY_SENTRY_DSN
     labels:
       - traefik.enable=true
       - traefik.port=${HTTP_PORT}
@@ -29,5 +30,5 @@ services:
 networks:
   app-tier:
     driver: bridge
-    driver_opts:                         
+    driver_opts:
       com.docker.network.driver.mtu: 1450
