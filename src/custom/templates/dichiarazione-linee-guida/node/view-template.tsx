@@ -1,7 +1,5 @@
 /**
  * Template for node of type "dichiarazione-accessibilità".
- *
- * TODO: multilang
  */
 import { format } from "date-fns";
 import * as React from "react";
@@ -32,22 +30,30 @@ const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
       isOpen={isOpen}
       toggle={() => setIsOpen(!isOpen)}
       onClosed={() => navigate("/form/dichiarazione-linee-guida")}
+      contentClassName="rounded"
     >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
         Comunicazione acquisita !
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
-        <p className="pt-4 w-paragraph">
-          Hai appena comunicato all'Agenzia per l'Italia Digitale la data di
-          adesione alle Linee Guida di Design.
-        </p>
+        <div className="d-flex">
+          <div>
+            <p className="pt-4 w-paragraph">
+              Hai appena comunicato all'Agenzia per l'Italia Digitale la data di
+              adesione alle Linee Guida di Design.
+            </p>
 
-        <p className="pt-4 w-paragraph">
-          Vai alla <Link to={dashboardLink}>gestione moduli</Link> o{" "}
-          <Link to="/form/dichiarazione-linee-guida">
-            invia una nuova comunicazione
-          </Link>
-        </p>
+            <p className="pt-4 w-paragraph">
+              Vai alla <Link to={dashboardLink}>gestione moduli</Link> o{" "}
+              <Link to="/form/dichiarazione-linee-guida">
+                invia una nuova comunicazione
+              </Link>
+            </p>
+          </div>
+          <div style={{ width: "150px" }}>
+            <img src={"/images/modals/dichiarazione_acquisita.svg"} alt="" />
+          </div>
+        </div>
       </ModalBody>
     </Modal>
   );
