@@ -16,6 +16,7 @@ services:
         - GATSBY_UPLOAD_ENDPOINT
         - GOOGLE_ANALYTICS_TRACKING_ID
         - GATSBY_SENTRY_DSN
+        - CORS
     labels:
       - traefik.enable=true
       - traefik.port=${HTTP_PORT}

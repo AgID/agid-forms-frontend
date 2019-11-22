@@ -10,7 +10,10 @@ ARG GATSBY_UPLOAD_ENDPOINT
 ARG GOOGLE_ANALYTICS_TRACKING_ID
 ARG GATSBY_SENTRY_DSN
 
-RUN sudo apt-get -y install --no-install-recommends libunwind8=1.1-3.2
+# ie. "default-src 'self' 'unsafe-inline' data:; frame-ancestors 'self'; object-src 'none'"
+ARG CORS
+
+RUN sudo apt-get -y install --no-install-recommends gettext-base
 
 WORKDIR /usr/src/app
 
@@ -40,19 +43,18 @@ RUN sudo chmod 777 -R /usr/src/app/src
 RUN  yarn generate \
   && yarn build
 
+COPY nginx.conf /tmp/nginx.template
+RUN envsubst '${CORS}' < /tmp/nginx.template > /usr/src/app/nginx.conf
+
 ## SERVE STATIC CONTENT
 
 FROM gatsbyjs/gatsby:latest
 COPY --from=builder /usr/src/app/public /pub
-
-COPY nginx.conf /tmp/nginx.template
+COPY --from=builder /usr/src/app/nginx.conf /etc/nginx/server.conf
 
 # may be overridden in .env
 ENV HTTP_PORT 80
 ENV CACHE_PUBLIC_EXPIRATION 30d
 ENV CACHE_IGNORE "none"
-ENV CORS "default-src 'self' 'unsafe-inline' data:; frame-ancestors 'self'; object-src 'none'"
-
-envsubst '${CORS}' < /tmp/nginx.template > /etc/nginx/server.conf
 
 EXPOSE ${HTTP_PORT}
