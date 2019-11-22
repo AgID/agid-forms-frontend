@@ -269,7 +269,7 @@ const FormComponent = ({
               }
               className="mt-4 mx-auto"
             >
-              {form.initial_status !== "draft" ? (
+              {form.initial_status && form.initial_status !== "draft" ? (
                 <Trans i18nKey="submit" />
               ) : (
                 <Trans i18nKey="save_draft" />

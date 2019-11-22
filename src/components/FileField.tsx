@@ -54,6 +54,14 @@ export const FileField = ({
           `${field.name}[0][version]`,
           data.singleUpload.version
         );
+        form.setFieldValue(
+          `${field.name}[0][filename]`,
+          data.singleUpload.filename
+        );
+        form.setFieldValue(
+          `${field.name}[0][mime_type]`,
+          data.singleUpload.mimetype
+        );
         form.setFieldValue(`${field.name}[0][node_type]`, "file");
       }}
     >

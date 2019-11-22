@@ -5,7 +5,7 @@ import * as React from "react";
 import { FormikProps, getIn } from "formik";
 
 import { Input } from "reactstrap";
-import { isLoggedIn } from "../utils/auth";
+import { getSessionInfo, isLoggedIn } from "../utils/auth";
 
 import {
   FieldT,
@@ -88,6 +88,7 @@ export const Formfield = ({
     valueExpression && !isHidden
       ? valueExpression({
           Math,
+          user: getSessionInfo(),
           values: form.values,
           query: parseQuery(window.location.search)
         })

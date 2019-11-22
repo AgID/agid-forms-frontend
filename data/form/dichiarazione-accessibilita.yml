@@ -3,10 +3,11 @@ name: Modulo di dichiarazione siti web e app mobili
 action: Dichiarazione di accessibilità
 category: accessibilità
 description: |-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-  tempor et lectus finibus gravida. Phasellus egestas massa id aliquet dignissim.
-  Aliquam erat volutpat. Praesent at tellus sed felis sagittis malesuada nec a
-  ipsum. Morbi eget porttitor erat.
+  Ai sensi del D.lgs. n. 106/2018 e come da L66 - “Attuazione della Direttiva
+  europea 2016/2102 sull’accessibilità dei siti web” del Piano Triennale per
+  l'informatica nella PA e, le Amministrazioni sono tenute alla compilazione e
+  pubblicazione della Dichiarazione di Accessibilità per i siti web e le
+  applicazioni mobili di cui sono titolari.
 language: it
 roles: [rtd]
 version: 0.1.0
@@ -200,7 +201,7 @@ sections:
           - name: "manager-email"
             title: Email responsabile della transizione digitale (RTD)
             widget: email
-            valid_if: Yup.string().email().validate(value)
+            computed_value: user.userEmail
             required_if: "true"
 
       # TODO
