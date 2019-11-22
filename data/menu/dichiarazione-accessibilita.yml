@@ -7,7 +7,7 @@ menu:
     - name: Modalità di esecuzione
       slug: "/doc/dichiarazione-accessibilita/modalita-di-esecuzione"
       roles: [authenticated]
-    - name: Modulo di dichiarazione siti web e app mobile
+    - name: Nuova dichiarazione
       slug: "/form/dichiarazione-accessibilita"
       roles: [authenticated]
     - name: Gestione delle dichiarazioni

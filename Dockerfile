@@ -44,11 +44,15 @@ RUN  yarn generate \
 
 FROM gatsbyjs/gatsby:latest
 COPY --from=builder /usr/src/app/public /pub
-COPY nginx.conf /etc/nginx/server.conf
+
+COPY nginx.conf /tmp/nginx.template
 
 # may be overridden in .env
 ENV HTTP_PORT 80
 ENV CACHE_PUBLIC_EXPIRATION 30d
 ENV CACHE_IGNORE "none"
+ENV CORS "default-src 'self' 'unsafe-inline' data:; frame-ancestors 'self'; object-src 'none'"
+
+envsubst '${CORS}' < /tmp/nginx.template > /etc/nginx/server.conf
 
 EXPOSE ${HTTP_PORT}
