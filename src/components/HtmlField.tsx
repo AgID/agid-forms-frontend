@@ -8,7 +8,7 @@ export const HtmlField = ({ field, isHidden }: FormFieldPropsT) => {
   return !isHidden ? (
     <div className="mb-4">
       {field.name && field.title && (
-        <Label fieldName={field.name} title={field.title} isRequired={false} />
+        <Label fieldName={field.name} title={field.title} isRequired={true} />
       )}
       <div
         className="w-paragraph"
