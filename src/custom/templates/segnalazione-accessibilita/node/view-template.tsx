@@ -6,7 +6,6 @@ import * as React from "react";
 import { navigate } from "gatsby";
 import { useState } from "react";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import { LoadableViewTemplateProps } from "../../../../components/LoadableView";
 
 const PublishModal = () => {
   const [isOpen, setIsOpen] = useState(true);
