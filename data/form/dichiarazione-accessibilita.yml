@@ -1,5 +1,5 @@
 id: dichiarazione-accessibilita
-name: Modulo di dichiarazione siti web e app mobili
+name: Nuova dichiarazione
 action: Dichiarazione di accessibilità
 category: accessibilità
 description: |-
@@ -15,8 +15,8 @@ version: 0.1.0
 title_pattern: values["website-name"] + values["app-name"]
 sections:
   - name: section-0
-    title: Informazioni di contesto
-    description: |-
+    description: |
+      Compila una nuova dichiarazione in base all’esito della verifica di un sito web o un’applicazione mobile della tua Amministrazione.  
       Tutti i campi sono obbligatori.
     groups:
       - name: information
@@ -111,8 +111,8 @@ sections:
             enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-42004-text"
             widget: textarea
-            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
+            title: Sezioni, contenuti e funzioni non conformi
+            description: elencare i casi di non conformità dei sito web o dell'applicazione mobile. (massimo 2000 caratteri)
             show_if: values["reason-42004"]
             required_if: values["reason-42004"]
             enabled_if: values["compliance-status"] != "compliant"
@@ -123,20 +123,23 @@ sections:
             enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-disproportionate-burden-text"
             widget: textarea
-            title: Indicare le sezioni, i contenuti e le funzioni non accessibili
-            description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
+            title: Sezioni, contenuti e funzioni soggette a deroga
+            description: |
+              elencare i casi di non conformità del sito web o dell’applicazione mobile per i quali
+              viene temporaneamente fatta valere la deroga per onere sproporzionato,
+              Art.5 Direttiva UE 2016/2102. (massimo 2000 caratteri)
             show_if: values["reason-disproportionate-burden"]
             required_if: values["reason-disproportionate-burden"]
             enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
           - name: "reason-no-law"
             widget: checkbox
-            title: Il contenuto non rientra nell'ambito della legislazione applicabile
+            title: il contenuto non rientra nell'ambito della legislazione applicabile
             enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-no-law-text"
             widget: textarea
-            title: Indicare le sezioni, i contenuti e le funzioni non accessibili (massimo 2000 caratteri)
-            description: indicare le alternative accessibili a seconda dei casi
+            title: La legislazione non applicabile per le seguenti sezioni, contenuti e funzioni (massimo 2000 caratteri)
+            description: elencare le sezioni i contenuti o le funzioni non accessibili che non rientrano nell'ambito della legislazione applicabile.
             show_if: values["reason-no-law"]
             required_if: values["reason-no-law"]
             enabled_if: values["compliance-status"] != "compliant"
@@ -148,7 +151,7 @@ sections:
           - name: "accessible-alternatives"
             widget: textarea
             title: Alternative accessibili
-            description: indicare le alternative accessibili a seconda dei casi (massimo 2000 caratteri)
+            description: elencare le sezioni i contenuti o le funzioni che presentano alternative accessibili (massimo 2000 caratteri)
             enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
 
@@ -165,11 +168,12 @@ sections:
           #   required_if: "true"
           - name: "methodology-details"
             widget: radio
-            title: modalità della valutazione
+            title: metodo utilizzato per redigere la dichiarazione
+            description: seleziona la modalità con la quale è stata effettuata la valutazione di accessibilità
             options:
-              - label: Un’autovalutazione effettuata direttamente dal soggetto erogatore
+              - label: un’autovalutazione effettuata direttamente dal soggetto erogatore
                 value: methodology-auto
-              - label: Una valutazione effettuata da terzi
+              - label: una valutazione effettuata da terzi
                 value: methodology-third-party
             required_if: "true"
           - name: "methodology-model"
@@ -182,19 +186,18 @@ sections:
       - name: feedback-and-contacts
         title: feedback e recapiti
         description: |-
-          Descrizione del meccanismo di feedback, e relativo link,
-          da utilizzare per notificare al soggetto erogatore
-          i casi di mancata conformità e per richiedere informazioni e contenuti
-          che sono esclusi dall'ambito di applicazione della direttiva.
+          Come notificare al soggetto erogatore i casi di mancata conformità sui requisiti
+          di accessibilità, o per richiedere informazioni e contenuti che sono esclusi
+          dall'ambito di applicazione della direttiva.
         fields:
           - name: "feedback"
             widget: textarea
             title: Feedback
-            description: descrivi il meccanismo di feedback
+            description: descrivi come comunicare con l’Amministrazione
             required_if: "true"
           - name: "feedback-url"
             widget: text
-            title: URL relativa al meccanismo di feedback
+            title: URL di contatto
             description: inserisci il puntamento al feedback
             valid_if: Yup.string().url().validate(value)
             required_if: "true"
@@ -235,7 +238,7 @@ sections:
             title: Sono stati effettuati test usabilità
             widget: checkbox
           - name: website-cms
-            description: Seleziona il sistema utilizzato per la gestione dei contenuti, se presente.
+            description: seleziona il sistema utilizzato per la gestione dei contenuti, se presente.
             title: Content Management System (CMS) utilizzato
             widget: select
             multiple: false
