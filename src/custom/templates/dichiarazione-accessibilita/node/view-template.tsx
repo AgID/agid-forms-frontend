@@ -175,6 +175,12 @@ const Groups: Record<
     <>
       <ViewGroup group={group} values={values} inline={false} />
       <FormGroupTitle title="Procedura di attuazione" />
+      <p className="w-paragraph">
+        Il Difensore Civico per il Digitale esamina le segnalazioni pertinenti
+        al meccanismo di feedback di questo sito/applicazione mobile. La
+        procedura è istituita ai sensi dell’art. 3-quinquies, comma 3 della L. 9
+        gennaio 2004.
+      </p>
       <p>
         <Link
           to={
