@@ -49,8 +49,9 @@ export const SlimHeader = ({
   languages,
   user,
   onLogout
-}: SlimHeaderProps) => {
-  const { i18n } = useTranslation();
+}: // tslint:disable-next-line: no-big-function
+SlimHeaderProps) => {
+  const { i18n, t } = useTranslation();
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = React.useState(
     false
   );
@@ -76,6 +77,8 @@ export const SlimHeader = ({
                       key={owner.url}
                       role="button"
                       aria-expanded="false"
+                      aria-label={`${owner.longName} - ${t("external_link")}`}
+                      title={t("external_link")}
                       aria-controls="header-links"
                     >
                       <span>{owner.name}</span>
@@ -100,6 +103,10 @@ export const SlimHeader = ({
                           role="button"
                           aria-expanded="false"
                           aria-controls="header-links"
+                          aria-label={`${owner.longName} - ${t(
+                            "external_link"
+                          )}`}
+                          title={t("external_link")}
                           onClick={e => {
                             e.preventDefault();
                             setIsLinksDropdownOpen(!isLinksDropdownOpen);
@@ -123,7 +130,14 @@ export const SlimHeader = ({
                           slimHeaderLink.name &&
                           slimHeaderLink.url && (
                             <li key={slimHeaderLink.name}>
-                              <a href={slimHeaderLink.url} className="px-3">
+                              <a
+                                href={slimHeaderLink.url}
+                                className="px-3"
+                                aria-label={`${slimHeaderLink.name} - ${t(
+                                  "external_link"
+                                )}`}
+                                title={t("external_link")}
+                              >
                                 {slimHeaderLink.name}
                               </a>
                             </li>
@@ -166,7 +180,7 @@ export const SlimHeader = ({
                                 role="button"
                                 href="#"
                                 className="list-item text-primary"
-                                onClick={() => i18n.changeLanguage(lang.name!)}
+                                onClick={() => i18n.changeLanguage(lang.name)}
                               >
                                 <span>{lang.name}</span>
                               </a>
