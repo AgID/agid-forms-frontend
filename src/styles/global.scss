@@ -116,6 +116,10 @@
   box-shadow: 0 0 120px 0 rgba(0,0,0,.1);
 }
 
+.text-muted {
+  color: rgb(82, 82, 82) !important;
+}
+
 .circle {
   border-radius: 100%;
   border: 1px solid #06c;
@@ -218,7 +222,7 @@ a:focus,
 .form-check label.form-check-label:focus,
 .form-check textarea:focus {
   border-color: #ff9900;
-  box-shadow: 0 0 6px 2px #ff9900 !important;
+  box-shadow: 0 0 0px 2px #f90 !important;
   outline: none;
 }
 
@@ -299,6 +303,10 @@ a.bg-white:hover {
 .react-select [class*="control"] > div > div:not([class*="placeholder"]) > div,
 .react-select [class*="control"] > div > div:not([class*="placeholder"]) > div > input {
   width: 100% !important;
+}
+
+.react-select [class*="control"] > div > div[class*="placeholder"] {
+  color: rgb(82, 82, 82) !important;
 }
 
 .react-select > div {
@@ -389,6 +397,9 @@ textarea.form-control {
 
 .skiplinks a {
   color: black !important;
+}
+.skiplinks a:focus {
+  border: 2px solid #f90;
 }
 
 /* external links */

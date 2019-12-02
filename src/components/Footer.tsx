@@ -2,7 +2,7 @@ import { Link } from "gatsby";
 import * as React from "react";
 import { Col, Container, Row } from "reactstrap";
 
-import { Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { getSiteConfig } from "../graphql/gatsby";
 import Icon from "./Icon";
 
@@ -27,13 +27,18 @@ const Footer = ({
   authorUrl,
   hotjar
 }: FooterProps) => {
+  const { t } = useTranslation();
   return (
     <footer id="footer" style={{ backgroundColor: FOOTER_BACKGROUND_COLOR }}>
       <Container>
         <Row className="py-4">
           <Col xs="12" sm="6" md="4">
             <div className="px-2 py-3">
-              <a href={authorUrl || ""} target="_blank">
+              <a
+                href={authorUrl || ""}
+                aria-label={`${author} - ${t("external_link")}`}
+                title={t("external_link")}
+              >
                 <img
                   src={authorLogo || ""}
                   alt={author || ""}
@@ -97,6 +102,8 @@ const Footer = ({
                   className="small-prints font-weight-bold"
                   href={hotjar.surveyUrl}
                   style={{ color: "#fff" }}
+                  aria-label={`${t("give_feedback")} - ${t("external_link")}`}
+                  title={t("external_link")}
                 >
                   <Trans i18nKey="give_feedback" />
                 </a>

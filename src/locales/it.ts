@@ -15,7 +15,8 @@ const IT = {
   no_result_found: "nessun risultato",
   go_on: "prosegui",
   publish_node: "pubblica",
-  give_feedback: "Supporto",
+  give_feedback: "Aiutaci a migliorare il servizio",
+  external_link: "Collegamento a sito esterno",
   form_errors_warning:
     "assicurati di aver corretto tutti gli errori ed aver compilato tutti i campi obbligatori prima di salvare il modulo",
   cookiebar: {

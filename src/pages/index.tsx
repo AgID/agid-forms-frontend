@@ -189,6 +189,10 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                 <br />
                 <a
                   className="external"
+                  aria-label={`${ipaData!.ipa_pa[0].des_amm} - ${t(
+                    "external_link"
+                  )}`}
+                  title={t("external_link")}
                   href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
                     ipaData!.ipa_pa[0].cod_amm
                   }`}
