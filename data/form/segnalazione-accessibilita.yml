@@ -96,6 +96,7 @@ sections:
             title: Feedback notificato al soggetto erogatore
             description: allega il feedback inviato al soggetto erogatore (max 10 MB)
             required_if: "true"
+            enabled_if: Auth.isLoggedIn()
             # accept: "image/x-png, image/gif, image/jpeg"
             max_size: 10000000
 
@@ -124,6 +125,7 @@ sections:
             max_size: 10000000
             show_if: values["report-has-answer"] == "si"
             required_if: values["report-has-answer"] == "si"
+            enabled_if: Auth.isLoggedIn()
           - name: "notified-answer-reason"
             widget: textarea
             title: motivi della risposta insoddisfatta
