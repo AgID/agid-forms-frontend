@@ -61,41 +61,45 @@ export const Formfield = ({
   const validationExpression = getExpressionMemoized("valid_if", field);
   const requiredExpression = getExpressionMemoized("required_if", field);
   const enabledExpression = getExpressionMemoized("enabled_if", field);
+  const defaultExpression = getExpressionMemoized(
+    "default_computed_value",
+    field
+  );
 
-  const authContext = {
-    isLoggedIn
+  const expressionParams = {
+    Auth: { isLoggedIn },
+    Math,
+    values: form.values,
+    user: getSessionInfo(),
+    query: parseQuery(window.location.search)
   };
 
   const isHidden = showIfExpression
-    ? !showIfExpression({
-        Auth: authContext,
-        values: form.values
-      })
+    ? !showIfExpression(expressionParams)
     : false;
 
   const isDisabled = enabledExpression
-    ? !enabledExpression({ Auth: authContext, Math, values: form.values })
+    ? !enabledExpression(expressionParams)
     : false;
 
   const isRequired =
     !isHidden &&
     !isDisabled &&
-    (requiredExpression
-      ? requiredExpression({ Auth: authContext, Math, values: form.values })
-      : false);
+    (requiredExpression ? requiredExpression(expressionParams) : false);
 
   const computedValue =
     valueExpression && !isHidden
-      ? valueExpression({
-          Math,
-          user: getSessionInfo(),
-          values: form.values,
-          query: parseQuery(window.location.search)
-        })
+      ? valueExpression(expressionParams)
+      : undefined;
+
+  const defaultValue =
+    defaultExpression && !isHidden
+      ? defaultExpression(expressionParams)
       : undefined;
 
   const fieldValue = getIn(form.values, field.name!);
 
+  // run for every render
   // reset field value in case it's disabled or hidden
   React.useEffect(() => {
     if (
@@ -105,6 +109,13 @@ export const Formfield = ({
       form.setFieldValue(field.name!, getEmptyValue(field));
     } else if (computedValue && computedValue !== fieldValue) {
       form.setFieldValue(field.name!, computedValue);
+    } else if (
+      !isHidden &&
+      !isEmptyFieldValue(defaultValue) &&
+      !form.touched[field.name!] &&
+      isEmptyFieldValue(getIn(form.values, field.name!))
+    ) {
+      form.setFieldValue(field.name!, defaultValue);
     }
   });
 

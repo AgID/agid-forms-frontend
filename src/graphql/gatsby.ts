@@ -162,6 +162,7 @@ export const FormSchemaFragment = graphql`
               required_if
               error_msg
               computed_value
+              default_computed_value
               options {
                 value
                 label

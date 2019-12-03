@@ -38,8 +38,12 @@ sections:
             title: valore computato
             widget: text
             description: potenza di 2
-            default: questo campo ha un valore di default
             computed_value: 'Math.pow(2, values["quinto-item"] / 1)'
+          - name: terzo-ultimo-item
+            title: valore computato di default
+            widget: text
+            description: potenza di 2
+            default_computed_value: '"questo campo ha un valore di default computato: " + Math.pow(2, 2)'
           - name: quarto-item
             title: quarto item
             widget: text
