@@ -3,10 +3,12 @@ name: Procedura di attuazione
 action: Procedura di attuazione
 category: piano triennale
 description: |-
-  Segnalazione a seguito di risposta insoddisfacente o mancata risposta al
-  feedback notificato al soggetto erogatore.
   Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio
-  2004, n. 4 s.m.i.
+  2004, n. 4 s.m.i..
+
+  L’utente può inviare il reclamo al Difensore civico per il digitale, istituito
+  ai sensi dell’art. 17 comma 1-quater CAD, a seguito di risposta insoddisfacente
+  o mancata risposta al feedback notificato al soggetto erogatore.
 language: it
 roles: [authenticated]
 version: 0.1.0
@@ -94,11 +96,11 @@ sections:
           - name: "notified-feedback"
             widget: file
             title: Feedback notificato al soggetto erogatore
-            description: allega il feedback inviato al soggetto erogatore (max 10 MB)
+            description: allega il feedback inviato al soggetto erogatore (max 20 MB)
             required_if: "true"
             enabled_if: Auth.isLoggedIn()
             # accept: "image/x-png, image/gif, image/jpeg"
-            max_size: 10000000
+            max_size: 20000000
 
           - name: "report-text"
             widget: textarea
@@ -120,9 +122,9 @@ sections:
           - name: "notified-answer"
             widget: file
             title: Risposta del soggetto erogatore
-            description: allega la risposta ricevuta dal soggetto erogatore (max 10 MB)
+            description: allega la risposta ricevuta dal soggetto erogatore (max 20 MB)
             # accept: "image/x-png, image/gif, image/jpeg"
-            max_size: 10000000
+            max_size: 20000000
             show_if: values["report-has-answer"] == "si"
             required_if: values["report-has-answer"] == "si"
             enabled_if: Auth.isLoggedIn()

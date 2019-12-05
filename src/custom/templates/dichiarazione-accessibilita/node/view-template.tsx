@@ -176,10 +176,11 @@ const Groups: Record<
       <ViewGroup group={group} values={values} inline={false} />
       <FormGroupTitle title="Procedura di attuazione" />
       <p className="w-paragraph">
-        Il Difensore Civico per il Digitale esamina le segnalazioni pertinenti
-        al meccanismo di feedback di questo sito/applicazione mobile. La
-        procedura è istituita ai sensi dell’art. 3-quinquies, comma 3 della L. 9
-        gennaio 2004.
+        Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9
+        gennaio 2004, n. 4 s.m.i.. L’utente può inviare il reclamo al Difensore
+        civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater
+        CAD, a seguito di risposta insoddisfacente o mancata risposta al
+        feedback notificato al soggetto erogatore.{" "}
       </p>
       <p>
         <Link
@@ -195,7 +196,7 @@ const Groups: Record<
             )}`
           }
         >
-          Invia una segnalazione
+          Invia un reclamo
         </Link>
       </p>
     </>
