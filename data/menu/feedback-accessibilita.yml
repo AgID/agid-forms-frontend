@@ -1,0 +1,9 @@
+menu:
+  id: feedback-accessibilita
+  items:
+    - name: Modulo di feedback
+      slug: "/form/feedback-accessibilita"
+      roles: [authenticated]
+    - name: Informativa sul trattamento dei dati personali
+      slug: "/doc/feedback-accessibilita/informativa-privacy"
+      roles: [authenticated]
