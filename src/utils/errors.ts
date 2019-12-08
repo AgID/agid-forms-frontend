@@ -3,7 +3,7 @@ import * as t from "io-ts";
 const NetworkError = t.partial({
   response: t.unknown,
   statusCode: t.Int,
-  result: t.string
+  result: t.any
 });
 
 const GraphqlError = t.partial({
