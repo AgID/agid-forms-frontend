@@ -4,12 +4,15 @@ menu:
     - name: Dichiarazione di accessibilità
       slug: "/doc/dichiarazione-accessibilita"
       roles: [authenticated]
-    - name: Modalità di esecuzione
-      slug: "/doc/dichiarazione-accessibilita/modalita-di-esecuzione"
+    - name: Guida alla compilazione
+      slug: "/doc/dichiarazione-accessibilita/guida-alla-compilazione"
       roles: [authenticated]
     - name: Nuova dichiarazione
       slug: "/form/dichiarazione-accessibilita"
       roles: [authenticated]
     - name: Gestione delle dichiarazioni
       slug: "/dashboard/dichiarazione-accessibilita"
+      roles: [authenticated]
+    - name: FAQ
+      slug: "/doc/dichiarazione-accessibilita/faq"
       roles: [authenticated]

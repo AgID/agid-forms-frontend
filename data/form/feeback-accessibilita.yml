@@ -15,6 +15,10 @@ title_pattern: values["name"] + " / " + values["feedbacked-pa"]
 initial_status: "archived"
 sections:
   - name: section-0
+    description: |
+      Utilizzare il campi sottostanti per notificare ad AGID i casi di mancata
+      conformità e per richiedere informazioni e contenuti che sono esclusi
+      dall’ambito di applicazione della direttiva.
     groups:
       - name: personal-information
         title: dati del richiedente
@@ -87,8 +91,8 @@ sections:
             widget: textarea
             title: Pagine web/sezioni dell’app mobile segnalate
             description: |
-              (max 1000 caratteri)
-            valid_if: Yup.string().max(1000).validate(value)
+              (max 2000 caratteri)
+            valid_if: Yup.string().max(2000).validate(value)
             required_if: "true"
           - name: "feedback-text-compliance"
             widget: textarea
@@ -96,8 +100,8 @@ sections:
             description: |
               descrivere sinteticamente e con chiarezza le parti delle pagine web
               o sezioni dell’applicazione mobile non conformi
-              (max 1000 caratteri)
-            valid_if: Yup.string().max(1000).validate(value)
+              (max 2000 caratteri)
+            valid_if: Yup.string().max(2000).validate(value)
             required_if: "true"
           - name: "feedback-tools"
             widget: textarea
@@ -105,16 +109,14 @@ sections:
             description: |
               indicare il sistema operativo, browser, strumenti compensativi e tecnologie
               assistive in dotazione nei dispositivi tipo Smartphone, Tablet o PC
-              (max 1000 caratteri)
-            valid_if: Yup.string().max(1000).validate(value)
+              (max 2000 caratteri)
+            valid_if: Yup.string().max(2000).validate(value)
             required_if: "true"
 
-      - name: privacy
-        # title: acconsento al trattamento dei miei dati personali
-        # description:
+      - name: protocollo
         fields:
-          - name: "privacy"
+          - name: "protocollo"
             widget: html
-            title: Trattamento dei dati personali
+            title: Protocollo
             default: |
-              <a href="/doc/feedback-accessibilita/informativa-privacy">informativa sul trattamento dei dati personali</a>
+              <a href="mailto:protocollo@pec.agid.gov.it">protocollo@pec.agid.gov.it</a>

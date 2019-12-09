@@ -36,26 +36,43 @@ const InlineViewGroup = ({
   inline?: boolean;
 }) => ViewGroup({ group, values, inline: true });
 
-const getComplianceString = (complianceStatus: string, isWebSite: boolean) => {
+const getWcagString = (wcagVersion: string) => {
+  switch (wcagVersion) {
+    case "wcag-21":
+      return "ai requisiti previsti dall’allegato A alla norma UNI EN 301549:2018 (WCAG 2.1)";
+    case "wcag-20":
+      return "ai requisiti previsti dall’ex A DM 5 luglio 2005 (WCAG 2.0)";
+    default:
+      return "";
+  }
+};
+
+const getComplianceString = (
+  complianceStatus: string,
+  isWebSite: boolean,
+  wcagVersion: string
+) => {
   switch (complianceStatus) {
     case "compliant":
       return `${
         isWebSite
           ? "Questo <strong>sito web</strong>"
           : "Questa <strong>applicazione</strong>"
-      } è <strong>conforme</strong>.`;
+      } è <strong>conforme</strong>${getWcagString(wcagVersion)}.`;
     case "partially-compliant":
       return `${
         isWebSite
           ? "Questo <strong>sito web</strong>"
           : "Questa <strong>applicazione</strong>"
-      } è <strong>parzialmente conforme<strong>, in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
+      } è <strong>parzialmente conforme<strong>,${getWcagString(
+        wcagVersion
+      )} in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
     case "non-compliant":
       return `${
         isWebSite
           ? "Questo <strong>sito web</strong>"
           : "Questa <strong>applicazione</strong>"
-      } <strong>non è conforme</strong>.`;
+      } <strong>non è conforme</strong> ${getWcagString(wcagVersion)}.`;
     default:
       return "";
   }
@@ -84,7 +101,8 @@ const Groups: Record<
           dangerouslySetInnerHTML={{
             __html: getComplianceString(
               values["compliance-status"],
-              values["device-type"] === "website"
+              values["device-type"] === "website",
+              values["specs-version"]
             )
           }}
         />
@@ -125,7 +143,7 @@ const Groups: Record<
         )}
       </div>
     ) : (
-      <></>
+      <React.Fragment key="not-accessible" />
     );
   },
   "content-alt": ({ group, values }) =>
@@ -171,16 +189,29 @@ const Groups: Record<
       </div>
     );
   },
-  "feedback-and-contacts": ({ group, values, node }) => (
+  "feedback-and-contacts": ({ values, node }) => (
     <>
-      <ViewGroup group={group} values={values} inline={false} />
+      <FormGroupTitle title="Feedback e recapiti" />
+      <p className="w-paragraph">{values.feedback}</p>
+      <p className="w-paragraph">
+        <strong>Url del contatto Link al meccanismo di feedback</strong>:{" "}
+        <a href={values["feedback-url"]}>{values["feedback-url"]}</a>
+      </p>
+      <p className="w-paragraph">
+        <strong>
+          Email della persona responsabile dell’accessibiltà (RTD)
+        </strong>
+        : {values["manager-email"]}
+      </p>
       <FormGroupTitle title="Procedura di attuazione" />
       <p className="w-paragraph">
         Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9
-        gennaio 2004, n. 4 s.m.i.. L’utente può inviare il reclamo al Difensore
-        civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater
-        CAD, a seguito di risposta insoddisfacente o mancata risposta al
-        feedback notificato al soggetto erogatore.{" "}
+        gennaio 2004, n. 4 s.m.i..
+        <br />
+        <br /> L’utente può inviare il reclamo al Difensore civico per il
+        digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, a seguito
+        di risposta insoddisfacente o mancata risposta al feedback notificato al
+        soggetto erogatore.
       </p>
       <p>
         <Link
@@ -196,7 +227,7 @@ const Groups: Record<
             )}`
           }
         >
-          Invia un reclamo
+          Difensore civico per il digitale
         </Link>
       </p>
     </>
@@ -211,12 +242,12 @@ const Groups: Record<
         <p className="w-paragraph">
           {group.title}{" "}
           <strong>
-            {values["manager-present"] ? "" : "non"}{" "}
+            {values["manager-present"] === "si" ? "" : "non"}{" "}
             {fields["manager-present"].title}
           </strong>{" "}
-          e{values["manager-appointed"] ? "d" : ""}
+          e{values["manager-appointed"] === "si" ? "d" : ""}
           <strong>
-            {values["manager-appointed"] ? "" : " non"}{" "}
+            {values["manager-appointed"] === "si" ? "" : " non"}{" "}
             {fields["manager-appointed"].title}
           </strong>
         </p>
@@ -406,12 +437,15 @@ const ViewTemplate = ({
                   </strong>
                   accessibile, conformemente al D.lgs 10 agosto 2018, n. 106 che
                   ha recepito la direttiva UE 2016/2102 del Parlamento europeo e
-                  del Consiglio. La presente dichiarazione di accessibilità si
-                  applica a “
-                  {values["device-type"] === "website"
-                    ? values["website-name"]
-                    : values["app-name"]}
-                  ” .
+                  del Consiglio. <br />
+                  <br />
+                  La presente dichiarazione di accessibilità si applica a “
+                  <strong>
+                    {values["device-type"] === "website"
+                      ? values["website-name"]
+                      : values["app-name"]}
+                  </strong>
+                  ”.
                 </p>
                 <p>
                   <a
