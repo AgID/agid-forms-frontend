@@ -16,7 +16,7 @@ title_pattern: values["website-name"] + values["app-name"]
 sections:
   - name: section-0
     description: |
-      Compila una nuova dichiarazione in base all’esito della verifica di un sito web o un’applicazione mobile della tua Amministrazione.  
+      Compila una nuova dichiarazione sulla base all’esito della valutazione di accessibilità.
       Tutti i campi sono obbligatori.
     groups:
       - name: information
@@ -67,8 +67,9 @@ sections:
                 value: wcag-20
               - label: WCAG 2.1
                 value: wcag-21
-            show_if: values["device-type"] == "website"
-            required_if: values["device-type"] == "website"
+            # show_if: values["device-type"] == "website"
+            # required_if: values["device-type"] == "website"
+            required_if: "true"
 
   - name: section-1
     title: Sezione 1
@@ -112,7 +113,7 @@ sections:
           - name: "reason-42004-text"
             widget: textarea
             title: Sezioni, contenuti e funzioni non conformi
-            description: elencare i casi di non conformità dei sito web o dell'applicazione mobile. (massimo 2000 caratteri)
+            description: elencare i casi di non conformità del sito web o dell'applicazione mobile. (massimo 2000 caratteri)
             show_if: values["reason-42004"]
             required_if: values["reason-42004"]
             enabled_if: values["compliance-status"] != "compliant"
@@ -168,20 +169,23 @@ sections:
           #   required_if: "true"
           - name: "methodology-details"
             widget: radio
-            title: metodo utilizzato per redigere la dichiarazione
-            description: seleziona la modalità con la quale è stata effettuata la valutazione di accessibilità
+            title: selezionare il metodo utilizzato per redigere la dichiarazione di accessibilità
             options:
-              - label: un’autovalutazione effettuata direttamente dal soggetto erogatore
+              - label: autovalutazione effettuata direttamente dal soggetto erogatore
                 value: methodology-auto
-              - label: una valutazione effettuata da terzi
+              - label: valutazione effettuata da terzi
                 value: methodology-third-party
             required_if: "true"
           - name: "methodology-model"
-            widget: checkbox
-            title: è stato utilizzato il modello di autovalutazione fornito da AGID - allegato 2
-            default_checked: false
-            # show_if: values["methodology"] == "methodology-other"
-            # required_if: values["methodology"] == "methodology-other"
+            widget: radio
+            title: L’analisi è stata effettuata utilizzando il modello di autovalutazione AGID ?
+            required_if: "true"
+            options:
+              - label: si
+                value: si
+                hint: Modello conforme alla decisione di esecuzione UE 2018/1523
+              - label: no
+                value: no
 
       - name: feedback-and-contacts
         title: feedback e recapiti
@@ -192,20 +196,22 @@ sections:
         fields:
           - name: "feedback"
             widget: textarea
-            title: Feedback
-            description: descrivi come comunicare con l’Amministrazione
+            title: Meccanismo di feedback
+            description: Descrivi il meccanismo di feedback, e relativo link, che hai predisposto. (max 2000 caratteri)
             required_if: "true"
+            valid_if: Yup.string().max(2000).validate(value)
           - name: "feedback-url"
             widget: text
-            title: URL di contatto
-            description: inserisci il puntamento al feedback
+            title: Link al meccanismo di feedback
+            description: inserisci la URL alla pagina di feedback
             valid_if: Yup.string().url().validate(value)
             required_if: "true"
           - name: "manager-email"
-            title: Email responsabile della transizione digitale (RTD)
+            title: Email della persona responsabile dell'accessibilità (RTD)
             widget: email
-            computed_value: user.userEmail
+            computed_value: user.userEmail || ""
             required_if: "true"
+            description: (ai sensi dell’Art. 17 del CAD)
 
       # TODO
       # - name: implementation-procedure
@@ -224,19 +230,26 @@ sections:
   - name: section-2
     title: Sezione 2
     description: |-
-      Informazioni richieste dall'Agenzia per l'Italia digitale
+      Informazioni richieste da AGID
     groups:
       - name: application-information
         title: informazioni sul sito / app
         fields:
           - name: application-published-date
-            title: Data di pubblicazione del sito / app
+            title: Data della pubblicazione del sito o applicazione mobile
             widget: date
             required_if: "true"
             valid_if: Yup.date().validate(value)
           - name: application-usability-test
-            title: Sono stati effettuati test usabilità
-            widget: checkbox
+            title: Usabilità
+            widget: radio
+            required_if: "true"
+            options:
+              - label: sono stati effettuati test di usabilità
+                value: si
+              - label: non sono stati effettuati test di usabilità
+                value: no
+
           - name: website-cms
             description: seleziona il sistema utilizzato per la gestione dei contenuti, se presente.
             title: Content Management System (CMS) utilizzato
@@ -288,7 +301,7 @@ sections:
             required_if: values["application-framework"] == "other"
           - name: application-os
             title: Sistema operativo
-            widget: checkbox
+            widget: radio
             options:
               - label: Android
                 value: android
@@ -301,32 +314,42 @@ sections:
         title: informazioni sulla struttura
         fields:
           - name: people-disabled
-            title: Numero di dipendenti con disabilità
+            title: Numero di dipendenti con disabilità presenti nell'amministrazione
             description: indicare il numero
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-desk-disabled
-            title: Postazioni per persone con disabilità
+            title: Numero di postazioni di lavoro per dipendenti con disabilità
             description: indicare il numero
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
           - name: people-expenditure
-            title: Percentuale spesa prevista nel bilancio in tema di accessibiltà
-            description: in percentuale
+            title: La percentuale di spesa prevista nel piano di bilancio di previsione in materia di accessibilità
+            description: indicare in percentuale, solo valori interi
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).validate(value)
 
       - name: application-manager
-        title: Responsabile dei processi di integrazione
+        title: Il responsabile dei processi di integrazione
         fields:
           - name: manager-present
             title: è previsto nella struttura
-            widget: checkbox
-            default_checked: false
+            widget: radio
+            required_if: "true"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
           - name: manager-appointed
             title: è stato nominato dal soggetto erogatore
-            widget: checkbox
-            default_checked: false
+            widget: radio
+            required_if: "true"
+            options:
+              - label: si
+                value: si
+              - label: no
+                value: no
