@@ -1,14 +1,28 @@
+# id must match backend node type (underscores are replaced with dashes)
 id: example-form
+# who can view and submit this form ?
 roles: []
-name: form di esempio
-action: form di esempio
+# title in the form page
+name: example form name
+# title for form listing
+action: example form name for listing
 language: it
-description: "description"
+# description for form listing
+description: "lorem ipsum"
+# category for form listing
 category: "category"
+# schema version (unused atm)
 version: 0.1.0
+# status may be
+# - draft: in case of publisher workflow
+# - published: if you want to skip drafts (no workflow, just publish content directly)
+# - archived: if you want to skip drafts but the content is private (not published, only authors can view content)
 initial_status: "draft"
+# unused atm (todo: friendly url)
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
+# to generate the content title once the form is submitted
 title_pattern: "'Dichiarazione accessibilita ' + formatDate(Date(), 'MM/YYYY') + ' ' + title"
+# we have a hierarchy: sections -> groups -> fields
 sections:
   - name: section-1
     title: section 1
@@ -18,66 +32,53 @@ sections:
         title: fieldgroup 1
         description: description of fieldgroup 1
         fields:
-          # - name: quinto-item-x
-          #   title: potenze di 3
-          #   widget: text
-          #   description: computa la potenza di 3
-          # - name: terzo-item-x
-          #   title: valore computato
-          #   widget: text
-          #   description: potenza di 3
-          #   default: questo campo ha un valore di default
-          #   computed_value: "Math.pow(3, values[\"quinto-item-x\"] / 1)"
-          #   show_if: values["quinto-item-x"] > 4
-          - name: quinto-item
-            title: potenze di 2
+          - name: first-item
+            title: powers of two
             widget: text
-            description: computa la potenza di 2
+            description: compute power of two
             valid_if: Yup.number().positive().min(0).max(10).validate(value)
-          - name: terzo-item
-            title: valore computato
+          - name: second-item
+            title: computed value
             widget: text
-            description: potenza di 2
-            computed_value: 'Math.pow(2, values["quinto-item"] / 1)'
-          - name: terzo-ultimo-item
-            title: valore computato di default
+            description: power of two
+            computed_value: 'Math.pow(2, values["first-item"] / 1)'
+          - name: third-item
+            title: default computed value
             widget: text
-            description: potenza di 2
-            default_computed_value: '"questo campo ha un valore di default computato: " + Math.pow(2, 2)'
-          - name: quarto-item
-            title: quarto item
+            description: may be overridden
+            default_computed_value: '"default computed value: " + Math.pow(2, 2)'
+          - name: fourth-item
+            title: another text field
             widget: text
-            description: richiesto se il primo valore è maggiore di 4
-            required_if: values["quinto-item"] > 4
+            description: required only if first item value > 4
+            required_if: values["first-item"] > 4
           - name: select-item
-            title: select item
+            title: some dropdown
             widget: select
-            description: la mia descrizione della select
+            description: my select description
             multiple: false
             required_if: "true"
-            default: "secondo valore"
+            default: "second value"
             options:
-              - label: prima opzione
-                value: primo valore
-              - label: seconda opzione
-                value: secondo valore
+              - label: first option
+                value: first value
+              - label: second option
+                value: second value
           - name: checkbox-multiple
-            title: checkbox multiple
+            title: multiple checkbox
             widget: checkbox
-            description: la mia descrizione delle checkbox multiple
+            description: select one or more item
             required_if: "true"
             options:
-              - label: prima opzione
-                value: primo valore
-              - label: seconda opzione
-                value: secondo valore
-              - label: terza opzione
-                value: terzo valore
-              - label: quarta opzione
-                value: quarto valore
+              - label: first option
+                value: first value
+              - label: second option
+                value: second value
+              - label: third option
+                value: third value
             default_multiple_selection:
-              - secondo valore
-              - terzo valore
+              - second value
+              - third value
   - name: section-2
     title: section 2
     description: description of section 2
@@ -86,53 +87,51 @@ sections:
         title: fieldgroup 2
         description: description of fieldgroup 2
         fields:
-          - name: area-item
-            title: TextArea
+          - name: textarea-item
+            title: some long text
             widget: textarea
-            description: una textarea
-          - name: sesto-item
-            title: sesto item
+            description: a textarea description (max. 1000 char)
+            valid_if: Yup.string().max(1000).validate(value)
+          - name: fifth-item
+            title: a checkbox
             widget: checkbox
             default_checked: false
-            description: la mia descrizione del sesto item
-          - name: 125-note
+            description: my checkbox description
+          - name: some-email
             title: email
             widget: text
-            description: si abilita se sesto item è checked
-            show_if: values["sesto-item"]
-            error_msg: il campo deve avere un formato corretto per l'email
-            enabled_if: values["sesto-item"]
+            description: enabled only if checkbox is checked
+            error_msg: must have a correct format for email
+            enabled_if: values["fifth-item"]
           - name: "verify-email"
             widget: verify-email
-            ref: "125-note"
-            show_if: values["125-note"]
-          - name: ottavo-item
-            title: email
+            ref: "some-email"
+            show_if: values["some-email"]
+          - name: sixth-item
+            title: confirm email
             widget: text
-            description: anche questo deve essere un indirizzo email
-            show_if: values["sesto-item"]
-            valid_if: Yup.string().email('formato email non valido').validate(value)
-            enabled_if: values["125-note"].length > 0
-          - name: text-field
-            widget: html
+            description: another email address
+            show_if: values["fifth-item"]
+            valid_if: Yup.string().email('invalid email format').validate(value)
+            enabled_if: values["some-email"].length > 0
+          - name: html-field
+            widget: some html
             default: "<p>this is some <strong>html</strong> content"
           - name: text-field-uppercase
-            widget: html
-            computed_value: '"uppercase: " + values["quarto-item"].toUpperCase()'
+            widget: some computed html
+            computed_value: '"uppercase: " + values["third-item"].toUpperCase()'
           - name: radio-item
             title: radio-item
             widget: radio
-            description: la mia descrizione del radio-item-1
-            default: "secondo valore"
+            description: my radio-item description here
+            default: "second value"
             options:
-              - label: prima opzione
-                value: primo valore
-              - label: seconda opzione
-                value: secondo valore
-              - label: terza opzione
-                value: terzo valore
-              - label: quarta opzione
-                value: quarto valore
+              - label: first option
+                value: first value
+              - label: second option
+                value: second value
+              - label: third option
+                value: third value
             required_if: "true"
   - name: section-3
     title: section 3
@@ -156,35 +155,29 @@ sections:
           - name: radio-item-repeat
             title: radio-item
             widget: radio
-            description: la mia descrizione del radio-item-1
-            default: "secondo valore"
+            default: "second value"
             options:
-              - label: prima opzione
-                value: primo valore
-              - label: seconda opzione
-                value: secondo valore
-              - label: terza opzione
-                value: terzo valore
-              - label: quarta opzione
-                value: quarto valore
+              - label: first option
+                value: first value
+              - label: second option
+                value: second value
+              - label: third option
+                value: third value
             required_if: "true"
           - name: checkbox-multiple-repeat
             title: checkbox multiple
             widget: checkbox
-            description: la mia descrizione delle checkbox multiple
             required_if: "true"
             options:
-              - label: prima opzione
-                value: primo valore
-              - label: seconda opzione
-                value: secondo valore
-              - label: terza opzione
-                value: terzo valore
-              - label: quarta opzione
-                value: quarto valore
+              - label: first option
+                value: first value
+              - label: second option
+                value: second value
+              - label: third option
+                value: third value
             default_multiple_selection:
-              - secondo valore
-              - terzo valore
+              - second value
+              - third value
   - name: section-4
     title: section 4
     description: description of section 4
