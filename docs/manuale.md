@@ -3,7 +3,7 @@
 ## Concetti
 
 Il frontend, scritto in Typescript, consiste in una personalizzazione di [GatsbyJS](https://www.gatsbyjs.org/),
-- un generatore di siti statici - utilizzato nel caso specifico installando alcune [route dinamiche](https://www.gatsbyjs.org/docs/client-only-routes-and-user-authentication/) per le pagine che richiedono una interazione con il [backend](https://github.com/AgID/agid-forms-backend).
+un generatore di siti statici, utilizzato nel caso specifico installando alcune [route dinamiche](https://www.gatsbyjs.org/docs/client-only-routes-and-user-authentication/) per le pagine che richiedono una interazione con il [backend](https://github.com/AgID/agid-forms-backend).
 
 Le funzionalità implementate sono:
 
