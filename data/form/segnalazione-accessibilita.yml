@@ -17,9 +17,9 @@ initial_status: "archived"
 sections:
   - name: section-0
     description: |
-      Procedura di attuazione per la segnalazione di inaccessibilità ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..  
-        
-      Reclamo da inviare al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+      Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..
+
+      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, 
       a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
     groups:
       - name: personal-information
