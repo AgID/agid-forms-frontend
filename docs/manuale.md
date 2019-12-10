@@ -61,10 +61,8 @@ Per eseguire il frontend in locale:
 
 ```sh
 git clone https://github.com/AgID/agid-forms-frontend
-yarn install
-yarn generate
 cp env.example .env # editare il file
-yarn develop # esegue gatsby in modalità di sviluppo
+docker-compose up -d --build
 ```
 
 **NB**: per poter generare le definizioni dei tipi Typescript
@@ -103,7 +101,7 @@ vengono generati tipi Typescript (tramite `yarn generate`) leggendo lo schema Gr
 
 In particolare:
 
-- Backend AGID eForm]: lo schema è contenuto nel file locale [../api_backend.graphql](../api_backend.graphql)
+- Backend AGID eForm: lo schema è contenuto nel file locale [../api_backend.graphql](../api_backend.graphql)
 - Gatsby: lo schema è generato eseguendo `gatsby develop` dal plugin [gatsby-plugin-extract-schema](https://www.gatsbyjs.org/packages/gatsby-plugin-extract-schema/)
 - Hasura: lo schema è reperito dall'endpoint remoto indicato dalla variabile `$HASURA_GRAPHQL_ENDPOINT`
 - Uploads: lo schema è contenuto nel file locale [../upload_server.graphql](../api_backend.graphql)
