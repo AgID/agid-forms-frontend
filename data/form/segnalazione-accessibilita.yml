@@ -96,10 +96,10 @@ sections:
           - name: "notified-feedback"
             widget: file
             title: Feedback notificato al soggetto erogatore
-            description: allega il feedback inviato al soggetto erogatore (max 20 MB)
+            description: allega il feedback inviato al soggetto erogatore (max 20 MB, estensioni consentite pdf, p7m, eml, xml, html, jpg, jpeg, png, tiff)
+            accept: "image/x-png, image/gif, image/jpeg, image/tiff, image/jpg, application/pdf, application/p7m, text/xml, text/eml, text/html"
             required_if: "true"
             enabled_if: Auth.isLoggedIn()
-            # accept: "image/x-png, image/gif, image/jpeg"
             max_size: 20000000
 
           - name: "report-text"
@@ -122,8 +122,8 @@ sections:
           - name: "notified-answer"
             widget: file
             title: Risposta del soggetto erogatore
-            description: allega la risposta ricevuta dal soggetto erogatore (max 20 MB)
-            # accept: "image/x-png, image/gif, image/jpeg"
+            description: allega la risposta ricevuta dal soggetto erogatore (max 20 MB, estensioni consentite pdf, p7m, eml, xml, html, jpg, jpeg, png, tiff)
+            accept: "image/x-png, image/gif, image/jpeg, image/tiff, image/jpg, application/pdf, application/p7m, text/xml, text/eml, text/html"
             max_size: 20000000
             show_if: values["report-has-answer"] == "si"
             required_if: values["report-has-answer"] == "si"
