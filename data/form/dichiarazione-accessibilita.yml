@@ -183,7 +183,6 @@ sections:
             options:
               - label: si
                 value: si
-                hint: Modello conforme alla decisione di esecuzione UE 2018/1523
               - label: no
                 value: no
 
