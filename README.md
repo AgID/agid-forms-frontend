@@ -1,4 +1,4 @@
-# eForm AGID
+# Form AGID
 
 Il progetto ha l'obiettivo di implementare una piattaforma *open source* per la
 raccolta di informazioni tramite form, utilizzando un modello di autenticazione

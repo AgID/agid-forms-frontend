@@ -1,4 +1,4 @@
-# eForm AGID
+# Form AGID
 
 ## Concetti
 
@@ -89,7 +89,7 @@ come [client per l'interrogazione dei dati tramite GraphQL](../src/graphql/clien
 
 In particolare i dati vengono attinti - utilizzando query Graphql - dai seguenti sistemi:
 
-- [Backend AGID eForm](../src/graphql/backend.ts): tramite [REST to Graphql](https://www.apollographql.com/docs/link/links/rest/)
+- [Backend AGID Form](../src/graphql/backend.ts): tramite [REST to Graphql](https://www.apollographql.com/docs/link/links/rest/)
 - [Gatsby](../src/graphql/gatsby.ts): per interrogare gli YAML locali (file di configurazione e dichiarazioni dei form)
 - [Hasura](../src/graphql/hasura.ts): per interrogare direttamente il database remoto
 - [Uploads](../src/graphql/uploads.ts): per effettuare l'upload dei file (che avviene tramite una mutation Graphql)
@@ -101,7 +101,7 @@ vengono generati tipi Typescript (tramite `yarn generate`) leggendo lo schema Gr
 
 In particolare:
 
-- Backend AGID eForm: lo schema è contenuto nel file locale [../api_backend.graphql](../api_backend.graphql)
+- Backend AGID Form: lo schema è contenuto nel file locale [../api_backend.graphql](../api_backend.graphql)
 - Gatsby: lo schema è generato eseguendo `gatsby develop` dal plugin [gatsby-plugin-extract-schema](https://www.gatsbyjs.org/packages/gatsby-plugin-extract-schema/)
 - Hasura: lo schema è reperito dall'endpoint remoto indicato dalla variabile `$HASURA_GRAPHQL_ENDPOINT`
 - Uploads: lo schema è contenuto nel file locale [../upload_server.graphql](../api_backend.graphql)

@@ -78,8 +78,8 @@ const IT = {
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "eForm",
-    action_page_title: "eForm",
+    index_page_title: "Form",
+    action_page_title: "Form",
     action_goto_form: "Accedi al modulo",
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
