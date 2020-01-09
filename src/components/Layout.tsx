@@ -107,6 +107,7 @@ const Layout = ({
                 <ContextMenu
                   contextMenu={contextMenu}
                   siteName={siteConfig.title || ""}
+                  user={sessionInfo}
                 />
               </div>
             )}
