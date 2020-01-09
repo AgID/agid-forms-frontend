@@ -338,7 +338,7 @@ const FormTemplate = ({
           id: nodeId
         }}
         onCompleted={node => {
-          setTitle(node.latest[0].title || formId);
+          node.latest[0] && setTitle(node.latest[0].title || formId);
         }}
       >
         {({
@@ -356,6 +356,11 @@ const FormTemplate = ({
                 {t("errors.error_getting_data")}: {JSON.stringify(getNodeError)}
               </p>
             );
+          }
+
+          if (existingNode && existingNode.latest.length === 0) {
+            navigate("/404");
+            return null;
           }
 
           const latestNode =
