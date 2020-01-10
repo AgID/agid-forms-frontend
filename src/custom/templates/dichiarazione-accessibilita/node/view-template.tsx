@@ -209,9 +209,9 @@ const Groups: Record<
         gennaio 2004, n. 4 s.m.i..
         <br />
         <br /> L’utente può inviare il reclamo al Difensore civico per il
-        digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, a seguito
-        di risposta insoddisfacente o mancata risposta al feedback notificato al
-        soggetto erogatore.
+        digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+        esclusivamente a seguito di risposta insoddisfacente o mancata risposta
+        al feedback notificato al soggetto erogatore.
       </p>
       <p>
         <Link
@@ -227,7 +227,7 @@ const Groups: Record<
             )}`
           }
         >
-          Difensore civico per il digitale
+          Reclamo al Difensore civico per il digitale
         </Link>
       </p>
     </>
