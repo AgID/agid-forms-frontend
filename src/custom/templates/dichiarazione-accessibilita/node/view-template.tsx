@@ -233,7 +233,15 @@ const Groups: Record<
     </>
   ),
   "implementation-procedure": ViewGroup,
-  "application-information": InlineViewGroup,
+  "application-information": ({ group, values }) => {
+    return InlineViewGroup({
+      group: {
+        ...group,
+        title: values["device-type"] === "website" ? "informazioni sul sito" : "informazioni sull'appplicazione mobile"
+      },
+      values: values
+    });
+  },
   "application-org": InlineViewGroup,
   "application-manager": ({ group, values, fields }) => {
     return (
