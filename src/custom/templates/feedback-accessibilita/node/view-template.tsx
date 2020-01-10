@@ -1,5 +1,5 @@
 /**
- * Template for node of type "dichiarazione-accessibilità".
+ * Template for node of type "feedback-accessibilità".
  */
 import * as React from "react";
 
@@ -17,7 +17,7 @@ const PublishModal = () => {
       contentClassName="rounded"
     >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
-        La segnalazione è stata inviata !
+        Grazie, la segnalazione è stata correttamente inviata!
       </ModalHeader>
       <ModalBody className="px-5 pb-5">
         <div className="d-flex">

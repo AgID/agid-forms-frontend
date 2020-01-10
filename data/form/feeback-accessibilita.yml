@@ -80,7 +80,7 @@ sections:
             default_computed_value: query["app-url"] || ""
           - name: "feedbacked-pa"
             widget: text
-            title: Responsabile del sito/applicazione mobile
+            title: Email della persona responsabile dell’accessibiltà (RTD)
             required_if: "true"
             default_computed_value: query["feedbacked-pa"] || ""
 

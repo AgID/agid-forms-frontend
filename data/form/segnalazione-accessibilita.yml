@@ -7,8 +7,9 @@ description: |-
   2004, n. 4 s.m.i..
 
   L’utente può inviare il reclamo al Difensore civico per il digitale, istituito
-  ai sensi dell’art. 17 comma 1-quater CAD, a seguito di risposta insoddisfacente
-  o mancata risposta al feedback notificato al soggetto erogatore.
+  ai sensi dell’art. 17 comma 1-quater CAD, esclusivamente a seguito di risposta
+  insoddisfacente o mancata risposta al feedback notificato al soggetto
+  erogatore.
 language: it
 roles: [authenticated]
 version: 0.1.0
@@ -19,8 +20,8 @@ sections:
     description: |
       Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..
 
-      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, 
-      a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
+      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+      esclusivamente a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
     groups:
       - name: personal-information
         title: dati del segnalante
@@ -106,7 +107,7 @@ sections:
             widget: textarea
             title: Descrizione del problema
             description: |
-              Elenca i casi di non conformità del sito, sezioni, contenuti o funzioni che non sono conformi  
+              Elenca i casi di non conformità del sito, sezioni, contenuti o funzioni che non sono conformi
               (max 1000 caratteri)
             valid_if: Yup.string().max(1000).validate(value)
             required_if: "true"
