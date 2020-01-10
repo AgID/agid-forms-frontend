@@ -7,7 +7,7 @@ export const SEARCH_IPA = gql`
       des_amm
       Comune
     }
-    ipa_pa(where: { cod_amm: { _eq: $search } }) {
+    ipa_pa(where: { cod_amm: { _ilike: $search } }) {
       cod_amm
       des_amm
       Comune
