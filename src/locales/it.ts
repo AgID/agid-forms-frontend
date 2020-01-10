@@ -27,6 +27,7 @@ const IT = {
   },
   errors: {
     content_not_found: "contenuto non trovato",
+    unauthorized: "utente non autorizzato",
     error_getting_data:
       "si è verificato un errore durante il recupero dei dati, puoi comunque riprovare a effettuare l'operazione.",
     error_sending_data:

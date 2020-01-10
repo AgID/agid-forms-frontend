@@ -15,6 +15,8 @@ import {
   UpsertNodeVariables
 } from "../../generated/graphql/UpsertNode";
 
+import { getSessionInfo, userHasAnyRole } from "../../utils/auth";
+
 import { Button } from "reactstrap";
 
 import {
@@ -306,6 +308,15 @@ const FormTemplate = ({
     return (
       <p className="alert alert-warning">{t("errors.content_not_found")}</p>
     );
+  }
+
+  if (form.roles && form.roles.length > 0) {
+    const user = getSessionInfo();
+    if (!userHasAnyRole(user, form.roles as ReadonlyArray<string>)) {
+      return (
+        <p className="alert alert-warning">{t("errors.unauthorized")}</p>
+      );
+    }
   }
 
   const formFields = flattenFormFields(form);
