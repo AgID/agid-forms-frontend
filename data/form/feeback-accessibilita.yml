@@ -113,10 +113,3 @@ sections:
             valid_if: Yup.string().max(2000).validate(value)
             required_if: "true"
 
-      - name: protocollo
-        fields:
-          - name: "protocollo"
-            widget: html
-            title: Protocollo
-            default: |
-              <a href="mailto:protocollo@pec.agid.gov.it">protocollo@pec.agid.gov.it</a>
