@@ -189,9 +189,9 @@ sections:
       - name: feedback-and-contacts
         title: feedback e recapiti
         description: |-
-          Come notificare al soggetto erogatore i casi di mancata conformità sui requisiti
-          di accessibilità, o per richiedere informazioni e contenuti che sono esclusi
-          dall'ambito di applicazione della direttiva.
+          Indicare come notificare al soggetto erogatore i casi di mancata conformità
+          ai requisiti di accessibilità, o come richiedere informazioni e contenuti che
+          siano stati esclusi dall'ambito di applicazione della direttiva.
         fields:
           - name: "feedback"
             widget: textarea
