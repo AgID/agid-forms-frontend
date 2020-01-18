@@ -14,6 +14,8 @@ import {
   FormSchemaFragment_edges_node_sections_groups_fields
 } from "../generated/graphql/FormSchemaFragment";
 
+import { Validator } from '@marketto/codice-fiscale-utils';
+
 Yup.setLocale(ItLocale);
 
 const GROUP_FIELD_PATTERN_STR = "^(.+)\\.([0-9]+)\\.(.+)$";
@@ -51,6 +53,9 @@ export const isEmptyFieldValue = (value: any) =>
   value === null ||
   value === "" ||
   (Array.isArray(value) && value.length === 0);
+
+export const validateFiscalCode = (value: string) =>
+  Validator.codiceFiscale(value).valid;
 
 export interface FormValuesT {
   [k: string]: any;
@@ -91,7 +96,8 @@ export const validateField = (
               ? validationExpression({
                   Yup,
                   value,
-                  values: form.values
+                  values: form.values,
+                  validateFiscalCode
                 })
               : true;
           })

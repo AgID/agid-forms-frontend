@@ -41,6 +41,7 @@ sections:
             widget: text
             title: Codice fiscale
             required_if: "true"
+            valid_if: Yup.string().test('codice-fiscale', 'Il codice fiscale non è valido', validateFiscalCode).validate(value)
 
       - name: feedback-subject
         title: oggetto della richiesta di feedback
