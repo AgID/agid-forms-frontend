@@ -1,4 +1,4 @@
-id: segnalazione-accessibilita
+id: procedura-attuazione
 name: Procedura di attuazione
 action: Procedura di attuazione
 category: piano triennale
@@ -12,6 +12,8 @@ description: |-
   erogatore.
 language: it
 roles: [authenticated]
+visible_to: [anonymous, authenticated]
+listed_to: []
 version: 0.1.0
 title_pattern: values["name"] + " / " + values["reported-pa"]
 initial_status: "archived"
@@ -145,4 +147,4 @@ sections:
             widget: html
             title: Trattamento dei dati personali
             default: |
-              <a href="/doc/segnalazione-accessibilita/informativa-privacy">informativa sul trattamento dei dati personali</a>
+              <a href="/doc/procedura-attuazione/informativa-privacy">informativa sul trattamento dei dati personali</a>

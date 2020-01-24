@@ -39,6 +39,7 @@ const IT = {
   },
   follow_us: "seguici su",
   auth: {
+    email_verification_required: "la verifica dell'indirizzo email è obbligatoria",
     email_verified: "email verificata correttamente !",
     verify_email_text: "Inserisci il codice che hai ricevuto per email",
     verify_token_text: "verifica il codice",
@@ -85,6 +86,8 @@ const IT = {
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
     notfound_page_text: "Pagina non trovata",
+    unauthorized_page_title: "Utente non autorizzato",
+    unauthorized_page_text: "Utente non autorizzato",
     revision_title: "Visualizza la revisione del contenuto",
     view_title: "Visualizza il contenuto"
   },

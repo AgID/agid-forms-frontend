@@ -312,10 +312,9 @@ const FormTemplate = ({
 
   if (form.roles && form.roles.length > 0) {
     const user = getSessionInfo();
-    if (!userHasAnyRole(user, form.roles as ReadonlyArray<string>)) {
-      return (
-        <p className="alert alert-warning">{t("errors.unauthorized")}</p>
-      );
+    if (!userHasAnyRole(user, form.visible_to as ReadonlyArray<string>)) {
+      navigate("/unauthorized");
+      return null;
     }
   }
 

@@ -16,7 +16,7 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
       <div className="row">
         {getForms(data).map(({ node }) => {
           if (
-            !userHasAnyRole(getSessionInfo(), node.roles as ReadonlyArray<
+            !userHasAnyRole(getSessionInfo(), node.listed_to as ReadonlyArray<
               string
             >)
           ) {
@@ -62,6 +62,7 @@ export const query = graphql`
           category
           action
           roles
+          listed_to
         }
       }
     }

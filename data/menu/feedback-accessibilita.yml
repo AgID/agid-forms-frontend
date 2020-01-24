@@ -3,7 +3,7 @@ menu:
   items:
     - name: Modulo di feedback
       slug: "/form/feedback-accessibilita"
-      roles: [authenticated]
+      roles: [anonymous, authenticated]
     - name: Informativa sul trattamento dei dati personali
       slug: "/doc/feedback-accessibilita/informativa-privacy"
-      roles: [authenticated]
+      roles: [anonymous, authenticated]

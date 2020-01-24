@@ -12,7 +12,9 @@ description: |-
 # AGID n. 36/2018), regionali e locali comunicano le date entro cui saranno
 # rilasciati siti e servizi digitali conformi alle Linee Guida di Design.
 language: it
-roles: [rtd]
+roles: []
+visible_to: []
+listed_to: []
 version: 0.1.0
 title_pattern: values["website-name"]
 initial_status: "published"

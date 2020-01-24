@@ -132,6 +132,8 @@ export const FormSchemaFragment = graphql`
         category
         language
         roles
+        visible_to
+        listed_to
         slug_pattern
         initial_status
         title_pattern

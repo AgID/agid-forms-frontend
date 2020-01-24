@@ -5,6 +5,8 @@ category: piano triennale
 description: Questionario sulla diffusione dei servizi digitali
 language: it
 roles: []
+visible_to: []
+listed_to: []
 version: 0.1.0
 title_pattern: '"Diffusione servizi digitali"'
 initial_status: "archived"
@@ -112,7 +114,7 @@ sections:
           - name: "has-other-login"
             widget: radio
             title: |-
-              La Sua Amministrazione consente l'accesso ai servizi online 
+              La Sua Amministrazione consente l'accesso ai servizi online
               anche con credenziali diverse da SPID ?
             required_if: values["spid-enabled"] == "si"
             show_if: values["spid-enabled"] == "si"

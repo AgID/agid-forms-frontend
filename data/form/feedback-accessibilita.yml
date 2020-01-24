@@ -10,6 +10,8 @@ description: |-
   direttiva.
 language: it
 roles: [authenticated]
+visible_to: [anonymous, authenticated]
+listed_to: []
 version: 0.1.0
 title_pattern: values["name"] + " / " + values["feedbacked-pa"]
 initial_status: "archived"
