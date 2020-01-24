@@ -152,6 +152,10 @@ export const VerifyEmailField = ({
     return <p>{t("loading_data")}</p>;
   }
 
+  if (!form.errors[field.name!]) {
+    form.errors[field.name!] = t("auth.email_verification_required");
+  }
+
   if (data) {
     return (
       <VerifyEmailTextField
