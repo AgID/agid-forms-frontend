@@ -216,7 +216,7 @@ const Groups: Record<
       <p>
         <Link
           to={
-            `/form/segnalazione-accessibilita?device-type=${values["device-type"]}&` +
+            `/form/procedura-attuazione?device-type=${values["device-type"]}&` +
             `website-url=${encodeURIComponent(
               values["website-url"]
             )}&app-name=${encodeURIComponent(values["app-name"])}&` +
