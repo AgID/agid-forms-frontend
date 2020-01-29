@@ -21,7 +21,6 @@ setupI18Next();
 // forward javascript errors to sentry
 if (process.env.GATSBY_SENTRY_DSN) {
   Sentry.init({ dsn: process.env.GATSBY_SENTRY_DSN });
-  console.log("setup sentry endpoint: %s", process.env.GATSBY_SENTRY_DSN);
 }
 
 export const wrapRootElement = ({ element }) => (
