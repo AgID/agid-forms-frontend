@@ -14,7 +14,7 @@ import {
   FormSchemaFragment_edges_node_sections_groups_fields
 } from "../generated/graphql/FormSchemaFragment";
 
-import { Validator } from '@marketto/codice-fiscale-utils';
+import { CodiceFiscale } from 'codice-fiscale-js';
 
 Yup.setLocale(ItLocale);
 
@@ -54,8 +54,15 @@ export const isEmptyFieldValue = (value: any) =>
   value === "" ||
   (Array.isArray(value) && value.length === 0);
 
-export const validateFiscalCode = (value: string) =>
-  Validator.codiceFiscale(value).valid;
+export const validateFiscalCode = (value: string) => {
+  try {
+    new CodiceFiscale(value);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 
 export interface FormValuesT {
   [k: string]: any;
