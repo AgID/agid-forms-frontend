@@ -141,13 +141,17 @@ const Groups: Record<
               </div>
             )
         )}
-        <h4
-          className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2"
-          style={{ fontSize: "18px " }}
-        >
-          {fields["accessible-alternatives"].title}
-        </h4>
-        <p className="w-paragraph">{values["accessible-alternatives"]}</p>
+        {values["accessible-alternatives"] && (
+          <>
+          <h4
+            className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2"
+            style={{ fontSize: "18px " }}
+          >
+            {fields["accessible-alternatives"].title}
+          </h4>
+          <p className="w-paragraph">{values["accessible-alternatives"]}</p>
+          </>
+        )}
       </div>
     ) : (
       <React.Fragment key="not-accessible" />
