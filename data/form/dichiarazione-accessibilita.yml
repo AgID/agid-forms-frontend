@@ -147,10 +147,6 @@ sections:
             required_if: values["reason-no-law"]
             enabled_if: values["compliance-status"] != "compliant"
             valid_if: Yup.string().max(2000).validate(value)
-
-          # - name: content-alt
-          #   title: alternative accessibili
-          #   fields:
           - name: "accessible-alternatives"
             widget: textarea
             title: Alternative accessibili
