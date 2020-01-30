@@ -43,6 +43,7 @@
     "react-select": "^3.0.4",
     "react-transition-group": "^4.1.0",
     "reactstrap": "^8.0.0",
+    "reactstrap-date-picker": "^0.0.7",
     "typeface-lora": "^0.0.72",
     "typeface-titillium-web": "^0.0.72",
     "use-debounce": "^2.1.0",

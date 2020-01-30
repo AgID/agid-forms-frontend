@@ -22,6 +22,7 @@ import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
 import { TextFormField } from "./TextFormField";
 import { VerifyEmailField } from "./VerifyEmailField";
+import { DateField } from "./DateField";
 
 interface ICustomInputComponentProps {
   field: readonly JSX.Element[];
@@ -136,11 +137,12 @@ export const Formfield = ({
 
   switch (field.widget) {
     case "text":
-    case "date":
     case "email":
     case "number":
     case "textarea":
       return TextFormField(widgetOpts);
+    case "date":
+      return DateField(widgetOpts);
     case "checkbox":
       return widgetOpts.field.options
         ? CheckboxMultipleField(widgetOpts)
