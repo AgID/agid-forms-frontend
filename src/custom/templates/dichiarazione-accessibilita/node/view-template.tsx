@@ -290,13 +290,12 @@ const PublishModal = ({
               {isWebsite && (
                 <>
                   Copia e incolla il link nel footer del tuo sito
-                  web. <br /> A seguito di questa operazione verrà effettuata
-                  una verifica automatica.
+                  web.
                 </>
               )}
               {!isWebsite && (
                 <>
-                  Pubblica nello store della tua app il link in calce, in "Altre
+                  Pubblica nello store della tua app il link, in "Altre
                   informazioni" nella sezione "Sviluppatore".
                 </>
               )}
