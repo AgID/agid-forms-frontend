@@ -111,7 +111,7 @@ const Layout = ({
                 />
               </div>
             )}
-            <div className="main-content pl-md-4">
+            <div className="main-content pl-md-4 w-100">
               {title && (
                 <h1 className="px-2 py-3 mb-md-2 py-lg-0 px-lg-0 main-title">
                   {title}
