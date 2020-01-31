@@ -205,6 +205,7 @@ const Groups: Record<
         </strong>
         : {values["manager-email"]}
       </p>
+      {/*
       <FormGroupTitle title="Procedura di attuazione" />
       <p className="w-paragraph">
         Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9
@@ -232,6 +233,7 @@ const Groups: Record<
           Reclamo al Difensore civico per il digitale
         </Link>
       </p>
+      */}
     </>
   ),
   "implementation-procedure": ViewGroup,
