@@ -14,7 +14,7 @@ import {
   FormSchemaFragment_edges_node_sections_groups_fields
 } from "../generated/graphql/FormSchemaFragment";
 
-import { CodiceFiscale } from 'codice-fiscale-js';
+import CodiceFiscale from 'codice-fiscale-js';
 
 Yup.setLocale(ItLocale);
 
@@ -56,13 +56,12 @@ export const isEmptyFieldValue = (value: any) =>
 
 export const validateFiscalCode = (value: string) => {
   try {
-    new CodiceFiscale(value);
+    new CodiceFiscale(value.toUpperCase());
     return true;
   } catch (e) {
     return false;
   }
 }
-
 
 export interface FormValuesT {
   [k: string]: any;
