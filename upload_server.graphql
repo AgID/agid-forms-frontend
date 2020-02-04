@@ -10,3 +10,7 @@ type File {
 extend type mutation_root {
   singleUpload(file: Upload!): File!
 }
+
+extend type mutation_root {
+  deleteUploaded(id: String!): Boolean!
+}
