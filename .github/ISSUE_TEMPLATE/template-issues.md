@@ -1,6 +1,6 @@
 ---
 name: Issue rilevate su Form AGID
-about: ''
+about: segnala un problema
 title: ''
 labels: ''
 assignees: ''
