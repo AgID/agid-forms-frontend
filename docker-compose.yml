@@ -7,7 +7,6 @@ services:
       - .env
     build:
       context: .
-      network: ${COMPOSE_PROJECT_NAME}_app-tier
       args:
         - HASURA_GRAPHQL_ENDPOINT
         - HASURA_GRAPHQL_ADMIN_SECRET
