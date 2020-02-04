@@ -217,19 +217,7 @@ const Groups: Record<
         al feedback notificato al soggetto erogatore.
       </p>
       <p>
-        <Link
-          to={
-            `/form/procedura-attuazione?device-type=${values["device-type"]}&` +
-            `website-url=${encodeURIComponent(
-              values["website-url"]
-            )}&app-name=${encodeURIComponent(values["app-name"])}&` +
-            `app-url=${encodeURIComponent(
-              values["app-url"]
-            )}&reported-pa=${encodeURIComponent(
-              node.node_revision_group!.group_ipa_pa!.des_amm
-            )}`
-          }
-        >
+        <Link to={`/form/procedura-attuazione/${node.id}`}>
           Reclamo al Difensore civico per il digitale
         </Link>
       </p>
@@ -241,7 +229,7 @@ const Groups: Record<
     return InlineViewGroup({
       group: {
         ...group,
-        title: values["device-type"] === "website" ? "informazioni sul sito" : "informazioni sull'appplicazione mobile"
+        title: values["device-type"] === "website" ? "informazioni sul sito" : "informazioni sull'applicazione mobile"
       },
       values: values
     });
