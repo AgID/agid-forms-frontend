@@ -72,6 +72,8 @@ const IT = {
   login: "accedi",
   logout: "logout",
   loading_data: "caricamento dei dati in corso...",
+  deleting_data: "eliminazione dei dati in corso...",
+  delete: "elimina",
   not_latest_version:
     "alcune modifiche al contenuto non sono ancora state pubblicate.",
   draft_version: "il contenuto visualizzato non risulta ancora pubblicato.",

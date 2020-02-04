@@ -10,3 +10,9 @@ export const UPLOAD_FILE = gql`
     }
   }
 `;
+
+export const DELETE_UPLOADED_FILE = gql`
+  mutation DeleteUploaded($id: String!) {
+    deleteUploaded(id: $id)
+  }
+`;
