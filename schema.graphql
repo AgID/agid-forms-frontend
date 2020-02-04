@@ -5,9 +5,9 @@ schema {
 }
 
 """
-expression to compare columns of type boolean. All fields are combined with logical 'AND'.
+expression to compare columns of type Boolean. All fields are combined with logical 'AND'.
 """
-input boolean_comparison_exp {
+input Boolean_comparison_exp {
   _eq: Boolean
   _gt: Boolean
   _gte: Boolean
@@ -19,17 +19,12 @@ input boolean_comparison_exp {
   _nin: [Boolean!]
 }
 
-"""conflict action"""
-enum conflict_action {
-  """ignore the insert on this row"""
-  ignore
-
-  """update the row with the given values"""
-  update
-}
-
 """
+snake case group names
+
+
 columns and relationships of "group"
+
 """
 type group {
   group: String!
@@ -79,7 +74,7 @@ input group_bool_exp {
   _and: [group_bool_exp]
   _not: group_bool_exp
   _or: [group_bool_exp]
-  group: text_comparison_exp
+  group: String_comparison_exp
   group_ipa_pa: ipa_pa_bool_exp
 }
 
@@ -148,6 +143,7 @@ on conflict condition type for table "group"
 input group_on_conflict {
   constraint: group_constraint!
   update_columns: [group_update_column!]!
+  where: group_bool_exp
 }
 
 """
@@ -182,9 +178,9 @@ enum group_update_column {
 }
 
 """
-expression to compare columns of type integer. All fields are combined with logical 'AND'.
+expression to compare columns of type Int. All fields are combined with logical 'AND'.
 """
-input integer_comparison_exp {
+input Int_comparison_exp {
   _eq: Int
   _gt: Int
   _gte: Int
@@ -263,32 +259,32 @@ input ipa_ou_arr_rel_insert_input {
 Boolean expression to filter rows from the table "ipa_ou". All fields are combined with a logical 'AND'.
 """
 input ipa_ou_bool_exp {
-  Cap: text_comparison_exp
-  Fax: text_comparison_exp
-  Indirizzo: text_comparison_exp
-  Regione: text_comparison_exp
-  Tel: text_comparison_exp
+  Cap: String_comparison_exp
+  Fax: String_comparison_exp
+  Indirizzo: String_comparison_exp
+  Regione: String_comparison_exp
+  Tel: String_comparison_exp
   _and: [ipa_ou_bool_exp]
   _not: ipa_ou_bool_exp
   _or: [ipa_ou_bool_exp]
-  cod_amm: text_comparison_exp
-  cod_aoo: text_comparison_exp
-  cod_ou: text_comparison_exp
-  cod_ou_padre: text_comparison_exp
-  cod_uni_ou: text_comparison_exp
-  cogn_resp: text_comparison_exp
-  comune: text_comparison_exp
-  des_ou: text_comparison_exp
-  mail1: text_comparison_exp
-  mail2: text_comparison_exp
-  mail3: text_comparison_exp
-  mail_resp: text_comparison_exp
-  nome_resp: text_comparison_exp
-  provincia: text_comparison_exp
-  tel_resp: text_comparison_exp
-  tipo_mail1: text_comparison_exp
-  tipo_mail2: text_comparison_exp
-  tipo_mail3: text_comparison_exp
+  cod_amm: String_comparison_exp
+  cod_aoo: String_comparison_exp
+  cod_ou: String_comparison_exp
+  cod_ou_padre: String_comparison_exp
+  cod_uni_ou: String_comparison_exp
+  cogn_resp: String_comparison_exp
+  comune: String_comparison_exp
+  des_ou: String_comparison_exp
+  mail1: String_comparison_exp
+  mail2: String_comparison_exp
+  mail3: String_comparison_exp
+  mail_resp: String_comparison_exp
+  nome_resp: String_comparison_exp
+  provincia: String_comparison_exp
+  tel_resp: String_comparison_exp
+  tipo_mail1: String_comparison_exp
+  tipo_mail2: String_comparison_exp
+  tipo_mail3: String_comparison_exp
 }
 
 """
@@ -465,6 +461,7 @@ on conflict condition type for table "ipa_ou"
 input ipa_ou_on_conflict {
   constraint: ipa_ou_constraint!
   update_columns: [ipa_ou_update_column!]!
+  where: ipa_ou_bool_exp
 }
 
 """
@@ -749,41 +746,41 @@ input ipa_pa_arr_rel_insert_input {
 Boolean expression to filter rows from the table "ipa_pa". All fields are combined with a logical 'AND'.
 """
 input ipa_pa_bool_exp {
-  Cap: text_comparison_exp
-  Cf: text_comparison_exp
-  Comune: text_comparison_exp
-  Indirizzo: text_comparison_exp
-  Provincia: text_comparison_exp
-  Regione: text_comparison_exp
+  Cap: String_comparison_exp
+  Cf: String_comparison_exp
+  Comune: String_comparison_exp
+  Indirizzo: String_comparison_exp
+  Provincia: String_comparison_exp
+  Regione: String_comparison_exp
   _and: [ipa_pa_bool_exp]
   _not: ipa_pa_bool_exp
   _or: [ipa_pa_bool_exp]
-  acronimo: text_comparison_exp
-  cf_validato: text_comparison_exp
-  cod_amm: text_comparison_exp
-  cogn_resp: text_comparison_exp
-  des_amm: text_comparison_exp
-  des_amm_Comune: text_comparison_exp
-  liv_accessibili: text_comparison_exp
-  mail1: text_comparison_exp
-  mail2: text_comparison_exp
-  mail3: text_comparison_exp
-  mail4: text_comparison_exp
-  mail5: text_comparison_exp
-  nome_resp: text_comparison_exp
-  sito_istituzionale: text_comparison_exp
-  tipo_mail1: text_comparison_exp
-  tipo_mail2: text_comparison_exp
-  tipo_mail3: text_comparison_exp
-  tipo_mail4: text_comparison_exp
-  tipo_mail5: text_comparison_exp
-  tipologia_amm: text_comparison_exp
-  tipologia_istat: text_comparison_exp
-  titolo_resp: text_comparison_exp
-  url_facebook: text_comparison_exp
-  url_googleplus: text_comparison_exp
-  url_twitter: text_comparison_exp
-  url_youtube: text_comparison_exp
+  acronimo: String_comparison_exp
+  cf_validato: String_comparison_exp
+  cod_amm: String_comparison_exp
+  cogn_resp: String_comparison_exp
+  des_amm: String_comparison_exp
+  des_amm_Comune: String_comparison_exp
+  liv_accessibili: String_comparison_exp
+  mail1: String_comparison_exp
+  mail2: String_comparison_exp
+  mail3: String_comparison_exp
+  mail4: String_comparison_exp
+  mail5: String_comparison_exp
+  nome_resp: String_comparison_exp
+  sito_istituzionale: String_comparison_exp
+  tipo_mail1: String_comparison_exp
+  tipo_mail2: String_comparison_exp
+  tipo_mail3: String_comparison_exp
+  tipo_mail4: String_comparison_exp
+  tipo_mail5: String_comparison_exp
+  tipologia_amm: String_comparison_exp
+  tipologia_istat: String_comparison_exp
+  titolo_resp: String_comparison_exp
+  url_facebook: String_comparison_exp
+  url_googleplus: String_comparison_exp
+  url_twitter: String_comparison_exp
+  url_youtube: String_comparison_exp
 }
 
 """
@@ -1005,6 +1002,7 @@ on conflict condition type for table "ipa_pa"
 input ipa_pa_on_conflict {
   constraint: ipa_pa_constraint!
   update_columns: [ipa_pa_update_column!]!
+  where: ipa_pa_bool_exp
 }
 
 """
@@ -1364,7 +1362,7 @@ input language_bool_exp {
   _and: [language_bool_exp]
   _not: language_bool_exp
   _or: [language_bool_exp]
-  language: text_comparison_exp
+  language: String_comparison_exp
 }
 
 """
@@ -1431,6 +1429,7 @@ on conflict condition type for table "language"
 input language_on_conflict {
   constraint: language_constraint!
   update_columns: [language_update_column!]!
+  where: language_bool_exp
 }
 
 """
@@ -1464,7 +1463,11 @@ enum language_update_column {
 }
 
 """
+helper view to show list of nodes in users dashboards
+
+
 columns and relationships of "last_published_or_draft"
+
 """
 type last_published_or_draft {
   content(
@@ -1551,15 +1554,15 @@ input last_published_or_draft_bool_exp {
   _or: [last_published_or_draft_bool_exp]
   content: jsonb_comparison_exp
   created_at: timestamptz_comparison_exp
-  group: text_comparison_exp
+  group: String_comparison_exp
   id: uuid_comparison_exp
-  language: text_comparison_exp
-  status: text_comparison_exp
-  title: text_comparison_exp
-  type: text_comparison_exp
+  language: String_comparison_exp
+  status: String_comparison_exp
+  title: String_comparison_exp
+  type: String_comparison_exp
   updated_at: timestamptz_comparison_exp
   user_id: uuid_comparison_exp
-  version: integer_comparison_exp
+  version: Int_comparison_exp
 }
 
 """
@@ -2239,7 +2242,7 @@ type node {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -2257,7 +2260,7 @@ type node {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -2356,19 +2359,19 @@ input node_bool_exp {
   _or: [node_bool_exp]
   content: jsonb_comparison_exp
   created_at: timestamptz_comparison_exp
-  group: text_comparison_exp
+  group: String_comparison_exp
   id: uuid_comparison_exp
-  language: text_comparison_exp
+  language: String_comparison_exp
   node_group: group_bool_exp
   node_type: node_type_bool_exp
   revisions: node_revision_bool_exp
-  status: text_comparison_exp
-  title: text_comparison_exp
-  type: text_comparison_exp
+  status: String_comparison_exp
+  title: String_comparison_exp
+  type: String_comparison_exp
   updated_at: timestamptz_comparison_exp
   user: user_bool_exp
   user_id: uuid_comparison_exp
-  version: integer_comparison_exp
+  version: Int_comparison_exp
 }
 
 """
@@ -2506,6 +2509,7 @@ on conflict condition type for table "node"
 input node_on_conflict {
   constraint: node_constraint!
   update_columns: [node_update_column!]!
+  where: node_bool_exp
 }
 
 """
@@ -2633,16 +2637,16 @@ input node_revision_bool_exp {
   _or: [node_revision_bool_exp]
   content: jsonb_comparison_exp
   created_at: timestamptz_comparison_exp
-  group: text_comparison_exp
+  group: String_comparison_exp
   id: uuid_comparison_exp
-  language: text_comparison_exp
+  language: String_comparison_exp
   node_revision_group: group_bool_exp
-  status: text_comparison_exp
-  title: text_comparison_exp
-  type: text_comparison_exp
+  status: String_comparison_exp
+  title: String_comparison_exp
+  type: String_comparison_exp
   updated_at: timestamptz_comparison_exp
   user_id: uuid_comparison_exp
-  version: integer_comparison_exp
+  version: Int_comparison_exp
 }
 
 """
@@ -2777,6 +2781,7 @@ on conflict condition type for table "node_revision"
 input node_revision_on_conflict {
   constraint: node_revision_constraint!
   update_columns: [node_revision_update_column!]!
+  where: node_revision_bool_exp
 }
 
 """
@@ -3093,7 +3098,7 @@ type node_type {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3111,7 +3116,7 @@ type node_type {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3166,7 +3171,7 @@ input node_type_bool_exp {
   _and: [node_type_bool_exp]
   _not: node_type_bool_exp
   _or: [node_type_bool_exp]
-  node_type: text_comparison_exp
+  node_type: String_comparison_exp
   node_type_perms: node_type_perm_bool_exp
 }
 
@@ -3235,6 +3240,7 @@ on conflict condition type for table "node_type"
 input node_type_on_conflict {
   constraint: node_type_constraint!
   update_columns: [node_type_update_column!]!
+  where: node_type_bool_exp
 }
 
 """
@@ -3298,10 +3304,10 @@ input node_type_perm_bool_exp {
   _and: [node_type_perm_bool_exp]
   _not: node_type_perm_bool_exp
   _or: [node_type_perm_bool_exp]
-  insert: boolean_comparison_exp
-  node_type: text_comparison_exp
+  insert: Boolean_comparison_exp
+  node_type: String_comparison_exp
   node_type_perm_role: role_bool_exp
-  role: text_comparison_exp
+  role: String_comparison_exp
 }
 
 """
@@ -3375,6 +3381,7 @@ on conflict condition type for table "node_type_perm"
 input node_type_perm_on_conflict {
   constraint: node_type_perm_constraint!
   update_columns: [node_type_perm_update_column!]!
+  where: node_type_perm_bool_exp
 }
 
 """
@@ -3551,7 +3558,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3571,7 +3578,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3594,7 +3601,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_ou_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3614,7 +3621,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_ou_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3637,7 +3644,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3657,7 +3664,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3680,7 +3687,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [language_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3700,7 +3707,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [language_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3723,7 +3730,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [last_published_or_draft_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3743,7 +3750,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [last_published_or_draft_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3763,7 +3770,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3783,7 +3790,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3806,7 +3813,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3826,7 +3833,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3849,7 +3856,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_type_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3869,7 +3876,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_type_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3892,7 +3899,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3912,7 +3919,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3935,7 +3942,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [role_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3955,7 +3962,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [role_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -3983,7 +3990,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4008,7 +4015,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4028,7 +4035,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [status_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4048,7 +4055,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [status_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4071,7 +4078,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [user_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4091,7 +4098,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [user_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4114,7 +4121,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4134,7 +4141,7 @@ type query_root {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4152,7 +4159,11 @@ type query_root {
 }
 
 """
+use snake case names for roles
+
+
 columns and relationships of "role"
+
 """
 type role {
   """An array relationship"""
@@ -4160,7 +4171,7 @@ type role {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4178,7 +4189,7 @@ type role {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4197,7 +4208,7 @@ type role {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4215,7 +4226,7 @@ type role {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4271,7 +4282,7 @@ input role_bool_exp {
   _not: role_bool_exp
   _or: [role_bool_exp]
   node_type_perms: node_type_perm_bool_exp
-  role: text_comparison_exp
+  role: String_comparison_exp
   user_groups: user_group_bool_exp
 }
 
@@ -4341,6 +4352,7 @@ on conflict condition type for table "role"
 input role_on_conflict {
   constraint: role_constraint!
   update_columns: [role_update_column!]!
+  where: role_bool_exp
 }
 
 """
@@ -4427,7 +4439,7 @@ input status_bool_exp {
   _and: [status_bool_exp]
   _not: status_bool_exp
   _or: [status_bool_exp]
-  status: text_comparison_exp
+  status: String_comparison_exp
 }
 
 """
@@ -4494,6 +4506,7 @@ on conflict condition type for table "status"
 input status_on_conflict {
   constraint: status_constraint!
   update_columns: [status_update_column!]!
+  where: status_bool_exp
 }
 
 """
@@ -4526,6 +4539,27 @@ enum status_update_column {
   status
 }
 
+"""
+expression to compare columns of type String. All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+  _ilike: String
+  _in: [String!]
+  _is_null: Boolean
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+  _nilike: String
+  _nin: [String!]
+  _nlike: String
+  _nsimilar: String
+  _similar: String
+}
+
 """subscription root"""
 type subscription_root {
   """
@@ -4535,7 +4569,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4555,7 +4589,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4578,7 +4612,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_ou_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4598,7 +4632,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_ou_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4621,7 +4655,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4641,7 +4675,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4664,7 +4698,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [language_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4684,7 +4718,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [language_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4707,7 +4741,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [last_published_or_draft_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4727,7 +4761,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [last_published_or_draft_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4747,7 +4781,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4767,7 +4801,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4790,7 +4824,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4810,7 +4844,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_revision_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4833,7 +4867,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_type_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4853,7 +4887,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_type_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4876,7 +4910,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4896,7 +4930,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [node_type_perm_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4919,7 +4953,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [role_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4939,7 +4973,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [role_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4967,7 +5001,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -4992,7 +5026,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [ipa_pa_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5012,7 +5046,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [status_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5032,7 +5066,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [status_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5055,7 +5089,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [user_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5075,7 +5109,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [user_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5098,7 +5132,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5118,7 +5152,7 @@ type subscription_root {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5133,27 +5167,6 @@ type subscription_root {
 
   """fetch data from the table: "user_group" using primary key columns"""
   user_group_by_pk(group: String!, role: String!, user_id: uuid!): user_group
-}
-
-"""
-expression to compare columns of type text. All fields are combined with logical 'AND'.
-"""
-input text_comparison_exp {
-  _eq: String
-  _gt: String
-  _gte: String
-  _ilike: String
-  _in: [String!]
-  _is_null: Boolean
-  _like: String
-  _lt: String
-  _lte: String
-  _neq: String
-  _nilike: String
-  _nin: [String!]
-  _nlike: String
-  _nsimilar: String
-  _similar: String
 }
 
 scalar timestamptz
@@ -5189,7 +5202,7 @@ type user {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5207,7 +5220,7 @@ type user {
     """distinct select on columns"""
     distinct_on: [node_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5225,7 +5238,7 @@ type user {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5243,7 +5256,7 @@ type user {
     """distinct select on columns"""
     distinct_on: [user_group_select_column!]
 
-    """limit the nuber of rows returned"""
+    """limit the number of rows returned"""
     limit: Int
 
     """skip the first n rows. Use only with order_by"""
@@ -5306,7 +5319,7 @@ input user_bool_exp {
   _and: [user_bool_exp]
   _not: user_bool_exp
   _or: [user_bool_exp]
-  email: text_comparison_exp
+  email: String_comparison_exp
   id: uuid_comparison_exp
   metadata: jsonb_comparison_exp
   nodes: node_bool_exp
@@ -5406,8 +5419,8 @@ input user_group_bool_exp {
   _and: [user_group_bool_exp]
   _not: user_group_bool_exp
   _or: [user_group_bool_exp]
-  group: text_comparison_exp
-  role: text_comparison_exp
+  group: String_comparison_exp
+  role: String_comparison_exp
   user_group_group: group_bool_exp
   user_group_role: role_bool_exp
   user_group_user: user_bool_exp
@@ -5487,6 +5500,7 @@ on conflict condition type for table "user_group"
 input user_group_on_conflict {
   constraint: user_group_constraint!
   update_columns: [user_group_update_column!]!
+  where: user_group_bool_exp
 }
 
 """
@@ -5599,6 +5613,7 @@ on conflict condition type for table "user"
 input user_on_conflict {
   constraint: user_constraint!
   update_columns: [user_update_column!]!
+  where: user_bool_exp
 }
 
 """
