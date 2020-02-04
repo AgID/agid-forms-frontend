@@ -1,6 +1,6 @@
 ---
-name: Template Issues
-about: Template Issues
+name: Issue rilevate su Form AGID
+about: ''
 title: ''
 labels: ''
 assignees: ''
