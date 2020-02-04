@@ -3,6 +3,7 @@ import { GraphqlClient } from "../graphql/client";
 import { intersection } from "../utils/arrays";
 
 const ANONYMOUS_ROLE = "anonymous";
+const AUTHENTICATED_ROLE = "authenticated";
 
 export type SessionInfo = {
   userId: string;
@@ -66,6 +67,12 @@ export const userHasAnyRole = (
   roles: ReadonlyArray<string>
 ) => {
   return intersection(getUserRoles(sessionInfo), roles)[0];
+};
+
+export const userHasAuthenticatedRole = (
+  sessionInfo: SessionInfo | null
+) => {
+  return userHasAnyRole(sessionInfo, [AUTHENTICATED_ROLE]);
 };
 
 export const logout = async (client: typeof GraphqlClient) => {

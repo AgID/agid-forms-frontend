@@ -15,6 +15,7 @@ listed_to: []
 version: 0.1.0
 title_pattern: values["name"] + " / " + values["feedbacked-pa"]
 initial_status: "archived"
+bound_to: dichiarazione-accessibilita
 sections:
   - name: section-0
     description: |
@@ -43,7 +44,7 @@ sections:
             widget: text
             title: Codice fiscale
             required_if: "true"
-            valid_if: Yup.string().test('codice-fiscale', 'Il codice fiscale non è valido', validateFiscalCode).validate(value)
+            valid_if: Yup.string().test('tax-number', 'Il codice fiscale non è valido', validateFiscalCode).validate(value)
 
       - name: feedback-subject
         title: oggetto della richiesta di feedback
@@ -57,7 +58,7 @@ sections:
               - label: applicazione mobile
                 value: mobile-app
             required_if: "true"
-            default_computed_value: query["device-type"] || "website"
+            computed_value: boundNodeValues["device-type"]
           - name: "website-url"
             widget: text
             title: URL del sito
@@ -65,14 +66,14 @@ sections:
             show_if: values["device-type"] == "website"
             required_if: values["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
-            default_computed_value: query["website-url"] || ""
+            computed_value: boundNodeValues["website-url"]
           - name: "app-name"
             widget: text
             title: Nome dell'app
             description: inserisci il nome dell'applicazione
             show_if: values["device-type"] == "mobile-app"
             required_if: values["device-type"] == "mobile-app"
-            default_computed_value: query["app-name"] || ""
+            computed_value: boundNodeValues["app-name"]
           - name: "app-url"
             widget: text
             title: URL dell'applicazione
@@ -80,12 +81,12 @@ sections:
             show_if: values["device-type"] == "mobile-app"
             required_if: values["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
-            default_computed_value: query["app-url"] || ""
+            computed_value: boundNodeValues["app-url"]
           - name: "feedbacked-pa"
             widget: text
             title: Email della persona responsabile dell’accessibiltà (RTD)
             required_if: "true"
-            default_computed_value: query["feedbacked-pa"] || ""
+            computed_value: boundNodeValues["manager-email"]
 
       - name: feedback-content
         title: descrizione della richiesta di feedback

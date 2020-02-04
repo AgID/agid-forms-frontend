@@ -136,6 +136,7 @@ export const FormSchemaFragment = graphql`
         listed_to
         slug_pattern
         initial_status
+        bound_to
         title_pattern
         sections {
           title
