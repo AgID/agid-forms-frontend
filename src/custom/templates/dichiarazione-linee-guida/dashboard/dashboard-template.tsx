@@ -11,12 +11,12 @@ import StaticLayout from "../../../../components/StaticLayout";
 import { getSessionInfo } from "../../../../utils/auth";
 
 import {
-  GetUserNodesOfType,
-  GetUserNodesOfTypeVariables
-} from "../../../../generated/graphql/GetUserNodesOfType";
+  GetGroupNodesOfType,
+  GetGroupNodesOfTypeVariables
+} from "../../../../generated/graphql/GetGroupNodesOfType";
+import { GET_GROUP_NODES_OF_TYPE } from "../../../../graphql/hasura";
 
 import { getContextualMenu } from "../../../../graphql/gatsby";
-import { GET_USER_NODE_OF_TYPE } from "../../../../graphql/hasura";
 
 const DashboardDeclTemplate = () => {
   const { t } = useTranslation();
@@ -65,11 +65,11 @@ const DashboardDeclTemplate = () => {
       ]}
     >
       <SEO title={t("lg_decl.dashboard_title")} />
-      <Query<GetUserNodesOfType, GetUserNodesOfTypeVariables>
-        query={GET_USER_NODE_OF_TYPE}
+      <Query<GetGroupNodesOfType, GetGroupNodesOfTypeVariables>
+        query={GET_GROUP_NODES_OF_TYPE}
         fetchPolicy="network-only"
         variables={{
-          userId: sessionInfo.userId,
+          groupId: sessionInfo.organizationCode || "",
           nodeType: "dichiarazione_linee_guida"
         }}
       >
