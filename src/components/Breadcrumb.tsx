@@ -15,7 +15,7 @@ const Breadcrumb = ({ items }: { items: ReadonlyArray<IBreadcrumbItem> }) => (
           {items.slice(0, -1).map(item => (
             <li className="breadcrumb-item" key={item.link}>
               <Link
-                className="neutral-1-color-b7 font-weight-bold text-decoration-none"
+                className="font-weight-bold text-decoration-none"
                 to={item.link}
               >
                 {item.label}
@@ -26,7 +26,7 @@ const Breadcrumb = ({ items }: { items: ReadonlyArray<IBreadcrumbItem> }) => (
           {items.length > 1 &&
             items.slice(-1).map(item => (
               <li className="breadcrumb-item active" key={item.link}>
-                <span className="neutral-1-color-b7 text-decoration-none">
+                <span className="text-decoration-none">
                   {item.label}
                 </span>
               </li>
@@ -36,7 +36,7 @@ const Breadcrumb = ({ items }: { items: ReadonlyArray<IBreadcrumbItem> }) => (
               <li className="breadcrumb-item" key={item.link}>
                 <Link
                   to={item.link}
-                  className="neutral-1-color-b7 font-weight-bold text-decoration-none"
+                  className="font-weight-bold text-decoration-none"
                 >
                   {item.label}
                 </Link>

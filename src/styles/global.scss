@@ -419,3 +419,15 @@ a.external-link
 .rdp-input-group .popover-body {
   padding: .5rem .75rem;
 }
+
+
+/* breadcrumbs color */
+.breadcrumb-container .breadcrumb {
+  .breadcrumb-item,
+  .breadcrumb-item.active {
+    a,
+    span {
+      color: #0c0c0d;
+    }
+  }
+}
