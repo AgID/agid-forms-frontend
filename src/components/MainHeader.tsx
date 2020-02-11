@@ -35,7 +35,7 @@ const MainHeader = ({
               <div className="it-header-center-content-wrapper">
                 <div className="it-brand-wrapper">
                   <Link to="/">
-                    <img src={siteLogo || ""} alt="" />
+                    {siteLogo && <img src={siteLogo} alt="Logo" />}
                     <div className="it-brand-text">
                       <h2 className="no_toc">{title}</h2>
                       <h3 className="no_toc d-none d-md-block">
