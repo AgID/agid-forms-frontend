@@ -27,6 +27,7 @@ const IT = {
   },
   errors: {
     content_not_found: "contenuto non trovato",
+    unauthorized: "utente non autorizzato",
     error_getting_data:
       "si è verificato un errore durante il recupero dei dati, puoi comunque riprovare a effettuare l'operazione.",
     error_sending_data:
@@ -38,6 +39,7 @@ const IT = {
   },
   follow_us: "seguici su",
   auth: {
+    email_verification_required: "la verifica dell'indirizzo email è obbligatoria",
     email_verified: "email verificata correttamente !",
     verify_email_text: "Inserisci il codice che hai ricevuto per email",
     verify_token_text: "verifica il codice",
@@ -70,6 +72,8 @@ const IT = {
   login: "accedi",
   logout: "logout",
   loading_data: "caricamento dei dati in corso...",
+  deleting_data: "eliminazione dei dati in corso...",
+  delete: "elimina",
   not_latest_version:
     "alcune modifiche al contenuto non sono ancora state pubblicate.",
   draft_version: "il contenuto visualizzato non risulta ancora pubblicato.",
@@ -78,12 +82,14 @@ const IT = {
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "eForm",
-    action_page_title: "eForm",
+    index_page_title: "Form",
+    action_page_title: "Form",
     action_goto_form: "Accedi al modulo",
     dashboard_title: "Dashboard",
     notfound_page_title: "Pagina non trovata",
     notfound_page_text: "Pagina non trovata",
+    unauthorized_page_title: "Utente non autorizzato",
+    unauthorized_page_text: "Utente non autorizzato",
     revision_title: "Visualizza la revisione del contenuto",
     view_title: "Visualizza il contenuto"
   },

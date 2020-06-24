@@ -1,7 +1,11 @@
 # id must match backend node type (underscores are replaced with dashes)
 id: example-form
-# who can view and submit this form ?
+# roles enabled to submit the form
 roles: []
+# roles enabled to view the form
+visible_to: []
+# roles enabled to view the form listed in the actions page
+listed_to: []
 # title in the form page
 name: example form name
 # title for form listing

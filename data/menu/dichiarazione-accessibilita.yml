@@ -3,16 +3,16 @@ menu:
   items:
     - name: Dichiarazione di accessibilità
       slug: "/doc/dichiarazione-accessibilita"
-      roles: [authenticated]
+      roles: [rtd]
     - name: Guida alla compilazione
       slug: "/doc/dichiarazione-accessibilita/guida-alla-compilazione"
-      roles: [authenticated]
+      roles: [rtd]
     - name: Nuova dichiarazione
       slug: "/form/dichiarazione-accessibilita"
-      roles: [authenticated]
+      roles: [rtd]
     - name: Gestione delle dichiarazioni
       slug: "/dashboard/dichiarazione-accessibilita"
-      roles: [authenticated]
+      roles: [rtd]
     - name: FAQ
       slug: "/doc/dichiarazione-accessibilita/faq"
-      roles: [authenticated]
+      roles: [rtd]

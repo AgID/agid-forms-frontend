@@ -39,7 +39,7 @@ const Cookiebar = ({ policyLink }: { policyLink: string }) => {
         },
         banner: {
           backgroundColor: "#435a70",
-          position: "absolute",
+          position: "fixed",
           maxWidth: "800px",
           left: "50%",
           right: "auto",

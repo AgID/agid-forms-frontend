@@ -1,13 +1,16 @@
 import { Link } from "gatsby";
 import * as React from "react";
 import { FormConfig_allMenuYaml_edges_node } from "../generated/graphql/FormConfig";
+import { getSessionInfo, userHasAnyRole } from "../utils/auth";
 
 const ContextMenu = ({
   contextMenu,
-  siteName
+  siteName,
+  user
 }: {
   contextMenu: FormConfig_allMenuYaml_edges_node;
   siteName: string;
+  user: ReturnType<typeof getSessionInfo>;
 }) =>
   contextMenu &&
   contextMenu.menu &&
@@ -24,7 +27,11 @@ const ContextMenu = ({
           <ul className="link-list">
             {contextMenu.menu.items.slice(0, 1).map(item => {
               return (
-                item && (
+                item &&
+                userHasAnyRole(
+                  user,
+                  (item.roles as ReadonlyArray<string>) || []
+                ) && (
                   <li
                     key={item.slug!}
                     className="mb-md-2"
@@ -42,7 +49,11 @@ const ContextMenu = ({
             })}
             {contextMenu.menu.items.slice(1).map(item => {
               return (
-                item && (
+                item &&
+                userHasAnyRole(
+                  user,
+                  (item.roles as ReadonlyArray<string>) || []
+                ) && (
                   <li key={item.slug!} className="mb-md-2 pl-3">
                     <Link
                       to={item.slug!}

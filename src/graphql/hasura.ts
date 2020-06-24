@@ -7,7 +7,7 @@ export const SEARCH_IPA = gql`
       des_amm
       Comune
     }
-    ipa_pa(where: { cod_amm: { _eq: $search } }) {
+    ipa_pa(where: { cod_amm: { _ilike: $search } }) {
       cod_amm
       des_amm
       Comune
@@ -164,10 +164,40 @@ export const GET_USER_NODES = gql`
   }
 `;
 
-export const GET_USER_NODE_OF_TYPE = gql`
+export const GET_GROUP_NODES = gql`
+  query GetGroupNodes($groupId: String!) {
+    node(where: { group: { _eq: $groupId } }) {
+      id
+      created_at
+      updated_at
+      title
+      group
+      language
+      status
+      version
+      type
+    }
+  }
+`;
+
+export const GET_USER_NODES_OF_TYPE = gql`
   query GetUserNodesOfType($userId: uuid!, $nodeType: String!) {
     node: last_published_or_draft(
       where: { _and: { user_id: { _eq: $userId }, type: { _eq: $nodeType } } }
+    ) {
+      id
+      content
+      updated_at
+      status
+      type
+    }
+  }
+`;
+
+export const GET_GROUP_NODES_OF_TYPE = gql`
+  query GetGroupNodesOfType($groupId: String!, $nodeType: String!) {
+    node: last_published_or_draft(
+      where: { _and: { group: { _eq: $groupId }, type: { _eq: $nodeType } } }
     ) {
       id
       content

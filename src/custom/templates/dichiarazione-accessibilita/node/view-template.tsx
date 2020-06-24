@@ -64,7 +64,7 @@ const getComplianceString = (
         isWebSite
           ? "Questo <strong>sito web</strong>"
           : "Questa <strong>applicazione</strong>"
-      } è <strong>parzialmente conforme<strong>,${getWcagString(
+      } è <strong>parzialmente conforme<strong> ${getWcagString(
         wcagVersion
       )} in ragione dei casi di non conformità e/o delle deroghe elencate di seguito.`;
     case "non-compliant":
@@ -141,20 +141,22 @@ const Groups: Record<
               </div>
             )
         )}
+        {values["accessible-alternatives"] && (
+          <>
+          <h4
+            className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2"
+            style={{ fontSize: "18px " }}
+          >
+            {fields["accessible-alternatives"].title}
+          </h4>
+          <p className="w-paragraph">{values["accessible-alternatives"]}</p>
+          </>
+        )}
       </div>
     ) : (
       <React.Fragment key="not-accessible" />
     );
   },
-  "content-alt": ({ group, values }) =>
-    values["accessible-alternatives"] ? (
-      <div className="mb-lg-5">
-        <FormGroupTitle title={group.title} />
-        <p className="w-paragraph">{values["accessible-alternatives"]}</p>
-      </div>
-    ) : (
-      <></>
-    ),
   "content-methodology": ({ group, values, fields, node }) => {
     return (
       <div className="mb-lg-5">
@@ -191,7 +193,7 @@ const Groups: Record<
   },
   "feedback-and-contacts": ({ values, node }) => (
     <>
-      <FormGroupTitle title="Feedback e recapiti" />
+      <FormGroupTitle title="feedback e recapiti" />
       <p className="w-paragraph">{values.feedback}</p>
       <p className="w-paragraph">
         <strong>Url del contatto Link al meccanismo di feedback</strong>:{" "}
@@ -208,32 +210,28 @@ const Groups: Record<
         Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9
         gennaio 2004, n. 4 s.m.i..
         <br />
-        <br /> L’utente può inviare il reclamo al Difensore civico per il
-        digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, a seguito
-        di risposta insoddisfacente o mancata risposta al feedback notificato al
-        soggetto erogatore.
+        <br />L’utente può inviare il reclamo al Difensore civico per il
+        digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+        esclusivamente a seguito di risposta insoddisfacente o mancata risposta
+        al feedback notificato al soggetto erogatore.
       </p>
       <p>
-        <Link
-          to={
-            `/form/segnalazione-accessibilita?device-type=${values["device-type"]}&` +
-            `website-url=${encodeURIComponent(
-              values["website-url"]
-            )}&app-name=${encodeURIComponent(values["app-name"])}&` +
-            `app-url=${encodeURIComponent(
-              values["app-url"]
-            )}&reported-pa=${encodeURIComponent(
-              node.node_revision_group!.group_ipa_pa!.des_amm
-            )}`
-          }
-        >
-          Difensore civico per il digitale
+        <Link to={`/form/procedura-attuazione/${node.id}`}>
+          Reclamo al Difensore civico per il digitale
         </Link>
       </p>
     </>
   ),
   "implementation-procedure": ViewGroup,
-  "application-information": InlineViewGroup,
+  "application-information": ({ group, values }) => {
+    return InlineViewGroup({
+      group: {
+        ...group,
+        title: values["device-type"] === "website" ? "informazioni sul sito" : "informazioni sull'applicazione mobile"
+      },
+      values: values
+    });
+  },
   "application-org": InlineViewGroup,
   "application-manager": ({ group, values, fields }) => {
     return (
@@ -279,14 +277,13 @@ const PublishModal = ({
             <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
               {isWebsite && (
                 <>
-                  Copia e incolla - il link in calce - nel footer del tuo sito
-                  web. <br /> A seguito di questa operazione verrà effettuata
-                  una verifica automatica.
+                  Copia e incolla il link nel footer del tuo sito
+                  web.
                 </>
               )}
               {!isWebsite && (
                 <>
-                  Pubblica nello store della tua app il link in calce, in "Altre
+                  Pubblica nello store della tua app il link, in "Altre
                   informazioni" nella sezione "Sviluppatore".
                 </>
               )}

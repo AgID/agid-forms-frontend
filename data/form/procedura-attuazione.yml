@@ -1,4 +1,4 @@
-id: segnalazione-accessibilita
+id: procedura-attuazione
 name: Procedura di attuazione
 action: Procedura di attuazione
 category: piano triennale
@@ -7,20 +7,24 @@ description: |-
   2004, n. 4 s.m.i..
 
   L’utente può inviare il reclamo al Difensore civico per il digitale, istituito
-  ai sensi dell’art. 17 comma 1-quater CAD, a seguito di risposta insoddisfacente
-  o mancata risposta al feedback notificato al soggetto erogatore.
+  ai sensi dell’art. 17 comma 1-quater CAD, esclusivamente a seguito di risposta
+  insoddisfacente o mancata risposta al feedback notificato al soggetto
+  erogatore.
 language: it
 roles: [authenticated]
+visible_to: [anonymous, authenticated]
+listed_to: []
 version: 0.1.0
 title_pattern: values["name"] + " / " + values["reported-pa"]
 initial_status: "archived"
+bound_to: dichiarazione-accessibilita
 sections:
   - name: section-0
     description: |
       Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..
 
-      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD, 
-      a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
+      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+      esclusivamente a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
     groups:
       - name: personal-information
         title: dati del segnalante
@@ -43,6 +47,7 @@ sections:
             widget: text
             title: Codice fiscale
             required_if: "true"
+            valid_if: Yup.string().test('tax-number', 'Il codice fiscale non è valido', validateFiscalCode).validate(value)
 
       - name: report-subject
         title: oggetto della dichiarazione
@@ -56,7 +61,7 @@ sections:
               - label: applicazione mobile
                 value: mobile-app
             required_if: "true"
-            default_computed_value: query["device-type"] || "website"
+            computed_value: boundNodeValues["device-type"]
           - name: "website-url"
             widget: text
             title: URL del sito
@@ -64,14 +69,14 @@ sections:
             show_if: values["device-type"] == "website"
             required_if: values["device-type"] == "website"
             valid_if: Yup.string().url().validate(value)
-            default_computed_value: query["website-url"] || ""
+            computed_value: boundNodeValues["website-url"]
           - name: "app-name"
             widget: text
             title: Nome dell'app
             description: inserisci il nome dell'applicazione
             show_if: values["device-type"] == "mobile-app"
             required_if: values["device-type"] == "mobile-app"
-            default_computed_value: query["app-name"] || ""
+            computed_value: boundNodeValues["app-name"]
           - name: "app-url"
             widget: text
             title: URL dell'applicazione
@@ -79,15 +84,15 @@ sections:
             show_if: values["device-type"] == "mobile-app"
             required_if: values["device-type"] == "mobile-app"
             valid_if: Yup.string().url().validate(value)
-            default_computed_value: query["app-url"] || ""
+            computed_value: boundNodeValues["app-url"]
           - name: "reported-pa"
             widget: text
             title: Soggetto erogatore da segnalare
             required_if: "true"
-            default_computed_value: query["reported-pa"] || ""
+            computed_value: boundNodeValues["manager-email"]
 
       - name: report-content
-        title: descrizione del problema di accessibilità
+        title: motivo del reclamo
         fields:
           - name: "reported-date"
             widget: date
@@ -106,13 +111,13 @@ sections:
             widget: textarea
             title: Descrizione del problema
             description: |
-              Elenca i casi di non conformità del sito, sezioni, contenuti o funzioni che non sono conformi  
+              Elenca i casi di non conformità del sito, sezioni, contenuti o funzioni che non sono conformi
               (max 1000 caratteri)
             valid_if: Yup.string().max(1000).validate(value)
             required_if: "true"
           - name: "report-has-answer"
             widget: radio
-            title: il soggetto erogatore ha risposto
+            title: Il soggetto erogatore ha risposto
             required_if: "true"
             options:
               - label: si
@@ -130,7 +135,7 @@ sections:
             enabled_if: Auth.isLoggedIn()
           - name: "notified-answer-reason"
             widget: textarea
-            title: motivi della risposta insoddisfatta
+            title: Descrizione del reclamo
             description: max 1000 caratteri
             show_if: values["report-has-answer"] == "si"
             required_if: values["report-has-answer"] == "si"
@@ -144,4 +149,4 @@ sections:
             widget: html
             title: Trattamento dei dati personali
             default: |
-              <a href="/doc/segnalazione-accessibilita/informativa-privacy">informativa sul trattamento dei dati personali</a>
+              <a href="/doc/procedura-attuazione/informativa-privacy">informativa sul trattamento dei dati personali</a>

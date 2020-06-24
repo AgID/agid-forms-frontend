@@ -22,6 +22,7 @@ import { RadioField } from "./RadioField";
 import { SelectField } from "./SelectField";
 import { TextFormField } from "./TextFormField";
 import { VerifyEmailField } from "./VerifyEmailField";
+import { DateField } from "./DateField";
 
 interface ICustomInputComponentProps {
   field: readonly JSX.Element[];
@@ -51,27 +52,27 @@ export const getExpressionMemoized = memoize(getExpression, {
 
 export const Formfield = ({
   field,
-  form
+  form,
+  boundNodeValues
 }: {
   field: FieldT;
   form: FormikProps<FormValuesT>;
+  boundNodeValues?: object | null;
 }): JSX.Element | null => {
   const showIfExpression = getExpressionMemoized("show_if", field);
   const valueExpression = getExpressionMemoized("computed_value", field);
   const validationExpression = getExpressionMemoized("valid_if", field);
   const requiredExpression = getExpressionMemoized("required_if", field);
   const enabledExpression = getExpressionMemoized("enabled_if", field);
-  const defaultExpression = getExpressionMemoized(
-    "default_computed_value",
-    field
-  );
+  const defaultExpression = getExpressionMemoized("default_computed_value", field);
 
   const expressionParams = {
     Auth: { isLoggedIn },
     Math,
     values: form.values,
     user: getSessionInfo(),
-    query: parseQuery(window.location.search)
+    query: parseQuery(window.location.search),
+    boundNodeValues,
   };
 
   const isHidden = showIfExpression
@@ -136,11 +137,12 @@ export const Formfield = ({
 
   switch (field.widget) {
     case "text":
-    case "date":
     case "email":
     case "number":
     case "textarea":
       return TextFormField(widgetOpts);
+    case "date":
+      return DateField(widgetOpts);
     case "checkbox":
       return widgetOpts.field.options
         ? CheckboxMultipleField(widgetOpts)

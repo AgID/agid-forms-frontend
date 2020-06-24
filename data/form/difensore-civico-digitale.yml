@@ -8,6 +8,8 @@ description: |-
   rimedio tempestivamente, pubblicando la decisione online.
 language: it
 roles: []
+visible_to: []
+listed_to: []
 version: 0.1.0
 title_pattern: values["email"]
 initial_status: "archived"

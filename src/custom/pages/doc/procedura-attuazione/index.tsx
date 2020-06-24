@@ -3,7 +3,7 @@ import * as React from "react";
 
 const RedirectToForm = () => {
   React.useEffect(() => {
-    navigate("/form/segnalazione-accessibilita");
+    navigate("/form/procedura-attuazione");
   }, []);
   return null;
 };

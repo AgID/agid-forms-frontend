@@ -10,10 +10,10 @@ import { Query } from "react-apollo";
 import { useTranslation } from "react-i18next";
 import StaticLayout from "../../../../components/StaticLayout";
 import {
-  GetUserNodesOfType,
-  GetUserNodesOfTypeVariables
-} from "../../../../generated/graphql/GetUserNodesOfType";
-import { GET_USER_NODE_OF_TYPE } from "../../../../graphql/hasura";
+  GetGroupNodesOfType,
+  GetGroupNodesOfTypeVariables
+} from "../../../../generated/graphql/GetGroupNodesOfType";
+import { GET_GROUP_NODES_OF_TYPE } from "../../../../graphql/hasura";
 import { getSessionInfo } from "../../../../utils/auth";
 
 const DashboardDeclTemplate = () => {
@@ -48,11 +48,12 @@ const DashboardDeclTemplate = () => {
   return (
     <StaticLayout title={t("acc_decl.dashboard_title")}>
       <SEO title={t("acc_decl.dashboard_title")} />
-      <Query<GetUserNodesOfType, GetUserNodesOfTypeVariables>
-        query={GET_USER_NODE_OF_TYPE}
+      <Query<GetGroupNodesOfType, GetGroupNodesOfTypeVariables>
+        query={GET_GROUP_NODES_OF_TYPE}
         fetchPolicy="network-only"
+        onCompleted={value => { console.log(value) }}
         variables={{
-          userId: sessionInfo.userId,
+          groupId: sessionInfo.organizationCode || "",
           nodeType: "dichiarazione_accessibilita"
         }}
       >

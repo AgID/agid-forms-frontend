@@ -12,8 +12,12 @@ import { format } from "date-fns";
 
 import {
   UpsertNode,
-  UpsertNodeVariables
+  UpsertNodeVariables,
+  UpsertNode_insert_node_returning
 } from "../../generated/graphql/UpsertNode";
+
+import { getSessionInfo, userHasAnyRole, userHasAuthenticatedRole, logout } from "../../utils/auth";
+import { GraphqlClient } from "../../graphql/client";
 
 import { Button } from "reactstrap";
 
@@ -114,6 +118,19 @@ const toNode = (
   }
 });
 
+const onCompleted = (
+  node: UpsertNode_insert_node_returning,
+  form: FormT,
+) => {
+  if (node.status === "published") {
+    navigate(`/view/${node.id}?cta`);
+  }
+
+  form.bound_to
+    ? navigate(`/thanks`)
+    : navigate(`/revision/${node.id}/${node.version}`);
+}
+
 const FormFieldArray = ({
   group,
   formik
@@ -188,7 +205,8 @@ const FormComponent = ({
   form,
   initialValues,
   onSubmit,
-  links
+  links,
+  boundNodeValues
 }: {
   form: FormT;
   initialValues: InitialValuesT;
@@ -197,6 +215,7 @@ const FormComponent = ({
     formikActions: FormikActions<FormikValues>
   ) => void;
   links: ReadonlyArray<{ to: string; title: string }>;
+  boundNodeValues: object | null;
 }) => {
   const fields = flattenFormFieldsWithKeys(form);
   return (
@@ -241,6 +260,7 @@ const FormComponent = ({
                                   key={field.name}
                                   field={field}
                                   form={formik}
+                                  boundNodeValues={boundNodeValues}
                                 />
                               ) : (
                                 <></>
@@ -308,6 +328,14 @@ const FormTemplate = ({
     );
   }
 
+  if (form.roles && form.roles.length > 0) {
+    const user = getSessionInfo();
+    if (!userHasAnyRole(user, form.visible_to as ReadonlyArray<string>)) {
+      navigate("/unauthorized");
+      return null;
+    }
+  }
+
   const formFields = flattenFormFields(form);
 
   // get the expression to generate title
@@ -338,7 +366,7 @@ const FormTemplate = ({
           id: nodeId
         }}
         onCompleted={node => {
-          setTitle(node.latest[0].title || formId);
+          !form.bound_to && node.latest[0] && setTitle(node.latest[0].title || formId);
         }}
       >
         {({
@@ -358,12 +386,22 @@ const FormTemplate = ({
             );
           }
 
+          if (existingNode && existingNode.latest.length === 0) {
+            navigate("/404");
+            return null;
+          }
+
+          if (!existingNode && form.bound_to) {
+            navigate("/404");
+            return null;
+          }
+
           const latestNode =
             existingNode && existingNode.latest && existingNode.latest[0]
               ? existingNode.latest[0]
               : null;
 
-          const links = latestNode
+          const links = !form.bound_to && latestNode
             ? [
                 {
                   to: `/revision/${latestNode.id}/${latestNode.version}`,
@@ -377,7 +415,7 @@ const FormTemplate = ({
               <Mutation<UpsertNode, UpsertNodeVariables>
                 mutation={UPSERT_NODE}
                 refetchQueries={
-                  nodeId
+                  !form.bound_to && nodeId
                     ? [
                         {
                           query: GET_LATEST_NODE_WITH_PUBLISHED,
@@ -389,9 +427,11 @@ const FormTemplate = ({
                 onCompleted={upsertNodeResult => {
                   if (upsertNodeResult.insert_node) {
                     const node = upsertNodeResult.insert_node.returning[0];
-                    node.status === "published"
-                      ? navigate(`/view/${node.id}?cta`)
-                      : navigate(`/revision/${node.id}/${node.version}`);
+                    const user = getSessionInfo();
+
+                    userHasAuthenticatedRole(user)
+                    ? logout(GraphqlClient).then(() => onCompleted(node, form))
+                    : onCompleted(node, form);
                   }
                 }}
               >
@@ -420,7 +460,10 @@ const FormTemplate = ({
                       links={links}
                       form={form}
                       initialValues={
-                        latestNode ? latestNode.content.values : initialValues
+                        !form.bound_to && latestNode ? latestNode.content.values : initialValues
+                      }
+                      boundNodeValues={
+                        form.bound_to && latestNode ? latestNode.content.values : null
                       }
                       onSubmit={async (
                         values: FormValuesT,
@@ -437,7 +480,7 @@ const FormTemplate = ({
                         await upsertNode({
                           ...node,
                           variables: {
-                            node: latestNode
+                            node: !form.bound_to && latestNode
                               ? {
                                   ...node.variables.node,
                                   id: latestNode.id,

@@ -1,4 +1,4 @@
-FROM circleci/node:8.11.3 as builder
+FROM circleci/node:10.18.1 as builder
 
 ARG HASURA_GRAPHQL_ENDPOINT
 ARG HASURA_GRAPHQL_ADMIN_SECRET

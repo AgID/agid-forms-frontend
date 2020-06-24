@@ -99,9 +99,8 @@ const Footer = ({
             {hotjar && hotjar.surveyUrl && (
               <li className="list-inline-item px-1">
                 <a
-                  className="small-prints font-weight-bold"
+                  className="small-prints font-weight-bold external-link text-white"
                   href={hotjar.surveyUrl}
-                  style={{ color: "#fff" }}
                   aria-label={`${t("give_feedback")} - ${t("external_link")}`}
                   title={t("external_link")}
                 >

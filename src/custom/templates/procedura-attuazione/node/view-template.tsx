@@ -13,7 +13,7 @@ const PublishModal = () => {
     <Modal
       isOpen={isOpen}
       toggle={() => setIsOpen(!isOpen)}
-      onClosed={() => navigate("/form/segnalazione-accessibilita")}
+      onClosed={() => navigate("/form/procedura-attuazione")}
       contentClassName="rounded"
     >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
