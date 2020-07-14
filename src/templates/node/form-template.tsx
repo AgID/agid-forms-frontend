@@ -357,6 +357,7 @@ const FormTemplate = ({
   return (
     <StaticLayout
       title={title}
+      contextMenu={getContextualMenu(data, formId, nodeId)}
       breadcrumbItems={breadcrumbItems}
     >
       <SEO title={title} />
