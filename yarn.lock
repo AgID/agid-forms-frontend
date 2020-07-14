@@ -1646,6 +1646,11 @@
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@types/zen-observable/-/zen-observable-0.8.0.tgz#8b63ab7f1aa5321248aad5ac890a485656dcea4d"
 
+"@ungap/url-search-params@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@ungap/url-search-params/-/url-search-params-0.2.2.tgz#2de3bdec21476a9b70ef11fd7b794752f9afa04c"
+  integrity sha512-qQsguKXZVKdCixOHX9jqnX/K/1HekPDpGKyEcXHT+zR6EjGA7S4boSuelL4uuPv6YfhN0n8c4UxW+v/Z3gM2iw==
+
 "@webassemblyjs/ast@1.7.11":
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/@webassemblyjs/ast/-/ast-1.7.11.tgz#b988582cafbb2b095e8b556526f30c90d057cace"
