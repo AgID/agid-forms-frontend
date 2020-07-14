@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby";
 import * as React from "react";
+import URLSearchParams from '@ungap/url-search-params'
 
 import { getContextualMenu, getMenu, getSiteConfig } from "../graphql/gatsby";
 import { IBreadcrumbItem } from "./Breadcrumb";
@@ -37,8 +38,9 @@ const StaticLayout = ({
   // extract contextual menu from URL
   React.useEffect(() => {
     const section = window.location.pathname.split("/")[2];
+    const nodeId = (new URLSearchParams(window.location.search)).get("id");
     if (!contextMenu && section) {
-      setInnerContextMenu(getContextualMenu(data, section));
+      setInnerContextMenu(getContextualMenu(data, section, nodeId));
     } else if (contextMenu) {
       setInnerContextMenu(contextMenu);
     }
