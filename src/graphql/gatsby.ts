@@ -11,6 +11,7 @@ import {
 import { ViewConfig } from "../generated/graphql/ViewConfig";
 import { FormT } from "../utils/forms";
 import { get } from "../utils/safe_access";
+import { replaceNodeIdMenu } from "../utils/menu";
 
 export const MenuFragment = graphql`
   fragment MenuFragment on ConfigYamlConnection {
@@ -52,7 +53,8 @@ export const ContextualMenuFragment = graphql`
 
 export function getContextualMenu(
   data: FormConfig | ViewConfig,
-  formId?: string
+  formId?: string,
+  nodeId?: string
 ): FormConfig_allMenuYaml_edges_node | null {
   if (!formId) {
     return null;
@@ -62,7 +64,7 @@ export function getContextualMenu(
         node => get(node, n => n.node.menu.id, "") === formId
       )
     : null;
-  return get(menu, n => n[0].node, null);
+  return get(menu, n => replaceNodeIdMenu(n, nodeId), null);
 }
 
 export const SiteConfigFragment = graphql`
