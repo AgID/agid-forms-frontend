@@ -348,14 +348,16 @@ const FormTemplate = ({
 
   const [title, setTitle] = React.useState(form.name || formId);
 
+  const breadcrumbItems = [
+    { label: title!, link: "" }
+  ].concat(form.bound_to ? [] : [
+    { label: form.action!, link: `/doc/${formId}` }
+  ]).reverse();
+
   return (
     <StaticLayout
       title={title}
-      contextMenu={getContextualMenu(data, formId)}
-      breadcrumbItems={[
-        { label: form.action!, link: `/doc/${formId}` },
-        { label: title!, link: "" }
-      ]}
+      breadcrumbItems={breadcrumbItems}
     >
       <SEO title={title} />
       {/* try to get exiting form values from database */}
