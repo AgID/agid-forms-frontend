@@ -55,6 +55,7 @@ import {
   getFieldNameParts,
   isGroupField
 } from "../../utils/forms";
+import { get } from "../../utils/safe_access";
 
 type InitialValuesT = Record<
   string,
@@ -466,7 +467,14 @@ const FormTemplate = ({
                         !form.bound_to && latestNode ? latestNode.content.values : initialValues
                       }
                       boundNodeValues={
-                        form.bound_to && latestNode ? latestNode.content.values : null
+                        form.bound_to && latestNode ? {
+                          ...latestNode.content.values,
+                          'reporting-pa': get(
+                            latestNode,
+                            n => n.node_group.group_ipa_pa.des_amm,
+                            ""
+                          )
+                        } : null
                       }
                       onSubmit={async (
                         values: FormValuesT,

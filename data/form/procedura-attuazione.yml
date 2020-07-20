@@ -89,7 +89,7 @@ sections:
             widget: text
             title: Soggetto erogatore da segnalare
             required_if: "true"
-            computed_value: boundNodeValues["manager-email"]
+            computed_value: boundNodeValues["reporting-pa"]
 
       - name: report-content
         title: motivo del reclamo
