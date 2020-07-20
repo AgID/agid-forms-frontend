@@ -5,5 +5,5 @@ menu:
       slug: "/form/procedura-attuazione/:nodeId"
       roles: [authenticated, anonymous]
     - name: Informativa sul trattamento dei dati personali
-      slug: "/doc/procedura-attuazione/informativa-privacy?id=:nodeIds"
+      slug: "/doc/procedura-attuazione/informativa-privacy?id=:nodeId"
       roles: [authenticated, anonymous]
