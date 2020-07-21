@@ -141,12 +141,3 @@ sections:
             required_if: values["report-has-answer"] == "si"
             valid_if: Yup.string().max(1000).validate(value)
 
-      - name: privacy
-        # title: acconsento al trattamento dei miei dati personali
-        # description:
-        fields:
-          - name: "privacy"
-            widget: html
-            title: Trattamento dei dati personali
-            default: |
-              <a href="/doc/procedura-attuazione/informativa-privacy">informativa sul trattamento dei dati personali</a>
