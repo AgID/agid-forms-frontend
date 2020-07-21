@@ -141,7 +141,7 @@ sections:
             enabled_if: values["compliance-status"] != "compliant"
           - name: "reason-no-law-text"
             widget: textarea
-            title: La legislazione non applicabile per le seguenti sezioni, contenuti e funzioni (massimo 2000 caratteri)
+            title: Legislazione non applicabile per le seguenti sezioni, contenuti e funzioni (massimo 2000 caratteri)
             description: elencare le sezioni i contenuti o le funzioni non accessibili che non rientrano nell'ambito della legislazione applicabile.
             show_if: values["reason-no-law"]
             required_if: values["reason-no-law"]
