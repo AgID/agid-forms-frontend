@@ -327,7 +327,7 @@ sections:
             description: indicare in percentuale, solo valori interi
             widget: number
             required_if: "true"
-            valid_if: Yup.number().min(0).validate(value)
+            valid_if: Yup.number().integer().min(0).max(100).validate(value)
 
       - name: application-manager
         title: Il responsabile dei processi di integrazione
