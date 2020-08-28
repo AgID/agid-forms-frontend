@@ -196,7 +196,7 @@ const Groups: Record<
       <FormGroupTitle title="feedback e recapiti" />
       <p className="w-paragraph">{values.feedback}</p>
       <p className="w-paragraph">
-        <strong>Url del contatto Link al meccanismo di feedback</strong>:{" "}
+        <strong>Meccanismo di feedback</strong>:{" "}
         <a href={values["feedback-url"]}>{values["feedback-url"]}</a>
       </p>
       <p className="w-paragraph">
