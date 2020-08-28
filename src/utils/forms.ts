@@ -98,7 +98,7 @@ export const validateField = (
               // tslint:disable-next-line: no-string-throw
               throw "Campo richiesto";
             }
-            return validationExpression
+            return validationExpression && !isEmptyFieldValue(value)
               ? validationExpression({
                   Yup,
                   value,
