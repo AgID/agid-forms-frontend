@@ -326,7 +326,7 @@ sections:
             title: La percentuale di spesa prevista nel piano di bilancio di previsione in materia di accessibilità
             description: indicare in percentuale, solo valori interi
             widget: number
-            required_if: "true"
+            required_if: "false"
             valid_if: Yup.number().integer().min(0).max(100).validate(value)
 
       - name: application-manager
