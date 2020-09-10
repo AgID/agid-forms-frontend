@@ -23,7 +23,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { ValueType } from "react-select/lib/types";
 import ApolloErrors from "../components/ApolloErrors";
 import { FieldDescription } from "../components/FieldDescription";
-import { DUMB_IPA_VALUE_FOR_NULL } from "../config";
+import { DUMB_IPA_VALUE_FOR_NULL, ISTAT_SCHOOL_TIPOLOGY } from "../config";
 import {
   PostAuthEmailIpaCode,
   PostAuthEmailIpaCodeVariables
@@ -116,6 +116,20 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
           );
         }
 
+        const isSchool =
+          ipaData &&
+          ipaData.ipa_pa &&
+          ipaData.ipa_pa[0] &&
+          ipaData.ipa_pa[0].tipologia_istat &&
+          ipaData.ipa_pa[0].tipologia_istat == ISTAT_SCHOOL_TIPOLOGY;
+
+        const schoolHasMail =
+          ipaData &&
+          ipaData.ipa_pa &&
+          ipaData.ipa_pa[0] &&
+          ipaData.ipa_pa[0].mail2 &&
+          ipaData.ipa_pa[0].mail2 !== "null";
+
         const hasRtd =
           ipaData &&
           ipaData.ipa_ou &&
@@ -124,14 +138,18 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
           ipaData.ipa_ou[0].mail_resp !== "null" &&
           ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
 
+        const canSendMail = (hasRtd && !isSchool) || (isSchool && schoolHasMail);
+        console.log(getSecretData);
         return getSecretData ? (
           <p>
             <Trans i18nKey="auth.email_sent" />{" "}
-            {getSecretData.post_auth_email_ipa_code.ipa_ou.mail_resp}
+            {!isSchool
+              ? getSecretData.post_auth_email_ipa_code.ipa_ou.mail_resp
+              : getSecretData.post_auth_email_ipa_code.ipa_pa.mail2}
           </p>
         ) : (
           <>
-            {hasRtd && (
+            {canSendMail && (
               <>
                 <FormGroup isHidden={false} fieldName="agree">
                   <Input
@@ -146,9 +164,12 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                     className="font-size-xs"
                     style={{ maxWidth: "34em" }}
                   >
-                    {t("auth.email_to_be_sent", {
+                    {!isSchool ? t("auth.email_to_be_sent", {
                       paName: ipaData!.ipa_pa[0].des_amm,
                       email: ipaData!.ipa_ou[0].mail_resp
+                    }) : t("auth.email_to_be_sent_school", {
+                      paName: ipaData!.ipa_pa[0].des_amm,
+                      email: ipaData!.ipa_pa[0].mail2
                     })}
                   </Label>
                 </FormGroup>
@@ -183,9 +204,11 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                 </div>
               </>
             )}
-            {!hasRtd && (
+            {!canSendMail && (
               <p className="text-warning">
-                <Trans i18nKey="auth.rtd_not_found" />
+                {!isSchool
+                  ? <Trans i18nKey="auth.rtd_not_found" />
+                  : <Trans i18nKey="auth.school_mail_is_null" />}
                 <br />
                 <a
                   className="external"

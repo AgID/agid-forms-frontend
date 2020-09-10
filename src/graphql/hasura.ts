@@ -21,6 +21,8 @@ export const GET_IPA = gql`
       cod_amm
       des_amm
       Comune
+      tipologia_istat
+      mail2
     }
     ipa_ou(
       where: {
