@@ -27,6 +27,8 @@ footerLinks:
     url: /doc/privacy-policy
   - name: Note legali
     url: /doc/note-legali
+  - name: Guida alla compilazione
+    url: /doc/dichiarazione-accessibilita/guida-alla-compilazione
 socialLinks:
   - name: ""
     url: ""
