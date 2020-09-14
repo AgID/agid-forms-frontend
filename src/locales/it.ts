@@ -59,7 +59,7 @@ const IT = {
     insert_secret: "inserisci la chiave di accesso che hai ricevuto per email:",
     login: "Accedi",
     // tslint:disable-next-line: no-hardcoded-credentials
-    not_has_password: "devo ancora ottenere la chiave di accesso",
+    not_has_password: "desidero ricevere una chiave di accesso",
     send_me_email: "invia email",
     select_pa: "Cerca la tua amministrazione",
     select_pa_hint:

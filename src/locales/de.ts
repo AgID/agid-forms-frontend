@@ -31,7 +31,7 @@ const DE = {
     insert_secret: "inserisci la password che hai ricevuto per emailen:",
     login_as: "acceden come {{selectedPa}}",
     // tslint:disable-next-line: no-hardcoded-credentials
-    not_has_password: "devo ancora ottenere la passworden",
+    not_has_password: "desidero ricevere una chiave di accesso",
     select_pa: "seleziona un'amministrazionen:",
     select_pa_hint:
       "puoi cercare l'amministrazione per nome o inserendo direttamente il codice ipan",
