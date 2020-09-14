@@ -19,7 +19,6 @@ sections:
   - name: section-0
     description: |
       Compila una nuova dichiarazione sulla base all’esito della valutazione di accessibilità.
-      Tutti i campi sono obbligatori.
     groups:
       - name: information
         title: Oggetto della dichiarazione
