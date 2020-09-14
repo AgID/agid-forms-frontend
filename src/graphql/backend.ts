@@ -12,6 +12,7 @@ export const GET_SECRET_IPA = gql`
       ) {
       ipa_pa @type(name: "ipa_pa") {
         cod_amm
+        mail2
       }
       ipa_ou @type(name: "ipa_ou") {
         mail_resp

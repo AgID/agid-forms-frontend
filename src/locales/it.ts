@@ -50,6 +50,8 @@ const IT = {
       "un'email contenente la chiave di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
       "Richiedo che venga inviata la chiave di accesso alla casella email del Responsabile della Transizione Digitale: {{email}}",
+    email_to_be_sent_school:
+      "Richiedo che venga inviata la chiave di accesso alla casella email della scuola: {{email}}",
     expired_session:
       "la tua sessione è scaduta, è necessario effettuare un nuovo login",
     // tslint:disable-next-line: no-hardcoded-credentials
@@ -64,6 +66,8 @@ const IT = {
       "inserisci la denominazione della tua amministrazione o il codice ipa",
     rtd_not_found:
       "l'indirizzo email del responsabile per la transizione digitale non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
+    school_mail_is_null:
+      "l'indirizzo email della scuola (non PEC) non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
     // tslint:disable-next-line: no-hardcoded-credentials
     wrong_password:
       // tslint:disable-next-line: no-hardcoded-credentials

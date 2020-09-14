@@ -22,6 +22,8 @@ const DE = {
       "un'email contenente la password di accesso è stata inviata all'indirizzen",
     email_to_be_sent:
       "proseguendo verrà inviata un'email all'indirizzo del responsabile per la transizione digitale dell'ente {{paName}}: {{email}}",
+    email_to_be_sent_school:
+      "Richiedo che venga inviata la chiave di accesso alla casella email della scuola: {{email}}",
     expired_session:
       "la tua sessione è scaduta, è necessario effettuare un nuovo loginen",
     // tslint:disable-next-line: no-hardcoded-credentials
@@ -35,6 +37,8 @@ const DE = {
       "puoi cercare l'amministrazione per nome o inserendo direttamente il codice ipan",
     rtd_not_found:
       "l'indirizzo email del responsabile per la transizione digitale non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativen:",
+    school_mail_is_null:
+      "l'indirizzo email della scuola (non PEC) non è stato ancora inserito nell'indice delle pubbliche amministrazioni, pertanto non è possibile proseguire con l'autenticazione. Puoi verificarlo visitando la pagina relativa:",
     // tslint:disable-next-line: no-hardcoded-credentials
     wrong_password: "la password immessa non è corretten"
   },
