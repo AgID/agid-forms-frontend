@@ -237,13 +237,13 @@ sections:
             required_if: "true"
             valid_if: Yup.date().validate(value)
           - name: application-usability-test
-            title: Usabilità
+            title: Sono stati effettuati test di usabilità?
             widget: radio
             required_if: "true"
             options:
-              - label: sono stati effettuati test di usabilità
+              - label: Si
                 value: si
-              - label: non sono stati effettuati test di usabilità
+              - label: No
                 value: no
 
           - name: website-cms
