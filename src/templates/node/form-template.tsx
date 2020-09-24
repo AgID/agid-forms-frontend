@@ -329,8 +329,9 @@ const FormTemplate = ({
     );
   }
 
+  const user = getSessionInfo();
+
   if (form.roles && form.roles.length > 0) {
-    const user = getSessionInfo();
     if (!userHasAnyRole(user, form.visible_to as ReadonlyArray<string>)) {
       navigate("/unauthorized");
       return null;
@@ -404,6 +405,10 @@ const FormTemplate = ({
             existingNode && existingNode.latest && existingNode.latest[0]
               ? existingNode.latest[0]
               : null;
+
+          if (user && latestNode && latestNode.node_group.group !== user.organizationCode) {
+            navigate("/unauthorized");
+          }
 
           const links = !form.bound_to && latestNode
             ? [

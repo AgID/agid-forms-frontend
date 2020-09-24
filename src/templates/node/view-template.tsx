@@ -14,8 +14,10 @@ import LoadableView from "../../components/LoadableView";
 import { GetNode, GetNodeVariables } from "../../generated/graphql/GetNode";
 import { getContextualMenu, getForm } from "../../graphql/gatsby";
 import { GET_LATEST_NODE_WITH_PUBLISHED } from "../../graphql/hasura";
-import { isLoggedIn } from "../../utils/auth";
+import { getSessionInfo, isLoggedIn } from "../../utils/auth";
 import { get } from "../../utils/safe_access";
+
+const user = getSessionInfo();
 
 const ViewTemplate = ({ data, uuid }: { data: ViewConfig; uuid: string }) => {
   const { t } = useTranslation();
@@ -98,7 +100,7 @@ const ViewTemplate = ({ data, uuid }: { data: ViewConfig; uuid: string }) => {
           setTitle(publishedNode.title);
 
           const links: ReadonlyArray<any> =
-            isLoggedIn() && latestNode
+            isLoggedIn() && latestNode && user && latestNode.node_group.group === user.organizationCode
               ? [
                   {
                     to: `/form/${latestNode.content.schema.id}/${latestNode.id}`,
