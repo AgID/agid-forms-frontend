@@ -139,7 +139,7 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
           ipaData.ipa_ou[0].mail_resp !== DUMB_IPA_VALUE_FOR_NULL;
 
         const canSendMail = (hasRtd && !isSchool) || (isSchool && schoolHasMail);
-        console.log(getSecretData);
+
         return getSecretData ? (
           <p>
             <Trans i18nKey="auth.email_sent" />{" "}
