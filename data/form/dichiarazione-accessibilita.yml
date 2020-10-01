@@ -111,6 +111,7 @@ sections:
             widget: checkbox
             title: inosservanza della legge 4/2004
             enabled_if: values["compliance-status"] != "compliant"
+            required_if: '!values["reason-disproportionate-burden"] && !values["reason-no-law"]'
           - name: "reason-42004-text"
             widget: textarea
             title: Sezioni, contenuti e funzioni non conformi
@@ -123,6 +124,7 @@ sections:
             widget: checkbox
             title: onere sproporzionato
             enabled_if: values["compliance-status"] != "compliant"
+            required_if: '!values["reason-42004"] && !values["reason-no-law"]'
           - name: "reason-disproportionate-burden-text"
             widget: textarea
             title: Sezioni, contenuti e funzioni soggette a deroga
@@ -138,6 +140,7 @@ sections:
             widget: checkbox
             title: il contenuto non rientra nell'ambito della legislazione applicabile
             enabled_if: values["compliance-status"] != "compliant"
+            required_if: '!values["reason-disproportionate-burden"] && !values["reason-42004"]'
           - name: "reason-no-law-text"
             widget: textarea
             title: Legislazione non applicabile per le seguenti sezioni, contenuti e funzioni (massimo 2000 caratteri)
