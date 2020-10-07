@@ -58,7 +58,7 @@ const getComplianceString = (
         isWebSite
           ? "Questo <strong>sito web</strong>"
           : "Questa <strong>applicazione</strong>"
-      } è <strong>conforme</strong>${getWcagString(wcagVersion)}.`;
+      } è <strong>conforme</strong> ${getWcagString(wcagVersion)}.`;
     case "partially-compliant":
       return `${
         isWebSite
