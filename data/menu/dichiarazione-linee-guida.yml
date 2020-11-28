@@ -3,10 +3,10 @@ menu:
   items:
     - name: Linee guida di design
       slug: "/doc/dichiarazione-linee-guida"
-      roles: [authenticated]
+      roles: [rtd]
     - name: Modulo di adesione alle Linee guida di design
       slug: "/form/dichiarazione-linee-guida"
-      roles: [authenticated]
-    - name: Gestione moduli
+      roles: [rtd]
+    - name: Gestione dichiarazioni
       slug: "/dashboard/dichiarazione-linee-guida"
-      roles: [authenticated]
+      roles: [rtd]
