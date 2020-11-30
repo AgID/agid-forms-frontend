@@ -1,7 +1,6 @@
-id: dichiarazione-linee-guida
-name: Modulo di adesione alle Linee guida di design
+id: comunicazione-modello-sviluppo-web
+name: Modulo di comunicazione uso dei modelli per lo sviluppo web
 action: Linee guida di design
-# action: L61 - Adeguamento alle Linee guida di design dei siti e servizi web delle PA
 category: piano triennale
 description: |-
   Come previso del punto CAP1.PA.LA14 del Piano Triennale per l'informatica nella PA,

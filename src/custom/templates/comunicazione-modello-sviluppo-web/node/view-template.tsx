@@ -29,7 +29,7 @@ const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
     <Modal
       isOpen={isOpen}
       toggle={() => setIsOpen(!isOpen)}
-      onClosed={() => navigate("/form/dichiarazione-linee-guida")}
+      onClosed={() => navigate("/form/comunicazione-modello-sviluppo-web")}
       contentClassName="rounded"
     >
       <ModalHeader toggle={() => setIsOpen(!isOpen)} tag="h2" className="px-5">
@@ -45,7 +45,7 @@ const PublishModal = ({ dashboardLink }: { dashboardLink: string }) => {
 
             <p className="pt-4 w-paragraph">
               Vai alla <Link to={dashboardLink}>gestione moduli</Link> o{" "}
-              <Link to="/form/dichiarazione-linee-guida">
+              <Link to="/form/comunicazione-modello-sviluppo-web">
                 invia una nuova comunicazione
               </Link>
             </p>
@@ -189,7 +189,7 @@ const ViewTemplate = ({
       </div>
       {publishedVersion && ctaClicked && (
         // node.version === publishedVersion - 1 &&
-        <PublishModal dashboardLink={`/dashboard/dichiarazione-linee-guida`} />
+        <PublishModal dashboardLink={`/dashboard/comunicazione-modello-sviluppo-web`} />
       )}
     </div>
   );

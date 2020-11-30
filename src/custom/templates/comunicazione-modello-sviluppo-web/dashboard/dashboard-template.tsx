@@ -28,7 +28,7 @@ const DashboardDeclTemplate = () => {
   const NewDeclCta = () => (
     <p>
       <GatsbyLink
-        to="/form/dichiarazione-linee-guida"
+        to="/form/comunicazione-modello-sviluppo-web"
         className="btn btn-outline-primary"
       >
         {t("lg_decl.create_new_decl_cta")}{" "}
@@ -58,9 +58,9 @@ const DashboardDeclTemplate = () => {
   return (
     <StaticLayout
       title={t("lg_decl.dashboard_title")}
-      contextMenu={getContextualMenu(data, "dichiarazione-linee-guida")}
+      contextMenu={getContextualMenu(data, "comunicazione-modello-sviluppo-web")}
       breadcrumbItems={[
-        { label: t("lg_decl.title"), link: "/doc/dichiarazione-linee-guida" },
+        { label: t("lg_decl.title"), link: "/doc/comunicazione-modello-sviluppo-web" },
         { label: t("lg_decl.dashboard_title"), link: "" }
       ]}
     >
@@ -70,7 +70,7 @@ const DashboardDeclTemplate = () => {
         fetchPolicy="network-only"
         variables={{
           groupId: sessionInfo.organizationCode || "",
-          nodeType: "dichiarazione_linee_guida"
+          nodeType: "comunicazione_modello_sviluppo_web"
         }}
       >
         {({
