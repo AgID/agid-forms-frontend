@@ -165,6 +165,7 @@ export const FormSchemaFragment = graphql`
               valid_if
               enabled_if
               required_if
+              ignored_if
               error_msg
               computed_value
               default_computed_value

@@ -99,25 +99,40 @@ const toNode = (
   form: FormT,
   status: string,
   titleExpression?: ReturnType<typeof parser.compile> | null
-) => ({
-  variables: {
-    node: {
-      content: {
-        values,
-        schema: {
-          id: form.id,
-          version: form.version
-        }
-      },
-      language: form.language,
-      status,
-      title: titleExpression
-        ? titleExpression({ values, formatDate: format, Date, id: form.id })
-        : form.id,
-      type: form.id.replace(/-/g, "_")
+) => {
+  const formFieldsWithKeys = flattenFormFieldsWithKeys(form);
+  const filteredValues = Object.keys(values)
+    .filter(prop => {
+      const isIgnored = formFieldsWithKeys[prop].ignored_if || "";
+      const isIgnoredExpression = isIgnored
+        ? parser.compile(isIgnored)
+        : null;
+      return isIgnoredExpression
+        ? !isIgnoredExpression(values)
+        : true;
+    })
+    .reduce((res, prop) => Object.assign(res, { [prop]: values[prop] }), {});
+
+  return {
+    variables: {
+      node: {
+        content: {
+          values: filteredValues,
+          schema: {
+            id: form.id,
+            version: form.version
+          }
+        },
+        language: form.language,
+        status,
+        title: titleExpression
+          ? titleExpression({ values, formatDate: format, Date, id: form.id })
+          : form.id,
+        type: form.id.replace(/-/g, "_")
+      }
     }
-  }
-});
+  };
+};
 
 const onCompleted = (
   node: UpsertNode_insert_node_returning,
