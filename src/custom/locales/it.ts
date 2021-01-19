@@ -1,5 +1,6 @@
 const IT = {
   acc_decl: {
+    title: "Dichiarazione di accessibilità",
     decl_statuses: "Stato delle dichiarazioni",
     dashboard_title: "Gestione delle dichiarazioni",
     compliant: "conforme",

@@ -80,7 +80,7 @@ const IT = {
   delete: "elimina",
   not_latest_version:
     "alcune modifiche al contenuto non sono ancora state pubblicate.",
-  draft_version: "il contenuto visualizzato non risulta ancora pubblicato.",
+  draft_version: "il contenuto visualizzato risulta ancora in bozza.",
   not_published_version:
     "il contenuto visualizzato presenta alcune modifiche rispetto alla versione pubblicata.",
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
