@@ -108,7 +108,7 @@ export const Formfield = ({
       !isEmptyFieldValue(getIn(form.values, field.name!))
     ) {
       form.setFieldValue(field.name!, getEmptyValue(field));
-    } else if (computedValue && computedValue !== fieldValue) {
+    } else if (computedValue != null && computedValue !== fieldValue) {
       form.setFieldValue(field.name!, computedValue);
     } else if (
       !isHidden &&
