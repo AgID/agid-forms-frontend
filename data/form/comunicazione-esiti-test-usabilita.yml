@@ -135,7 +135,7 @@ sections:
             valid_if: Yup.number().integer().min(0).validate(value)
             required_if: values["nps-data"] != "not-collected"
             enabled_if: values["nps-data"] != "not-collected"
-          - name: nps-assives-precentage
+          - name: nps-passives-precentage
             title: Percentuale neutri
             widget: number
             valid_if: Yup.number().integer().min(0).validate(value)
