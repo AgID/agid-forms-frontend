@@ -1,15 +1,15 @@
 import * as React from "react";
 import Helmet from "react-helmet";
-import { hasAcceptedCookies } from "./Cookiebar";
+// import { hasAcceptedCookies } from "./Cookiebar";
 
 const Hotjar = ({ hjid, hjsv }: { hjid: number; hjsv: number }) => {
-  const [hasAcceptedCookiesInt, setHasAcceptedCookies] = React.useState(false);
+  // const [hasAcceptedCookiesInt, setHasAcceptedCookies] = React.useState(false);
 
-  React.useEffect(() => {
-    setHasAcceptedCookies(hasAcceptedCookies());
-  });
+  // React.useEffect(() => {
+  //   setHasAcceptedCookies(hasAcceptedCookies());
+  // });
 
-  return hasAcceptedCookiesInt ? (
+  return /* hasAcceptedCookiesInt ? */(
     <Helmet>
       <script>
         {`(function(h,o,t,j,a,r){
@@ -22,7 +22,7 @@ const Hotjar = ({ hjid, hjsv }: { hjid: number; hjsv: number }) => {
       })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
       </script>
     </Helmet>
-  ) : null;
+  )/* : null */;
 };
 
 export default Hotjar;

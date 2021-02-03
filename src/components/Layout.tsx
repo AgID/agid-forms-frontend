@@ -7,7 +7,7 @@ import * as React from "react";
 import { Container } from "reactstrap";
 
 import ContextMenu from "./ContextMenu";
-import Cookiebar from "./Cookiebar";
+// import Cookiebar from "./Cookiebar";
 import Footer from "./Footer";
 import Hotjar from "./Hotjar";
 import MainHeader from "./MainHeader";
@@ -44,9 +44,9 @@ const Layout = ({
 
   return (
     <div className="layout-container">
-      {siteConfig.cookiePolicyLink && (
+      {/* {siteConfig.cookiePolicyLink && (
         <Cookiebar policyLink={siteConfig.cookiePolicyLink} />
-      )}
+      )} */}
       {siteConfig.hotjar &&
         siteConfig.hotjar.hjsv &&
         siteConfig.hotjar.hjid && (
