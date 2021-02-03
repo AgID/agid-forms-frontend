@@ -15,27 +15,18 @@ title_pattern: values["website-name"]
 initial_status: "published"
 sections:
   - name: section-0
-    title: Informazioni di contesto
     description: |-
       Compilare in tutte le loro parti i campi sottostanti.
     groups:
-      - name: information
-        title: oggetto della comunicazione
+      - name: comunication
+        title: adeguamento sito ai modelli di design
         fields:
-          - name: "website-name"
-            widget: text
-            title: Nome del sito
-            description: inserisci il nome del sito web
-            required_if: "true"
           - name: "website-url"
             widget: text
             title: URL del sito
             description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
             required_if: "true"
             valid_if: Yup.string().url().validate(value)
-      - name: date
-        title: adeguamento alle linee guida
-        fields:
           - name: "adjustment-date"
             title: Data prevista per l'adeguamento
             widget: date
