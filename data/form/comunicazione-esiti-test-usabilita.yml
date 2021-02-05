@@ -35,8 +35,8 @@ sections:
             valid_if: Yup.string().url().validate(value)
           - name: "contact-person"
             widget: text
-            title: Indirizzo email della persona responsabile dei test
-            description: inserisci l'indirizzo email della persona responsabile della realizzazione dei test di usabilità
+            title: Indirizzo email di lavoro della persona responsabile dei test
+            description: inserisci l'indirizzo email di lavoro della persona responsabile della realizzazione dei test di usabilità
             required_if: "true"
             valid_if: Yup.string().email().validate(value)
           - name: test-date
