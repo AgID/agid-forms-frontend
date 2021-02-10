@@ -11,14 +11,14 @@ roles: [rtd]
 visible_to: [rtd]
 listed_to: [rtd]
 version: 0.1.0
-title_pattern: values["website-name"]
+title_pattern: values["website-url"]
 initial_status: "published"
 sections:
   - name: section-0
     description: |-
       Compilare in tutte le loro parti i campi sottostanti.
     groups:
-      - name: comunication
+      - name: communication
         title: adeguamento sito ai modelli di design
         fields:
           - name: "website-url"

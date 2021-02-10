@@ -130,11 +130,7 @@ const DashboardDeclTemplate = () => {
                         return (
                           <tr key={node.id}>
                             <td className="px-5">
-                              {node.content.values["website-name"]}
-                              <br />
-                              <small className="font-size-xxs">
-                                {node.content.values["website-url"]}
-                              </small>
+                              {node.content.values["website-url"]}
                             </td>
                             <td className="px-5">
                               {format(node.updated_at, "DD/MM/YYYY")}

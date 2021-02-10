@@ -163,7 +163,7 @@ const ViewTemplate = ({
                   si impegna ad aderire alle Linee guida di design dei servizi
                   digitali della{" "}
                   <abbr title="pubblica amministrazione">PA</abbr> per il sito
-                  web <strong>{values["website-name"]}</strong> entro il giorno{" "}
+                  web <strong>{values["website-url"]}</strong> entro il giorno{" "}
                   <strong>
                     {format(values["adjustment-date"], "DD.MM.YYYY")}
                   </strong>
