@@ -1,0 +1,13 @@
+menu:
+  id: comunicazione-esiti-test-usabilita
+  items:
+    - name: Comunicazione esiti dei test di accessibilità
+      slug: "/doc/comunicazione-esiti-test-usabilita"
+      roles: [rtd]
+    - name: Nuova comunicazione
+      slug: "/form/comunicazione-esiti-test-usabilita"
+      roles: [rtd]
+    - name: Gestione delle comunicazioni
+      slug: "/dashboard/comunicazione-esiti-test-usabilita"
+      roles: [rtd]
+

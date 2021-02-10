@@ -1,0 +1,12 @@
+menu:
+  id: comunicazione-modello-sviluppo-web
+  items:
+    - name: Linee guida di design
+      slug: "/doc/comunicazione-modello-sviluppo-web"
+      roles: [rtd]
+    - name: Modulo di adesione alle Linee guida di design
+      slug: "/form/comunicazione-modello-sviluppo-web"
+      roles: [rtd]
+    - name: Gestione dichiarazioni
+      slug: "/dashboard/comunicazione-modello-sviluppo-web"
+      roles: [rtd]

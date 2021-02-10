@@ -1,5 +1,6 @@
 const IT = {
   acc_decl: {
+    title: "Dichiarazione di accessibilità",
     decl_statuses: "Stato delle dichiarazioni",
     dashboard_title: "Gestione delle dichiarazioni",
     compliant: "conforme",
@@ -19,6 +20,15 @@ const IT = {
     create_new_decl_desc: "",
     create_new_decl_cta: "Nuovo modulo",
     dashboard_adjustment_date: "data di adesione",
+    dashboard_sent_date: "data di invio"
+  },
+  ux_com: {
+    title: "Comunicazione esiti test di usabilità",
+    com_statuses: "Stato delle comunicazioni",
+    dashboard_title: "Gestione comunicazioni",
+    create_new_com_title: "Compila una nuova comunicazione",
+    create_new_com_desc: "",
+    create_new_com_cta: "Nuova comunicazione",
     dashboard_sent_date: "data di invio"
   }
 };

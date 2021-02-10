@@ -46,7 +46,13 @@ const DashboardDeclTemplate = () => {
   );
 
   return (
-    <StaticLayout title={t("acc_decl.dashboard_title")}>
+    <StaticLayout
+      title={t("acc_decl.dashboard_title")}
+      breadcrumbItems={[
+        { label: t("acc_decl.title"), link: "/doc/dichiarazione-accessibilita" },
+        { label: t("acc_decl.dashboard_title"), link: "" }
+      ]}
+    >
       <SEO title={t("acc_decl.dashboard_title")} />
       <Query<GetGroupNodesOfType, GetGroupNodesOfTypeVariables>
         query={GET_GROUP_NODES_OF_TYPE}

@@ -1,6 +1,7 @@
 import { graphql, Link } from "gatsby";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
+import ReactMarkdown from 'react-markdown';
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
@@ -33,7 +34,11 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
                     <h5 className="card-title">
                       <Link to={`/doc/${node.id}/`}>{node.action}</Link>
                     </h5>
-                    <p className="card-text">{node.description}</p>
+                    <p className="card-text">
+                      <ReactMarkdown renderers={{paragraph: 'span'}}>
+                        {node.description || ''}
+                      </ReactMarkdown>
+                    </p>
                     <p>
                       <Link to={`/form/${node.id}`} className="card-title">
                         {t("pages.action_goto_form")}

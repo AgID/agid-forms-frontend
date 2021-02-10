@@ -118,9 +118,10 @@ sections:
             show_if: values["fifth-item"]
             valid_if: Yup.string().email('invalid email format').validate(value)
             enabled_if: values["some-email"].length > 0
-          - name: html-field
-            widget: some html
+          - name: some html
+            widget: html
             default: "<p>this is some <strong>html</strong> content"
+            ignored_if: values["some-email"]
           - name: text-field-uppercase
             widget: some computed html
             computed_value: '"uppercase: " + values["third-item"].toUpperCase()'

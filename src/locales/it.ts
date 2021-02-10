@@ -45,7 +45,7 @@ const IT = {
     verify_token_text: "verifica il codice",
     pa_placeholder: "Nome o codice IPA...",
     description:
-      "Per poter procedere alla compilazione di un modulo è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA).</0>",
+      "Per poter procedere alla compilazione di un modulo è necessario identificare l’amministrazione. La mail del relativo Responsabile per la transizione digitale (RTD) deve essere già presente all’interno dell’<0>Indice delle Pubbliche Amministrazioni (IPA)</0>. Procedi con la scelta della PA oppure leggi la guida su <1>come accedere</1>.",
     email_sent:
       "un'email contenente la chiave di accesso è stata inviata all'indirizzo",
     email_to_be_sent:
@@ -58,6 +58,7 @@ const IT = {
     has_password: "ho già la chiave di accesso",
     insert_secret: "inserisci la chiave di accesso che hai ricevuto per email:",
     login: "Accedi",
+    how_to_log_in: "Come accedere",
     // tslint:disable-next-line: no-hardcoded-credentials
     not_has_password: "desidero ricevere una chiave di accesso",
     send_me_email: "invia email",
@@ -80,7 +81,7 @@ const IT = {
   delete: "elimina",
   not_latest_version:
     "alcune modifiche al contenuto non sono ancora state pubblicate.",
-  draft_version: "il contenuto visualizzato non risulta ancora pubblicato.",
+  draft_version: "il contenuto visualizzato risulta ancora in bozza.",
   not_published_version:
     "il contenuto visualizzato presenta alcune modifiche rispetto alla versione pubblicata.",
   view_latest_version: "visualizza il contenuto con le ultime modifiche",

@@ -1,0 +1,217 @@
+id: comunicazione-esiti-test-usabilita
+name: Nuova comunicazione
+action: Comunicazione esiti dei test di accessibilità
+category: usablità
+description: |-
+  Puoi utilizzare questo form, per inviare ad AGID i risultati dei test di usabilità, come previsto dal Piano Triennale ICT 2020-2022:
+  OB.1.2 - Migliorare l’esperienza d’uso e l’accessibilità dei servizi
+  R.A.1.2b - Diffusione dei test di usabilità previsti dalle Linee Guida AGID per il design dei servizi nelle amministrazioni per agevolare il feedback e le valutazioni da parte degli utenti.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+version: 0.1.0
+# slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
+title_pattern: "'Comunicazione esiti dei test di accessibilità'"
+initial_status: "published"
+sections:
+  - name: section-0
+    description: |
+      Compila una nuova comunicazione sulla base dell’esito dei test di usabilità effettuati per il sito istituzionale della tua PA.
+    groups:
+      - name: information
+        title: Informazioni generali
+        fields:
+          - name: "website-name"
+            widget: text
+            title: Nome del sito
+            description: inserisci il nome del sito web
+            required_if: "true"
+          - name: "website-url"
+            widget: text
+            title: URL del sito
+            description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
+            required_if: "true"
+            valid_if: Yup.string().url().validate(value)
+          - name: "contact-person"
+            widget: text
+            title: Indirizzo email di lavoro della persona responsabile dei test
+            description: inserisci l'indirizzo email di lavoro della persona responsabile della realizzazione dei test di usabilità
+            required_if: "true"
+            valid_if: Yup.string().email().validate(value)
+          - name: test-date
+            title: Data della realizzazione dei test di usabilità
+            widget: date
+            required_if: "true"
+            valid_if: Yup.date().validate(value)
+      - name: test-descrition
+        title: Descrizione del test
+        fields:
+          - name: test-objectives
+            title: Obiettivi del test di usabilità
+            widget: textarea
+            required_if: "true"
+          - name: task-1-description
+            title: Descrivi il task n. 1 e il relativi criteri di successo
+            widget: textarea
+            required_if: "true"
+          - name: task-2-description
+            title: Descrivi il task n. 2 e il relativi criteri di successo
+            widget: textarea
+            required_if: "true"
+          - name: task-3-description
+            title: Descrivi il task n. 3 e il relativi criteri di successo
+            widget: textarea
+            required_if: "true"
+          - name: task-4-description
+            title: Descrivi il task n. 4 e il relativi criteri di successo
+            widget: textarea
+            required_if: "true"
+          - name: task-n-description
+            title: Se il test di usabilità prevedeva più di 4 task, descrivi qui quelli aggiuntivi e relativi criteri di successo
+            widget: textarea
+          - name: tasks-number
+            title: Numero totale dei task
+            description: indicare il numero
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().min(0).validate(value)
+          - name: participants-number
+            title: Numero totale dei partecipanti
+            description: indicare il numero
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().min(0).validate(value)
+      - name: test-outcome
+        title: Esito del test
+        fields:
+          - name: task-mean-success-rate
+            title: Tasso di successo medio di tutti i task di tutti i partecipanti
+            description: Inserire il tasso complessivo di successo di tutti i task in percentuale, solo valori interi
+            widget: number
+            required_if: "true"
+            valid_if: Yup.number().integer().min(0).max(100).validate(value)
+          - name: problems-and-critical-issues
+            title: Problemi e criticità
+            widget: textarea
+            required_if: "true"
+
+  - name: section-1
+    title: Esiti questionari NPS, SUS e UMUX Lite (facolativo)
+    description: |-
+      Se hai raccolto dati con i questionari NPS, SUS o UMUX Lite, inserisci di seguito i risultati.
+    groups:
+      - name: nps
+        title: Net Promoter Score
+        description: |
+          NPS = (% Promotori - % Detrattori)
+        fields:
+          - name: "nps-data"
+            widget: radio
+            default: not-collected
+            title: Questionario NPS
+            required_if: "true"
+            options:
+              - label: dati raccolti
+                value: collected
+              - label: dati non raccolti
+                value: not-collected
+          - name: nps-total-number-sample-participants
+            title: Numero totale del campione di partecipanti
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+            required_if: values["nps-data"] != "not-collected"
+            enabled_if: values["nps-data"] != "not-collected"
+          - name: nps-promoters-precentage
+            title: Percentuale promotori
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+            required_if: values["nps-data"] != "not-collected"
+            enabled_if: values["nps-data"] != "not-collected"
+          - name: nps-detractors-precentage
+            title: Percentuale detrattori
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+            required_if: values["nps-data"] != "not-collected"
+            enabled_if: values["nps-data"] != "not-collected"
+          - name: nps-passives-precentage
+            title: Percentuale neutri
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+            required_if: values["nps-data"] != "not-collected"
+            enabled_if: values["nps-data"] != "not-collected"
+          - name: nps-score
+            title: Punteggio NPS
+            widget: number
+            computed_value: values["nps-promoters-precentage"] - values["nps-detractors-precentage"]
+            required_if: values["nps-data"] != "not-collected"
+      - name: sus
+        title: System Usability Scale
+        fields:
+          - name: sus-data
+            widget: radio
+            default: not-collected
+            title: Questionario SUS
+            required_if: "true"
+            options:
+              - label: dati raccolti
+                value: collected
+              - label: dati non raccolti
+                value: not-collected
+          - name: sus-score
+            title: Punteggio SUS
+            widget: number
+            required_if: values["sus-data"] != "not-collected"
+            enabled_if: values["sus-data"] != "not-collected"
+            valid_if: Yup.number().integer().min(0).max(100).validate(value)
+      - name: umuxlite
+        title: UMUX Lite
+        fields:
+          - name: umuxlite-data
+            widget: radio
+            default: not-collected
+            title: Questionario UMUX Lite
+            required_if: "true"
+            options:
+              - label: dati raccolti
+                value: collected
+              - label: dati non raccolti
+                value: not-collected
+          - name: umuxlite-score
+            title: Punteggio UMUX Lite (equivalente SUS)
+            widget: number
+            required_if: values["umuxlite-data"] != "not-collected"
+            enabled_if: values["umuxlite-data"] != "not-collected"
+            valid_if: Yup.number().integer().min(0).max(100).validate(value)
+
+  - name: section-2
+    title: Allegati (facoltativo)
+    groups:
+      - name: attachments
+        fields:
+          - name: attachments
+            widget: html
+            ignored_if: "true"
+            default: |
+              <p>
+                Se hai la possibilità, vorremmo avere le tabelle ed i formulari dei risultati parziali e non aggregati per singolo partecipante. Puoi fare riferimento agli allegati che trovi nel kit Usability Test nel Protocollo eGLU:
+                <ul>
+                  <li><a href="https://designers.italia.it/kit/usability-test/">https://designers.italia.it/kit/usability-test/</a></li>
+                  <li><a href="http://www.funzionepubblica.gov.it/glu">http://www.funzionepubblica.gov.it/glu</a></li>
+                </ul>
+                In particolare:
+                <ul>
+                  <li>scheda anagrafica per partecipante (allegato 1 del Protocollo eGLU)</li>
+                  <li>tabella dei risultati per partecipante (allegato 8)</li>
+                  <li>tabella problemi, criticità ed euristiche (tabella inclusa nell'allegato 9)</li>
+                  <li>NPS per partecipante (allegato 5)</li>
+                  <li>SUS per partecipante (allegato 6)</li>
+                  <li>UMUXLite per partecipante (allegato 7)</li>
+                </ul>
+              </p>
+              <p>
+                Puoi inviare i file sopra elencati esclusivamente alla casella <a href="mailto:usabilita@agid.gov.it">usabilita@agid.gov.it</a>.
+              </p>
+              <p>
+                <strong>NOTA BENE: inviare solo dati anonimizzati, ad esempio utente 1, utente 2, etc., e non lasciare nomi e cognomi dei partecipanti al test.</strong>
+              </p>

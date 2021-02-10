@@ -553,9 +553,10 @@ const IndexPage = () => {
 
         <p className="w-paragraph-sans mb-5">
           <Trans i18nKey="auth.description">
-            <a className="external" href="https://indicepa.gov.it">
+            <a className="external-link" href="https://indicepa.gov.it">
               indicepa <span>{t("external_link")}</span>
             </a>
+            <a href="/how-to-log-in"></a>
           </Trans>
         </p>
 

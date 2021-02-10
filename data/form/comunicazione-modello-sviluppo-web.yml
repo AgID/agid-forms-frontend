@@ -1,0 +1,34 @@
+id: comunicazione-modello-sviluppo-web
+name: Modulo di comunicazione uso dei modelli per lo sviluppo web
+action: Adeguamento sito ai modelli di design
+category: piano triennale
+description: |-
+  Come previso del punto CAP1.PA.LA14 del Piano Triennale per l'informatica nella PA,
+  “Le PA comunicano ad AGID, tramite apposito form online, l’uso dei modelli per
+  lo sviluppo web per i propri siti istituzionali”.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+version: 0.1.0
+title_pattern: values["website-url"]
+initial_status: "published"
+sections:
+  - name: section-0
+    description: |-
+      Compilare in tutte le loro parti i campi sottostanti.
+    groups:
+      - name: communication
+        title: adeguamento sito ai modelli di design
+        fields:
+          - name: "website-url"
+            widget: text
+            title: URL del sito
+            description: inserisci l'indirizzo completo, comprensivo di http o https (es. https://example.com)
+            required_if: "true"
+            valid_if: Yup.string().url().validate(value)
+          - name: "adjustment-date"
+            title: Data prevista per l'adeguamento
+            widget: date
+            required_if: "true"
+            valid_if: Yup.date().validate(value)

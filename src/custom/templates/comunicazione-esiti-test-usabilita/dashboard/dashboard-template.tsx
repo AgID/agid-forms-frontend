@@ -2,7 +2,7 @@ import * as React from "react";
 
 import SEO from "../../../../components/Seo";
 
-import { graphql, Link as GatsbyLink, useStaticQuery } from "gatsby";
+import { Link as GatsbyLink } from "gatsby";
 
 import { format } from "date-fns";
 import { Query } from "react-apollo";
@@ -16,22 +16,20 @@ import {
 } from "../../../../generated/graphql/GetGroupNodesOfType";
 import { GET_GROUP_NODES_OF_TYPE } from "../../../../graphql/hasura";
 
-import { getContextualMenu } from "../../../../graphql/gatsby";
-
-const DashboardDeclTemplate = () => {
+const DashboardComTemplate = () => {
   const { t } = useTranslation();
   const sessionInfo = getSessionInfo();
   if (!sessionInfo || !sessionInfo.userId) {
     return null;
   }
 
-  const NewDeclCta = () => (
+  const NewComCta = () => (
     <p>
       <GatsbyLink
-        to="/form/dichiarazione-linee-guida"
+        to="/form/comunicazione-esiti-test-usabilita"
         className="btn btn-outline-primary"
       >
-        {t("lg_decl.create_new_decl_cta")}{" "}
+        {t("ux_com.create_new_com_cta")}{" "}
         <span
           aria-hidden="true"
           style={{
@@ -47,30 +45,21 @@ const DashboardDeclTemplate = () => {
     </p>
   );
 
-  const data = useStaticQuery(graphql`
-    query DashboardDeclConfig {
-      allMenuYaml {
-        ...ContextualMenuFragment
-      }
-    }
-  `);
-
   return (
     <StaticLayout
-      title={t("lg_decl.dashboard_title")}
-      contextMenu={getContextualMenu(data, "dichiarazione-linee-guida")}
+      title={t("ux_com.dashboard_title")}
       breadcrumbItems={[
-        { label: t("lg_decl.title"), link: "/doc/dichiarazione-linee-guida" },
-        { label: t("lg_decl.dashboard_title"), link: "" }
+        { label: t("ux_com.title"), link: "/doc/comunicazione-esiti-test-usabilita" },
+        { label: t("ux_com.dashboard_title"), link: "" }
       ]}
     >
-      <SEO title={t("lg_decl.dashboard_title")} />
+      <SEO title={t("ux_com.dashboard_title")} />
       <Query<GetGroupNodesOfType, GetGroupNodesOfTypeVariables>
         query={GET_GROUP_NODES_OF_TYPE}
         fetchPolicy="network-only"
         variables={{
           groupId: sessionInfo.organizationCode || "",
-          nodeType: "dichiarazione_linee_guida"
+          nodeType: "comunicazione_esiti_test_usabilita"
         }}
       >
         {({
@@ -92,20 +81,20 @@ const DashboardDeclTemplate = () => {
           if (userNodes && !userNodes.node[0]) {
             return (
               <div className="p-lg-4">
-                <h2>{t("lg_decl.create_new_decl_title")}</h2>
+                <h2>{t("ux_com.create_new_com_title")}</h2>
                 <div
                   className="w-paragraph mb-5"
                   dangerouslySetInnerHTML={{
-                    __html: t("lg_decl.create_new_decl_desc")
+                    __html: t("ux_com.create_new_com_desc")
                   }}
                 />
-                <NewDeclCta />
+                <NewComCta />
               </div>
             );
           }
           return (
             <div>
-              <NewDeclCta />
+              <NewComCta />
               <div className="table-responsive">
                 <table className="table table-hover mt-4">
                   <thead className="lightgrey-bg-a3">
@@ -114,10 +103,7 @@ const DashboardDeclTemplate = () => {
                         {t("name")}
                       </th>
                       <th scope="col" className="font-variant-small-caps px-5">
-                        {t("lg_decl.dashboard_sent_date")}
-                      </th>
-                      <th scope="col" className="font-variant-small-caps px-5">
-                        {t("lg_decl.dashboard_adjustment_date")}
+                        {t("ux_com.dashboard_sent_date")}
                       </th>
                       <th scope="col" className="font-variant-small-caps px-5">
                         {t("view")}
@@ -140,12 +126,6 @@ const DashboardDeclTemplate = () => {
                               {format(node.updated_at, "DD/MM/YYYY")}
                             </td>
                             <td className="px-5">
-                              {format(
-                                node.content.values["adjustment-date"],
-                                "DD/MM/YYYY"
-                              )}
-                            </td>
-                            <td className="px-5">
                               <a href={`/view/${node.id}`}>{t("view")}</a>
                             </td>
                           </tr>
@@ -162,4 +142,4 @@ const DashboardDeclTemplate = () => {
   );
 };
 
-export default DashboardDeclTemplate;
+export default DashboardComTemplate;
