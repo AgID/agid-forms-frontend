@@ -1,6 +1,6 @@
 id: comunicazione-esiti-test-usabilita
 name: Nuova comunicazione
-action: Comunicazione esiti dei test di accessibilità
+action: Comunicazione esiti dei test di usabilità
 category: usablità
 description: |-
   Puoi utilizzare questo form, per inviare ad AGID i risultati dei test di usabilità, come previsto dal Piano Triennale ICT 2020-2022:
@@ -12,7 +12,7 @@ visible_to: [rtd]
 listed_to: [rtd]
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
-title_pattern: "'Comunicazione esiti dei test di accessibilità'"
+title_pattern: "'Comunicazione esiti dei test di usabilità'"
 initial_status: "published"
 sections:
   - name: section-0
