@@ -28,7 +28,7 @@ sections:
             required_if: "true"
             valid_if: Yup.string().url().validate(value)
           - name: "adjustment-date"
-            title: Data prevista per l'adeguamento
+            title: Data data di adeguamento o data prevista per l'adeguamento
             widget: date
             required_if: "true"
             valid_if: Yup.date().validate(value)
