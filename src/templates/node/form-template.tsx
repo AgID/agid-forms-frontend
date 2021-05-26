@@ -103,7 +103,7 @@ const toNode = (
   const formFieldsWithKeys = flattenFormFieldsWithKeys(form);
   const filteredValues = Object.keys(values)
     .filter(prop => {
-      const isIgnored = formFieldsWithKeys[prop].ignored_if || "";
+      const isIgnored = (formFieldsWithKeys[prop] && formFieldsWithKeys[prop].ignored_if) || "";
       const isIgnoredExpression = isIgnored
         ? parser.compile(isIgnored)
         : null;
