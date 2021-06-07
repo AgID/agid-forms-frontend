@@ -5,6 +5,7 @@ import { ErrorMessage } from "./ErrorMessage";
 import { FieldDescription } from "./FieldDescription";
 import { FormGroup } from "./FormGroup";
 import { Label } from "./Label";
+import { useTranslation } from "react-i18next";
 
 import SelectBase from "react-select";
 import {
@@ -24,6 +25,7 @@ export const CustomSelectComponent = ({
   form: FormikProps<FormValuesT>;
   options: ReadonlyArray<{ value: string; label: string }>;
 }) => {
+  const { t } = useTranslation();
   const value = options
     ? options.find(option => option.value === field.value)
     : getEmptyValue(field);
@@ -36,6 +38,7 @@ export const CustomSelectComponent = ({
       options={options}
       onChange={(option: any) => form.setFieldValue(field.name, option.value)}
       inputId={`${field.name}-select`}
+      placeholder={t("select")}
     />
   );
 };

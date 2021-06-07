@@ -7,6 +7,7 @@ const IT = {
   edit: "modifica",
   submit: "invia",
   cancel: "annulla",
+  select: "Seleziona",
   updated_at: "aggiornato il",
   view: "visualizza",
   save_draft: "salva bozza",

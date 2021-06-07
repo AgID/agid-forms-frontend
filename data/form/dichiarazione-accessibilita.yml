@@ -254,7 +254,7 @@ sections:
             title: Content Management System (CMS) utilizzato
             widget: select
             multiple: false
-            default: none
+            #default: none
             options:
               - label: Nessuno
                 value: none
@@ -281,7 +281,7 @@ sections:
             title: Framework utilizzato
             widget: select
             multiple: false
-            default: none
+            #default: none
             options:
               - label: Nessuno
                 value: none
