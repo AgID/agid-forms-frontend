@@ -283,8 +283,7 @@ const PublishModal = ({
               )}
               {!isWebsite && (
                 <>
-                  Pubblica nello store della tua app il link, in "Altre
-                  informazioni" nella sezione "Sviluppatore".
+                  Pubblica il link nello store della tua app.
                 </>
               )}
             </p>
