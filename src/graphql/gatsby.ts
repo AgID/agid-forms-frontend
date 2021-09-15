@@ -140,6 +140,9 @@ export const FormSchemaFragment = graphql`
         initial_status
         bound_to
         title_pattern
+        title_link
+        hide_action_goto
+        home_order
         sections {
           title
           name
