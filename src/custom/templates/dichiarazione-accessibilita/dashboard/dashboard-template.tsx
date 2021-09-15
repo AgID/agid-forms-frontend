@@ -113,7 +113,7 @@ const DashboardDeclTemplate = () => {
                       {t("updated_at")}
                     </th>
                     <th scope="col" className="font-variant-small-caps">
-                      {t("edit")}
+                      {t("action")}
                     </th>
                     <th scope="col" className="font-variant-small-caps">
                       {t("status")}
@@ -153,7 +153,7 @@ const DashboardDeclTemplate = () => {
                                 node.id
                               }`}
                             >
-                              {t("edit")}
+                              {node.status === "published" ? t("update") : t("edit")}
                             </Link>
                           </td>
                           <td>
