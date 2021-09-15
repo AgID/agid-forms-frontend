@@ -84,7 +84,7 @@ sections:
             computed_value: boundNodeValues["app-url"]
           - name: "feedbacked-pa"
             widget: text
-            title: Email della persona responsabile dell’accessibiltà (RTD)
+            title: Email della persona responsabile dell’accessibilità (RTD)
             required_if: "true"
             computed_value: boundNodeValues["manager-email"]
 

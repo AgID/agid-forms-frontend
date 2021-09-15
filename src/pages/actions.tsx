@@ -15,7 +15,9 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
     <StaticLayout title={t("pages.action_page_title")}>
       <SEO title={t("pages.action_page_title")} />
       <div className="row">
-        {getForms(data).map(({ node }) => {
+        {getForms(data).map(({ node }) => node)
+          .sort((firstNode, secondNode) => { return firstNode.home_order! - secondNode.home_order! })
+          .map((node) => {
           if (
             !userHasAnyRole(getSessionInfo(), node.listed_to as ReadonlyArray<
               string
@@ -32,18 +34,18 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
                       {node.category}
                     </p>
                     <h5 className="card-title">
-                      <Link to={`/doc/${node.id}/`}>{node.action}</Link>
+                      <Link to={node.title_link || `/doc/${node.id}/`}>{node.action}</Link>
                     </h5>
                     <p className="card-text">
                       <ReactMarkdown renderers={{paragraph: 'span'}}>
                         {node.description || ''}
                       </ReactMarkdown>
                     </p>
-                    <p>
+                    { node.hide_action_goto || (<p>
                       <Link to={`/form/${node.id}`} className="card-title">
                         {t("pages.action_goto_form")}
                       </Link>
-                    </p>
+                    </p>)}
                   </div>
                 </div>
               </div>
@@ -68,6 +70,9 @@ export const query = graphql`
           action
           roles
           listed_to
+          home_order
+          title_link
+          hide_action_goto
         }
       }
     }
