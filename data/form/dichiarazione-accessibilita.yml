@@ -15,10 +15,14 @@ listed_to: [rtd]
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: values["website-name"] + values["app-name"]
+title_link: /dashboard/dichiarazione-accessibilita
+hide_action_goto: true
+home_order: -10
 sections:
   - name: section-0
     description: |
-      Compila una nuova dichiarazione sulla base all’esito della valutazione di accessibilità.
+      Prima di compilare una nuova dichiarazione di accessibilità verifica che
+      questa non sia già presente nell'elenco già pubblicato.
     groups:
       - name: information
         title: Oggetto della dichiarazione
