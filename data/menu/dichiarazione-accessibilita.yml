@@ -4,11 +4,11 @@ menu:
     - name: Dichiarazione di accessibilità
       slug: "/doc/dichiarazione-accessibilita"
       roles: [rtd]
-    - name: Nuova dichiarazione
-      slug: "/form/dichiarazione-accessibilita"
-      roles: [rtd]
     - name: Gestione delle dichiarazioni
       slug: "/dashboard/dichiarazione-accessibilita"
+      roles: [rtd]
+    - name: Nuova dichiarazione
+      slug: "/form/dichiarazione-accessibilita"
       roles: [rtd]
     - name: FAQ
       slug: "/doc/dichiarazione-accessibilita/faq"
