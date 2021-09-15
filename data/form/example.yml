@@ -26,6 +26,12 @@ initial_status: "draft"
 slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 # to generate the content title once the form is submitted
 title_pattern: "'Dichiarazione accessibilita ' + formatDate(Date(), 'MM/YYYY') + ' ' + title"
+# custom title link different from default /doc/{id}
+title_link: /dashboard/dichiarazione-accessibilita
+# whether the home pagine link /node/{id} should be hidden
+hide_action_goto: true
+# define order of the forms in home page
+home_order: 0
 # we have a hierarchy: sections -> groups -> fields
 sections:
   - name: section-1
