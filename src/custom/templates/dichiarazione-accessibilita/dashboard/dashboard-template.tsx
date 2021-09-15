@@ -95,7 +95,6 @@ const DashboardDeclTemplate = () => {
           }
           return (
             <div>
-              <NewDeclCta />
               <table className="table table-hover mt-4">
                 <caption>{t("acc_decl.decl_statuses")}</caption>
                 <thead className="lightgrey-bg-a3">
@@ -176,6 +175,7 @@ const DashboardDeclTemplate = () => {
                     })}
                 </tbody>
               </table>
+              <NewDeclCta />
             </div>
           );
         }}
