@@ -201,7 +201,7 @@ const Groups: Record<
       </p>
       <p className="w-paragraph">
         <strong>
-          Email della persona responsabile dell’accessibiltà (RTD)
+          Email della persona responsabile dell’accessibilità (RTD)
         </strong>
         : {values["manager-email"]}
       </p>
