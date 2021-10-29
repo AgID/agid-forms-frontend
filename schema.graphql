@@ -209,6 +209,7 @@ type ipa_ou {
   cogn_resp: String!
   comune: String!
   des_ou: String!
+  cod_uni_ou: String!
   mail1: String!
   mail2: String!
   mail3: String!

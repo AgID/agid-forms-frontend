@@ -22,6 +22,7 @@ type GetPaFromIpa_ipa_ou {
   nome_resp: String!
   cogn_resp: String!
   mail_resp: String!
+  cod_uni_ou: String!
 }
 
 type GetPaFromIpa_ipa_pa {

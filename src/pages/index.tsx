@@ -216,8 +216,8 @@ const GetSecretComponent = ({ ipaData }: { ipaData?: GetIpa }) => {
                     "external_link"
                   )}`}
                   title={t("external_link")}
-                  href={`https://indicepa.gov.it/ricerca/n-dettaglioamministrazione.php?cod_amm=${
-                    ipaData!.ipa_pa[0].cod_amm
+                  href={`https://www.indicepa.gov.it/ipa-portale/consultazione/domicilio-digitale/ricerca-unita-organizzativa/scheda-unita-organizzativa/${
+                    ipaData!.ipa_ou[0].cod_uni_ou
                   }`}
                 >
                   {ipaData!.ipa_pa[0].des_amm}

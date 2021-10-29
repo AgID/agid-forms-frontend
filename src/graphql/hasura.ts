@@ -36,6 +36,7 @@ export const GET_IPA = gql`
       nome_resp
       cogn_resp
       mail_resp
+      cod_uni_ou
     }
   }
 `;
