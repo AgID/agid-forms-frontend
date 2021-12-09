@@ -34,7 +34,7 @@ const ViewTemplate = ({ data, uuid }: { data: ViewConfig; uuid: string }) => {
 
   return (
     <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
-      <SEO title={t("pages.view_title")} />
+      <SEO title={title} />
       <Query<GetNode, GetNodeVariables>
         query={GET_LATEST_NODE_WITH_PUBLISHED}
         variables={{

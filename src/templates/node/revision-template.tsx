@@ -36,7 +36,7 @@ const RevisionTemplate = ({
   const [formId, setFormId] = React.useState<string>();
   return (
     <StaticLayout title={title} contextMenu={getContextualMenu(data, formId)}>
-      <SEO title={t("pages.revision_title")} />
+      <SEO title={title} />
       <Query<GetNodeRevision, GetNodeRevisionVariables>
         query={GET_NODE_REVISION_WITH_PUBLISHED}
         variables={{
