@@ -104,7 +104,9 @@ export const validateField = (
                   Yup,
                   value,
                   values: form.values,
-                  validateFiscalCode
+                  validateFiscalCode,
+                  startOfCurrentYear: new Date(new Date().getFullYear(), 0, 1),
+                  endOfCurrentYear: new Date(new Date().getFullYear(), 11, 31, 23, 59)
                 })
               : true;
           })
