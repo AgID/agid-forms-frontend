@@ -6,11 +6,11 @@ import {
 } from "../utils/forms";
 
 export const formatFieldValue = (value: string) =>
-  value.split("\n").map(txt => (
-    <>
+  value.split("\n").map((txt, index) => (
+    <React.Fragment key={index}>
       {txt}
       <br />
-    </>
+    </React.Fragment>
   ));
 
 const ViewField = ({
