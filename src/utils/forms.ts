@@ -1,6 +1,7 @@
 import * as Yup from "yup";
 
 import { ItLocale } from "../utils/yup_locale_it";
+import i18next from "i18next";
 
 import { FormikProps } from "formik";
 
@@ -114,6 +115,12 @@ export const validateField = (
               : null;
           })
           .catch(e => {
+            // format date validation errors to local format
+            if (e.value && e.value instanceof Date) {
+              e.errors = e.errors.map(
+                (err: { key: string, values: Object }) => i18next.t(`validation_errors.${err.key}`, err.values)
+              );
+            }
             // prints custom or default error message
             return (
               field.error_msg ||

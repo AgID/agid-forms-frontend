@@ -44,8 +44,8 @@ export const number = {
 };
 
 export const date = {
-  min: "deve indicare una data oltre ${min}",
-  max: "deve indicare una data prima di ${max}"
+  min: ({ min }: { min: Date }) => ({ key: 'date_too_early', values: { min: min.toLocaleDateString() } }),
+  max: ({ max }: { max: Date }) => ({ key: 'date_too_late', values: { max: max.toLocaleDateString() } }),
 };
 
 // tslint:disable-next-line: variable-name

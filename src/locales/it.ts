@@ -112,6 +112,10 @@ const IT = {
     in_review: "in revisione",
     published: "pubblicato",
     archived: "archiviato"
+  },
+  validation_errors: {
+    date_too_early:  "deve indicare una data oltre il {{min}}",
+    date_too_late: "deve indicare una data prima del {{max}}",
   }
 };
 
