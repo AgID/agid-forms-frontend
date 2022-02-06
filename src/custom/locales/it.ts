@@ -30,6 +30,15 @@ const IT = {
     create_new_com_desc: "",
     create_new_com_cta: "Nuova comunicazione",
     dashboard_sent_date: "data di invio"
+  },
+  a11y_objs: {
+    title: "Obiettivi di accessibilità",
+    obj_statuses: "Stato degli obiettivi",
+    dashboard_title: "Gestione obiettivi",
+    create_new_obj_title: "Compila gli obiettivi",
+    create_new_obj_desc: "",
+    create_new_obj_cta: "Nuova compilazione",
+    dashboard_sent_date: "data di compilazione"
   }
 };
 

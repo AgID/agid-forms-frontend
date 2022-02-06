@@ -11,6 +11,8 @@ const IT = {
   cancel: "annulla",
   select: "Seleziona",
   updated_at: "aggiornato il",
+  filled_out_at: "compilato il",
+  year: "anno",
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",

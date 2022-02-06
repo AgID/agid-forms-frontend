@@ -1,0 +1,327 @@
+id: obiettivi-accessibilita
+name: Obiettivi di accessibilità
+action: Obiettivi di accessibilità
+category: accessibilità
+description: |-
+  Le pubbliche amministrazioni hanno l'obbligo di presentare, entro il 31 marzo
+  di ogni anno, gli obiettivi di accessibilità relativi all'anno corrente, come
+  ribadito anche nelle Linee Guida sull’accessibilità degli strumenti
+  informatici (capitolo 4 paragrafo 2), e lo stato di attuazione del piano per
+  l'utilizzo del telelavoro, come stabilito dal Decreto legge n. 179/2012,
+  articolo 9, comma 7.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+version: 0.1.0
+title_pattern: "'Obiettivi di accessibilità'"
+title_link: /dashboard/obiettivi-accessibilita
+hide_action_goto: false
+home_order: -10
+sections:
+  - name: section-0
+    title: Annualità
+    groups:
+      - name: gruppo-anno
+        fields:
+          - name: anno
+            widget: text
+            required_if: 'true'
+            computed_value: 'currentYear'
+  - name: siti-web-app
+    title: Siti web e/o app mobili
+    groups:
+      - name: sviluppo-rifacimento-sito
+        title: Sviluppo o rifacimento del sito/i
+        fields:
+          - name: abilita-sviluppo-rifacimento-sito
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-sviluppo-rifacimento-sito
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-sviluppo-rifacimento-sito"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-sviluppo-rifacimento-sito
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-sviluppo-rifacimento-sito"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: miglioramento-form-sito
+        title: Miglioramento moduli e formulari presenti sul sito/i
+        fields:
+          - name: abilita-miglioramento-form-sito
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-miglioramento-form-sito
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-miglioramento-form-sito"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-miglioramento-form-sito
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-miglioramento-form-sito"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: interventi-documenti
+        title: Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+        fields:
+          - name: abilita-documenti
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-documenti
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-documenti"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-documenti
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-documenti"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: analisi-usabilita
+        title: Analisi dell'usabilità
+        fields:
+          - name: abilita-analisi-usabilita
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-analisi-usabilita
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-analisi-usabilita"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-analisi-usabilita
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-analisi-usabilita"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: adeguamento-lg-design
+        title: Adeguamento alle "Linee guida di design siti web della PA"
+        fields:
+          - name: abilita-adeguamento-lg-design
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-adeguamento-lg-design
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-adeguamento-lg-design"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-adeguamento-lg-design
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-adeguamento-lg-design"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: adeguamento-criteri-accessibilita
+        title: Adeguamento ai criteri di accessibilità
+        fields:
+          - name: abilita-adeguamento-criteri-accessibilita
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-adeguamento-criteri-accessibilita
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-adeguamento-criteri-accessibilita"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-adeguamento-criteri-accessibilita
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-adeguamento-criteri-accessibilita"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: interventi-adeguativi-correttivi
+        title: Interventi di tipo adeguativo e/o correttivo
+        fields:
+          - name: abilita-intervento-adeguativo-correttivo
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-adeguativo-correttivo
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-intervento-adeguativo-correttivo"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-interventi-adeguativi-correttivi
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-intervento-adeguativo-correttivo"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+  - name: postazioni-lavoro
+    title: Postazioni di lavoro
+    groups:
+      - name: attuazione-specifiche-tecniche
+        title: Attuazione specifiche tecniche
+        fields:
+          - name: abilita-attuazione-specifiche-tecniche
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-attuazione-specifiche-tecniche
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-attuazione-specifiche-tecniche"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-attuazione-specifiche-tecniche
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-attuazione-specifiche-tecniche"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+  - name: organizzazione-lavoro
+    title: Organizzazione del lavoro
+    groups:
+      - name: piano-acquisto-soluzioni-hw-sf
+        title: Piano per l'acquisto di soluzioni hardware e software
+        fields:
+          - name: abilita-piano-acquisto-soluzioni-hw-sf
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-piano-acquisto-soluzioni-hw-sf
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-piano-acquisto-soluzioni-hw-sf"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-piano-acquisto-soluzioni-hw-sf
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-piano-acquisto-soluzioni-hw-sf"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: piano-telelavoro
+        title: Piano per l'utilizzo del telelavoro
+        fields:
+          - name: abilita-piano-telelavoro
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-piano-telelavoro
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-piano-telelavoro"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-piano-telelavoro
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-piano-telelavoro"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: nomina-rtd
+        title: Nomina del Responsabile della Transizione al Digitale
+        fields:
+          - name: abilita-nomina-rtd
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-nomina-rtd
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-nomina-rtd"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-nomina-rtd
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-nomina-rtd"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: miglioramento-iter-pubblicazione-e-ruoli
+        title: Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+        fields:
+          - name: abilita-miglioramento-iter-pubblicazione-e-ruoli
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-miglioramento-iter-pubblicazione-e-ruoli
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-miglioramento-iter-pubblicazione-e-ruoli"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-miglioramento-iter-pubblicazione-e-ruoli
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-miglioramento-iter-pubblicazione-e-ruoli"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: creazione-gdl-accessibilita
+        title: Creazione di un gruppo apposito sull'accessibilità
+        fields:
+          - name: abilita-creazione-gdl-accessibilita
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-creazione-gdl-accessibilita
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-creazione-gdl-accessibilita"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-creazione-gdl-accessibilita
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-creazione-gdl-accessibilita"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+  - name: formazione
+    title: Formazione
+    groups:
+      - name: aspetti-tecnici
+        title: Aspetti tecnici
+        fields:
+          - name: abilita-aspetti-tecnici
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-aspetti-tecnici
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-aspetti-tecnici"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-aspetti-tecnici
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-aspetti-tecnici"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: aspetti-normativi
+        title: Aspetti normativi
+        fields:
+          - name: abilita-aspetti-normativi
+            widget: checkbox
+            title: Abilita compilazione intervento
+          - name: descrizione-intervento-aspetti-normativi
+            title: Descrizione intervento
+            description: max 2000 caratteri
+            widget: textarea
+            required_if: "true"
+            enabled_if: values["abilita-aspetti-normativi"]
+            valid_if: Yup.string().max(2000).validate(value)
+          - name: tempi-adeguamento-aspetti-normativi
+            title: Tempi di adeguamento
+            widget: date
+            required_if: "true"
+            enabled_if: values["abilita-aspetti-normativi"]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
