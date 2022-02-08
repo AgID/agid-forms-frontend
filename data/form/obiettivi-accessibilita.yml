@@ -47,6 +47,7 @@ sections:
           - name: tempi-adeguamento-sviluppo-rifacimento-sito
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-sviluppo-rifacimento-sito"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -66,6 +67,7 @@ sections:
           - name: tempi-adeguamento-miglioramento-form-sito
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-miglioramento-form-sito"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -85,6 +87,7 @@ sections:
           - name: tempi-adeguamento-documenti
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-documenti"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -104,6 +107,7 @@ sections:
           - name: tempi-adeguamento-analisi-usabilita
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-analisi-usabilita"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -123,6 +127,7 @@ sections:
           - name: tempi-adeguamento-adeguamento-lg-design
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-adeguamento-lg-design"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -142,6 +147,7 @@ sections:
           - name: tempi-adeguamento-adeguamento-criteri-accessibilita
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-adeguamento-criteri-accessibilita"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -161,6 +167,7 @@ sections:
           - name: tempi-adeguamento-interventi-adeguativi-correttivi
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-intervento-adeguativo-correttivo"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -183,6 +190,7 @@ sections:
           - name: tempi-adeguamento-attuazione-specifiche-tecniche
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-attuazione-specifiche-tecniche"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -205,6 +213,7 @@ sections:
           - name: tempi-adeguamento-piano-acquisto-soluzioni-hw-sf
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-piano-acquisto-soluzioni-hw-sf"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -224,6 +233,7 @@ sections:
           - name: tempi-adeguamento-piano-telelavoro
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-piano-telelavoro"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -243,6 +253,7 @@ sections:
           - name: tempi-adeguamento-nomina-rtd
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-nomina-rtd"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -262,6 +273,7 @@ sections:
           - name: tempi-adeguamento-miglioramento-iter-pubblicazione-e-ruoli
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-miglioramento-iter-pubblicazione-e-ruoli"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -281,6 +293,7 @@ sections:
           - name: tempi-adeguamento-creazione-gdl-accessibilita
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-creazione-gdl-accessibilita"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -303,6 +316,7 @@ sections:
           - name: tempi-adeguamento-aspetti-tecnici
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-aspetti-tecnici"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
@@ -322,6 +336,7 @@ sections:
           - name: tempi-adeguamento-aspetti-normativi
             title: Tempi di adeguamento
             widget: date
+            widget_type: browser
             required_if: "true"
             enabled_if: values["abilita-aspetti-normativi"]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
