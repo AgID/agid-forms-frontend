@@ -34,7 +34,7 @@ const IT = {
   a11y_objs: {
     title: "Obiettivi di accessibilità",
     obj_statuses: "Stato degli obiettivi",
-    dashboard_title: "Gestione obiettivi",
+    dashboard_title: "Gestione obiettivi di accessibilità",
     create_new_obj_title: "Compila gli obiettivi",
     create_new_obj_desc: "",
     create_new_obj_cta: "Nuova compilazione",

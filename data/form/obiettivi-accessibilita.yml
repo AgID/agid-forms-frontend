@@ -15,7 +15,7 @@ visible_to: [rtd]
 listed_to: [rtd]
 version: 0.1.0
 title_pattern: "'Obiettivi di accessibilità'"
-title_link: /dashboard/obiettivi-accessibilita
+title_link: /doc/obiettivi-accessibilita
 hide_action_goto: false
 home_order: -10
 sections:

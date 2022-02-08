@@ -1,0 +1,12 @@
+menu:
+  id: obiettivi-accessibilita
+  items:
+    - name: Obiettivi di accessibiltà
+      slug: "/doc/obiettivi-accessibilita"
+      roles: [rtd]
+    - name: Modulo di compilazione degli obiettivi di accessibilità
+      slug: "/form/obiettivi-accessibilita"
+      roles: [rtd]
+    - name: Gestione obiettivi
+      slug: "/dashboard/obiettivi-accessibilita"
+      roles: [rtd]

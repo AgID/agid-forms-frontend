@@ -1,5 +1,5 @@
 /**
- * Template for node of type "dichiarazione-accessibilità".
+ * Template for node of type "obiettivi-accessibilita".
  */
 import { format } from "date-fns";
 import * as React from "react";

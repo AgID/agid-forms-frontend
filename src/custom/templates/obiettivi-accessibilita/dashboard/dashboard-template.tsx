@@ -49,7 +49,7 @@ const DashboardObjTemplate = () => {
     <StaticLayout
       title={t("a11y_objs.dashboard_title")}
       breadcrumbItems={[
-        { label: t("a11y_objs.title"), link: "/doc/dichiarazione-accessibilita" },
+        { label: t("a11y_objs.title"), link: "/doc/obiettivi-accessibilita" },
         { label: t("a11y_objs.dashboard_title"), link: "" }
       ]}
     >
