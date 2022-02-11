@@ -73,6 +73,7 @@ export const Formfield = ({
     user: getSessionInfo(),
     query: parseQuery(window.location.search),
     currentYear: new Date().getFullYear(),
+    endOfCurrentYear: new Date(new Date().getFullYear(), 11, 31, 23, 59),
     boundNodeValues,
   };
 
