@@ -3,12 +3,10 @@ name: Obiettivi di accessibilità
 action: Obiettivi di accessibilità
 category: accessibilità
 description: |-
-  Le pubbliche amministrazioni hanno l'obbligo di presentare, entro il 31 marzo
-  di ogni anno, gli obiettivi di accessibilità relativi all'anno corrente, come
-  ribadito anche nelle Linee Guida sull’accessibilità degli strumenti
-  informatici (capitolo 4 paragrafo 2), e lo stato di attuazione del piano per
-  l'utilizzo del telelavoro, come stabilito dal Decreto legge n. 179/2012,
-  articolo 9, comma 7.
+  Al fine di supportare le PA nelle attività di definizione e pubblicazione
+  degli Obiettivi annuali di accessibilità (Linee Guida sull’accessibilità degli
+  strumenti informatici - capitolo 4, paragrafo 2), AGID mette a disposizione il
+  modulo presente su questa applicazione.
 language: it
 roles: [rtd]
 visible_to: [rtd]
@@ -28,315 +26,276 @@ sections:
             widget: text
             required_if: 'true'
             computed_value: 'currentYear'
-  - name: siti-web-app
-    title: Siti web e/o app mobili
+  - name: section-1
+    title: Obiettivi e interventi
     groups:
-      - name: sviluppo-rifacimento-sito
-        title: Sviluppo o rifacimento del sito/i
+      - name: sito-web-istituzionale
+        title: Sito web istituzionale
         fields:
-          - name: abilita-sviluppo-rifacimento-sito
+          - name: intervento-sito-web-istituzionale
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-sviluppo-rifacimento-sito
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-sviluppo-rifacimento-sito"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-sviluppo-rifacimento-sito
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-sito-web-istituzionale
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-sviluppo-rifacimento-sito"]
+            required_if: values['intervento-sito-web-istituzionale'].length
+            enabled_if: values['intervento-sito-web-istituzionale'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: miglioramento-form-sito
-        title: Miglioramento moduli e formulari presenti sul sito/i
+      - name: siti-web-tematici
+        title: Siti web tematici
         fields:
-          - name: abilita-miglioramento-form-sito
+          - name: intervento-siti-web-tematici
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-miglioramento-form-sito
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-miglioramento-form-sito"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-miglioramento-form-sito
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-siti-web-tematici
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-miglioramento-form-sito"]
+            required_if: values['intervento-siti-web-tematici'].length
+            enabled_if: values['intervento-siti-web-tematici'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: interventi-documenti
-        title: Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+      - name: sito-intranet
+        title: Sito intranet
         fields:
-          - name: abilita-documenti
+          - name: intervento-sito-intranet
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-documenti
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-documenti"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-documenti
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-sito-intranet
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-documenti"]
+            required_if: values['intervento-sito-intranet'].length
+            enabled_if: values['intervento-sito-intranet'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: analisi-usabilita
-        title: Analisi dell'usabilità
+      - name: formazione
+        title: Formazione
         fields:
-          - name: abilita-analisi-usabilita
+          - name: intervento-formazione
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-analisi-usabilita
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-analisi-usabilita"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-analisi-usabilita
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-formazione
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-analisi-usabilita"]
+            required_if: values['intervento-formazione'].length
+            enabled_if: values['intervento-formazione'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: adeguamento-lg-design
-        title: Adeguamento alle "Linee guida di design siti web della PA"
+      - name: postazioni-di-lavoro
+        title: Postazioni di lavoro
         fields:
-          - name: abilita-adeguamento-lg-design
+          - name: intervento-postazioni-di-lavoro
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-adeguamento-lg-design
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-adeguamento-lg-design"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-adeguamento-lg-design
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-postazioni-di-lavoro
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-adeguamento-lg-design"]
+            required_if: values['intervento-postazioni-di-lavoro'].length
+            enabled_if: values['intervento-postazioni-di-lavoro'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: adeguamento-criteri-accessibilita
-        title: Adeguamento ai criteri di accessibilità
+      - name: organizzazione-del-lavoro
+        title: Organizzazione del lavoro
         fields:
-          - name: abilita-adeguamento-criteri-accessibilita
+          - name: intervento-organizzazione-del-lavoro
+            title: Intervento
             widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-adeguamento-criteri-accessibilita
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-adeguamento-criteri-accessibilita"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-adeguamento-criteri-accessibilita
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-organizzazione-del-lavoro
             title: Tempi di adeguamento
             widget: date
             widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-adeguamento-criteri-accessibilita"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: interventi-adeguativi-correttivi
-        title: Interventi di tipo adeguativo e/o correttivo
-        fields:
-          - name: abilita-intervento-adeguativo-correttivo
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-adeguativo-correttivo
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-intervento-adeguativo-correttivo"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-interventi-adeguativi-correttivi
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-intervento-adeguativo-correttivo"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-  - name: postazioni-lavoro
-    title: Postazioni di lavoro
-    groups:
-      - name: attuazione-specifiche-tecniche
-        title: Attuazione specifiche tecniche
-        fields:
-          - name: abilita-attuazione-specifiche-tecniche
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-attuazione-specifiche-tecniche
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-attuazione-specifiche-tecniche"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-attuazione-specifiche-tecniche
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-attuazione-specifiche-tecniche"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-  - name: organizzazione-lavoro
-    title: Organizzazione del lavoro
-    groups:
-      - name: piano-acquisto-soluzioni-hw-sf
-        title: Piano per l'acquisto di soluzioni hardware e software
-        fields:
-          - name: abilita-piano-acquisto-soluzioni-hw-sf
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-piano-acquisto-soluzioni-hw-sf
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-piano-acquisto-soluzioni-hw-sf"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-piano-acquisto-soluzioni-hw-sf
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-piano-acquisto-soluzioni-hw-sf"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: piano-telelavoro
-        title: Piano per l'utilizzo del telelavoro
-        fields:
-          - name: abilita-piano-telelavoro
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-piano-telelavoro
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-piano-telelavoro"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-piano-telelavoro
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-piano-telelavoro"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: nomina-rtd
-        title: Nomina del Responsabile della Transizione al Digitale
-        fields:
-          - name: abilita-nomina-rtd
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-nomina-rtd
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-nomina-rtd"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-nomina-rtd
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-nomina-rtd"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: miglioramento-iter-pubblicazione-e-ruoli
-        title: Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
-        fields:
-          - name: abilita-miglioramento-iter-pubblicazione-e-ruoli
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-miglioramento-iter-pubblicazione-e-ruoli
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-miglioramento-iter-pubblicazione-e-ruoli"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-miglioramento-iter-pubblicazione-e-ruoli
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-miglioramento-iter-pubblicazione-e-ruoli"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: creazione-gdl-accessibilita
-        title: Creazione di un gruppo apposito sull'accessibilità
-        fields:
-          - name: abilita-creazione-gdl-accessibilita
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-creazione-gdl-accessibilita
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-creazione-gdl-accessibilita"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-creazione-gdl-accessibilita
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-creazione-gdl-accessibilita"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-  - name: formazione
-    title: Formazione
-    groups:
-      - name: aspetti-tecnici
-        title: Aspetti tecnici
-        fields:
-          - name: abilita-aspetti-tecnici
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-aspetti-tecnici
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-aspetti-tecnici"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-aspetti-tecnici
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-aspetti-tecnici"]
-            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
-      - name: aspetti-normativi
-        title: Aspetti normativi
-        fields:
-          - name: abilita-aspetti-normativi
-            widget: checkbox
-            title: Abilita compilazione intervento
-          - name: descrizione-intervento-aspetti-normativi
-            title: Descrizione intervento
-            description: max 2000 caratteri
-            widget: textarea
-            required_if: "true"
-            enabled_if: values["abilita-aspetti-normativi"]
-            valid_if: Yup.string().max(2000).validate(value)
-          - name: tempi-adeguamento-aspetti-normativi
-            title: Tempi di adeguamento
-            widget: date
-            widget_type: browser
-            required_if: "true"
-            enabled_if: values["abilita-aspetti-normativi"]
+            required_if: values['intervento-organizzazione-del-lavoro'].length
+            enabled_if: values['intervento-organizzazione-del-lavoro'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
             valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
