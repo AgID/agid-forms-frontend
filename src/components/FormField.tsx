@@ -114,6 +114,7 @@ export const Formfield = ({
       form.setFieldValue(field.name!, computedValue);
     } else if (
       !isHidden &&
+      !isDisabled &&
       !isEmptyFieldValue(defaultValue) &&
       !form.touched[field.name!] &&
       isEmptyFieldValue(getIn(form.values, field.name!))
