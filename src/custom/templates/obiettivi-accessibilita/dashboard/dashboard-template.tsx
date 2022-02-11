@@ -81,76 +81,96 @@ const DashboardObjTemplate = () => {
           }
           if (userNodes && !userNodes.node[0]) {
             return (
-              <div className="p-lg-4">
-                <h2>{t("a11y_objs.create_new_obj_title")}</h2>
-                <div
-                  className="w-paragraph mb-5"
-                  dangerouslySetInnerHTML={{
-                    __html: t("a11y_objs.create_new_obj_desc")
-                  }}
-                />
-                <NewObjCta />
-              </div>
+              <>
+                <div className="p-lg-4">
+                  <h2>{t("a11y_objs.create_new_obj_title")}</h2>
+                  <div
+                    className="w-paragraph mb-5"
+                    dangerouslySetInnerHTML={{
+                      __html: t("a11y_objs.create_new_obj_desc")
+                    }}
+                  />
+                  <NewObjCta />
+                </div>
+                <div className="p-lg-4">
+                  <div
+                    className="w-paragraph mb-5 font-italic"
+                    dangerouslySetInnerHTML={{
+                      __html: t("a11y_objs.where_are_old_objs")
+                    }}
+                  />
+                </div>
+              </>
             );
           }
           return (
-            <div>
-              <table className="table table-hover mt-4">
-                <caption>{t("a11y_objs.obj_statuses")}</caption>
-                <thead className="lightgrey-bg-a3">
-                  <tr>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("year")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("filled_out_at")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("action")}
-                    </th>
-                    <th scope="col" className="font-variant-small-caps">
-                      {t("status")}
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="font-size-xs color-black font-weight-600">
-                  {userNodes &&
-                    userNodes.node.map(node => {
-                      return (
-                        <tr key={node.id}>
-                          <td>{node.content.values["anno"]}</td>
-                          <td>{format(node.updated_at, "DD/MM/YYYY")}</td>
-                          <td>
-                            <Link
-                              to={`/form/${node.type!.replace(/_/g, "-")}/${
-                                node.id
-                              }`}
-                            >
-                              {node.status === "published" ? t("update") : t("edit")}
-                            </Link>
-                          </td>
-                          <td>
-                            {node.status === "published" ? (
-                              <Link to={`/view/${node.id}`}>
-                                {t(`status_name.${node.status}`)}
+            <>
+              <div>
+                <table className="table table-hover mt-4">
+                  <caption>{t("a11y_objs.obj_statuses")}</caption>
+                  <thead className="lightgrey-bg-a3">
+                    <tr>
+                      <th scope="col" className="font-variant-small-caps">
+                        {t("year")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps">
+                        {t("filled_out_at")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps">
+                        {t("action")}
+                      </th>
+                      <th scope="col" className="font-variant-small-caps">
+                        {t("status")}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="font-size-xs color-black font-weight-600">
+                    {userNodes &&
+                      userNodes.node.map(node => {
+                        return (
+                          <tr key={node.id}>
+                            <td>{node.content.values["anno"]}</td>
+                            <td>{format(node.updated_at, "DD/MM/YYYY")}</td>
+                            <td>
+                              <Link
+                                to={`/form/${node.type!.replace(/_/g, "-")}/${
+                                  node.id
+                                }`}
+                              >
+                                {node.status === "published" ? t("update") : t("edit")}
                               </Link>
-                            ) : (
-                              t(`status_name.${node.status}`)
-                            )}
-                            {node.content.metadata &&
-                              node.content.metadata.verified && (
-                                <p className="font-weight-normal">
-                                  [{t(`verified`)}]
-                                </p>
+                            </td>
+                            <td>
+                              {node.status === "published" ? (
+                                <Link to={`/view/${node.id}`}>
+                                  {t(`status_name.${node.status}`)}
+                                </Link>
+                              ) : (
+                                t(`status_name.${node.status}`)
                               )}
-                          </td>
-                        </tr>
-                      );
-                    })}
-                </tbody>
-              </table>
-              <NewObjCta />
-            </div>
+                              {node.content.metadata &&
+                                node.content.metadata.verified && (
+                                  <p className="font-weight-normal">
+                                    [{t(`verified`)}]
+                                  </p>
+                                )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                  </tbody>
+                </table>
+                <NewObjCta />
+              </div>
+              <div className="p-lg-4">
+                <div
+                  className="w-paragraph mb-5 font-italic"
+                  dangerouslySetInnerHTML={{
+                    __html: t("a11y_objs.where_are_old_objs")
+                  }}
+                />
+              </div>
+            </>
           );
         }}
       </Query>
