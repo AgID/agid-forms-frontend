@@ -39,7 +39,7 @@ const IT = {
     create_new_obj_desc: "",
     create_new_obj_cta: "Nuova compilazione",
     dashboard_sent_date: "data di compilazione",
-    where_are_old_objs: "Gli obiettivi di accessibilità relativi agli anni precedenti al 2022 sono pubblicati sulla vecchia piattaforma https://accessibilita.agid.gov.it/ e sono raggiungibili dai link pubblicati sui siti di ciascun ente."
+    where_are_old_objs: "Gli obiettivi di accessibilità relativi agli anni precedenti al 2022 sono raggiungibili mediante i link già in possesso e pubblicati in Amministrazione Trasparente da ciascuna PA."
   }
 };
 

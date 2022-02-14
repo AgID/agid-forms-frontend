@@ -43,7 +43,7 @@ const PublishModal = ({
         <div className="d-flex">
           <div>
             <p className="pb-4" style={{ borderBottom: "1px solid #ccc" }}>
-              Copia e incolla il link nella apposita sezione del  del tuo sito
+              Copia e incolla il link nella apposita sezione del tuo sito
               web.
             </p>
             <p className="font-weight-bold pt-4">
