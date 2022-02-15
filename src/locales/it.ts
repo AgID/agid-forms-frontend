@@ -11,6 +11,8 @@ const IT = {
   cancel: "annulla",
   select: "Seleziona",
   updated_at: "aggiornato il",
+  filled_out_at: "compilato il",
+  year: "anno",
   view: "visualizza",
   save_draft: "salva bozza",
   add_more: "aggiungi elemento",
@@ -112,6 +114,10 @@ const IT = {
     in_review: "in revisione",
     published: "pubblicato",
     archived: "archiviato"
+  },
+  validation_errors: {
+    date_too_early:  "deve indicare una data oltre il {{min}}",
+    date_too_late: "deve indicare una data prima del {{max}}",
   }
 };
 

@@ -1,0 +1,301 @@
+id: obiettivi-accessibilita
+name: Obiettivi di accessibilità
+action: Obiettivi di accessibilità
+category: accessibilità
+description: |-
+  Al fine di supportare le PA nelle attività di definizione e pubblicazione
+  degli Obiettivi annuali di accessibilità (Linee Guida sull’accessibilità degli
+  strumenti informatici - capitolo 4, paragrafo 2), AGID mette a disposizione il
+  modulo presente su questa applicazione.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+version: 0.1.0
+title_pattern: "'Obiettivi di accessibilità'"
+title_link: /doc/obiettivi-accessibilita
+hide_action_goto: false
+home_order: -10
+sections:
+  - name: section-0
+    title: Annualità
+    groups:
+      - name: gruppo-anno
+        fields:
+          - name: anno
+            widget: text
+            required_if: 'true'
+            computed_value: 'currentYear'
+  - name: section-1
+    title: Obiettivi e interventi
+    groups:
+      - name: sito-web-istituzionale
+        title: Sito web istituzionale
+        fields:
+          - name: intervento-sito-web-istituzionale
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-sito-web-istituzionale
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-sito-web-istituzionale'].length
+            enabled_if: values['intervento-sito-web-istituzionale'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: siti-web-tematici
+        title: Siti web tematici
+        fields:
+          - name: intervento-siti-web-tematici
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-siti-web-tematici
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-siti-web-tematici'].length
+            enabled_if: values['intervento-siti-web-tematici'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: sito-intranet
+        title: Sito intranet
+        fields:
+          - name: intervento-sito-intranet
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-sito-intranet
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-sito-intranet'].length
+            enabled_if: values['intervento-sito-intranet'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: formazione
+        title: Formazione
+        fields:
+          - name: intervento-formazione
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-formazione
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-formazione'].length
+            enabled_if: values['intervento-formazione'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: postazioni-di-lavoro
+        title: Postazioni di lavoro
+        fields:
+          - name: intervento-postazioni-di-lavoro
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-postazioni-di-lavoro
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-postazioni-di-lavoro'].length
+            enabled_if: values['intervento-postazioni-di-lavoro'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)
+      - name: organizzazione-del-lavoro
+        title: Organizzazione del lavoro
+        fields:
+          - name: intervento-organizzazione-del-lavoro
+            title: Intervento
+            widget: checkbox
+            options:
+              - label: Formazione - Aspetti normativi
+                value: formazione_aspetti-normativi
+              - label: Formazione - Aspetti tecnici
+                value: formazione_aspetti-tecnici
+              - label: Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità
+                value: organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita
+              - label: Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali
+                value: organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali
+              - label: Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale
+                value: organizzazione-del-lavoro_nomina-rtd
+              - label: Organizzazione del lavoro - Piano per l’utilizzo del telelavoro
+                value: organizzazione-del-lavoro_piano-telelavoro
+              - label: Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software
+                value: organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software
+              - label: Postazioni di lavoro - Attuazione specifiche tecniche
+                value: postazioni-di-lavoro_attuazione-specifiche-tecniche
+              - label: Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo
+                value: siti-web-app-mobili_interventi-tipo-adeguativo-correttivo
+              - label: Sito web e/o app mobili - Adeguamento ai criteri di accessibilità
+                value: siti-web-app-mobili_adeguamento_criteri_accessibilita
+              - label: Sito web e/o app mobili - Adeguamento alle "Linee guida di design siti web della PA"
+                value: siti-web-app-mobili_adeguamento-lg-design
+              - label: Sito web e/o app mobili - Analisi dell'usabilità
+                value: siti-web-app-mobili_analisi_usabilita
+              - label: Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)
+                value: siti-web-app-mobili_interventi-sui-documenti
+              - label: Sito web - Miglioramento moduli e formulari presenti sul sito/i
+                value: siti-web-app-mobili_miglioramento-moduli-formulari
+              - label: Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i
+                value: siti-web-app-mobili_sviluppo-rifacimento-sito
+          - name: tempi-adeguamento-organizzazione-del-lavoro
+            title: Tempi di adeguamento
+            widget: date
+            widget_type: browser
+            required_if: values['intervento-organizzazione-del-lavoro'].length
+            enabled_if: values['intervento-organizzazione-del-lavoro'].length
+            default_computed_value: endOfCurrentYear.toISOString().split('T')[0]
+            valid_if: Yup.date().min(startOfCurrentYear).max(endOfCurrentYear).validate(value)

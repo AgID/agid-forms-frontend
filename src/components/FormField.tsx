@@ -72,6 +72,8 @@ export const Formfield = ({
     values: form.values,
     user: getSessionInfo(),
     query: parseQuery(window.location.search),
+    currentYear: new Date().getFullYear(),
+    endOfCurrentYear: new Date(new Date().getFullYear(), 11, 31, 23, 59),
     boundNodeValues,
   };
 
@@ -112,6 +114,7 @@ export const Formfield = ({
       form.setFieldValue(field.name!, computedValue);
     } else if (
       !isHidden &&
+      !isDisabled &&
       !isEmptyFieldValue(defaultValue) &&
       !form.touched[field.name!] &&
       isEmptyFieldValue(getIn(form.values, field.name!))

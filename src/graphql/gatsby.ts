@@ -163,6 +163,7 @@ export const FormSchemaFragment = graphql`
               multiple
               title
               widget
+              widget_type
               ref
               show_if
               valid_if

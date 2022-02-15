@@ -46,6 +46,24 @@ export const DateField = ({
   hasError
 }: FormFieldPropsT) => {
   const fieldValue = getIn(form.values, field.name!);
+  const fieldPropsBase = {
+    id: field.name,
+    name: field.name,
+    validate: validateField(isRequired, validationExpression, field, form),
+    value: fieldValue,
+    options: field.options,
+  }
+  const fieldProps = (field.widget_type && field.widget_type == "browser") ? {
+    ...fieldPropsBase,
+    type: "date",
+    disabled: isDisabled
+  } : {
+    ...fieldPropsBase,
+    type: "text",
+    component: DateComponent,
+    isDisabled: isDisabled
+  };
+
   return field.name ? (
     <FormGroup
       key={field.name}
@@ -59,15 +77,7 @@ export const DateField = ({
         isRequired={isRequired}
       />
       <Field
-        id={field.name}
-        name={field.name}
-        type="text"
-        checked={fieldValue}
-        component={DateComponent}
-        validate={validateField(isRequired, validationExpression, field, form)} // always required
-        value={fieldValue}
-        options={field.options}
-        isDisabled={isDisabled}
+        {...fieldProps}
       />
       <ErrorMessage name={field.name} />
       {field.description && (
