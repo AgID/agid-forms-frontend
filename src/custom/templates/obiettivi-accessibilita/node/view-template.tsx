@@ -12,7 +12,6 @@ import { Button, Modal, ModalBody, ModalHeader } from "reactstrap";
 import ApolloErrors from "../../../../components/ApolloErrors";
 import FormGroupTitle from "../../../../components/FormGroupTitle";
 import { LoadableViewTemplateProps } from "../../../../components/LoadableView";
-import ViewField from "../../../../components/ViewField";
 import {
   PublishNode,
   PublishNodeVariables
@@ -23,6 +22,45 @@ import {
   PUBLISH_NODE
 } from "../../../../graphql/hasura";
 import { get } from "../../../../utils/safe_access";
+
+const getInterventionString = (fieldValues: Array<string>|string) => {
+  return Array.isArray(fieldValues) && fieldValues.map((fieldValue: string) => {
+    switch (fieldValue) {
+      case "formazione_aspetti-normativi":
+        return "Formazione - Aspetti normativi";
+      case "formazione_aspetti-tecnici":
+        return "Formazione - Aspetti tecnici";
+      case "organizzazione-del-lavoro_creazione-di-un-gruppo-apposito-accessibilita":
+        return "Organizzazione del lavoro - Creazione di un gruppo apposito sull'accessibilità";
+      case "organizzazione-del-lavoro_miglioramento-iter-pubblicazione-e-ruoli-redazionali":
+        return "Organizzazione del lavoro - Miglioramento dell'iter di pubblicazione su web e ruoli redazionali";
+      case "organizzazione-del-lavoro_nomina-rtd":
+        return "Organizzazione del lavoro - Nomina del Responsabile della Transizione al digitale";
+      case "organizzazione-del-lavoro_piano-telelavoro":
+        return "Organizzazione del lavoro - Piano per l’utilizzo del telelavoro";
+      case "organizzazione-del-lavoro_piano-acquisto-soluzioni-hardware-software":
+        return "Organizzazione del lavoro - Piano per l'acquisto di soluzioni hardware e software";
+      case "postazioni-di-lavoro_attuazione-specifiche-tecniche":
+        return "Postazioni di lavoro - Attuazione specifiche tecniche";
+      case "siti-web-app-mobili_interventi-tipo-adeguativo-correttivo":
+        return "Siti web e/o app mobili - Interventi di tipo adeguativo e/o correttivo";
+      case "siti-web-app-mobili_adeguamento_criteri_accessibilita":
+        return "Sito web e/o app mobili - Adeguamento ai criteri di accessibilità";
+      case "siti-web-app-mobili_adeguamento-lg-design":
+        return "Sito web e/o app mobili - Adeguamento alle 'Linee guida di design siti web della PA'";
+      case "siti-web-app-mobili_analisi_usabilita":
+        return "Sito web e/o app mobili - Analisi dell'usabilità";
+      case "siti-web-app-mobili_interventi-sui-documenti":
+        return "Sito web e/o app mobili - Interventi sui documenti (es. pdf di documenti-immagine inaccessibili)";
+      case "siti-web-app-mobili_miglioramento-moduli-formulari":
+        return "Sito web - Miglioramento moduli e formulari presenti sul sito/i";
+      case "siti-web-app-mobili_sviluppo-rifacimento-sito":
+        return "Sito web e/o app mobili - Sviluppo, o rifacimento, del sito/i";
+      default:
+        return "";
+    }
+  }).join(", ");
+};
 
 const PublishModal = ({
   nodeLink
@@ -175,25 +213,54 @@ const ViewTemplate = ({
         }
 
         const SectionGroups = section.groups!.map(group => {
+          if (group && group.name && group.name == "gruppo-anno") {
+            return (
+              <React.Fragment key={group.name}>
+                <div className="mb-4">
+                  <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                    Anno {values["anno"]}
+                  </p>
+                </div>
+              </React.Fragment>
+            );
+          }
           const groupEnabled =
-            group && group.name ? values[`abilita-${group.name}`] : undefined;
+            group &&
+            group.name &&
+            values[`intervento-${group.name}`]
+            && values[`intervento-${group.name}`].length;
+
           return group && group.name && groupEnabled ? (
             <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
               {group.title && <FormGroupTitle title={group.title} />}
               {group.description && <p className="w-paragraph">{group.description}</p>}
-              {group.fields &&
-                group.fields.filter(field => {
-                  return field && field.name && field.name.indexOf("abilita-") !== 0;
-                }).map(field =>
-                  field && field.name ? (
-                    <ViewField
-                      inline={false}
-                      key={field.name}
-                      field={field}
-                      value={values[field.name]}
-                    />
-                  ) : null
-                )}
+              {group.fields && group.fields.map(field => {
+                if (field && field.name && field.name == `intervento-${group.name}`) {
+                  return (
+                    <React.Fragment key={field.name}>
+                      <div className="mb-4">
+                        <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                          {field.title}
+                        </p>
+                        <p className="w-paragraph">{getInterventionString(values[field.name])}</p>
+                      </div>
+                    </React.Fragment>
+                  );
+                }
+                if (field && field.name && field.name == `tempi-adeguamento-${group.name}`) {
+                  return (
+                    <React.Fragment key={field.name}>
+                      <div className="mb-4">
+                        <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
+                          {field.title}
+                        </p>
+                        <p className="w-paragraph">{(new Date(values[field.name])).toLocaleDateString()}</p>
+                      </div>
+                    </React.Fragment>
+                  );
+                }
+                return;
+              })}
             </div>
           ) : null;
         }).filter(group => group);
