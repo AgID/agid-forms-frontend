@@ -336,7 +336,7 @@ sections:
             valid_if: Yup.number().integer().min(0).max(100).validate(value)
 
       - name: application-manager
-        title: Il responsabile dei processi di integrazione
+        title: Il responsabile dei processi di inserimento
         fields:
           - name: manager-present
             title: è previsto nella struttura
