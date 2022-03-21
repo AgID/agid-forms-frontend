@@ -136,6 +136,7 @@ export const FormSchemaFragment = graphql`
         roles
         visible_to
         listed_to
+        listed_to_groups
         slug_pattern
         initial_status
         bound_to
