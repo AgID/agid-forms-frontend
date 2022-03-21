@@ -75,7 +75,7 @@ export const CheckboxMultipleField = ({
     >
       <Label
         tag="h3"
-        className="d-block font-weight-semibold my-2 my-lg-3 neutral-1-color-a6 font-size-xs"
+        className="d-block font-weight-semibold my-2 my-lg-3 neutral-2-color-a5 font-size-xs"
         fieldName={field.name}
         title={field.title!}
         isRequired={isRequired}
