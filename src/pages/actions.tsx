@@ -41,7 +41,9 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
                       </ReactMarkdown>
                     </p>
                     { node.hide_action_goto || (<p>
-                      <Link to={`/form/${node.id}`} className="card-title">
+                      <Link to={`/form/${node.id}`}
+                        className="card-title"
+                        aria-label={t("pages.action_goto_form") + ": " + node.action}>
                         {t("pages.action_goto_form")}
                       </Link>
                     </p>)}
