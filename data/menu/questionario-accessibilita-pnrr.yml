@@ -1,10 +1,10 @@
 menu:
   id: questionario-accessibilita-pnrr
   items:
-    - name: Questionario sullo stato dell'arte in ambito di accessibilità ICT
+    - name: Questionario PNRR 1.4.2 - Accessibilità
       slug: "/doc/questionario-accessibilita-pnrr"
       roles: [rtd]
-    - name: Modulo di compilazione del questionario sullo stato dell'arte in ambito di accessibilità ICT
+    - name: Modulo di compilazione del questionario PNRR 1.4.2 - Accessibilità
       slug: "/form/questionario-accessibilita-pnrr"
       roles: [rtd]
     - name: Gestione compilazioni

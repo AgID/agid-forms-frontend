@@ -1,10 +1,10 @@
 id: questionario-accessibilita-pnrr
 name: Nuova compilazione
-action: Questionario sullo stato dell'arte in ambito di accessibilità ICT
+action: Questionario PNRR 1.4.2 - Accessibilità
 category: accessibilità
 description: |-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Possono utilizzare questo form le 55 PA locali selezionate per il supporto specialistico e sostegno finanziario in tema di
+  miglioramento dell'accessibilità dei servizi pubblici digitali per tutti i cittadini.
 language: it
 roles: [rtd]
 visible_to: [rtd]
@@ -18,7 +18,12 @@ sections:
   - name: informazioni-generali
     title: Informazioni generali
     description: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+      Il presente modulo, da compilarsi esclusivamente a cura delle suddette
+      amministrazioni, consentirà di poter ottenere le informazioni necessarie
+      per la stipula di un accordo a fronte di un piano operativo proposto dalle
+      stesse amministrazioni.
+      Si prega di compilare tutti i campi richiesti e, ove pertinente, anche i
+      campi opzionali.
     groups:
       - name: anagrafica-pa
         title: Anagrafica PA
@@ -104,7 +109,7 @@ sections:
               <ul>
                 <li>totalmente on line</li>
                 <li>accessibili secondo indicazioni CAD (ad es. SPID, CIE)</il>
-                <li>forniscono all'utente l’esito della procedura in formato elettronico</li>
+                <li>forniscono all'utente l'esito della procedura in formato elettronico</li>
               </ul>
       - name: servizio-1
         title: Servizio 1
@@ -217,7 +222,7 @@ sections:
             required_if: values["fornitore-contratti-servizio-2"].includes("fornitori-esterni")
             enabled_if: values["fornitore-contratti-servizio-2"].includes("fornitori-esterni")
       - name: servizio-3
-        title: Servizio 3
+        title: Servizio 3 - opzionale
         fields:
           - name: nome-servizio-3
             widget: text
@@ -266,7 +271,7 @@ sections:
             required_if: values["fornitore-contratti-servizio-3"].includes("fornitori-esterni")
             enabled_if: values["fornitore-contratti-servizio-3"].includes("fornitori-esterni")
       - name: servizio-4
-        title: Servizio 4
+        title: Servizio 4 - opzionale
         fields:
           - name: nome-servizio-4
             widget: text
@@ -315,7 +320,7 @@ sections:
             required_if: values["fornitore-contratti-servizio-4"].includes("fornitori-esterni")
             enabled_if: values["fornitore-contratti-servizio-4"].includes("fornitori-esterni")
       - name: servizio-5
-        title: Servizio 5
+        title: Servizio 5 - opzionale
         fields:
           - name: nome-servizio-5
             widget: text
