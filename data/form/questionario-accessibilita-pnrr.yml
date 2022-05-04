@@ -11,6 +11,55 @@ visible_to: [rtd]
 listed_to: [rtd]
 listed_to_groups:
   - agid
+  - r_vda
+  - r_piemon
+  - r_liguri
+  - r_lombar
+  - r_veneto
+  - p_bz
+  - p_TN
+  - r_friuve
+  - r_emiro
+  - r_toscan
+  - r_marche
+  - r_umbria
+  - r_lazio
+  - r_abruzz
+  - r_molise
+  - r_campan
+  - r_puglia
+  - r_basili
+  - regcal
+  - r_sicili
+  - r_sardeg
+  - c_l219
+  - c_d969
+  - c_f205
+  - c_l736
+  - c_a944
+  - c_d612
+  - c_h501
+  - c_f839
+  - c_a662
+  - c_h224
+  - c_f158
+  - c_c351
+  - c_g273
+  - c_b354
+  - cmto
+  - cmge
+  - cmmi
+  - p_ve
+  - cmbo
+  - cmfi
+  - cmrc
+  - cmna
+  - cmba
+  - cmdrc
+  - cm_me
+  - cmct
+  - p_pa
+  - cmdca
 version: 0.1.0
 title_pattern: "'Questionario accessibilità ICT'"
 initial_status: "published"
@@ -104,8 +153,8 @@ sections:
             widget: html
             ignored_if: "true"
             default: |-
-              Inserire da 2 a 5 servizi individuati in base all'utenza annua (da intendere come numero di utenti che hanno
-              effettuato l'autenticazione) che abbiano almeno le seguenti caratteristiche:
+              Inserire da 2 a 5 servizi digitali individuati in base alla maggior utenza annua
+              che abbiano almeno le seguenti caratteristiche:
               <ul>
                 <li>totalmente on line</li>
                 <li>accessibili secondo indicazioni CAD (ad es. SPID, CIE)</il>
@@ -124,12 +173,6 @@ sections:
             widget: text
             valid_if: Yup.string().url().validate(value)
             required_if: "true"
-          - name: utenti-anno-servizio-1
-            title: Numero di utenti annui
-            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
-            widget: number
-            valid_if: Yup.number().integer().min(0).validate(value)
-            required_if: "true"
           - name: saas-servizio-1
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
@@ -139,19 +182,15 @@ sections:
                 value: si
               - label: No
                 value: no
-          - name: contratti-attivi-servizio-1
-            title: Sono presenti contratti attivi per fornitura di attività di manutenzione correttiva/evolutiva?
-            widget: radio
+          - name: utenti-anno-servizio-1
+            title: Numero di utenti annui
+            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
             required_if: "true"
-            options:
-              - label: Si
-                value: si
-              - label: No
-                value: no
-          - name: fornitore-contratti-servizio-1
-            title: Indicare le tipologie di fornitori per i contratti attivi
+          - name: soggetto-manutenzione-adeguamento-1
+            title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            enabled_if: values['contratti-attivi-servizio-1'] == "si"
             required_if: "true"
             options:
               - label: Risorse interne
@@ -161,11 +200,11 @@ sections:
               - label: Fornitori esterni
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-1
-            title: Partita IVA del fornitore esterno contrattualizzato
+            title: Partita IVA del fornitore esterno
             description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
             widget: text
-            required_if: values["fornitore-contratti-servizio-1"].includes("fornitori-esterni")
-            enabled_if: values["fornitore-contratti-servizio-1"].includes("fornitori-esterni")
+            required_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
+            enabled_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
       - name: servizio-2
         title: Servizio 2
         fields:
@@ -179,12 +218,6 @@ sections:
             widget: text
             valid_if: Yup.string().url().validate(value)
             required_if: "true"
-          - name: utenti-anno-servizio-2
-            title: Numero di utenti annui
-            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
-            widget: number
-            valid_if: Yup.number().integer().min(0).validate(value)
-            required_if: "true"
           - name: saas-servizio-2
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
@@ -194,19 +227,15 @@ sections:
                 value: si
               - label: No
                 value: no
-          - name: contratti-attivi-servizio-2
-            title: Sono presenti contratti attivi per fornitura di attività di manutenzione correttiva/evolutiva?
-            widget: radio
+          - name: utenti-anno-servizio-2
+            title: Numero di utenti annui
+            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
             required_if: "true"
-            options:
-              - label: Si
-                value: si
-              - label: No
-                value: no
-          - name: fornitore-contratti-servizio-2
-            title: Indicare le tipologie di fornitori per i contratti attivi
+          - name: soggetto-manutenzione-adeguamento-2
+            title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            enabled_if: values['contratti-attivi-servizio-2'] == "si"
             required_if: "true"
             options:
               - label: Risorse interne
@@ -216,11 +245,11 @@ sections:
               - label: Fornitori esterni
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-2
-            title: Partita IVA del fornitore esterno contrattualizzato
+            title: Partita IVA del fornitore esterno
             description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
             widget: text
-            required_if: values["fornitore-contratti-servizio-2"].includes("fornitori-esterni")
-            enabled_if: values["fornitore-contratti-servizio-2"].includes("fornitori-esterni")
+            required_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
+            enabled_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
       - name: servizio-3
         title: Servizio 3 - opzionale
         fields:
@@ -232,11 +261,6 @@ sections:
             title: Indirizzo (URL) per l'accesso al servizio
             widget: text
             valid_if: Yup.string().url().validate(value)
-          - name: utenti-anno-servizio-3
-            title: Numero di utenti annui
-            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
-            widget: number
-            valid_if: Yup.number().integer().min(0).validate(value)
           - name: saas-servizio-3
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
@@ -245,18 +269,14 @@ sections:
                 value: si
               - label: No
                 value: no
-          - name: contratti-attivi-servizio-3
-            title: Sono presenti contratti attivi per fornitura di attività di manutenzione correttiva/evolutiva?
-            widget: radio
-            options:
-              - label: Si
-                value: si
-              - label: No
-                value: no
-          - name: fornitore-contratti-servizio-3
-            title: Indicare le tipologie di fornitori per i contratti attivi
+          - name: utenti-anno-servizio-3
+            title: Numero di utenti annui
+            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+          - name: soggetto-manutenzione-adeguamento-3
+            title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            enabled_if: values['contratti-attivi-servizio-3'] == "si"
             options:
               - label: Risorse interne
                 value: risorse-interne
@@ -265,11 +285,11 @@ sections:
               - label: Fornitori esterni
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-3
-            title: Partita IVA del fornitore esterno contrattualizzato
+            title: Partita IVA del fornitore esterno
             description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
             widget: text
-            required_if: values["fornitore-contratti-servizio-3"].includes("fornitori-esterni")
-            enabled_if: values["fornitore-contratti-servizio-3"].includes("fornitori-esterni")
+            required_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
+            enabled_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
       - name: servizio-4
         title: Servizio 4 - opzionale
         fields:
@@ -281,11 +301,6 @@ sections:
             title: Indirizzo (URL) per l'accesso al servizio
             widget: text
             valid_if: Yup.string().url().validate(value)
-          - name: utenti-anno-servizio-4
-            title: Numero di utenti annui
-            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
-            widget: number
-            valid_if: Yup.number().integer().min(0).validate(value)
           - name: saas-servizio-4
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
@@ -294,18 +309,14 @@ sections:
                 value: si
               - label: No
                 value: no
-          - name: contratti-attivi-servizio-4
-            title: Sono presenti contratti attivi per fornitura di attività di manutenzione correttiva/evolutiva?
-            widget: radio
-            options:
-              - label: Si
-                value: si
-              - label: No
-                value: no
-          - name: fornitore-contratti-servizio-4
-            title: Indicare le tipologie di fornitori per i contratti attivi
+          - name: utenti-anno-servizio-4
+            title: Numero di utenti annui
+            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+          - name: soggetto-manutenzione-adeguamento-4
+            title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            enabled_if: values['contratti-attivi-servizio-4'] == "si"
             options:
               - label: Risorse interne
                 value: risorse-interne
@@ -314,11 +325,11 @@ sections:
               - label: Fornitori esterni
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-4
-            title: Partita IVA del fornitore esterno contrattualizzato
+            title: Partita IVA del fornitore esterno
             description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
             widget: text
-            required_if: values["fornitore-contratti-servizio-4"].includes("fornitori-esterni")
-            enabled_if: values["fornitore-contratti-servizio-4"].includes("fornitori-esterni")
+            required_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
+            enabled_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
       - name: servizio-5
         title: Servizio 5 - opzionale
         fields:
@@ -330,11 +341,6 @@ sections:
             title: Indirizzo (URL) per l'accesso al servizio
             widget: text
             valid_if: Yup.string().url().validate(value)
-          - name: utenti-anno-servizio-5
-            title: Numero di utenti annui
-            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
-            widget: number
-            valid_if: Yup.number().integer().min(0).validate(value)
           - name: saas-servizio-5
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
@@ -343,18 +349,14 @@ sections:
                 value: si
               - label: No
                 value: no
-          - name: contratti-attivi-servizio-5
-            title: Sono presenti contratti attivi per fornitura di attività di manutenzione correttiva/evolutiva?
-            widget: radio
-            options:
-              - label: Si
-                value: si
-              - label: No
-                value: no
-          - name: fornitore-contratti-servizio-5
-            title: Indicare le tipologie di fornitori per i contratti attivi
+          - name: utenti-anno-servizio-5
+            title: Numero di utenti annui
+            description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
+            widget: number
+            valid_if: Yup.number().integer().min(0).validate(value)
+          - name: soggetto-manutenzione-adeguamento-5
+            title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            enabled_if: values['contratti-attivi-servizio-5'] == "si"
             options:
               - label: Risorse interne
                 value: risorse-interne
@@ -363,8 +365,8 @@ sections:
               - label: Fornitori esterni
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-5
-            title: Partita IVA del fornitore esterno contrattualizzato
+            title: Partita IVA del fornitore esterno
             description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
             widget: text
-            required_if: values["fornitore-contratti-servizio-5"].includes("fornitori-esterni")
-            enabled_if: values["fornitore-contratti-servizio-5"].includes("fornitori-esterni")
+            required_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
+            enabled_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
