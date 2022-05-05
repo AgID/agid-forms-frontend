@@ -201,7 +201,7 @@ sections:
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-1
             title: Partita IVA del fornitore esterno
-            description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
+            description: Inserire la partita IVA con inclusione del prefisso internazionale (es. IT12345678910)
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
@@ -246,7 +246,7 @@ sections:
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-2
             title: Partita IVA del fornitore esterno
-            description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
+            description: Inserire la partita IVA con inclusione del prefisso internazionale (es. IT12345678910)
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
@@ -286,7 +286,7 @@ sections:
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-3
             title: Partita IVA del fornitore esterno
-            description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
+            description: Inserire la partita IVA con inclusione del prefisso internazionale (es. IT12345678910)
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
@@ -326,7 +326,7 @@ sections:
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-4
             title: Partita IVA del fornitore esterno
-            description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
+            description: Inserire la partita IVA con inclusione del prefisso internazionale (es. IT12345678910)
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
@@ -366,7 +366,7 @@ sections:
                 value: fornitori-esterni
           - name: p-iva-fornitore-esterno-servizio-5
             title: Partita IVA del fornitore esterno
-            description: Inserire la partita IVA con inclusione del prefisso itnernazionale (es. IT12345678910)
+            description: Inserire la partita IVA con inclusione del prefisso internazionale (es. IT12345678910)
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
