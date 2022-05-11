@@ -329,13 +329,13 @@ export function getFieldValueForView({
 }): string | null {
   switch (field.widget) {
     case "date":
-      return format(new Date(value), "DD.MM.YYYY");
+      return format(new Date(value), "DD/MM/YYYY");
     case "checkbox":
       if (!Array.isArray(value)) {
         // TODO: localize
         return value ? "si" : "no";
       } else {
-        return value.join(", ");
+        return value.map(currentValue => field.options!.find(opt => opt!.value === currentValue)!.label).join(", ");
       }
       break;
     case "select":

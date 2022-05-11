@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown';
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
-import { getSessionInfo, userHasAnyRole } from "../utils/auth";
+import { getSessionInfo, userHasAnyRole, userBelongsToAnyGroups } from "../utils/auth";
 
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
@@ -18,11 +18,10 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
         {getForms(data).map(({ node }) => node)
           .sort((firstNode, secondNode) => { return firstNode.home_order! - secondNode.home_order! })
           .map((node) => {
-          if (
-            !userHasAnyRole(getSessionInfo(), node.listed_to as ReadonlyArray<
-              string
-            >)
-          ) {
+          if (!userHasAnyRole(getSessionInfo(), node.listed_to as ReadonlyArray<string>)) {
+            return null;
+          }
+          if (node.listed_to_groups && !userBelongsToAnyGroups(getSessionInfo(), node.listed_to_groups as ReadonlyArray<string>)) {
             return null;
           }
           return (
@@ -42,7 +41,9 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
                       </ReactMarkdown>
                     </p>
                     { node.hide_action_goto || (<p>
-                      <Link to={`/form/${node.id}`} className="card-title">
+                      <Link to={`/form/${node.id}`}
+                        className="card-title"
+                        aria-label={t("pages.action_goto_form") + ": " + node.action}>
                         {t("pages.action_goto_form")}
                       </Link>
                     </p>)}
@@ -70,6 +71,7 @@ export const query = graphql`
           action
           roles
           listed_to
+          listed_to_groups
           home_order
           title_link
           hide_action_goto

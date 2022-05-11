@@ -75,6 +75,13 @@ export const userHasAuthenticatedRole = (
   return userHasAnyRole(sessionInfo, [AUTHENTICATED_ROLE]);
 };
 
+export const userBelongsToAnyGroups = (
+  sessionInfo: SessionInfo | null,
+  groups: ReadonlyArray<string>
+) => {
+  return sessionInfo && sessionInfo.organizationCode && groups.includes(sessionInfo.organizationCode);
+};
+
 export const logout = async (client: typeof GraphqlClient) => {
   try {
     await client.clearStore();

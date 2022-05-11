@@ -40,6 +40,14 @@ const IT = {
     create_new_obj_cta: "Nuova compilazione",
     dashboard_sent_date: "data di compilazione",
     where_are_old_objs: "Gli obiettivi di accessibilità relativi agli anni precedenti al 2022 sono raggiungibili mediante i link già in possesso e pubblicati in Amministrazione Trasparente da ciascuna PA."
+  },
+  a11y_survey: {
+    title: "Questionario PNRR 1.4.2 - Accessibilità",
+    dashboard_title: "Gestione compilazioni questionario",
+    create_new_filing_title: "Compila il questionario",
+    create_new_filing_desc: "",
+    create_new_filing_cta: "Nuova compilazione",
+    dashboard_sent_date: "data di compilazione"
   }
 };
 

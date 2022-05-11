@@ -5,9 +5,9 @@ import {
   isEmptyFieldValue
 } from "../utils/forms";
 
-export const formatFieldValue = (value: string) =>
-  value.split("\n").map((txt, index) => (
-    <React.Fragment key={index}>
+export const formatFieldValue = (value: string, name: any) =>
+  value.split("\n").map((txt) => (
+    <React.Fragment key={name}>
       {txt}
       <br />
     </React.Fragment>
@@ -27,7 +27,7 @@ const ViewField = ({
     return null;
   }
   const renderedFieldValue =
-    field.widget === "textarea" ? formatFieldValue(fieldValue) : fieldValue;
+    field.widget === "textarea" ? formatFieldValue(fieldValue, field.name) : fieldValue;
   return (
     <div className="mb-4">
       <p className="w-paragraph font-weight-bold neutral-2-color-b5 mb-2">
