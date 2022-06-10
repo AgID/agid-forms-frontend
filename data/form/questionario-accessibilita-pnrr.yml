@@ -73,6 +73,8 @@ sections:
       stesse amministrazioni.
       Si prega di compilare tutti i campi richiesti e, ove pertinente, anche i
       campi opzionali.
+
+      Il termine ultimo per la compilazione è il 15 ottobre 2022.
     groups:
       - name: anagrafica-pa
         title: Anagrafica PA
@@ -92,6 +94,15 @@ sections:
             valid_if: Yup.string().email().validate(value)
       - name: tecnologie-assistive
         title: Tecnologie assistive
+        description: |
+          Per tecnologie assistive si intendono gli strumenti e le soluzioni
+          tecniche, hardware e software, che permettono alla persona disabile,
+          superando o riducendo le condizioni di svantaggio, di accedere alle
+          informazioni e ai servizi erogati dai sistemi informatici.
+
+          Per dipendenti con disabilità si intendono i lavoratori con disabilità
+          accertata come previsto dall’articolo 1 della Legge 12 marzo 1999, n.
+          68 "Norme per il diritto al lavoro dei disabili".
         fields:
           - name: num-dipendenti-nuove-tecnologie-assistive
             title: Numero complessivo dei dipendenti con disabilità che necessitano di nuove tecnologie assistive ICT
@@ -116,20 +127,20 @@ sections:
               - label: No
                 value: no
           - name: num-dipendenti-da-formare-tematiche-base
-            title: Indicare il fabbisogno in materia di formazione su tematiche di base in tema di accessibilità
-            description: Inserire il numero di dipendenti da formare
+            title: Indicare il numero di dipendenti da formare su tematiche di base in tema di accessibilità e tecniche per produzione di documenti/contenuti web accessibili
+            description: Inserire solo i dipendenti della propria amministrazione
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).max(9999).validate(value)
           - name: num-dipendenti-da-formare-argomenti-tecnici
-            title: Indicare il fabbisogno in materia di formazione su argomenti tecnici in tema di accessibilità
-            description: Inserire il numero di dipendenti (es. redattori web, sviluppatori) da formare
+            title: Indicare il numero di dipendenti di profilo specialistico (es. redattori web, sviluppatori) da formare su argomenti tecnici in tema di accessibilità
+            description: Inserire solo i dipendenti della propria amministrazione
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).max(9999).validate(value)
           - name: num-dipendenti-da-formare-programmazione-ict
-            title: Indicare il fabbisogno in materia di formazione su programmazione ICT e tematiche organizzative in tema di accessibilità
-            description: Inserire il numero di dipendenti (dirigenti, responsabili progetti) da formare
+            title: Indicare il numero di dirigenti e/o dipendenti con attribuzione di specifiche responsabilità fabbisogno da formare su normative, programmazione strategica in materia di accessibilità e tematiche organizzative
+            description: Inserire solo i dipendenti della propria amministrazione
             widget: number
             required_if: "true"
             valid_if: Yup.number().min(0).max(9999).validate(value)
@@ -153,8 +164,8 @@ sections:
             widget: html
             ignored_if: "true"
             default: |-
-              Inserire da 2 a 5 servizi digitali individuati in base alla maggior utenza annua
-              che abbiano almeno le seguenti caratteristiche:
+              Inserire da 2 a 5 servizi digitali individuati in base al criterio
+              della maggior utenza annua che abbiano almeno le seguenti caratteristiche:
               <ul>
                 <li>totalmente on line</li>
                 <li>accessibili secondo indicazioni CAD (ad es. SPID, CIE)</il>
