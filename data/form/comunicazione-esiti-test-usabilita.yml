@@ -13,7 +13,7 @@ listed_to: [rtd]
 version: 0.1.0
 # slug_pattern: "'/dichiarazione-accessibilita/' + slugify(title)"
 title_pattern: "'Comunicazione esiti dei test di usabilità'"
-initial_status: "published"
+initial_status: "archived"
 sections:
   - name: section-0
     description: |

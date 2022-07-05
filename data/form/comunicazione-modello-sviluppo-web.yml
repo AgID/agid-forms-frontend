@@ -12,7 +12,7 @@ visible_to: [rtd]
 listed_to: [rtd]
 version: 0.1.0
 title_pattern: values["website-url"]
-initial_status: "published"
+initial_status: "archived"
 sections:
   - name: section-0
     description: |-

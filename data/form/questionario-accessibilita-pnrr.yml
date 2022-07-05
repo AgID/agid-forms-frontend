@@ -62,7 +62,7 @@ listed_to_groups:
   - cmdca
 version: 0.1.0
 title_pattern: "'Questionario accessibilità ICT'"
-initial_status: "published"
+initial_status: "archived"
 sections:
   - name: informazioni-generali
     title: Informazioni generali
