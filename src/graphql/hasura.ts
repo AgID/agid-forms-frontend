@@ -207,6 +207,7 @@ export const GET_GROUP_NODES_OF_TYPE = gql`
       updated_at
       status
       type
+      version
     }
   }
 `;

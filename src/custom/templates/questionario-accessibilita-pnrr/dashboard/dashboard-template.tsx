@@ -127,7 +127,7 @@ const DashboardA11ySurveyTemplate = () => {
                               {format(node.updated_at, "DD/MM/YYYY")}
                             </td>
                             <td className="px-5">
-                              <a href={`/view/${node.id}`}>{t("view")}</a>
+                              <a href={`/revision/${node.id}/${node.version}`}>{t("view")}</a>
                             </td>
                           </tr>
                         );
