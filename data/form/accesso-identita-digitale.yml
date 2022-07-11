@@ -1,11 +1,11 @@
 id: accesso-identita-digitale
 name: Nuova compilazione
-action: Accesso dei cittadini ai servizi con identità digitale eIDAS
-category: eIDAS
+action: Questionario Accesso dei cittadini ai servizi con identità digitale SPID/CIE/CNS eIDAS
+category: EIDAS
 description: |-
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  Le PA comunicano ad AGID, tramite apposito form online, le implementazioni
+  effettuate o da effettuare ed i tempi e le modalità con le quali si procederà
+  ad implementare l’accesso ai servizi con identità digitale.
 language: it
 roles: [rtd]
 visible_to: [rtd]
