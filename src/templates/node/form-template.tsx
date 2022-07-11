@@ -1,5 +1,6 @@
 import * as parser from "expression-eval";
 import * as React from "react";
+import ReactMarkdown from 'react-markdown';
 
 import { Link, navigate } from "gatsby";
 import { FormConfig } from "../../generated/graphql/FormConfig";
@@ -260,11 +261,14 @@ const FormComponent = ({
                     group && (
                       <div className="fieldset mb-3 mb-lg-5" key={group.name!}>
                         {group.title && <FormGroupTitle title={group.title} />}
-                        {group.description && (
-                          <p className="w-paragraph neutral-2-color-b5">
-                            {group.description}
-                          </p>
-                        )}
+
+                        {group.description &&
+                        <ReactMarkdown renderers={
+                          {paragraph: ({node, ...props}) => <p className="w-paragraph neutral-2-color-b5" {...props} />}
+                        }>
+                          {group.description || ''}
+                        </ReactMarkdown>}
+
                         {group.repeatable
                           ? FormFieldArray({
                               group,
