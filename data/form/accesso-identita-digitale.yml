@@ -1,0 +1,187 @@
+id: accesso-identita-digitale
+name: Nuova compilazione
+action: Accesso dei cittadini ai servizi con identità digitale eIDAS
+category: eIDAS
+description: |-
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+  nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+version: 0.1.0
+title_pattern: "'Questionario sull\\'accesso dei cittadini ai servizi con identità digitale SPID/CIE/CNS eIDAS'"
+initial_status: "archived"
+sections:
+  - name: informazioni-generali
+    title: Informazioni generali
+    description: |
+      Inserire informazioni
+    groups:
+      - name: spid
+        fields:
+          - name: servizi-con-accesso-spid
+            title: Il cittadino può accedere ai tuoi servizi con SPID?
+            widget: radio
+            required_if: "true"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+          - name: implementazione-servizio-spid
+            title: Come è stato implementato il servizio?
+            show_if: values["servizi-con-accesso-spid"] == "si"
+            required_if: values["servizi-con-accesso-spid"] == "si"
+            widget: radio
+            options:
+              - label: autonomamente (dipendente/collaboratore)
+                value: autonomamente
+              - label: tramite aggregatore
+                value: aggregatore
+              - label: fornitore terzo
+                value: fornitore
+          - name: aggregatore-spid
+            title: Quale aggregatore?
+            widget: text
+            show_if: values["implementazione-servizio-spid"] == "aggregatore"
+            required_if: values["implementazione-servizio-spid"] == "aggregatore"
+          - name: fornitore-spid
+            title: Quale fornitore?
+            widget: text
+            show_if: values["implementazione-servizio-spid"] == "fornitore"
+            required_if: values["implementazione-servizio-spid"] == "fornitore"
+          - name: servizi-con-accesso-cie
+            title: Il cittadino può accedere ai tuoi servizi con CIE (Carta d'Identità Elettronica)?
+            widget: radio
+            required_if: "true"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+      - name: cie
+        fields:
+          - name: implementazione-servizio-cie
+            title: Come è stato implementato il servizio?
+            show_if: values["servizi-con-accesso-cie"] == "si"
+            required_if: values["servizi-con-accesso-cie"] == "si"
+            widget: radio
+            options:
+              - label: autonomamente (dipendente/collaboratore)
+                value: autonomamente
+              - label: fornitore terzo
+                value: fornitore
+          - name: fornitore-cie
+            title: Quale fornitore?
+            widget: text
+            show_if: values["implementazione-servizio-cie"] == "fornitore"
+            required_if: values["implementazione-servizio-cie"] == "fornitore"
+          - name: servizi-con-accesso-cns
+            title: Il cittadino può accedere ai tuoi servizi con CNS (Carta Nazionale dei Servizi)?
+            widget: radio
+            required_if: "true"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+      - name: cns
+        fields:
+          - name: implementazione-servizio-cns
+            title: Come è stato implementato il servizio?
+            show_if: values["servizi-con-accesso-cns"] == "si"
+            required_if: values["servizi-con-accesso-cns"] == "si"
+            widget: radio
+            options:
+              - label: autonomamente (dipendente/collaboratore)
+                value: autonomamente
+              - label: fornitore terzo
+                value: fornitore
+          - name: fornitore-cns
+            title: Quale fornitore?
+            widget: text
+            show_if: values["implementazione-servizio-cns"] == "fornitore"
+            required_if: values["implementazione-servizio-cns"] == "fornitore"
+      - name: eidas
+        fields:
+          - name: servizi-con-accesso-eidas
+            title: Il cittadino UE può accedere ai tuoi servizi con eIDAS?
+            widget: radio
+            required_if: "true"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+          - name: implementazione-servizio-eidas
+            title: Come è stato implementato il servizio?
+            show_if: values["servizi-con-accesso-eidas"] == "si"
+            required_if: values["servizi-con-accesso-eidas"] == "si"
+            widget: radio
+            options:
+              - label: autonomamente (dipendente/collaboratore)
+                value: autonomamente
+              - label: tramite aggregatore
+                value: aggregatore
+              - label: fornitore terzo
+                value: fornitore
+          - name: aggregatore-eidas
+            title: Quale aggregatore?
+            widget: text
+            show_if: values["implementazione-servizio-eidas"] == "aggregatore"
+            required_if: values["implementazione-servizio-eidas"] == "aggregatore"
+          - name: fornitore-eidas
+            title: Quale fornitore?
+            widget: text
+            show_if: values["implementazione-servizio-eidas"] == "fornitore"
+            required_if: values["implementazione-servizio-eidas"] == "fornitore"
+          - name: servizi-con-accesso-eidas-pianificati
+            title: È stata pianificata l'implementazione dell'accesso con eIDAS?
+            widget: radio
+            show_if: values["servizi-con-accesso-eidas"] == "no"
+            required_if: values["servizi-con-accesso-eidas"] == "no"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+          - name: pianificazione-implementazione-servizio-eidas
+            title: Come è stata pianificata l'implementatazione?
+            show_if: values["servizi-con-accesso-eidas-pianificati"] == "si"
+            required_if: values["servizi-con-accesso-eidas-pianificati"] == "si"
+            widget: radio
+            options:
+              - label: autonomamente (dipendente/collaboratore)
+                value: autonomamente
+              - label: tramite aggregatore
+                value: aggregatore
+              - label: fornitore terzo
+                value: fornitore
+          - name: tempi-implementazione-servizio-eidas
+            title: Quando?
+            widget: date
+            show_if: values["servizi-con-accesso-eidas-pianificati"] == "si"
+            required_if: values["servizi-con-accesso-eidas-pianificati"] == "si"
+          - name: non-implementazione-eidas
+            title: Perché?
+            widget: textarea
+            show_if: values["servizi-con-accesso-eidas-pianificati"] == "no"
+            required_if: values["servizi-con-accesso-eidas-pianificati"] == "no"
+      - name: ue-non-eidas
+        fields:
+          - name: servizi-ue-non-eidas
+            title: Il cittadino UE che non può disporre di eIDAS può accedere ai tuoi servizi?
+            widget: radio
+            required_if: "true"
+            options:
+              - label: Si
+                value: si
+              - label: No
+                value: no
+          - name: accesso-servizi-ue-non-eidas
+            title: Come è consentito l'accesso?
+            widget: textarea
+            show_if: values["servizi-ue-non-eidas"] == "si"
+            required_if: values["servizi-ue-non-eidas"] == "si"
