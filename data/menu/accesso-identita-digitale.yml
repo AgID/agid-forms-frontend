@@ -1,0 +1,9 @@
+menu:
+  id: accesso-identita-digitale
+  items:
+    - name: Accesso dei cittadini ai servizi con identità digitale eIDAS
+      slug: "/doc/accesso-identita-digitale"
+      roles: [rtd]
+    - name: Modulo di compilazione del questionario
+      slug: "/form/accesso-identita-digitale"
+      roles: [rtd]
