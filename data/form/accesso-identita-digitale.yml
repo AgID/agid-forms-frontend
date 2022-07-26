@@ -52,6 +52,8 @@ sections:
             widget: text
             show_if: values["implementazione-servizio-spid"] == "fornitore"
             required_if: values["implementazione-servizio-spid"] == "fornitore"
+      - name: cie
+        fields:
           - name: servizi-con-accesso-cie
             title: Il cittadino può accedere ai tuoi servizi con CIE (Carta d'Identità Elettronica)?
             widget: radio
@@ -61,8 +63,6 @@ sections:
                 value: si
               - label: No
                 value: no
-      - name: cie
-        fields:
           - name: implementazione-servizio-cie
             title: Come è stato implementato il servizio?
             show_if: values["servizi-con-accesso-cie"] == "si"
@@ -78,6 +78,8 @@ sections:
             widget: text
             show_if: values["implementazione-servizio-cie"] == "fornitore"
             required_if: values["implementazione-servizio-cie"] == "fornitore"
+      - name: cns
+        fields:
           - name: servizi-con-accesso-cns
             title: Il cittadino può accedere ai tuoi servizi con CNS (Carta Nazionale dei Servizi)?
             widget: radio
@@ -87,8 +89,6 @@ sections:
                 value: si
               - label: No
                 value: no
-      - name: cns
-        fields:
           - name: implementazione-servizio-cns
             title: Come è stato implementato il servizio?
             show_if: values["servizi-con-accesso-cns"] == "si"
