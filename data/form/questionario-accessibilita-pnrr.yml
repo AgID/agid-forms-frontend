@@ -65,7 +65,7 @@ listed_to_groups:
   - cmct
   - p_pa
   - cmdca
-version: 0.1.0
+version: 0.2.0
 title_pattern: "'Questionario accessibilità ICT'"
 initial_status: "archived"
 sections:
@@ -226,6 +226,19 @@ sections:
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-1"].includes("fornitori-esterni")
+          - name: accesso-agid-servizio-1
+            title: Agid dovrà avere la possibilità di accedere al servizio per eseguire le attività di verifica. Con quale soluzione si darà tale possibilità?
+            widget: radio
+            options:
+              - label: Parametri di accesso già esistenti e in uso ad altri utenti del servizio
+                value: parametri-esistenti
+              - label: Account "agid" di test che consente l'accesso alla versione in esercizio.
+                value: account-agid-produzione
+              - label: Account "agid" di test che consente l'accesso ad una versione di collaudo allineata a quella in esercizio, se previsto anche tramite VPN.
+                value: account-agid-collaudo
+              - label: Altro
+                value: altro
+            required_if: "true"
       - name: servizio-2
         title: Servizio 2
         fields:
@@ -271,6 +284,19 @@ sections:
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-2"].includes("fornitori-esterni")
+          - name: accesso-agid-servizio-2
+            title: Agid dovrà avere la possibilità di accedere al servizio per eseguire le attività di verifica. Con quale soluzione si darà tale possibilità?
+            widget: radio
+            options:
+              - label: Parametri di accesso già esistenti e in uso ad altri utenti del servizio
+                value: parametri-esistenti
+              - label: Account "agid" di test che consente l'accesso alla versione in esercizio.
+                value: account-agid-produzione
+              - label: Account "agid" di test che consente l'accesso ad una versione di collaudo allineata a quella in esercizio, se previsto anche tramite VPN.
+                value: account-agid-collaudo
+              - label: Altro
+                value: altro
+            required_if: "true"
       - name: servizio-3
         title: Servizio 3 - opzionale
         fields:
@@ -311,6 +337,18 @@ sections:
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-3"].includes("fornitori-esterni")
+          - name: accesso-agid-servizio-3
+            title: Agid dovrà avere la possibilità di accedere al servizio per eseguire le attività di verifica. Con quale soluzione si darà tale possibilità?
+            widget: radio
+            options:
+              - label: Parametri di accesso già esistenti e in uso ad altri utenti del servizio
+                value: parametri-esistenti
+              - label: Account "agid" di test che consente l'accesso alla versione in esercizio.
+                value: account-agid-produzione
+              - label: Account "agid" di test che consente l'accesso ad una versione di collaudo allineata a quella in esercizio, se previsto anche tramite VPN.
+                value: account-agid-collaudo
+              - label: Altro
+                value: altro
       - name: servizio-4
         title: Servizio 4 - opzionale
         fields:
@@ -351,6 +389,18 @@ sections:
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-4"].includes("fornitori-esterni")
+          - name: accesso-agid-servizio-4
+            title: Agid dovrà avere la possibilità di accedere al servizio per eseguire le attività di verifica. Con quale soluzione si darà tale possibilità?
+            widget: radio
+            options:
+              - label: Parametri di accesso già esistenti e in uso ad altri utenti del servizio
+                value: parametri-esistenti
+              - label: Account "agid" di test che consente l'accesso alla versione in esercizio.
+                value: account-agid-produzione
+              - label: Account "agid" di test che consente l'accesso ad una versione di collaudo allineata a quella in esercizio, se previsto anche tramite VPN.
+                value: account-agid-collaudo
+              - label: Altro
+                value: altro
       - name: servizio-5
         title: Servizio 5 - opzionale
         fields:
@@ -391,3 +441,15 @@ sections:
             widget: text
             required_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
             enabled_if: values["soggetto-manutenzione-adeguamento-5"].includes("fornitori-esterni")
+          - name: accesso-agid-servizio-5
+            title: Agid dovrà avere la possibilità di accedere al servizio per eseguire le attività di verifica. Con quale soluzione si darà tale possibilità?
+            widget: radio
+            options:
+              - label: Parametri di accesso già esistenti e in uso ad altri utenti del servizio
+                value: parametri-esistenti
+              - label: Account "agid" di test che consente l'accesso alla versione in esercizio.
+                value: account-agid-produzione
+              - label: Account "agid" di test che consente l'accesso ad una versione di collaudo allineata a quella in esercizio, se previsto anche tramite VPN.
+                value: account-agid-collaudo
+              - label: Altro
+                value: altro
