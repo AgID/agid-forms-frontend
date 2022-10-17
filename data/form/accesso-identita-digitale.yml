@@ -7,9 +7,9 @@ description: |-
   effettuate o da effettuare ed i tempi e le modalità con le quali si procederà
   ad implementare l’accesso ai servizi con identità digitale.
 language: it
-roles: [rtd]
-visible_to: [rtd]
-listed_to: [rtd]
+roles: []
+visible_to: []
+listed_to: []
 version: 0.1.0
 title_pattern: "'Questionario sull\\'accesso dei cittadini ai servizi con identità digitale SPID/CIE/CNS eIDAS'"
 initial_status: "archived"
