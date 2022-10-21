@@ -187,17 +187,14 @@ sections:
           - name: nome-servizio-1
             widget: text
             title: Nome del servizio
-            required_if: "true"
             valid_if: Yup.string().min(3).max(40).validate(value)
           - name: url-servizio-1
             title: Indirizzo (URL) per l'accesso al servizio
             widget: text
             valid_if: Yup.string().url().validate(value)
-            required_if: "true"
           - name: saas-servizio-1
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
-            required_if: "true"
             options:
               - label: Si
                 value: si
@@ -208,11 +205,9 @@ sections:
             description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
             widget: number
             valid_if: Yup.number().integer().min(0).validate(value)
-            required_if: "true"
           - name: soggetto-manutenzione-adeguamento-1
             title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            required_if: "true"
             options:
               - label: Risorse interne
                 value: risorse-interne
@@ -238,24 +233,20 @@ sections:
                 value: account-agid-collaudo
               - label: Altro
                 value: altro
-            required_if: "true"
       - name: servizio-2
         title: Servizio 2
         fields:
           - name: nome-servizio-2
             widget: text
             title: Nome del servizio
-            required_if: "true"
             valid_if: Yup.string().min(3).max(40).validate(value)
           - name: url-servizio-2
             title: Indirizzo (URL) per l'accesso al servizio
             widget: text
             valid_if: Yup.string().url().validate(value)
-            required_if: "true"
           - name: saas-servizio-2
             title: Il servizio è erogato nell'ambito di una fornitura di tipo SaaS?
             widget: radio
-            required_if: "true"
             options:
               - label: Si
                 value: si
@@ -266,11 +257,9 @@ sections:
             description: Inserire il numero di utenti che si sono autenticati per l'accesso al servizio negli ultimi 12 mesi
             widget: number
             valid_if: Yup.number().integer().min(0).validate(value)
-            required_if: "true"
           - name: soggetto-manutenzione-adeguamento-2
             title: Indicare i soggetti che possono effettuare le attività di manutenzione / adeguamento
             widget: checkbox
-            required_if: "true"
             options:
               - label: Risorse interne
                 value: risorse-interne
@@ -296,7 +285,6 @@ sections:
                 value: account-agid-collaudo
               - label: Altro
                 value: altro
-            required_if: "true"
       - name: servizio-3
         title: Servizio 3 - opzionale
         fields:
