@@ -109,11 +109,11 @@ sections:
           - name: credenziali-servizio-1
             title: Credenziali per l'accesso al servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-1"]
           - name: dati-prova-servizio-1
             title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-1"]
       - name: servizio-2
         title: Servizio 2
         fields:
@@ -124,11 +124,11 @@ sections:
           - name: credenziali-servizio-2
             title: Credenziali per l'accesso al servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-2"]
           - name: dati-prova-servizio-2
             title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-2"]
       - name: servizio-3
         title: Servizio 3
         fields:
@@ -139,11 +139,11 @@ sections:
           - name: credenziali-servizio-3
             title: Credenziali per l'accesso al servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-3"]
           - name: dati-prova-servizio-3
             title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-3"]
       - name: servizio-4
         title: Servizio 4
         fields:
@@ -154,11 +154,11 @@ sections:
           - name: credenziali-servizio-4
             title: Credenziali per l'accesso al servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-4"]
           - name: dati-prova-servizio-4
             title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-4"]
       - name: servizio-5
         title: Servizio 5
         fields:
@@ -169,8 +169,8 @@ sections:
           - name: credenziali-servizio-5
             title: Credenziali per l'accesso al servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-5"]
           - name: dati-prova-servizio-5
             title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
             widget: textarea
-            required_if: "true"
+            required_if: values["url-servizio-5"]
