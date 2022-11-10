@@ -11,61 +11,23 @@ visible_to: [rtd]
 listed_to: [rtd]
 listed_to_groups:
   - agid
-  - r_vda
   - r_piemon
   - r_liguri
-  - r_lombar
-  - r_veneto
   - p_bz
   - p_TN
   - r_friuve
   - r_emiro
   - r_toscan
-  - r_marche
-  - r_umbria
-  - r_lazio
-  - r_abruzz
-  - r_molise
-  - r_campan
-  - r_puglia
-  - r_basili
   - regcal
-  - r_sicili
   - r_sardeg
   - c_l219
   - c_d969
-  - c_f205
   - c_l736
   - c_a944
-  - c_d612
-  - c_h501
-  - c_f839
-  - c_a662
   - c_h224
-  - c_f158
-  - c_c351
-  - c_g273
-  - c_b354
-  - c_h703
-  - c_b157
   - c_l049
-  - c_g224
-  - c_g999
-  - c_l424
-  - cmto
-  - cmge
-  - cmmi
-  - p_ve
   - cmbo
-  - cmfi
-  - cmrc
-  - cmna
-  - cmba
   - cmdrc
-  - cm_me
-  - cmct
-  - p_pa
-  - cmdca
 version: 0.1.0
 title_pattern: "'Servizi online PNRR 1.4.2'"
 initial_status: "archived"
@@ -79,8 +41,6 @@ sections:
       online.
       Si prega di compilare tutti i campi richiesti e, ove pertinente, anche i
       campi opzionali.
-
-      Il termine ultimo per la compilazione è il 15 ottobre 2022.
     groups: []
   - name: accesso-preprod-servizi-online
     title: Accesso agli ambienti di pre-produzione dei servizi on line
@@ -91,9 +51,8 @@ sections:
             widget: html
             ignored_if: "true"
             default: |-
-              Inserire per ciascun servizio digitale individuato nell'ambito del
-              miglioramento dell'accessibilità (PNRR 1.4.2), le seguenti
-              informazioni necessarie per l'accesso e la verifica in ambiente di
+              Inserire per ciascun servizio digitale le seguenti informazioni
+              necessarie per l'accesso e la verifica in ambiente di
               pre-produzione:
               <ul>
                 <li>Indirizzo del servizio in pre-produzione (URL)</li>
