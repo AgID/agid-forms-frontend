@@ -1,0 +1,136 @@
+id: servizi-online-pnrr
+name: Nuova compilazione
+action: Servizi online PNRR 1.4.2
+category: accessibilità
+description: |-
+  Possono utilizzare questo form le 55 PA locali selezionate per il supporto specialistico e sostegno finanziario in tema di
+  miglioramento dell'accessibilità dei servizi pubblici digitali per tutti i cittadini.
+language: it
+roles: [rtd]
+visible_to: [rtd]
+listed_to: [rtd]
+listed_to_groups:
+  - agid
+  - r_piemon
+  - r_liguri
+  - p_bz
+  - p_TN
+  - r_friuve
+  - r_emiro
+  - r_toscan
+  - regcal
+  - r_sardeg
+  - c_l219
+  - c_d969
+  - c_l736
+  - c_a944
+  - c_h224
+  - c_l049
+  - cmbo
+  - cmdrc
+version: 0.1.0
+title_pattern: "'Servizi online PNRR 1.4.2'"
+initial_status: "archived"
+sections:
+  - name: informazioni-generali
+    title: Informazioni generali
+    description: |
+      Il presente modulo, da compilarsi esclusivamente a cura delle suddette
+      amministrazioni, consentirà di poter fornire le informazioni necessarie
+      per consentire l'accesso agli ambienti di pre-produzione dei servizi
+      online.
+      Si prega di compilare tutti i campi richiesti e, ove pertinente, anche i
+      campi opzionali.
+    groups: []
+  - name: accesso-preprod-servizi-online
+    title: Accesso agli ambienti di pre-produzione dei servizi on line
+    groups:
+      - name: istruzioni
+        fields:
+          - name: istruzioni
+            widget: html
+            ignored_if: "true"
+            default: |-
+              Inserire per ciascun servizio digitale le seguenti informazioni
+              necessarie per l'accesso e la verifica in ambiente di
+              pre-produzione:
+              <ul>
+                <li>Indirizzo del servizio in pre-produzione (URL)</li>
+                <li>Credenziali per l'accesso</il>
+                <li>Dati prova per la compilazione dei campi necessari alla fruizione del servizio</li>
+              </ul>
+      - name: servizio-1
+        title: Servizio 1
+        fields:
+          - name: url-servizio-1
+            title: Indirizzo (URL) per l'accesso al servizio in pre-produzione
+            widget: text
+            valid_if: Yup.string().url().validate(value)
+          - name: credenziali-servizio-1
+            title: Credenziali per l'accesso al servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-1"]
+          - name: dati-prova-servizio-1
+            title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-1"]
+      - name: servizio-2
+        title: Servizio 2
+        fields:
+          - name: url-servizio-2
+            title: Indirizzo (URL) per l'accesso al servizio in pre-produzione
+            widget: text
+            valid_if: Yup.string().url().validate(value)
+          - name: credenziali-servizio-2
+            title: Credenziali per l'accesso al servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-2"]
+          - name: dati-prova-servizio-2
+            title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-2"]
+      - name: servizio-3
+        title: Servizio 3
+        fields:
+          - name: url-servizio-3
+            title: Indirizzo (URL) per l'accesso al servizio in pre-produzione
+            widget: text
+            valid_if: Yup.string().url().validate(value)
+          - name: credenziali-servizio-3
+            title: Credenziali per l'accesso al servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-3"]
+          - name: dati-prova-servizio-3
+            title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-3"]
+      - name: servizio-4
+        title: Servizio 4
+        fields:
+          - name: url-servizio-4
+            title: Indirizzo (URL) per l'accesso al servizio in pre-produzione
+            widget: text
+            valid_if: Yup.string().url().validate(value)
+          - name: credenziali-servizio-4
+            title: Credenziali per l'accesso al servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-4"]
+          - name: dati-prova-servizio-4
+            title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-4"]
+      - name: servizio-5
+        title: Servizio 5
+        fields:
+          - name: url-servizio-5
+            title: Indirizzo (URL) per l'accesso al servizio in pre-produzione
+            widget: text
+            valid_if: Yup.string().url().validate(value)
+          - name: credenziali-servizio-5
+            title: Credenziali per l'accesso al servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-5"]
+          - name: dati-prova-servizio-5
+            title: Dati prova per la compilazione dei campi necessari alla fruizione del servizio in pre-produzione
+            widget: textarea
+            required_if: values["url-servizio-5"]

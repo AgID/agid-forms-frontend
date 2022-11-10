@@ -1,0 +1,10 @@
+menu:
+  id: servizi-online-pnrr
+  items:
+    - name: Servizi online PNRR 1.4.2
+      slug: "/doc/servizi-online-pnrr"
+      roles: [rtd]
+    - name: Modulo di compilazione servizi online PNRR 1.4.2
+      slug: "/form/servizi-online-pnrr"
+      roles: [rtd]
+
