@@ -6,7 +6,7 @@ description: |-
   Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio
   2004, n. 4 s.m.i..
 
-  L’utente può inviare il reclamo al Difensore civico per il digitale, istituito
+  L’utente può inviare la segnalazione al Difensore civico per il digitale, istituito
   ai sensi dell’art. 17 comma 1-quater CAD, esclusivamente a seguito di risposta
   insoddisfacente o mancata risposta al feedback notificato al soggetto
   erogatore.
@@ -23,7 +23,7 @@ sections:
     description: |
       Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9 gennaio 2004, n. 4 s.m.i..
 
-      L’utente può inviare il reclamo al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
+      L’utente può inviare la segnalazione al Difensore civico per il digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
       esclusivamente a seguito di risposta insoddisfacente o mancata risposta al feedback notificato al soggetto erogatore.
     groups:
       - name: personal-information
@@ -92,7 +92,7 @@ sections:
             computed_value: boundNodeValues["reporting-pa"]
 
       - name: report-content
-        title: motivo del reclamo
+        title: motivo della segnalazione
         fields:
           - name: "reported-date"
             widget: date
@@ -135,7 +135,7 @@ sections:
             enabled_if: Auth.isLoggedIn()
           - name: "notified-answer-reason"
             widget: textarea
-            title: Descrizione del reclamo
+            title: Descrizione della segnalazione
             description: max 1000 caratteri
             show_if: values["report-has-answer"] == "si"
             required_if: values["report-has-answer"] == "si"

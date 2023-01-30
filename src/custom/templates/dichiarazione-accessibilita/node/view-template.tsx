@@ -210,14 +210,14 @@ const Groups: Record<
         Procedura di attuazione ai sensi dell’art. 3-quinquies, comma 3, L. 9
         gennaio 2004, n. 4 s.m.i..
         <br />
-        <br />L’utente può inviare il reclamo al Difensore civico per il
+        <br />L’utente può inviare la segnalazione al Difensore civico per il
         digitale, istituito ai sensi dell’art. 17 comma 1-quater CAD,
         esclusivamente a seguito di risposta insoddisfacente o mancata risposta
         al feedback notificato al soggetto erogatore.
       </p>
       <p>
         <Link to={`/form/procedura-attuazione/${node.id}`}>
-          Reclamo al Difensore civico per il digitale
+          Segnalazione al Difensore civico per il digitale
         </Link>
       </p>
     </>
