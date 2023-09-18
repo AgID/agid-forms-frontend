@@ -39,7 +39,7 @@ const InlineViewGroup = ({
 const getWcagString = (wcagVersion: string) => {
   switch (wcagVersion) {
     case "wcag-21":
-      return "ai requisiti previsti dall’allegato A alla norma UNI EN 301549:2018 (WCAG 2.1)";
+      return "ai requisiti previsti dall’allegato A alla norma UNI CEI EN 301549 vigente (WCAG 2.1)";
     case "wcag-20":
       return "ai requisiti previsti dall’ex A DM 5 luglio 2005 (WCAG 2.0)";
     default:
