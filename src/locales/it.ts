@@ -92,7 +92,7 @@ const IT = {
   view_latest_version: "visualizza il contenuto con le ultime modifiche",
   view_published_version: "visualizza la versione pubblicata del contenuto",
   pages: {
-    index_page_title: "Form",
+    index_page_title: "Applicativo in manutenzione",
     action_page_title: "Form",
     action_goto_form: "Accedi al modulo",
     dashboard_title: "Dashboard",

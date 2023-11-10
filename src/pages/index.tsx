@@ -9,6 +9,7 @@ import { Button, Input, Label } from "reactstrap";
 import { FormGroup } from "../components/FormGroup";
 import { SearchIpa, SearchIpaVariables } from "../generated/graphql/SearchIpa";
 import { GET_SECRET_IPA, GET_TOKENS_IPA } from "../graphql/backend";
+import { GraphqlClient } from "../graphql/client";
 import { GET_IPA, SEARCH_IPA } from "../graphql/hasura";
 import { capitalizeFirst } from "../utils/strings";
 
@@ -32,7 +33,7 @@ import {
   PostAuthLoginIpaCode,
   PostAuthLoginIpaCodeVariables
 } from "../generated/graphql/PostAuthLoginIpaCode";
-import { isLoggedIn, storeSessionInfo, storeTokens } from "../utils/auth";
+import { isLoggedIn, logout, storeSessionInfo, storeTokens } from "../utils/auth";
 import { isNetworkError } from "../utils/errors";
 import { get } from "../utils/safe_access";
 
@@ -503,13 +504,13 @@ const LoginButtonConnectedComponent = ({
 
 const IndexPage = () => {
   const { t } = useTranslation();
-  const ipaCode = getIpaCodeFromUrl();
+  // const ipaCode = getIpaCodeFromUrl();
 
-  const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
-  const [secret, setSecret] = useState<string>();
-  const [hasSecret, setHasSecret] = useState<boolean | undefined>(
-    ipaCode ? true : undefined
-  );
+  // const [selectedPa, setSelectedPa] = useState<SelectedValueT>();
+  // const [secret, setSecret] = useState<string>();
+  // const [hasSecret, setHasSecret] = useState<boolean | undefined>(
+  //   ipaCode ? true : undefined
+  // );
 
   const { homepageData } = useStaticQuery(
     graphql`
@@ -532,35 +533,38 @@ const IndexPage = () => {
   );
 
   if (isLoggedIn()) {
-    navigate(homepage);
+    // navigate(homepage);
+    logout(GraphqlClient)
+      .then(() => navigate("/"))
+      .catch(() => navigate("/"));
     return null;
   }
 
-  const isSessionExpired =
-    typeof window !== "undefined" &&
-    window.location.search.indexOf("session-expired") !== -1;
+  // const isSessionExpired =
+  //   typeof window !== "undefined" &&
+  //   window.location.search.indexOf("session-expired") !== -1;
 
   return (
-    <StaticLayout title="">
+    <StaticLayout title={t("pages.index_page_title")}>
       <SEO title={t("pages.index_page_title")} />
-      {isSessionExpired && (
+      {/* {isSessionExpired && (
         <p className="alert alert-warning w-100">
           <Trans i18nKey="auth.expired_session" />
         </p>
-      )}
+      )} */}
       <div className="">
-        <h2>{capitalizeFirst(t("login"))}</h2>
+        {/* <h2>{capitalizeFirst(t("login"))}</h2> */}
 
-        <p className="w-paragraph-sans mb-5">
+        {/* <p className="w-paragraph-sans mb-5">
           <Trans i18nKey="auth.description">
             <a className="external-link" href="https://indicepa.gov.it">
               indicepa <span>{t("external_link")}</span>
             </a>
             <a href="/how-to-log-in"></a>
           </Trans>
-        </p>
+        </p> */}
 
-        <SelectOrganizationConnectedComponent
+        {/* <SelectOrganizationConnectedComponent
           selectedPa={selectedPa}
           setHasSecret={setHasSecret}
           hasSecret={hasSecret}
@@ -589,7 +593,7 @@ const IndexPage = () => {
               navigate(homepage);
             }}
           />
-        )}
+        )} */}
       </div>
     </StaticLayout>
   );

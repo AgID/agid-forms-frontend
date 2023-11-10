@@ -1,15 +1,27 @@
-import { graphql, Link } from "gatsby";
+import { graphql, Link, navigate } from "gatsby";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown from 'react-markdown';
 import SEO from "../components/Seo";
 import StaticLayout from "../components/StaticLayout";
 import { ActionsPageConfig } from "../generated/graphql/ActionsPageConfig";
-import { getSessionInfo, userHasAnyRole, userBelongsToAnyGroups } from "../utils/auth";
+import { logout, isLoggedIn, getSessionInfo, userHasAnyRole, userBelongsToAnyGroups } from "../utils/auth";
+import { GraphqlClient } from "../graphql/client";
 
 const getForms = (data: ActionsPageConfig) => data.forms!.edges;
 
 const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
+  if (isLoggedIn()) {
+    // navigate(homepage);
+    logout(GraphqlClient)
+      .then(() => navigate("/"))
+      .catch(() => navigate("/"));
+    return null;
+  }
+
+  navigate("/");
+  return null;
+
   const { t } = useTranslation();
   return (
     <StaticLayout title={t("pages.action_page_title")}>
