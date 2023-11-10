@@ -19,9 +19,6 @@ const ActionsPage = ({ data }: { data: ActionsPageConfig }) => {
     return null;
   }
 
-  navigate("/");
-  return null;
-
   const { t } = useTranslation();
   return (
     <StaticLayout title={t("pages.action_page_title")}>
